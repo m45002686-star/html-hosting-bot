@@ -1,79 +1,0 @@
-<!DOCTYPE html>
-<html lang="ar" dir="rtl">
-<head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-<title>My Digital Universe</title>
-<meta name="description" content="A cinematic, hyper-real personal hub with a rock-shatter intro and neon portals." />
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
-</head>
-<body>
-
-<!-- ============ CINEMATIC INTRO ============ -->
-<div class="stage" id="stage">
-  <div id="fallback" class="fallback hidden">
-    <div>
-      <h2>WebGL غير متاح على هذا المتصفح</h2>
-      <p>جرب فتح الصفحة على متصفح حديث (Chrome / Edge / Firefox / Safari).</p>
-    </div>
-  </div>
-
-  <div class="intro-overlay">
-    <div class="intro-title" id="introTitle">✨ Welcome to My Digital World ✨</div>
-    <div class="glitch-sweep" id="glitch"></div>
-  </div>
-</div>
-
-<!-- ============ MAIN APP ============ -->
-<div class="app" id="app">
-  <div class="space-bg"><div class="stars"></div></div>
-  <div class="container">
-    <header>
-      <div class="avatar-wrap">
-        <div class="ring"></div>
-        <div class="avatar" title="بوابتي الرقمية">HD</div>
-      </div>
-      <div class="title">
-        <h1>كل اتصالاتي… كون واحد</h1>
-        <div class="subtitle">بوابات سريعة لعالمي الرقمي — تصميم نيون عصري ومتفاعل</div>
-      </div>
-    </header>
-
-    <section class="grid" id="portals">
-      <a class="portal tg" href="https://t.me/HD_3MK" target="_blank" rel="noopener">
-        <span class="glow"></span>
-        <div class="label"><span class="icon">🔵</span> <span>Telegram Portal</span> <span class="badge">@HD_3MK</span></div>
-      </a>
-      <a class="portal wa" href="https://wa.me/201507854779" target="_blank" rel="noopener">
-        <span class="glow"></span>
-        <div class="label"><span class="icon">💬</span> <span>WhatsApp Gateway</span> <span class="badge">+20 150 785 4779</span></div>
-      </a>
-      <a class="portal ig" href="https://instagram.com/a_ap5" target="_blank" rel="noopener">
-        <span class="glow"></span>
-        <div class="label"><span class="icon">📸</span> <span>Instagram Dimension</span> <span class="badge">@a_ap5</span></div>
-      </a>
-      <a class="portal tt" href="https://www.tiktok.com/@gh1_60" target="_blank" rel="noopener">
-        <span class="glow"></span>
-        <div class="label"><span class="icon">🎵</span> <span>TikTok Vibes</span> <span class="badge">@gh1_60</span></div>
-      </a>
-      <a class="portal fb" href="https://facebook.com/" target="_blank" rel="noopener">
-        <span class="glow"></span>
-        <div class="label"><span class="icon">📘</span> <span>Facebook Reality</span> <span class="badge">صفحة فيسبوك</span></div>
-      </a>
-    </section>
-
-    <footer class="footer">
-      <span class="typing" id="typing"></span>
-    </footer>
-  </div>
-</div>
-
-<!-- Libraries -->
-<script src="https://unpkg.com/three@0.160.0/build/three.min.js"></script>
-<script src="script.js"></script>
-
-</body>
-</html>
-
