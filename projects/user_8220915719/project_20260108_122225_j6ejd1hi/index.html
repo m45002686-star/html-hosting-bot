@@ -1,199 +1,379 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Electric Login</title>
+    <title>🚫 تم حذف الموقع | Site Deleted</title>
+    
+    <!-- منع التخزين المؤقت -->
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    
+    <!-- منع الفهرسة -->
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="googlebot" content="noindex, nofollow">
+    
+    <!-- إضافة refresh للتحقق من CDN -->
+    <meta http-equiv="refresh" content="30">
+    
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;700&display=swap');
-
+        /* إعادة تعيين CSS */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-
+        
         body {
-            background-color: #0b111b;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            padding: 20px;
-            font-family: 'Montserrat', sans-serif;
-        }
-
-        .card {
-            position: relative;
-            width: 100%;
-            max-width: 320px;
-            min-height: 480px;
-            background-color: #1a232e;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            border-radius: 15px;
-            overflow: hidden;
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #000000 0%, #434343 100%);
             color: white;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             text-align: center;
             padding: 20px;
-            box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+            overflow: hidden;
         }
-
-        .card::before {
+        
+        .container {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border-radius: 25px;
+            padding: 50px 40px;
+            box-shadow: 0 25px 75px rgba(0, 0, 0, 0.5);
+            max-width: 900px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+        
+        /* تأثير الخلفية */
+        .container::before {
             content: '';
             position: absolute;
+            top: -50%;
+            left: -50%;
             width: 200%;
             height: 200%;
-            background: conic-gradient(#00f2ff, #0061ff, transparent 40%);
-            animation: rotate 1.5s linear infinite;
-            z-index: 0;
+            background: radial-gradient(circle, rgba(255,0,0,0.1) 0%, transparent 70%);
+            animation: pulse 4s infinite alternate;
+            z-index: -1;
         }
-
-        .card::after {
-            content: '';
-            position: absolute;
-            inset: 3px;
-            background: #1a232e;
-            border-radius: 13px;
-            z-index: 0;
+        
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 0.3; }
+            100% { transform: scale(1.1); opacity: 0.5; }
         }
-
-        .content {
-            z-index: 1;
-            width: 100%;
-            padding: 10px;
-        }
-
-        .content h2 {
-            font-size: clamp(1.5rem, 4vw, 1.8rem);
-            margin-bottom: 2rem;
-            position: relative;
-            font-weight: 700;
-            letter-spacing: 1px;
-        }
-
-        .content h2::after {
-            content: '';
-            width: 50px;
-            height: 2px;
-            background: #4deeea;
-            position: absolute;
-            bottom: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-            box-shadow: 0 0 10px #4deeea;
-        }
-
-        .input-box {
-            width: 100%;
+        
+        h1 {
+            font-size: 3.5rem;
             margin-bottom: 20px;
+            background: linear-gradient(45deg, #ff0000, #ff6b6b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 5px 15px rgba(255, 0, 0, 0.3);
         }
-
-        .input-box input {
-            width: 100%;
-            max-width: 100%;
-            padding: 12px;
-            background: #0b111b;
-            border: 1px solid rgba(77, 238, 234, 0.2);
-            border-radius: 8px;
-            color: white;
-            outline: none;
+        
+        .arabic-title {
+            font-size: 2rem;
+            margin-bottom: 30px;
+            color: #ff9999;
+            font-weight: bold;
+        }
+        
+        .message {
+            font-size: 1.3rem;
+            line-height: 1.8;
+            margin-bottom: 30px;
+            color: #cccccc;
+        }
+        
+        .warning-box {
+            background: rgba(255, 0, 0, 0.1);
+            border: 2px solid rgba(255, 0, 0, 0.3);
+            border-radius: 15px;
+            padding: 25px;
+            margin: 25px 0;
+            text-align: right;
+            direction: rtl;
+        }
+        
+        .warning-box h3 {
+            color: #ff6b6b;
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+        }
+        
+        .warning-box ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .warning-box li {
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+        }
+        
+        .warning-box li:before {
+            content: '⚠️';
+            margin-left: 10px;
+        }
+        
+        .info-box {
+            background: rgba(0, 100, 255, 0.1);
+            border: 2px solid rgba(0, 100, 255, 0.3);
+            border-radius: 15px;
+            padding: 25px;
+            margin: 25px 0;
+        }
+        
+        .info-box h3 {
+            color: #6ba3ff;
+            margin-bottom: 15px;
+        }
+        
+        .timer {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #ff6b6b;
+            margin: 20px 0;
+            font-family: monospace;
+        }
+        
+        .cache-notice {
+            background: rgba(255, 193, 7, 0.1);
+            border: 2px solid rgba(255, 193, 7, 0.3);
+            border-radius: 10px;
+            padding: 15px;
+            margin: 20px 0;
             font-size: 0.9rem;
-            -webkit-appearance: none;
+            color: #ffd54f;
         }
-
-        .input-box input:focus {
-            border-color: #4deeea;
-            box-shadow: 0 0 10px rgba(77, 238, 234, 0.2);
-        }
-
-        button {
-            width: 100%;
-            padding: 12px;
-            background: #4deeea;
-            border: none;
-            border-radius: 8px;
-            color: #1a232e;
-            font-weight: 700;
-            cursor: pointer;
-            transition: 0.3s;
-            text-transform: uppercase;
-            font-size: 0.9rem;
-        }
-
-        button:hover {
-            box-shadow: 0 0 5px #4deeea;
-            transform: scale(1.01);
-        }
-
-        .dev {
+        
+        .buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
             margin-top: 30px;
-            font-size: 0.7rem;
-            color: #a0aab8;
-            letter-spacing: 1px;
-            word-wrap: break-word;
-            padding: 0 5px;
+            flex-wrap: wrap;
         }
-
-        .dev a {
-            color: #4deeea;
+        
+        .btn {
+            padding: 15px 30px;
+            border-radius: 50px;
             text-decoration: none;
-            font-weight: 700;
-            display: inline-block;
-            max-width: 100%;
-            overflow-wrap: break-word;
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
         }
-
-        @keyframes rotate {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
+        
+        .btn-primary {
+            background: linear-gradient(45deg, #007bff, #0056b3);
+            color: white;
+            border: none;
         }
-
-        @media screen and (max-width: 350px) {
-            .card {
-                padding: 15px;
-                min-height: 450px;
+        
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        .btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        }
+        
+        .footer {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.9rem;
+            color: #888;
+        }
+        
+        /* تأثيرات الجسيمات */
+        .particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -2;
+        }
+        
+        .particle {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 50%;
+            animation: float 3s infinite linear;
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(0) translateX(0); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-100vh) translateX(100px); opacity: 0; }
+        }
+        
+        /* تصميم متجاوب */
+        @media (max-width: 768px) {
+            .container {
+                padding: 30px 20px;
+                margin: 10px;
             }
             
-            .content {
-                padding: 5px;
+            h1 {
+                font-size: 2.5rem;
             }
             
-            .input-box input {
-                padding: 10px;
+            .arabic-title {
+                font-size: 1.5rem;
             }
             
-            button {
-                padding: 10px;
+            .buttons {
+                flex-direction: column;
             }
-        }
-
-        @media screen and (max-height: 500px) {
-            body {
-                align-items: flex-start;
-                padding-top: 20px;
-                padding-bottom: 20px;
+            
+            .btn {
+                width: 100%;
             }
         }
     </style>
 </head>
 <body>
-    <div class="card">
-        <div class="content">
-            <h2>LOGIN</h2>
-            <div class="input-box">
-                <input type="text" placeholder="Username">
-            </div>
-            <div class="input-box">
-                <input type="password" placeholder="Password">
-            </div>
-            <button>Sign In</button>
-            <div class="dev">
-                DEVELOPED BY: <a href="https://t.me/sala_5_h">@sala_5_h</a>
-            </div>
+    <!-- جسيمات الخلفية -->
+    <div class="particles" id="particles"></div>
+    
+    <div class="container">
+        <h1>404</h1>
+        <div class="arabic-title">🚫 تم حذف هذا الموقع</div>
+        
+        <div class="message">
+            <p>عذراً، هذا الموقع لم يعد موجوداً على الاستضافة.</p>
+            <p>تم حذفه من قبل المالك أو المشرف.</p>
+        </div>
+        
+        <div class="warning-box">
+            <h3>⚠️ لماذا أرى هذه الصفحة؟</h3>
+            <ul>
+                <li>تم حذف الموقع من قبل المالك</li>
+                <li>انتهت صلاحية الاستضافة</li>
+                <li>تم نقل الموقع إلى عنوان آخر</li>
+                <li>المشروع تم إزالته من النظام</li>
+            </ul>
+        </div>
+        
+        <div class="info-box">
+            <h3>⏳ جاري تحديث الصفحة...</h3>
+            <div class="timer" id="countdown">30</div>
+            <p>سيتم تحديث الصفحة تلقائياً للتأكد من عرض المحتوى الجديد.</p>
+        </div>
+        
+        <div class="cache-notice">
+            ⚡ <strong>ملاحظة:</strong> بسبب ذاكرة التخزين المؤقت (Cache)، 
+            قد يستغرق الأمر دقيقة واحدة حتى تظهر الصفحة بشكل صحيح.
+        </div>
+        
+        <div class="buttons">
+            <a href="javascript:location.reload()" class="btn btn-primary">
+                🔄 تحديث الصفحة الآن
+            </a>
+            <a href="https://t.me/html_hosting_bot" class="btn btn-secondary" target="_blank">
+                🤖 الذهاب إلى بوت الاستضافة
+            </a>
+        </div>
+        
+        <div class="footer">
+            <p>📅 تم الحذف في: <span id="deletion-date"></span></p>
+            <p>⚡ خدمة استضافة HTML المجانية</p>
         </div>
     </div>
+    
+    <script>
+        // إنشاء جسيمات متحركة
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 30;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                
+                // مواقع عشوائية
+                particle.style.left = `${Math.random() * 100}%`;
+                particle.style.top = `${Math.random() * 100}%`;
+                
+                // أحجام وأوقات مختلفة
+                const size = Math.random() * 3 + 1;
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                
+                // تأخيرات مختلفة للحركة
+                particle.style.animationDelay = `${Math.random() * 2}s`;
+                particle.style.animationDuration = `${Math.random() * 2 + 2}s`;
+                
+                particlesContainer.appendChild(particle);
+            }
+        }
+        
+        // عداد تنازلي
+        function startCountdown() {
+            let seconds = 30;
+            const countdownElement = document.getElementById('countdown');
+            
+            const timer = setInterval(() => {
+                seconds--;
+                countdownElement.textContent = seconds;
+                
+                if (seconds <= 0) {
+                    clearInterval(timer);
+                    location.reload();
+                }
+            }, 1000);
+        }
+        
+        // إضافة تاريخ الحذف
+        document.getElementById('deletion-date').textContent = 
+            new Date().toLocaleDateString('ar-SA', {
+                weekday: 'long',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+        
+        // إضافة واصفات HTTP لمنع التخزين المؤقت
+        fetch(window.location.href, {
+            headers: {
+                'Cache-Control': 'no-cache',
+                'Pragma': 'no-cache'
+            }
+        });
+        
+        // بدء كل شيء
+        createParticles();
+        startCountdown();
+        
+        // إضافة رسالة في الكونسول
+        console.log('🚫 هذا الموقع تم حذفه من الاستضافة.');
+        console.log('📅 وقت الحذف:', new Date().toISOString());
+        console.log('🔄 سيتم تحديث الصفحة تلقائياً...');
+    </script>
 </body>
 </html>
