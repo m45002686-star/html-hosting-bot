@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>API Market</title>
+
+<style>
+    body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background: #f2f2f2;
+    }
+
+    .header {
+        background: #ffffff;
+        padding: 16px;
+        text-align: center;
+        font-size: 22px;
+        font-weight: bold;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        position: sticky;
+        top: 0;
+        z-index: 10;
+    }
+
+    .container {
+        padding: 15px;
+    }
+
+    .card {
+        background: white;
+        padding: 14px;
+        border-radius: 12px;
+        margin-bottom: 14px;
+        box-shadow: 0 3px 6px rgba(0,0,0,0.08);
+    }
+
+    .card-title {
+        font-size: 18px;
+        font-weight: bold;
+        margin-bottom: 6px;
+    }
+
+    .desc {
+        font-size: 14px;
+        margin-bottom: 10px;
+        color: #444;
+    }
+
+    .url-box {
+        background: #eee;
+        padding: 10px;
+        border-radius: 10px;
+        font-size: 13px;
+        overflow-wrap: break-word;
+    }
+
+    .button-group {
+        display: flex; /* Makes buttons appear in a row */
+        gap: 8px; /* Space between buttons */
+        margin-top: 8px;
+    }
+
+    .button-group button {
+        flex: 1; /* Makes buttons take equal width */
+        padding: 10px 12px;
+        border: none;
+        color: white;
+        border-radius: 8px;
+        font-size: 15px;
+        cursor: pointer;
+    }
+
+    /* Style for the Test button */
+    .button-group .test-button {
+        background: #007bff; /* Blue */
+    }
+
+    /* Original 'Copy' button style, now specifically for copy */
+    .button-group .copy-button {
+        background: black;
+    }
+</style>
+</head>
+<body>
+
+<div class="header">API Market</div>
+<div class="container">
+
+<script>
+// Function using modern clipboard API with fallback to execCommand
+function copyText(id) {
+    const textToCopy = document.getElementById(id).innerText.trim();
+    
+    // 1. Try modern navigator.clipboard API (requires HTTPS/secure context)
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(textToCopy)
+            .then(() => {
+                alert("Copied API URL!");
+            })
+            .catch(err => {
+                console.error('Could not copy text using modern API, trying fallback: ', err);
+                fallbackCopyText(textToCopy);
+            });
+    } else {
+        // 2. Use the fallback method (document.execCommand)
+        fallbackCopyText(textToCopy);
+    }
+}
+
+// Fallback function using document.execCommand (for insecure contexts or old browsers)
+function fallbackCopyText(text) {
+    const textarea = document.createElement('textarea');
+    textarea.value = text;
+    // Position off-screen
+    textarea.style.position = 'fixed';
+    textarea.style.left = '-9999px';
+    document.body.appendChild(textarea);
+    
+    // Select the text
+    textarea.select();
+
+    try {
+        // Execute the copy command
+        document.execCommand('copy');
+        alert("Copied API URL!");
+    } catch (err) {
+        console.error('Fallback copy failed: ', err);
+        alert("Failed to copy API URL. Please copy manually.");
+    } finally {
+        // Clean up: remove the temporary element
+        document.body.removeChild(textarea);
+    }
+}
+
+// Function to open the URL in a new tab for testing
+function testApi(id) {
+    let url = document.getElementById(id).innerText.trim();
+    
+    // Simple logic to replace placeholders for a quick test
+    // Note: Some APIs require proper images/API keys/POST requests and won't work perfectly with a simple GET test.
+    let testUrl = url.replace('{prompt_text}', 'sample_video_url')
+                     .replace('{query}', 'hello+world')
+                     .replace('{text_prompt}', 'hello+world')
+                     .replace('{text}', 'test+text')
+                     .replace('{qr_text}', 'Hello')
+                     .replace('{prompt}', 'cyberpunk+city')
+                     .replace('{imageUrl}', 'https://placehold.co/100x100')
+                     .replace('{size}', '200x100')
+                     .replace('{bg_color}', 'cccccc')
+                     .replace('{text_color}', '000000')
+                     .replace('{city_name}', 'London');
+
+    // Handle APIs that require keys or are just base URLs
+    if (testUrl.includes('API_KEY') || testUrl.includes('remove-background') || testUrl.includes('radio-browser.info')) {
+        alert("This API requires an API Key, POST data, or is a list of base URLs. Testing not applicable with a simple GET request.");
+        return;
+    }
+    
+    window.open(testUrl, '_blank');
+}
+</script>
+
+<div class="card">
+    <div class="card-title">Video Downloader API</div>
+    <div class="desc">Download videos from URL.</div>
+    <div class="url-box" id="api1">
+https://nepcoderapis.pages.dev/api/v1/video/download?url={prompt_text}
+    </div>
+    <div class="button-group">
+        <button class="copy-button" onclick="copyText('api1')">Copy</button>
+        <button class="test-button" onclick="testApi('api1')">Test</button>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-title">Search Engine API</div>
+    <div class="desc">Web search results.</div>
+    <div class="url-box" id="api2">
+https://search-engine.hazex.workers.dev/?q={query}&type=web
+    </div>
+    <div class="button-group">
+        <button class="copy-button" onclick="copyText('api2')">Copy</button>
+        <button class="test-button" onclick="testApi('api2')">Test</button>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-title">Random Dog Image</div>
+    <div class="desc">Get a random dog photo.</div>
+    <div class="url-box" id="api3">
+https://dog.ceo/api/breeds/image/random
+    </div>
+    <div class="button-group">
+        <button class="copy-button" onclick="copyText('api3')">Copy</button>
+        <button class="test-button" onclick="testApi('api3')">Test</button>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-title">Remove by Remove.bg API (Example)</div>
+    <div class="desc">Example: Programmatically remove image backgrounds.</div>
+    <div class="url-box" id="api_example">
+https://api.remove.bg/v1.0/removebg
+    </div>
+    <div class="button-group">
+        <button class="copy-button" onclick="copyText('api_example')">Copy</button>
+        <button class="test-button" onclick="testApi('api_example')">Test</button>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-title">Neko Anime Image</div>
+    <div class="desc">Random neko image.</div>
+    <div class="url-box" id="api4">
+https://nekos.life/api/v2/img/neko
+    </div>
+    <div class="button-group">
+        <button class="copy-button" onclick="copyText('api4')">Copy</button>
+        <button class="test-button" onclick="testApi('api4')">Test</button>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-title">Text-to-Speech API</div>
+    <div class="desc">Generate voice from text.</div>
+    <div class="url-box" id="api5">
+https://api.hazex.sbs/tts?text={text_prompt}&artist=Rohit
+    </div>
+    <div class="button-group">
+        <button class="copy-button" onclick="copyText('api5')">Copy</button>
+        <button class="test-button" onclick="testApi('api5')">Test</button>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-title">QR Generator API</div>
+    <div class="desc">Generate QR from text.</div>
+    <div class="url-box" id="api6">
+https://api.qrserver.com/v1/create-qr-code/?size=300x300&data={qr_text}
+    </div>
+    <div class="button-group">
+        <button class="copy-button" onclick="copyText('api6')">Copy</button>
+        <button class="test-button" onclick="testApi('api6')">Test</button>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-title">AI Image Generator</div>
+    <div class="desc">Generate image from text.</div>
+    <div class="url-box" id="api7">
+https://cryyy.itz-ashlynn.workers.dev/txt2img?prompt={text}
+    </div>
+    <div class="button-group">
+        <button class="copy-button" onclick="copyText('api7')">Copy</button>
+        <button class="test-button" onclick="testApi('api7')">Test</button>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-title">AI Video Generator</div>
+    <div class="desc">Generate video from text prompt.</div>
+    <div class="url-box" id="api8">
+https://yabes-api.pages.dev/api/ai/video/v1?prompt={prompt}
+    </div>
+    <div class="button-group">
+        <button class="copy-button" onclick="copyText('api8')">Copy</button>
+        <button class="test-button" onclick="testApi('api8')">Test</button>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-title">Image-to-Image API</div>
+    <div class="desc">Modify image using AI.</div>
+    <div class="url-box" id="api9">
+https://cryyy.itz-ashlynn.workers.dev/img2img?prompt={prompt}&imageUrl={imageUrl}
+    </div>
+    <div class="button-group">
+        <button class="copy-button" onclick="copyText('api9')">Copy</button>
+        <button class="test-button" onclick="testApi('api9')">Test</button>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-title">TikTok Search API</div>
+    <div class="desc">Search TikTok videos.</div>
+    <div class="url-box" id="api10">
+https://bj-tiktok-search.ma-coder-x.workers.dev/?query={text}
+    </div>
+    <div class="button-group">
+        <button class="copy-button" onclick="copyText('api10')">Copy</button>
+        <button class="test-button" onclick="testApi('api10')">Test</button>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-title">Radio Browser Servers</div>
+    <div class="desc">Music streaming servers.</div>
+    <div class="url-box" id="api11">
+https://de1.api.radio-browser.info  
+https://nl1.api.radio-browser.info  
+https://at1.api.radio-browser.info
+    </div>
+    <div class="button-group">
+        <button class="copy-button" onclick="copyText('api11')">Copy</button>
+        <button class="test-button" onclick="testApi('api11')">Test</button>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-title">CoinGecko API</div>
+    <div class="desc">Crypto price data.</div>
+    <div class="url-box" id="api12">
+https://api.coingecko.com/api/v3
+    </div>
+    <div class="button-group">
+        <button class="copy-button" onclick="copyText('api12')">Copy</button>
+        <button class="test-button" onclick="testApi('api12')">Test</button>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-title">Remove Background API</div>
+    <div class="desc">ClipDrop remove background.</div>
+    <div class="url-box" id="api13">
+API_KEY=bb7f1d0... (keep secret)  
+https://clipdrop-api.co/remove-background/v1
+    </div>
+    <div class="button-group">
+        <button class="copy-button" onclick="copyText('api13')">Copy</button>
+        <button class="test-button" onclick="testApi('api13')">Test</button>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-title">Placeholder Image API</div>
+    <div class="desc">Generate temporary demo images.</div>
+    <div class="url-box" id="api14">
+https://placehold.co/{size}/{bg_color}/{text_color}?text={text}
+    </div>
+    <div class="button-group">
+        <button class="copy-button" onclick="copyText('api14')">Copy</button>
+        <button class="test-button" onclick="testApi('api14')">Test</button>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-title">Weather Tool API</div>
+    <div class="desc">Get weather by city.</div>
+    <div class="url-box" id="api15">
+https://apitools.pages.dev/api/v1/tool/weather?city={city_name}
+    </div>
+    <div class="button-group">
+        <button class="copy-button" onclick="copyText('api15')">Copy</button>
+        <button class="test-button" onclick="testApi('api15')">Test</button>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-title">Pollinations AI Text API</div>
+    <div class="desc">AI text generation.</div>
+    <div class="url-box" id="api16">
+https://text.pollinations.ai/openai/
+    </div>
+    <div class="button-group">
+        <button class="copy-button" onclick="copyText('api16')">Copy</button>
+        <button class="test-button" onclick="testApi('api16')">Test</button>
+    </div>
+</div>
+
+</div>
+</body>
+</html>
