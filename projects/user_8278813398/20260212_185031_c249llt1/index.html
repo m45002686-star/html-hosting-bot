@@ -1,0 +1,2396 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>المطور عمر - موقع قرآني شامل</title>
+  <meta name="description" content="موقع عمر: قرآن كريم كامل مع تفسير، أوقات الصلاة، اتجاه القبلة، أذكار، أحاديث، قصص الأنبياء، قصص القرآن، أسئلة دينية، والتقويم الهجري. كل ما يحتاجه المسلم في مكان واحد." />
+  <meta name="keywords" content="موقع الفتح, قرآن كريم, مصحف, تلاوة قرآن, تفسير القرآن, أوقات الصلاة, اتجاه القبلة, أذكار, أدعية, أحاديث نبوية, قصص الأنبياء, قصص القرآن, أسئلة دينية, تاريخ هجري, فقه, سيرة نبوية, إسلام, دين, موقع إسلامي" />
+  <meta name="author" content="موقع الفتح" />
+  
+  <meta property="og:title" content="موقع الفتح - موقع قرآني شامل" />
+  <meta property="og:description" content="موقع الفتح: قرآن كريم كامل مع تفسير، أوقات الصلاة، اتجاه القبلة، أذكار، أحاديث، قصص الأنبياء، قصص القرآن، أسئلة دينية، والتقويم الهجري." />
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="ar_AR" />
+  
+  <link rel="preconnect" href="https://cdn.tailwindcss.com">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Lateef&family=Scheherazade&display=swap" rel="stylesheet">
+  <style>
+    html { scroll-behavior:smooth; font-family: 'Amiri', serif; }
+    .glass { backdrop-filter: blur(10px); background: rgba(255,255,255,.75) }
+    .dark .glass { background: rgba(17,24,39,.65) }
+    .islamic-bg { 
+      background-color: #f8f5ee;
+      background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%231a5632' fill-opacity='0.07' fill-rule='evenodd'/%3E%3C/svg%3E");
+    }
+    .dark .islamic-bg { 
+      background-color: #1a202c;
+      background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%231a5632' fill-opacity='0.05' fill-rule='evenodd'/%3E%3C/svg%3E");
+    }
+    .arabic-font { font-family: 'Lateef', serif; }
+    .quran-text { font-size: 1.8rem; line-height: 2.5; text-align: justify; font-family: 'Scheherazade', serif; }
+    @media (max-width: 768px) {
+      .quran-text { font-size: 1.5rem; line-height: 2; }
+      .section-title { font-size: 2rem !important; }
+      .hero-title { font-size: 2.5rem !important; }
+      .hero-subtitle { font-size: 1.2rem !important; }
+      .info-card { margin-bottom: 0.75rem; }
+      .mobile-padding { padding-left: 1rem; padding-right: 1rem; }
+      .mobile-margin { margin-left: -1rem; margin-right: -1rem; }
+      .mobile-stack { flex-direction: column !important; }
+      .mobile-full { width: 100% !important; }
+      .mobile-text-center { text-align: center !important; }
+      .mobile-grid-1 { grid-template-columns: 1fr !important; }
+      .mobile-grid-2 { grid-template-columns: repeat(2, 1fr) !important; }
+    }
+    @media (max-width: 480px) {
+      .quran-text { font-size: 1.3rem; line-height: 1.8; }
+      .hero-title { font-size: 2rem !important; }
+      .hero-buttons { flex-direction: column; }
+      .mobile-grid-1 { grid-template-columns: 1fr !important; }
+    }
+    .surah-card { transition: transform 0.3s ease; }
+    .surah-card:hover { transform: translateY(-5px); box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
+    .prophet-card { background: linear-gradient(135deg, #f8f5ee 0%, #e8e1d1 100%); }
+    .dark .prophet-card { background: linear-gradient(135deg, #2d3748 0%, #4a5568 100%); }
+    .header-logo { text-shadow: 2px 2px 4px rgba(0,0,0,0.2); }
+    .nav-item { position: relative; }
+    .nav-item::after { content: ''; position: absolute; bottom: -5px; right: 0; width: 0; height: 2px; background: #1a5632; transition: width 0.3s; }
+    .nav-item:hover::after { width: 100%; }
+    .dark .nav-item::after { background: #38a169; }
+    .section-title { position: relative; padding-right: 20px; font-size: 2.5rem; }
+    .section-title::before { content: ''; position: absolute; right: 0; top: 50%; transform: translateY(-50%); width: 10px; height: 10px; background: #1a5632; border-radius: 50%; }
+    .dark .section-title::before { background: #38a169; }
+    .btn-primary { background: linear-gradient(135deg, #1a5632 0%, #2d7d46 100%); color: white; transition: all 0.3s; }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(26, 86, 50, 0.3); }
+    .btn-secondary { background: linear-gradient(135deg, #2b6cb0 0%, #4299e1 100%); color: white; transition: all 0.3s; }
+    .btn-secondary:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(43, 108, 176, 0.3); }
+    .question-card { transition: all 0.3s ease; }
+    .question-card.active { background: linear-gradient(135deg, #e6fffa 0%, #b2f5ea 100%); }
+    .dark .question-card.active { background: linear-gradient(135deg, #234e52 0%, #2d7d6a 100%); }
+    .mobile-menu { max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out; }
+    .mobile-menu.open { max-height: 500px; }
+    .floating-action-btn {
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #1a5632 0%, #2d7d46 100%);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      box-shadow: 0 4px 15px rgba(26, 86, 50, 0.3);
+      z-index: 100;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body class="islamic-bg text-gray-900 dark:bg-gray-900 dark:text-gray-100">
+  <div class="floating-action-btn lg:hidden" id="fab">
+    <i class="fas fa-quran"></i>
+  </div>
+
+  <header class="sticky top-0 z-50 border-b border-gray-200/60 dark:border-gray-700/60 bg-white/95 dark:bg-gray-900/95 backdrop-blur shadow-lg">
+    <div class="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <div class="relative">
+          <span class="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-gradient-to-br from-green-800 to-green-600 text-white text-4xl font-black header-logo">ف</span>
+          <span class="absolute -bottom-1 -right-1 w-6 h-6 bg-amber-500 rounded-full border-3 border-white dark:border-gray-900"></span>
+        </div>
+        <div>
+          <div class="text-2xl font-extrabold bg-gradient-to-r from-green-800 to-green-600 bg-clip-text text-transparent">موقع الفتح</div>
+          <div class="text-xs text-gray-500 dark:text-gray-400">موقع قرآن كريم شامل</div>
+        </div>
+      </div>
+      
+      <nav class="hidden lg:flex gap-6 text-sm">
+        <a href="#quran" class="nav-item hover:text-green-700 dark:hover:text-green-400 font-medium px-2 py-1"><i class="fas fa-book-quran mr-2"></i> القرآن الكريم</a>
+        <a href="#pray" class="nav-item hover:text-green-700 dark:hover:text-green-400 font-medium px-2 py-1"><i class="fas fa-clock mr-2"></i> أوقات الصلاة</a>
+        <a href="#questions" class="nav-item hover:text-green-700 dark:hover:text-green-400 font-medium px-2 py-1"><i class="fas fa-question-circle mr-2"></i> أسئلة دينية</a>
+        <a href="#prophets" class="nav-item hover:text-green-700 dark:hover:text-green-400 font-medium px-2 py-1"><i class="fas fa-user-check mr-2"></i> قصص الأنبياء</a>
+        <a href="#hadith" class="nav-item hover:text-green-700 dark:hover:text-green-400 font-medium px-2 py-1"><i class="fas fa-quote-right mr-2"></i> الأحاديث</a>
+        <a href="#azkar" class="nav-item hover:text-green-700 dark:hover:text-green-400 font-medium px-2 py-1"><i class="fas fa-dharmachakra mr-2"></i> الأذكار</a>
+        <a href="#more" class="nav-item hover:text-green-700 dark:hover:text-green-400 font-medium px-2 py-1"><i class="fas fa-ellipsis-h mr-2"></i> المزيد</a>
+      </nav>
+      
+      <div class="flex items-center gap-3">
+        <button id="themeBtn" class="px-3 py-2 rounded-xl border border-gray-300 dark:border-gray-700 text-sm hover:shadow-sm bg-white/50 dark:bg-gray-800/50">
+          <i class="fa-solid fa-moon"></i> <span class="align-middle hidden sm:inline">الوضع الليلي</span>
+        </button>
+        <button id="mobileMenuBtn" class="lg:hidden px-3 py-2 rounded-xl border border-gray-300 dark:border-gray-700 bg-white/50 dark:bg-gray-800/50">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+      </div>
+    </div>
+    
+    <div id="mobileMenu" class="mobile-menu lg:hidden bg-white/95 dark:bg-gray-900/95 backdrop-blur shadow-lg">
+      <div class="grid grid-cols-2 gap-2 p-4">
+        <a href="#quran" class="block py-3 px-3 rounded-lg hover:bg-green-50 dark:hover:bg-gray-800 text-center flex flex-col items-center">
+          <i class="fas fa-book-quran text-xl mb-1"></i>
+          <span>القرآن</span>
+        </a>
+        <a href="#pray" class="block py-3 px-3 rounded-lg hover:bg-green-50 dark:hover:bg-gray-800 text-center flex flex-col items-center">
+          <i class="fas fa-clock text-xl mb-1"></i>
+          <span>الصلاة</span>
+        </a>
+        <a href="#questions" class="block py-3 px-3 rounded-lg hover:bg-green-50 dark:hover:bg-gray-800 text-center flex flex-col items-center">
+          <i class="fas fa-question-circle text-xl mb-1"></i>
+          <span>أسئلة دينية</span>
+        </a>
+        <a href="#prophets" class="block py-3 px-3 rounded-lg hover:bg-green-50 dark:hover:bg-gray-800 text-center flex flex-col items-center">
+          <i class="fas fa-user-check text-xl mb-1"></i>
+          <span>الأنبياء</span>
+        </a>
+        <a href="#hadith" class="block py-3 px-3 rounded-lg hover:bg-green-50 dark:hover:bg-gray-800 text-center flex flex-col items-center">
+          <i class="fas fa-quote-right text-xl mb-1"></i>
+          <span>الأحاديث</span>
+        </a>
+        <a href="#azkar" class="block py-3 px-3 rounded-lg hover:bg-green-50 dark:hover:bg-gray-800 text-center flex flex-col items-center">
+          <i class="fas fa-dharmachakra text-xl mb-1"></i>
+          <span>الأذكار</span>
+        </a>
+        <a href="#quran-stories" class="block py-3 px-3 rounded-lg hover:bg-green-50 dark:hover:bg-gray-800 text-center flex flex-col items-center">
+          <i class="fas fa-book-open text-xl mb-1"></i>
+          <span>قصص القرآن</span>
+        </a>
+        <a href="#qibla" class="block py-3 px-3 rounded-lg hover:bg-green-50 dark:hover:bg-gray-800 text-center flex flex-col items-center">
+          <i class="fas fa-compass text-xl mb-1"></i>
+          <span>القبلة</span>
+        </a>
+      </div>
+      <div class="border-t border-gray-200 dark:border-gray-700 p-4">
+        <div class="flex justify-center space-x-4">
+          <a href="https://t.me/VlP_2P" target="_blank" class="p-2 rounded-full bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400">
+            <i class="fab fa-telegram"></i>
+          </a>
+          <button onclick="shareSite()" class="p-2 rounded-full bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-400">
+            <i class="fas fa-share-alt"></i>
+          </button>
+          <button onclick="contactUs()" class="p-2 rounded-full bg-amber-100 dark:bg-amber-900/30 text-amber-600 dark:text-amber-400">
+            <i class="fas fa-envelope"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section class="relative overflow-hidden">
+    <div class="absolute inset-0 bg-gradient-to-br from-green-900 via-green-800 to-green-700 opacity-95"></div>
+    <div class="absolute inset-0 opacity-20 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiPjxkZWZzPjxwYXR0ZXJuIGlkPSJwYXR0ZXJuIiB4PSIwIiB5PSIwIiB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHBhdGggZD0iTTAgMGgxMDB2MTAwSDB6IiBmaWxsPSJub25lIi8+PHBhdGggZD0iTTUwIDI1bDI1IDI1LTI1IDI1LTI1LTI1IDI1LTI1em0wIDUwbDI1IDI1LTI1IDI1LTI1LTI1IDI1LTI1eiIgZmlsbD0iI2ZmZiIgZmlsbC1vcGFjaXR5PSIwLjEiLz48L3BhdHRlcm4+PC9kZWZzPjxyZWN0IHg9IjAiIHk9IjAiIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjcGF0dGVybikiLz48L3N2Zz4=')]"></div>
+    <svg class="absolute -bottom-10 left-0 right-0 w-full text-white/20" viewBox="0 0 1440 320"><path fill="currentColor" d="M0,288L48,272C96,256,192,224,288,218.7C384,213,480,235,576,218.7C672,203,768,149,864,154.7C960,160,1056,224,1152,229.3C1248,235,1344,181,1392,154.7L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>
+    <div class="relative max-w-7xl mx-auto px-4 py-16 md:py-32 text-center text-white">
+      <h1 class="hero-title text-5xl md:text-7xl font-black tracking-wide arabic-font mb-4">موقع الفتح</h1>
+      <p class="mt-4 hero-subtitle text-xl md:text-2xl text-white/90 max-w-4xl mx-auto leading-relaxed">موقع شامل للقرآن الكريم مع التفسير، أوقات الصلاة، اتجاه القبلة، الأذكار، الأحاديث النبوية، قصص الأنبياء، قصص القرآن، أسئلة دينية، الفقه، السيرة النبوية، والتقويم الهجري. كل ما يحتاجه المسلم في مكان واحد.</p>
+      <div class="mt-10 flex flex-wrap gap-4 justify-center hero-buttons">
+        <a href="#quran" class="btn-primary px-5 py-3 md:px-7 md:py-4 rounded-2xl font-bold text-base md:text-lg mobile-full">
+          <i class="fas fa-book-open mr-3"></i> ابدأ قراءة القرآن
+        </a>
+        <a href="#questions" class="btn-secondary px-5 py-3 md:px-7 md:py-4 rounded-2xl font-bold text-base md:text-lg mobile-full">
+          <i class="fas fa-question-circle mr-3"></i> أسئلة دينية
+        </a>
+        <a href="#hadith" class="bg-white/10 border-2 border-white/30 px-5 py-3 md:px-7 md:py-4 rounded-2xl font-bold text-base md:text-lg hover:bg-white/20 transform hover:-translate-y-1 transition duration-300 mobile-full">
+          <i class="fas fa-quote-right mr-3"></i> أحاديث النبي
+        </a>
+        <a href="https://t.me/VlP_2P" target="_blank"
+           class="flex items-center justify-center gap-3 bg-gradient-to-r from-green-600 to-blue-600 text-white font-bold px-5 py-3 md:px-7 md:py-4 rounded-2xl shadow-2xl hover:scale-105 transition transform mobile-full">
+          <i class="fa-brands fa-telegram text-2xl"></i>
+          قناة القرآن الكريم
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="max-w-7xl mx-auto px-4 -mt-8 md:-mt-12 relative z-10">
+    <div class="grid mobile-grid-2 md:grid-cols-4 gap-4">
+      <div class="glass rounded-2xl p-4 md:p-5 shadow-xl border border-gray-100 dark:border-gray-800 info-card">
+        <div class="text-sm text-gray-500 dark:text-gray-400"><i class="fas fa-calendar-alt mr-2"></i> التاريخ الهجري</div>
+        <div id="hijriBox" class="text-xl md:text-2xl font-extrabold mt-2 arabic-font">—</div>
+        <div id="gregBox" class="text-xs md:text-sm mt-1 text-gray-600 dark:text-gray-300">—</div>
+      </div>
+      <div class="glass rounded-2xl p-4 md:p-5 shadow-xl border border-gray-100 dark:border-gray-800 info-card">
+        <div class="text-sm text-gray-500 dark:text-gray-400"><i class="fas fa-map-marker-alt mr-2"></i> موقعك الحالي</div>
+        <div id="locBox" class="text-base md:text-lg font-bold mt-2">جاري تحديد الموقع…</div>
+        <div class="text-xs text-gray-600 dark:text-gray-400 mt-1">لحساب مواقيت الصلاة والقبلة</div>
+      </div>
+      <div class="glass rounded-2xl p-4 md:p-5 shadow-xl border border-gray-100 dark:border-gray-800 info-card">
+        <div class="text-sm text-gray-500 dark:text-gray-400"><i class="fas fa-praying-hands mr-2"></i> الورد اليومي</div>
+        <div id="wirdBox" class="mt-2 text-base md:text-lg leading-relaxed arabic-font">—</div>
+      </div>
+      <div class="glass rounded-2xl p-4 md:p-5 shadow-xl border border-gray-100 dark:border-gray-800 info-card">
+        <div class="text-sm text-gray-500 dark:text-gray-400"><i class="fas fa-star mr-2"></i> آية اليوم</div>
+        <div id="verseOfDay" class="mt-2 text-base md:text-lg leading-relaxed arabic-font">—</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="quran" class="py-12 md:py-16">
+    <div class="max-w-7xl mx-auto px-4">
+      <h2 class="section-title text-4xl font-extrabold mb-8"><i class="fas fa-book-quran mr-4 text-green-700 dark:text-green-400"></i> القرآن الكريم</h2>
+      <div class="rounded-2xl p-4 md:p-6 shadow-2xl bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700">
+        <div class="flex flex-col lg:flex-row gap-4 lg:items-center mb-6 mobile-stack">
+          <div class="flex-1 mobile-full">
+            <label class="text-sm font-medium"><i class="fas fa-list mr-2"></i> اختر السورة:</label>
+            <select id="surahSelect" class="w-full mt-2 px-4 py-3 rounded-xl border border-gray-300 dark:border-gray-700 bg-transparent"></select>
+          </div>
+          <div class="flex gap-3 mobile-stack mobile-full">
+            <button id="playAll" class="px-5 py-3 rounded-xl border border-gray-300 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 font-medium mobile-full">
+              <i class="fa-solid fa-play mr-2"></i> تلاوة كاملة
+            </button>
+            <button id="saveBookmark" class="px-5 py-3 rounded-xl border border-gray-300 dark:border-gray-700 hover:bg-green-50 dark:hover:bg-gray-700 font-medium mobile-full">
+              <i class="fas fa-bookmark mr-2"></i> حفظ الموضع
+            </button>
+          </div>
+        </div>
+        <div class="mt-4">
+          <audio id="audio" class="w-full rounded-xl" controls></audio>
+        </div>
+        <div id="surahMeta" class="text-sm text-gray-500 dark:text-gray-400 mt-4 p-4 bg-green-50 dark:bg-green-900/20 rounded-xl">
+          <div class="flex justify-between items-center mobile-stack">
+            <span>اختر سورة لبدء القراءة</span>
+            <div class="text-xs md:text-sm">سورة الفاتحة • 7 آيات • مكية</div>
+          </div>
+        </div>
+        <div id="ayahs" class="mt-8 space-y-4 md:space-y-6 text-center py-8 md:py-12">
+          <i class="fas fa-book-open text-4xl md:text-5xl text-gray-300 mb-4"></i>
+          <div class="text-lg md:text-xl text-gray-500">اختر سورة من القائمة لبدء القراءة</div>
+        </div>
+      </div>
+      
+      <div class="mt-10 grid mobile-grid-1 md:grid-cols-3 gap-6">
+        <div class="rounded-2xl p-6 shadow-lg bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 border border-green-100 dark:border-green-800">
+          <h3 class="font-bold text-lg mb-3 text-green-800 dark:text-green-300"><i class="fas fa-search mr-2"></i> البحث في القرآن</h3>
+          <div class="flex gap-2 mobile-stack">
+            <input type="text" id="searchQuran" placeholder="اكتب كلمة للبحث..." class="flex-1 px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-700 bg-transparent">
+            <button onclick="searchInQuran()" class="px-4 py-2 rounded-lg bg-green-600 hover:bg-green-700 text-white mobile-full">
+              <i class="fas fa-search"></i> بحث
+            </button>
+          </div>
+          <div id="searchResults" class="mt-3 text-sm max-h-40 overflow-y-auto"></div>
+        </div>
+        
+        <div class="rounded-2xl p-6 shadow-lg bg-gradient-to-br from-amber-50 to-yellow-50 dark:from-amber-900/20 dark:to-yellow-900/20 border border-amber-100 dark:border-amber-800">
+          <h3 class="font-bold text-lg mb-3 text-amber-800 dark:text-amber-300"><i class="fas fa-trophy mr-2"></i> تحفيظ القرآن</h3>
+          <div class="space-y-3">
+            <div class="flex justify-between items-center">
+              <span class="text-sm">السور المحفوظة</span>
+              <span id="memorizedCount" class="font-bold text-amber-600 dark:text-amber-400">0</span>
+            </div>
+            <div class="h-2 bg-amber-200 dark:bg-amber-800 rounded-full overflow-hidden">
+              <div id="memorizedProgress" class="h-full bg-amber-500" style="width: 0%"></div>
+            </div>
+            <button onclick="addMemorized()" class="w-full mt-2 px-3 py-2 rounded-lg bg-amber-500 hover:bg-amber-600 text-white text-sm">
+              <i class="fas fa-plus mr-1"></i> إضافة سورة محفوظة
+            </button>
+            <div class="text-xs text-gray-500 mt-2">
+              <i class="fas fa-info-circle mr-1"></i> احفظ تقدمك في حفظ القرآن
+            </div>
+          </div>
+        </div>
+        
+        <div class="rounded-2xl p-6 shadow-lg bg-gradient-to-br from-blue-50 to-cyan-50 dark:from-blue-900/20 dark:to-cyan-900/20 border border-blue-100 dark:border-blue-800">
+          <h3 class="font-bold text-lg mb-3 text-blue-800 dark:text-blue-300"><i class="fas fa-history mr-2"></i> آخر ما قرأت</h3>
+          <div id="lastRead" class="text-sm">
+            <div class="text-center py-4 text-gray-500">لا توجد سجلات قراءة سابقة</div>
+          </div>
+          <button onclick="clearHistory()" class="w-full mt-3 px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-700 text-sm">
+            <i class="fas fa-trash-alt mr-1"></i> مسح السجل
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="questions" class="bg-gray-50/50 dark:bg-gray-900/30 py-12 md:py-16">
+    <div class="max-w-7xl mx-auto px-4">
+      <h2 class="section-title text-4xl font-extrabold mb-8"><i class="fas fa-question-circle mr-4 text-green-700 dark:text-green-400"></i> أسئلة دينية وإجاباتها</h2>
+      
+      <div class="mb-8">
+        <div class="flex flex-wrap gap-2 mb-4">
+          <button class="px-4 py-2 rounded-xl border border-gray-300 dark:border-gray-700 hover:bg-green-50 dark:hover:bg-gray-700 active-category" onclick="filterQuestions('all')">الكل</button>
+          <button class="px-4 py-2 rounded-xl border border-gray-300 dark:border-gray-700 hover:bg-green-50 dark:hover:bg-gray-700" onclick="filterQuestions('aqeedah')">العقيدة</button>
+          <button class="px-4 py-2 rounded-xl border border-gray-300 dark:border-gray-700 hover:bg-green-50 dark:hover:bg-gray-700" onclick="filterQuestions('fiqh')">الفقه</button>
+          <button class="px-4 py-2 rounded-xl border border-gray-300 dark:border-gray-700 hover:bg-green-50 dark:hover:bg-gray-700" onclick="filterQuestions('seerah')">السيرة</button>
+          <button class="px-4 py-2 rounded-xl border border-gray-300 dark:border-gray-700 hover:bg-green-50 dark:hover:bg-gray-700" onclick="filterQuestions('quran')">القرآن</button>
+        </div>
+      </div>
+      
+      <div class="space-y-4" id="questionsContainer">
+      </div>
+      
+      <div class="mt-8 text-center">
+        <button onclick="loadMoreQuestions()" class="px-6 py-3 rounded-xl bg-gradient-to-r from-green-600 to-blue-600 text-white font-medium hover:shadow-lg transition">
+          <i class="fas fa-plus mr-2"></i> تحميل المزيد من الأسئلة
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <section id="pray" class="bg-gray-50/50 dark:bg-gray-900/30 py-12 md:py-16">
+    <div class="max-w-7xl mx-auto px-4">
+      <h2 class="section-title text-4xl font-extrabold mb-8"><i class="fas fa-clock mr-4 text-green-700 dark:text-green-400"></i> أوقات الصلاة</h2>
+      <div class="grid lg:grid-cols-3 gap-8">
+        <div class="lg:col-span-2 rounded-2xl p-4 md:p-6 shadow-2xl bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700">
+          <h3 class="font-bold text-xl mb-6">أوقات الصلاة لموقعك</h3>
+          <div id="prayTimes" class="grid mobile-grid-2 md:grid-cols-3 gap-4 text-center"></div>
+          <div id="nextPrayer" class="mt-8 p-5 rounded-xl bg-gradient-to-r from-green-50 to-emerald-50 dark:from-green-900/30 dark:to-emerald-900/30 text-green-700 dark:text-emerald-200 text-center text-lg border border-green-100 dark:border-green-800">
+            <i class="fas fa-clock mr-2"></i> —</div>
+        </div>
+        <div class="rounded-2xl p-4 md:p-6 shadow-2xl bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700">
+          <h3 class="font-bold text-xl mb-6"><i class="fas fa-bell mr-3"></i> تنبيهات الأذان</h3>
+          <div class="space-y-4">
+            <div class="p-4 rounded-lg bg-gray-50 dark:bg-gray-700/50">
+              <label class="inline-flex items-center gap-3 w-full">
+                <input id="notifToggle" type="checkbox" class="w-5 h-5 text-green-600">
+                <span class="flex-1">تفعيل إشعارات الأذان</span>
+              </label>
+              <div class="mt-2 text-xs text-gray-500 dark:text-gray-400">تذكير قبل الأذان بـ 10 دقائق</div>
+            </div>
+            
+            <div class="p-4 rounded-lg bg-blue-50 dark:bg-blue-900/20">
+              <h4 class="font-bold mb-2 text-sm">إعدادات التذكير</h4>
+              <div class="space-y-2">
+                <label class="flex items-center gap-2 text-sm">
+                  <input type="checkbox" class="w-4 h-4"> قبل الفجر بـ 30 دقيقة للسحور
+                </label>
+                <label class="flex items-center gap-2 text-sm">
+                  <input type="checkbox" class="w-4 h-4"> قبل كل صلاة بـ 10 دقائق
+                </label>
+                <label class="flex items-center gap-2 text-sm">
+                  <input type="checkbox" class="w-4 h-4"> تذكير بصلاة القيام
+                </label>
+              </div>
+            </div>
+            
+            <button class="w-full mt-4 px-4 py-3 rounded-xl bg-green-600 hover:bg-green-700 text-white font-medium">
+              <i class="fas fa-save mr-2"></i> حفظ الإعدادات
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="prophets" class="py-12 md:py-16">
+    <div class="max-w-7xl mx-auto px-4">
+      <h2 class="section-title text-4xl font-extrabold mb-8"><i class="fas fa-user-check mr-4 text-green-700 dark:text-green-400"></i> قصص الأنبياء</h2>
+      <div class="mb-6">
+        <div class="flex flex-wrap gap-2 mb-4">
+          <button class="px-4 py-2 rounded-xl border border-gray-300 dark:border-gray-700 hover:bg-green-50 dark:hover:bg-gray-700 active-category" onclick="filterProphets('all')">الكل</button>
+          <button class="px-4 py-2 rounded-xl border border-gray-300 dark:border-gray-700 hover:bg-green-50 dark:hover:bg-gray-700" onclick="filterProphets('ulu-l-azm')">أولو العزم</button>
+          <button class="px-4 py-2 rounded-xl border border-gray-300 dark:border-gray-700 hover:bg-green-50 dark:hover:bg-gray-700" onclick="filterProphets('messengers')">الرسل</button>
+          <button class="px-4 py-2 rounded-xl border border-gray-300 dark:border-gray-700 hover:bg-green-50 dark:hover:bg-gray-700" onclick="filterProphets('prophets')">الأنبياء</button>
+        </div>
+      </div>
+      <div class="grid mobile-grid-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="prophetsContainer">
+      </div>
+    </div>
+  </section>
+
+  <section id="hadith" class="py-12 md:py-16">
+    <div class="max-w-7xl mx-auto px-4">
+      <h2 class="section-title text-4xl font-extrabold mb-8"><i class="fas fa-quote-right mr-4 text-green-700 dark:text-green-400"></i> الأحاديث النبوية</h2>
+      <div class="grid lg:grid-cols-3 gap-8">
+        <div class="lg:col-span-2">
+          <div class="rounded-2xl p-4 md:p-6 shadow-2xl bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700">
+            <div class="flex flex-col md:flex-row justify-between items-start mb-4 mobile-stack">
+              <h3 class="font-bold text-xl">حديث اليوم</h3>
+              <div class="text-sm text-gray-500" id="hadithSource">—</div>
+            </div>
+            <blockquote id="hadithBox" class="text-xl md:text-2xl leading-loose arabic-font p-4 md:p-6 border-r-4 border-green-500 bg-green-50/50 dark:bg-green-900/10 rounded-xl mb-6">—</blockquote>
+            <div id="hadithExplanation" class="p-4 bg-blue-50 dark:bg-blue-900/20 rounded-xl text-sm leading-relaxed mb-6">—</div>
+            <div class="flex flex-wrap gap-3 mobile-stack">
+              <button class="px-5 py-2 rounded-xl bg-green-600 hover:bg-green-700 text-white mobile-full" onclick="rollHadith()">
+                <i class="fas fa-random mr-2"></i> حديث جديد
+              </button>
+              <button class="px-5 py-2 rounded-xl border border-gray-300 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 mobile-full" onclick="shareHadith()">
+                <i class="fas fa-share-alt mr-2"></i> مشاركة
+              </button>
+              <button class="px-5 py-2 rounded-xl border border-gray-300 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 mobile-full" onclick="copyHadith()">
+                <i class="fas fa-copy mr-2"></i> نسخ
+              </button>
+              <button class="px-5 py-2 rounded-xl border border-gray-300 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 mobile-full" onclick="showHadithCategories()">
+                <i class="fas fa-list mr-2"></i> التصنيفات
+              </button>
+            </div>
+          </div>
+        </div>
+        
+        <div class="space-y-6">
+          <div class="rounded-2xl p-6 shadow-2xl bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700">
+            <h3 class="font-bold text-lg mb-4"><i class="fas fa-tags mr-2"></i> تصنيفات الأحاديث</h3>
+            <div class="space-y-2 max-h-60 overflow-y-auto" id="hadithCategories">
+            </div>
+          </div>
+          
+          <div class="rounded-2xl p-6 shadow-2xl bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700">
+            <h3 class="font-bold text-lg mb-4"><i class="fas fa-search mr-2"></i> بحث في الأحاديث</h3>
+            <div class="flex gap-2 mobile-stack">
+              <input type="text" id="searchHadith" placeholder="ابحث في الأحاديث..." class="flex-1 px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-700 bg-transparent">
+              <button onclick="searchInHadith()" class="px-4 py-2 rounded-lg bg-green-600 hover:bg-green-700 text-white">
+                <i class="fas fa-search"></i>
+              </button>
+            </div>
+            <div id="hadithSearchResults" class="mt-3 text-sm max-h-40 overflow-y-auto"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="azkar" class="bg-gray-50/50 dark:bg-gray-900/30 py-12 md:py-16">
+    <div class="max-w-7xl mx-auto px-4">
+      <h2 class="section-title text-4xl font-extrabold mb-8"><i class="fas fa-dharmachakra mr-4 text-green-700 dark:text-green-400"></i> الأذكار والأدعية</h2>
+      <div class="grid lg:grid-cols-3 gap-8">
+        <div class="lg:col-span-2">
+          <div class="rounded-2xl p-4 md:p-6 shadow-2xl bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700">
+            <div class="flex flex-wrap gap-2 mb-6">
+              <button class="px-3 py-2 md:px-4 md:py-2 rounded-xl border border-gray-300 dark:border-gray-700 hover:bg-green-50 dark:hover:bg-gray-700 active-azkar" onclick="setAzkar('morning')">
+                <i class="fas fa-sun mr-2"></i> أذكار الصباح
+              </button>
+              <button class="px-3 py-2 md:px-4 md:py-2 rounded-xl border border-gray-300 dark:border-gray-700 hover:bg-green-50 dark:hover:bg-gray-700" onclick="setAzkar('evening')">
+                <i class="fas fa-moon mr-2"></i> أذكار المساء
+              </button>
+              <button class="px-3 py-2 md:px-4 md:py-2 rounded-xl border border-gray-300 dark:border-gray-700 hover:bg-green-50 dark:hover:bg-gray-700" onclick="setAzkar('afterPrayer')">
+                <i class="fas fa-mosque mr-2"></i> بعد الصلاة
+              </button>
+              <button class="px-3 py-2 md:px-4 md:py-2 rounded-xl border border-gray-300 dark:border-gray-700 hover:bg-green-50 dark:hover:bg-gray-700" onclick="setAzkar('sleep')">
+                <i class="fas fa-bed mr-2"></i> أذكار النوم
+              </button>
+              <button class="px-3 py-2 md:px-4 md:py-2 rounded-xl border border-gray-300 dark:border-gray-700 hover:bg-green-50 dark:hover:bg-gray-700" onclick="setAzkar('wakeup')">
+                <i class="fas fa-bell mr-2"></i> أذكار الاستيقاظ
+              </button>
+              <button class="px-3 py-2 md:px-4 md:py-2 rounded-xl border border-gray-300 dark:border-gray-700 hover:bg-green-50 dark:hover:bg-gray-700" onclick="setAzkar('general')">
+                <i class="fas fa-star mr-2"></i> أذكار عامة
+              </button>
+            </div>
+            <div id="azkarBox" class="space-y-4 text-lg md:text-xl leading-loose arabic-font">—</div>
+          </div>
+        </div>
+        
+        <div class="space-y-6">
+          <div class="rounded-2xl p-6 shadow-2xl bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700">
+            <h3 class="font-bold text-lg mb-4"><i class="fas fa-calculator mr-2"></i> عداد الأذكار</h3>
+            <div class="text-center mb-6">
+              <div id="counter" class="text-5xl md:text-6xl font-black text-green-600 dark:text-green-400 mb-2">0</div>
+              <div class="text-sm text-gray-500">عدد التسبيحات</div>
+            </div>
+            <div class="grid grid-cols-2 gap-3 mb-4">
+              <button class="px-3 py-2 md:px-4 md:py-3 rounded-xl bg-green-600 hover:bg-green-700 text-white font-medium text-sm" onclick="incrementCounter(1)">
+                <i class="fas fa-plus mr-1"></i> تسبيح
+              </button>
+              <button class="px-3 py-2 md:px-4 md:py-3 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-medium text-sm" onclick="incrementCounter(10)">
+                <i class="fas fa-forward mr-1"></i> 10 تسبيحات
+              </button>
+              <button class="px-3 py-2 md:px-4 md:py-3 rounded-xl border border-gray-300 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 text-sm" onclick="counter=0; renderCounter(); toast('تم إعادة العداد إلى الصفر')">
+                <i class="fas fa-redo mr-1"></i> إعادة
+              </button>
+              <button class="px-3 py-2 md:px-4 md:py-3 rounded-xl border border-gray-300 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 text-sm" onclick="saveCounter()">
+                <i class="fas fa-save mr-1"></i> حفظ
+              </button>
+            </div>
+            <div class="text-xs text-gray-500 text-center mt-4">
+              <i class="fas fa-lightbulb mr-1"></i> استمر في الذكر حتى يبلغ العداد 33، 100، أو 1000
+            </div>
+          </div>
+          
+          <div class="rounded-2xl p-6 shadow-2xl bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700">
+            <h3 class="font-bold text-lg mb-4"><i class="fas fa-pray mr-2"></i> أدعية مختارة</h3>
+            <div class="space-y-3">
+              <button class="w-full text-right px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-700 hover:bg-green-50 dark:hover:bg-gray-700 text-sm" onclick="showDua('quran')">دعاء ختم القرآن</button>
+              <button class="w-full text-right px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-700 hover:bg-green-50 dark:hover:bg-gray-700 text-sm" onclick="showDua('sickness')">دعاء المرض</button>
+              <button class="w-full text-right px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-700 hover:bg-green-50 dark:hover:bg-gray-700 text-sm" onclick="showDua('travel')">دعاء السفر</button>
+              <button class="w-full text-right px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-700 hover:bg-green-50 dark:hover:bg-gray-700 text-sm" onclick="showDua('rain')">دعاء نزول المطر</button>
+              <button class="w-full text-right px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-700 hover:bg-green-50 dark:hover:bg-gray-700 text-sm" onclick="showDua('forgiveness')">دعاء الاستغفار</button>
+              <button class="w-full text-right px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-700 hover:bg-green-50 dark:hover:bg-gray-700 text-sm" onclick="showDua('guidance')">دعاء الهداية</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="quran-stories" class="bg-gray-50/50 dark:bg-gray-900/30 py-12 md:py-16">
+    <div class="max-w-7xl mx-auto px-4">
+      <h2 class="section-title text-4xl font-extrabold mb-8"><i class="fas fa-book-open mr-4 text-green-700 dark:text-green-400"></i> قصص القرآن الكريم</h2>
+      <div class="grid mobile-grid-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="quranStoriesContainer">
+      </div>
+    </div>
+  </section>
+
+  <section id="qibla" class="py-12 md:py-16">
+    <div class="max-w-7xl mx-auto px-4">
+      <h2 class="section-title text-4xl font-extrabold mb-8"><i class="fas fa-compass mr-4 text-green-700 dark:text-green-400"></i> اتجاه القبلة</h2>
+      <div class="grid lg:grid-cols-3 gap-8">
+        <div class="lg:col-span-2">
+          <div class="rounded-2xl p-4 md:p-8 shadow-2xl bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 text-center">
+            <div class="mx-auto w-64 h-64 md:w-80 md:h-80 relative">
+              <div class="absolute inset-0 rounded-full border-8 border-gray-200 dark:border-gray-700"></div>
+              <div class="absolute inset-6 rounded-full border-6 border-amber-400 dark:border-amber-500"></div>
+              <div id="needle" class="absolute top-1/2 left-1/2 origin-bottom -translate-x-1/2 -translate-y-full w-3 h-32 md:h-40 bg-gradient-to-t from-green-600 to-green-400 rounded-t-full shadow-xl"></div>
+              <div class="absolute inset-0 flex items-center justify-center font-black text-4xl text-amber-600 dark:text-amber-400 arabic-font">ق</div>
+              <div class="absolute top-1/4 left-1/2 -translate-x-1/2 text-sm font-bold">الشمال</div>
+              <div class="absolute bottom-1/4 left-1/2 -translate-x-1/2 text-sm font-bold">الجنوب</div>
+              <div class="absolute top-1/2 right-4 text-sm font-bold">الشرق</div>
+              <div class="absolute top-1/2 left-4 text-sm font-bold">الغرب</div>
+            </div>
+            <div id="qiblaInfo" class="mt-6 text-lg md:text-xl font-bold text-gray-700 dark:text-gray-300">—</div>
+            <div class="mt-4 text-sm text-gray-500 dark:text-gray-400">اتجاه القبلة بالنسبة لموقعك الحالي</div>
+            <button onclick="initCompass()" class="mt-6 px-6 py-3 rounded-xl btn-primary">
+              <i class="fas fa-sync-alt mr-2"></i> تفعيل البوصلة
+            </button>
+          </div>
+        </div>
+        
+        <div class="space-y-6">
+          <div class="rounded-2xl p-6 shadow-2xl bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700">
+            <h3 class="font-bold text-lg mb-4"><i class="fas fa-info-circle mr-2"></i> معلومات القبلة</h3>
+            <div class="space-y-3 text-sm">
+              <div class="flex justify-between">
+                <span class="text-gray-500">إحداثيات الكعبة:</span>
+                <span class="font-bold">21.4225° N, 39.8262° E</span>
+              </div>
+              <div class="flex justify-between">
+                <span class="text-gray-500">مدينة مكة المكرمة:</span>
+                <span class="font-bold">المملكة العربية السعودية</span>
+              </div>
+              <div class="flex justify-between">
+                <span class="text-gray-500">المسافة التقريبية:</span>
+                <span id="distanceToKaaba" class="font-bold">—</span>
+              </div>
+              <div class="mt-4 p-3 bg-green-50 dark:bg-green-900/20 rounded-lg text-xs">
+                <i class="fas fa-lightbulb mr-1 text-green-600"></i> القبلة هي اتجاه الكعبة المشرفة في مكة المكرمة
+              </div>
+            </div>
+          </div>
+          
+          <div class="rounded-2xl p-6 shadow-2xl bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700">
+            <h3 class="font-bold text-lg mb-4"><i class="fas fa-map-marker-alt mr-2"></i> مدن رئيسية</h3>
+            <div class="space-y-2">
+              <button class="w-full text-right px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-700 hover:bg-green-50 dark:hover:bg-gray-700 text-sm" onclick="setCity('مكة المكرمة', 21.4225, 39.8262)">مكة المكرمة</button>
+              <button class="w-full text-right px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-700 hover:bg-green-50 dark:hover:bg-gray-700 text-sm" onclick="setCity('المدينة المنورة', 24.4672, 39.6113)">المدينة المنورة</button>
+              <button class="w-full text-right px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-700 hover:bg-green-50 dark:hover:bg-gray-700 text-sm" onclick="setCity('القدس', 31.7767, 35.2345)">القدس</button>
+              <button class="w-full text-right px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-700 hover:bg-green-50 dark:hover:bg-gray-700 text-sm" onclick="setCity('القاهرة', 30.0444, 31.2357)">القاهرة</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="more" class="bg-gray-50/50 dark:bg-gray-900/30 py-12 md:py-16">
+    <div class="max-w-7xl mx-auto px-4">
+      <h2 class="section-title text-4xl font-extrabold mb-8"><i class="fas fa-ellipsis-h mr-4 text-green-700 dark:text-green-400"></i> أقسام الموقع</h2>
+      <div class="grid mobile-grid-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <a href="#fiqh" class="block rounded-2xl p-6 shadow-lg bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 hover:shadow-xl transition transform hover:-translate-y-1">
+          <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-green-600 to-blue-600 flex items-center justify-center text-white text-xl mb-4">
+            <i class="fas fa-balance-scale"></i>
+          </div>
+          <h3 class="font-bold text-lg mb-2">الفقه الإسلامي</h3>
+          <p class="text-sm text-gray-600 dark:text-gray-300">أحكام العبادات والمعاملات</p>
+        </a>
+        
+        <a href="#seerah" class="block rounded-2xl p-6 shadow-lg bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 hover:shadow-xl transition transform hover:-translate-y-1">
+          <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-amber-600 to-yellow-600 flex items-center justify-center text-white text-xl mb-4">
+            <i class="fas fa-user-friends"></i>
+          </div>
+          <h3 class="font-bold text-lg mb-2">السيرة النبوية</h3>
+          <p class="text-sm text-gray-600 dark:text-gray-300">حياة الرسول صلى الله عليه وسلم</p>
+        </a>
+        
+        <a href="#islamic-history" class="block rounded-2xl p-6 shadow-lg bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 hover:shadow-xl transition transform hover:-translate-y-1">
+          <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-red-600 to-pink-600 flex items-center justify-center text-white text-xl mb-4">
+            <i class="fas fa-history"></i>
+          </div>
+          <h3 class="font-bold text-lg mb-2">التاريخ الإسلامي</h3>
+          <p class="text-sm text-gray-600 dark:text-gray-300">تاريخ الخلفاء والفتوحات</p>
+        </a>
+        
+        <a href="#islamic-science" class="block rounded-2xl p-6 shadow-lg bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 hover:shadow-xl transition transform hover:-translate-y-1">
+          <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-purple-600 to-indigo-600 flex items-center justify-center text-white text-xl mb-4">
+            <i class="fas fa-flask"></i>
+          </div>
+          <h3 class="font-bold text-lg mb-2">العلوم الإسلامية</h3>
+          <p class="text-sm text-gray-600 dark:text-gray-300">علوم القرآن والحديث</p>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <footer class="border-t border-gray-200 dark:border-gray-800 mt-16 bg-white/80 dark:bg-gray-900/80">
+    <div class="max-w-7xl mx-auto px-4 py-10">
+      <div class="grid mobile-grid-1 md:grid-cols-4 gap-8 mb-8">
+        <div>
+          <div class="flex items-center gap-3 mb-4">
+            <div class="relative">
+              <span class="inline-flex items-center justify-center w-12 h-12 rounded-2xl bg-gradient-to-br from-green-800 to-green-600 text-white text-3xl font-bold">ف</span>
+            </div>
+            <div>
+              <div class="text-xl font-extrabold bg-gradient-to-r from-green-800 to-green-600 bg-clip-text text-transparent">موقع الفتح</div>
+              <div class="text-xs text-gray-500 dark:text-gray-400">موقع قرآن كريم شامل</div>
+            </div>
+          </div>
+          <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">موقع شامل لكل ما يحتاجه المسلم من قرآن كريم، أحاديث، أذكار، وتعاليم إسلامية.</p>
+          <div class="flex gap-3">
+            <a href="https://t.me/VlP_2P" target="_blank" class="w-10 h-10 rounded-full bg-blue-100 dark:bg-blue-900/30 hover:bg-blue-200 dark:hover:bg-blue-800/30 text-blue-600 dark:text-blue-400 flex items-center justify-center">
+              <i class="fab fa-telegram text-lg"></i>
+            </a>
+            <button onclick="shareSite()" class="w-10 h-10 rounded-full bg-green-100 dark:bg-green-900/30 hover:bg-green-200 dark:hover:bg-green-800/30 text-green-600 dark:text-green-400 flex items-center justify-center">
+              <i class="fas fa-share-alt"></i>
+            </button>
+          </div>
+        </div>
+        
+        <div>
+          <h4 class="font-bold mb-4 text-green-700 dark:text-green-400">أقسام الموقع</h4>
+          <ul class="space-y-2 text-sm">
+            <li><a href="#quran" class="text-gray-600 dark:text-gray-300 hover:text-green-600 dark:hover:text-green-400">القرآن الكريم</a></li>
+            <li><a href="#questions" class="text-gray-600 dark:text-gray-300 hover:text-green-600 dark:hover:text-green-400">أسئلة دينية</a></li>
+            <li><a href="#hadith" class="text-gray-600 dark:text-gray-300 hover:text-green-600 dark:hover:text-green-400">الأحاديث النبوية</a></li>
+            <li><a href="#prophets" class="text-gray-600 dark:text-gray-300 hover:text-green-600 dark:hover:text-green-400">قصص الأنبياء</a></li>
+          </ul>
+        </div>
+        
+        <div>
+          <h4 class="font-bold mb-4 text-green-700 dark:text-green-400">أدوات إسلامية</h4>
+          <ul class="space-y-2 text-sm">
+            <li><a href="#pray" class="text-gray-600 dark:text-gray-300 hover:text-green-600 dark:hover:text-green-400">أوقات الصلاة</a></li>
+            <li><a href="#qibla" class="text-gray-600 dark:text-gray-300 hover:text-green-600 dark:hover:text-green-400">اتجاه القبلة</a></li>
+            <li><a href="#quran-stories" class="text-gray-600 dark:text-gray-300 hover:text-green-600 dark:hover:text-green-400">قصص القرآن</a></li>
+            <li><a href="#azkar" class="text-gray-600 dark:text-gray-300 hover:text-green-600 dark:hover:text-green-400">الأذكار والأدعية</a></li>
+          </ul>
+        </div>
+        
+        <div>
+          <h4 class="font-bold mb-4 text-green-700 dark:text-green-400">اتصل بنا</h4>
+          <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">للمقترحات والاستفسارات حول الموقع</p>
+          <button onclick="contactUs()" class="px-4 py-2 rounded-xl border border-gray-300 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 text-sm">
+            <i class="fas fa-envelope mr-2"></i> راسلنا
+          </button>
+        </div>
+      </div>
+      
+      <div class="pt-8 border-t border-gray-200 dark:border-gray-700 flex flex-col md:flex-row gap-4 md:items-center md:justify-between">
+        <div class="text-center md:text-right">
+          <div class="text-sm text-gray-600 dark:text-gray-300 mb-2">© <span id="year"></span> موقع عمر — جميع الحقوق محفوظة.</div>
+          <div class="opacity-80 text-green-600 dark:text-green-400 arabic-font text-lg">﴿ فاذكروني أذكركم واشكروا لي ولا تكفرون ﴾</div>
+        </div>
+        <div class="text-center md:text-left text-xs text-gray-500 dark:text-gray-400">
+          <div>هذا الموقع يستخدم مصادر مفتوحة للقرآن الكريم، الأحاديث، والأذكار.</div>
+          <div class="mt-1">تم التطورير بواسطة عمر </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+<div id="duaModal" class="fixed inset-0 bg-black/50 z-50 hidden items-center justify-center p-4">
+  <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-hidden">
+    <div class="p-6 border-b border-gray-200 dark:border-gray-700 flex justify-between items-center">
+      <h3 class="font-bold text-xl" id="duaTitle">—</h3>
+      <button onclick="$('#duaModal').classList.add('hidden')" class="w-10 h-10 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 flex items-center justify-center">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+    <div class="p-6 overflow-y-auto max-h-[60vh]" id="duaContent">
+      —</div>
+    <div class="p-6 border-t border-gray-200 dark:border-gray-700 flex gap-3">
+      <button onclick="copyText('#duaContent')" class="px-4 py-2 rounded-xl border border-gray-300 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700">
+        <i class="fas fa-copy mr-2"></i> نسخ الدعاء
+      </button>
+      <button onclick="$('#duaModal').classList.add('hidden')" class="px-4 py-2 rounded-xl bg-green-600 hover:bg-green-700 text-white">
+        <i class="fas fa-check mr-2"></i> إغلاق
+      </button>
+    </div>
+  </div>
+</div>
+
+<div id="categoriesModal" class="fixed inset-0 bg-black/50 z-50 hidden items-center justify-center p-4">
+  <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-hidden">
+    <div class="p-6 border-b border-gray-200 dark:border-gray-700 flex justify-between items-center">
+      <h3 class="font-bold text-xl">تصنيفات الأحاديث</h3>
+      <button onclick="$('#categoriesModal').classList.add('hidden')" class="w-10 h-10 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 flex items-center justify-center">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+    <div class="p-6 overflow-y-auto max-h-[60vh]" id="categoriesContent">
+      —</div>
+    <div class="p-6 border-t border-gray-200 dark:border-gray-700">
+      <button onclick="$('#categoriesModal').classList.add('hidden')" class="w-full px-4 py-2 rounded-xl bg-green-600 hover:bg-green-700 text-white">
+        <i class="fas fa-check mr-2"></i> إغلاق
+      </button>
+    </div>
+  </div>
+</div>
+
+<script>
+const $ = (q)=>document.querySelector(q);
+const $$ = (q)=>[...document.querySelectorAll(q)];
+const toast = (msg, type='success')=>{ 
+  const colors = {
+    success: 'bg-green-600',
+    error: 'bg-red-600',
+    warning: 'bg-amber-600',
+    info: 'bg-blue-600'
+  };
+  const div = document.createElement('div');
+  div.className = `fixed bottom-4 left-4 right-4 md:left-auto md:right-4 md:w-80 ${colors[type]} text-white p-4 rounded-xl shadow-2xl z-50`;
+  div.innerHTML = `
+    <div class="flex items-center">
+      <i class="fas fa-${type==='success'?'check-circle':type==='error'?'exclamation-triangle':type==='warning'?'exclamation-circle':'info-circle'} mr-3 text-xl"></i>
+      <div class="flex-1">${msg}</div>
+      <button onclick="this.parentElement.parentElement.remove()" class="ml-3">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+  `;
+  document.body.appendChild(div);
+  setTimeout(()=>div.remove(), 5000);
+};
+const toArabicDigits = n => n.toString().replace(/\d/g, d=>"٠١٢٣٤٥٦٧٨٩"[d]);
+
+const themeBtn = $('#themeBtn');
+if(localStorage.theme==='dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+  document.documentElement.classList.add('dark');
+  themeBtn.innerHTML = '<i class="fa-solid fa-sun"></i> <span class="align-middle hidden sm:inline">الوضع النهاري</span>';
+} else {
+  themeBtn.innerHTML = '<i class="fa-solid fa-moon"></i> <span class="align-middle hidden sm:inline">الوضع الليلي</span>';
+}
+
+themeBtn.onclick=()=>{
+  document.documentElement.classList.toggle('dark');
+  localStorage.theme = document.documentElement.classList.contains('dark') ? 'dark' : 'light';
+  themeBtn.innerHTML = document.documentElement.classList.contains('dark') 
+    ? '<i class="fa-solid fa-sun"></i> <span class="align-middle hidden sm:inline">الوضع النهاري</span>'
+    : '<i class="fa-solid fa-moon"></i> <span class="align-middle hidden sm:inline">الوضع الليلي</span>';
+  toast('تم تغيير الوضع بنجاح', 'info');
+};
+
+const gDate = new Date();
+$('#gregBox').textContent = gDate.toLocaleDateString('ar-EG', {weekday:'long', year:'numeric', month:'long', day:'numeric'});
+try {
+  const hijri = new Intl.DateTimeFormat('ar-SA-u-ca-islamic', {weekday:'long', year:'numeric', month:'long', day:'numeric'}).format(gDate);
+  $('#hijriBox').textContent = hijri;
+} catch(e){ 
+  $('#hijriBox').textContent = 'التاريخ الهجري غير مدعوم';
+}
+
+$('#year').textContent = new Date().getFullYear();
+
+const wirdList = [
+  "سُبْحَانَ اللَّهِ وَبِحَمْدِهِ (١٠٠ مرة).",
+  "سُبْحَانَ اللَّهِ، وَالْحَمْدُ لِلَّهِ، وَلَا إِلَهَ إِلَّا اللَّهُ، وَاللَّهُ أَكْبَرُ.",
+  "أستغفرُ اللهَ وأتوبُ إليه.",
+  "اللهمَّ صلِّ وسلِّم على نبينا محمد.",
+  "لا حولَ ولا قوَّةَ إلا بالله."
+];
+
+const dailyVerses = [
+  "﴿ إِنَّمَا يُوَفَّى الصَّابِرُونَ أَجْرَهُم بِغَيْرِ حِسَابٍ ﴾ [الزمر: 10]",
+  "﴿ وَمَن يَتَّقِ اللَّهَ يَجْعَل لَّهُ مَخْرَجًا ﴾ [الطلاق: 2]",
+  "﴿ وَمَن يَتَّقِ اللَّهَ يَجْعَل لَّهُ مِنْ أَمْرِهِ يُسْرًا ﴾ [الطلاق: 4]",
+  "﴿ إِنَّ مَعَ الْعُسْرِ يُسْرًا ﴾ [الشرح: 6]",
+  "﴿ وَذَكَرَ اللَّهَ كَثِيرًا لَّعَلَّكُمْ تُفْلِحُونَ ﴾ [الجمعة: 10]",
+  "﴿ وَاللَّهُ يُرِيدُ أَن يَتُوبَ عَلَيْكُمْ ﴾ [النساء: 27]",
+  "﴿ وَمَن يَتَوَكَّلْ عَلَى اللَّهِ فَهُوَ حَسْبُهُ ﴾ [الطلاق: 3]",
+  "﴿ قُلْ إِنَّ صَلَاتِي وَنُسُكِي وَمَحْيَايَ وَمَمَاتِي لِلَّهِ رَبِّ الْعَالَمِينَ ﴾ [الأنعام: 162]"
+];
+
+$('#wirdBox').textContent = wirdList[Math.floor(Math.random()*wirdList.length)];
+$('#verseOfDay').textContent = dailyVerses[Math.floor(Math.random()*dailyVerses.length)];
+
+const prophetsStories = [
+  {
+    name: "آدم عليه السلام",
+    description: "أبو البشر، خلقه الله بيده ونفخ فيه من روحه، وأسكنه الجنة ثم أمر الملائكة بالسجود له. عصى آدم ربه فأهبط إلى الأرض تائباً منيباً.",
+    story: "خلق الله آدم من تراب، ثم سواه ونفخ فيه من روحه. علمه الأسماء كلها، ثم أمر الملائكة بالسجود له فأبى إبليس واستكبر. أسكن الله آدم وزوجه حواء الجنة، وأباح لهما كل شيء إلا شجرة واحدة، فوسوس لهما الشيطان فأكلا منها، فأنزلهما الله إلى الأرض. وتاب الله على آدم فغفر له.",
+    verses: ["﴿ وَإِذْ قُلْنَا لِلْمَلَائِكَةِ اسْجُدُوا لِآدَمَ فَسَجَدُوا إِلَّا إِبْلِيسَ أَبَىٰ ﴾ [البقرة: 34]", "﴿ فَتَلَقَّىٰ آدَمُ مِن رَّبِّهِ كَلِمَاتٍ فَتَابَ عَلَيْهِ ﴾ [البقرة: 37]"],
+    category: "prophets",
+    lessons: ["التواضع وعدم الكبر", "التوبة والرجوع إلى الله", "طاعة الله واجتناب معصيته"]
+  },
+  {
+    name: "نوح عليه السلام",
+    description: "أول رسول بعثه الله إلى أهل الأرض، دعا قومه 950 سنة، وصنع السفينة التي أنجته ومن آمن معه من الطوفان.",
+    story: "بعث الله نوحاً إلى قومه الذين كانوا يعبدون الأصنام، فدعاهم إلى عبادة الله وحده لا شريك له. استمر في دعوتهم 950 سنة، ولكن أكثرهم كذبوه واستهزؤوا به. أمره الله بصنع السفينة، فصنعها وسخر منه قومه. لما جاء أمر الله فتحت أبواب السماء بأمطار غزيرة، وفجرت الأرض عيوناً، فغرق الكافرون ونجا نوح والمؤمنون معه.",
+    verses: ["﴿ وَلَقَدْ أَرْسَلْنَا نُوحًا إِلَىٰ قَوْمِهِ فَلَبِثَ فِيهِمْ أَلْفَ سَنَةٍ إِلَّا خَمْسِينَ عَامًا ﴾ [العنكبوت: 14]", "﴿ وَاصْنَعِ الْفُلْكَ بِأَعْيُنِنَا وَوَحْيِنَا ﴾ [هود: 37]"],
+    category: "messengers",
+    lessons: ["الصبر على الدعوة", "الثقة في نصر الله", "الإخلاص في العمل لله"]
+  },
+  {
+    name: "إبراهيم عليه السلام",
+    description: "أبو الأنبياء، حطم الأصنام، وبنى الكعبة مع ابنه إسماعيل، وقدم ولده قرباناً لله ففداه بكبش عظيم.",
+    story: "ولد إبراهيم في بيئة تعبد الأصنام، فبحث عن ربه حتى هداه الله. حطم أصنام قومه إلا كبيرها، فحاكمه الملك وأراد حرقه، ولكن الله جعل النار برداً وسلاماً. هاجر مع زوجته سارة وابن أخيه لوط. رزقه الله بإسماعيل من هاجر، وأمره بذبحه فاستجاب، ففداه الله بكبش عظيم. بنى مع ابنه إسماعيل الكعبة، ودعا الله أن يبعث في العرب رسولاً منهم.",
+    verses: ["﴿ وَإِذِ ابْتَلَىٰ إِبْرَاهِيمَ رَبُّهُ بِكَلِمَاتٍ فَأَأْتَّمَّهُنَّ ﴾ [البقرة: 124]", "﴿ قَالَ بَل رَّبُّكُمْ رَبُّ السَّمَاوَاتِ وَالْأَرْضِ الَّذِي فَطَرَهُنَّ ﴾ [الأنبياء: 56]"],
+    category: "ulu-l-azm",
+    lessons: ["التوحيد الخالص", "الطاعة المطلقة لله", "الاحتساب والتضحية"]
+  },
+  {
+    name: "موسى عليه السلام",
+    description: "كليم الله، أرسله الله إلى فرعون وقومه، أيده بمعجزات منها العصا واليد البيضاء، وأنزل عليه التوراة.",
+    story: "ولد موسى في زمان كان فرعون يذبح أبناء بني إسرائيل. ألقته أمه في اليم فالتقطه آل فرعون وربّي في قصرهم. قتل رجلاً فخرج هارباً إلى مدين، حيث تزوج وعاد إلى مصر. كلمه الله عند الطور وأرسله إلى فرعون. أجرى الله على يديه معجزات منها العصا واليد البيضاء، ولكن فرعون استكبر. أهلك الله فرعون وجنوده في اليم، وأنزل على موسى التوراة.",
+    verses: ["﴿ وَكَلَّمَ اللَّهُ مُوسَىٰ تَكْلِيمًا ﴾ [النساء: 164]", "﴿ فَأَلْقَىٰ عَصَاهُ فَإِذَا هِيَ ثُعْبَانٌ مُّبِينٌ ﴾ [الأعراف: 107]"],
+    category: "ulu-l-azm",
+    lessons: ["الثقة في نصر الله", "الصبر على الأذى", "التوكل على الله"]
+  },
+  {
+    name: "عيسى عليه السلام",
+    description: "روح الله وكلمته، ولد من غير أب، أيده الله بمعجزات منها إحياء الموتى وإبراء الأكمه والأبرص.",
+    story: "ولد عيسى من مريم البتول من غير أب، تكلم في المهد دفاعاً عن أمه. بعثه الله رسولاً إلى بني إسرائيل، يؤيده بالمعجزات: يخلق من الطين كهيئة الطير فينفخ فيه فيكون طيراً، ويشفى الأكمه والأبرص، ويحيي الموتى. رفعه الله إليه حين أراد اليهود قتله، وسينزل في آخر الزمان فيقتل الدجال ويحكم بالإسلام.",
+    verses: ["﴿ إِنَّمَا الْمَسِيحُ عِيسَى ابْنُ مَرْيَمَ رَسُولُ اللَّهِ وَكَلِمَتُهُ ﴾ [النساء: 171]", "﴿ وَرَسُولًا إِلَىٰ بَنِي إِسْرَائِيلَ ﴾ [آل عمران: 49]"],
+    category: "ulu-l-azm",
+    lessons: ["قدرة الله المطلقة", "الاعتماد على الله", "الدعوة بالحكمة"]
+  },
+  {
+    name: "محمد صلى الله عليه وسلم",
+    description: "خاتم الأنبياء والمرسلين، بعثه الله رحمة للعالمين، أنزل عليه القرآن الكريم المعجزة الخالدة.",
+    story: "ولد محمد يتيماً، نشأ بين قوم يعبدون الأصنام. اتصف بالصدق والأمانة حتى لقب بالالصادق الأمين. نزل عليه الوحي وهو في غار حراء. دعا قومه إلى الإسلام فآمن به القليل وكذبه الكثير. هاجر إلى المدينة وأنشأ الدولة الإسلامية. غزا وقاد المعارك لنشر الإسلام. فتح مكة وطهر الكعبة من الأصنام. بلغ الرسالة وأدى الأمانة ونصح الأمة. توفي وترك القرآن والسنة منهجاً للأمة.",
+    verses: ["﴿ وَمَا أَرْسَلْنَاكَ إِلَّا رَحْمَةً لِّلْعَالَمِينَ ﴾ [الأنبياء: 107]", "﴿ مَّا كَانَ مُحَمَّدٌ أَبَا أَحَدٍ مِّن رِّجَالِكُمْ وَلَٰكِن رَّسُولَ اللَّهِ وَخَاتَمَ النَّبِيِّينَ ﴾ [الأحزاب: 40]"],
+    category: "ulu-l-azm",
+    lessons: ["الرحمة بالخلق", "الصبر والثبات", "الأمانة في تبليغ الرسالة"]
+  },
+  {
+    name: "يوسف عليه السلام",
+    description: "ابن يعقوب، رمي في البئر ثم بيع عبداً، سجن ظلماً ثم أصبح عزيز مصر.",
+    story: "كان يوسف أحب أبناء يعقوب إليه. رأى رؤيا أن أحد عشر كوكباً والشمس والقمر ساجدين له. حسده إخوته فألقوه في البئر. باعوه لتاجر فأوصله إلى مصر. حاولت امرأة العزيز فتنته فآثر السجن على المعصية. فسر رؤيا الملك فأصبح عزيز مصر. اجتمع مع إخوته وأبويه بعد سنوات، وتحقت رؤياه.",
+    verses: ["﴿ لَّقَدْ كَانَ فِي يُوسُفَ وَإِخْوَتِهِ آيَاتٌ لِّلسَّائِلِينَ ﴾ [يوسف: 7]", "﴿ إِنَّا أَنزَلْنَاهُ قُرْآنًا عَرَبِيًّا لَّعَلَّكُمْ تَعْقِلُونَ ﴾ [يوسف: 2]"],
+    category: "prophets",
+    lessons: ["الصبر على البلاء", "العفة والطهارة", "التوكل على الله"]
+  },
+  {
+    name: "سليمان عليه السلام",
+    description: "ابن داود، ملك عظيم آتاه الله ملكاً لا ينبغي لأحد من بعده، وسخر له الريح والجن والطير.",
+    story: "ورث سليمان النبوة والملك عن أبيه داود. آتاه الله ملكاً عظيماً، وسخر له الريح تجري بأمره، والجن يعملون بين يديه، والطير والحيوانات. حكم بين الناس بالعدل. بنى بيت المقدس. علمه الله منطق الطير. قصة مملكة سبأ وملكتها بلقيس من أشهر قصصه.",
+    verses: ["﴿ وَوَرِثَ سُلَيْمَانُ دَاوُودَ ﴾ [النمل: 16]", "﴿ وَسَخَّرْنَا مَعَ دَاوُودَ الْجِبَالَ يُسَبِّحْنَ وَالطَّيْرَ ﴾ [الأنبياء: 79]"],
+    category: "prophets",
+    lessons: ["الشكر للنعمة", "العدل في الحكم", "التواضع مع النعمة"]
+  },
+  {
+    name: "أيوب عليه السلام",
+    description: "نبي صابر، ابتلاه الله في بدنه وماله وأهله، فصبر واحتسب حتى عافاه الله.",
+    story: "كان أيوب رجلاً صالحاً كثير المال والولد. ابتلاه الله في جسده فمرض مرضاً شديداً، وفقد ماله وأولاده. صبر على البلاء واحتسب الأجر عند الله. دام مرضه سنوات طوال، ولم يجزع أو يشك. دعا ربه: \"رب إني مسني الضر وأنت أرحم الراحمين\". فاستجاب الله له وعافاه ورد عليه أهله وماله مضاعفاً.",
+    verses: ["﴿ وَأَيُّوبَ إِذْ نَادَىٰ رَبَّهُ أَنِّي مَسَّنِيَ الضُّرُّ وَأَنتَ أَرْحَمُ الرَّاحِمِينَ ﴾ [الأنبياء: 83]", "﴿ إِنَّا وَجَدْنَاهُ صَابِرًا نِّعْمَ الْعَبْدُ إِنَّهُ أَوَّابٌ ﴾ [ص: 44]"],
+    category: "prophets",
+    lessons: ["الصبر على البلاء", "الرجاء في رحمة الله", "الدعاء عند الشدة"]
+  },
+  {
+    name: "يونس عليه السلام",
+    description: "نبي أرسله الله إلى قومه فكذبوه، تركهم دون إذن ربه فابتلعه الحوت، فنادى في الظلمات فاستجاب الله له.",
+    story: "أرسل الله يونس إلى أهل نينوى في العراق. دعاهم إلى التوحيد فكذبوه. غضب وتركهم دون أن يأذن له ربه. ركب سفينة فهاج البحر، فألقى بنفسه في البحر فابتلعه الحوت. في بطن الحوت، في ظلمات البحر، نادى: \"لا إله إلا أنت سبحانك إني كنت من الظالمين\". فاستجاب الله له وأنجاه من الغم.",
+    verses: ["﴿ وَذَا النُّونِ إِذ ذَّهَبَ مُغَاضِبًا فَظَنَّ أَن لَّن نَّقْدِرَ عَلَيْهِ ﴾ [الأنبياء: 87]", "﴿ فَنَادَىٰ فِي الظُّلُمَاتِ أَن لَّا إِلَٰهَ إِلَّا أَنتَ سُبْحَانَكَ إِنِّي كُنتَ مِنَ الظَّالِمِينَ ﴾ [الأنبياء: 87]"],
+    category: "prophets",
+    lessons: ["لا تيأس من رحمة الله", "التوبة والإنابة", "الدعاء في الشدة"]
+  },
+  {
+    name: "لوط عليه السلام",
+    description: "ابن أخي إبراهيم، أرسله الله إلى قوم سدوم الذين كانوا يأتون الفاحشة، فأهلكهم الله بالحجارة.",
+    story: "أرسل الله لوطاً إلى قوم سدوم الذين كانوا يأتون الرجال شهوة من دون النساء. دعاهم إلى ترك هذه الفاحشة، ولكنهم استمروا في غيهم. جاءته الملائكة في صورة شباب، فخاف عليهم من قومه. حاول القوم الاعتداء على الضيوف، فأنقذ الله لوطاً وأهله إلا امرأته التي كانت من الغابرين. قلب الله عليهم القرية وجعل عاليها سافلها وأمطر عليهم حجارة من سجيل.",
+    verses: ["﴿ وَلُوطًا إِذْ قَالَ لِقَوْمِهِ أَتَأْتُونَ الْفَاحِشَةَ مَا سَبَقَكُم بِهَا مِنْ أَحَدٍ مِّنَ الْعَالَمِينَ ﴾ [الأعراف: 80]", "﴿ فَجَعَلْنَا عَالِيَهَا سَافِلَهَا وَأَمْطَرْنَا عَلَيْهِمْ حِجَارَةً مِّن سِجِّيلٍ ﴾ [الحجر: 74]"],
+    category: "prophets",
+    lessons: ["محاربة الفواحش", "الصبر على أذى القوم", "عاقبة المعاصي"]
+  },
+  {
+    name: "هود عليه السلام",
+    description: "أرسله الله إلى قوم عاد الأقوياء الذين بنوا الأبنية الشاهقة، فكذبوه فأهلكهم الله بريح صرصر عاتية.",
+    story: "أرسل الله هوداً إلى قوم عاد الذين كانوا أقوياء أشداء، بنوا الأبنية الشاهقة، واتخذوا الآلهة من دون الله. دعاهم هود إلى عبادة الله وحده، وذكّرهم بنعم الله عليهم. كذبوه واستهزؤوا به، وقالوا: \"من أشد منا قوة؟\". أرسل الله عليهم ريحاً صرصراً عاتية سبع ليال وثمانية أيام حسوماً، فدمرتهم وأصبحوا لا يرى إلا مساكنهم.",
+    verses: ["﴿ وَإِلَىٰ عَادٍ أَخَاهُمْ هُودًا قَالَ يَا قَوْمِ اعْبُدُوا اللَّهَ مَا لَكُم مِّنْ إِلَٰهٍ غَيْرُهُ ﴾ [الأعراف: 65]", "﴿ فَأَرْسَلْنَا عَلَيْهِمْ رِيحًا صَرْصَرًا فِي أَيَّامٍ نَّحِسَاتٍ ﴾ [فصلت: 16]"],
+    category: "prophets",
+    lessons: ["التوكل على الله لا على القوة", "الاعتبار بقصص السابقين", "عاقبة الكفر والتكبر"]
+  }
+];
+
+const quranStories = [
+  {
+    title: "قصة أهل الكهف",
+    description: "فتية آمنوا بربهم وهربوا من ظلم الملك، أووا إلى الكهف فناموا 309 سنوات.",
+    details: "كانوا فتية من أهل المدينة آمنوا بالله ورفضوا عبادة الأصنام. هربوا من الملك الظالم ولجأوا إلى كهف في الجبل. ناموا فيه 309 سنوات ثم بعثهم الله. بعثوا أحدهم ليشترى طعاماً، فتعجب الناس من نقوده القديمة. عادوا إلى الكهف ثم توفاهم الله. قصتهم آية في البعث والتدبير الإلهي.",
+    verses: ["﴿ أَمْ حَسِبْتَ أَنَّ أَصْحَابَ الْكَهْفِ وَالرَّقِيمِ كَانُوا مِنْ آيَاتِنَا عَجَبًا ﴾ [الكهف: 9]"],
+    surah: "الكهف",
+    lessons: ["الثبات على الإيمان", "التوكل على الله", "الإيمان بالبعث"]
+  },
+  {
+    title: "قصة ذي القرنين",
+    description: "ملك عادل طاف الأرض شرقاً وغرباً، بنى سداً ليحمي الناس من يأجوج ومأجوج.",
+    details: "آتاه الله ملكاً وقوة، فطاف الأرض يدعو إلى الله ويقاتل الظالمين. وصل إلى مغرب الشمس حيث رأى الشمس تغرب في عين حمئة. ثم طاف حتى وصل إلى مطلع الشمس. ثم وصل إلى قوم بين سدين يشتكون من اعتداء يأجوج ومأجوج. بنى لهم سداً من الحديد والنحاس ليحميهم. كان ملكاً عادلاً مؤمناً باله.",
+    verses: ["﴿ وَيَسْأَلُونَكَ عَن ذِي الْقَرْنَيْنِ قُلْ سَأَتْلُو عَلَيْكُم مِّنْهُ ذِكْرًا ﴾ [الكهف: 83]"],
+    surah: "الكهف",
+    lessons: ["العدل في الحكم", "استخدام النعمة في الخير", "حماية الضعفاء"]
+  },
+  {
+    title: "قصة الخضر وموسى",
+    description: "صحب موسى العبد الصالح الخضر ليتعلم منه، فصبر على أعمال غريبة ثم عرف حكمتها.",
+    details: "طلب موسى من الله أن يلقنه علماً. أمره أن يلحق بالعبد الصالح الخضر. وجده فطلب منه أن يصحبه ليتعلم منه. اشترط عليه الصبر. خرق السفينة، وقتل الغلام، وأقام الجدار. اعترض موسى في كل مرة. في النهاية بين له الخضر حكمة أفعاله: خرق السفينة لإنقاذها من الملك الظالم، وقتل الغلام لأنه كان كافراً وسيُكره أبويه، وأقام الجدار ليستخرج الكنز لليتيمين.",
+    verses: ["﴿ فَوَجَدَا عَبْدًا مِّنْ عِبَادِنَا آتَيْنَاهُ رَحْمَةً مِّنْ عِندِنَا وَعَلَّمْنَاهُ مِن لَّدُنْا عِلْمًا ﴾ [الكهف: 65]"],
+    surah: "الكهف",
+    lessons: ["الصبر على التعلم", "التسليم لأمر الله", "حكمة الله في تقديره"]
+  },
+  {
+    title: "قصة مريم عليها السلام",
+    description: "البَتول الطاهرة التي ولدت عيسى من غير أب، تكلم في المهد معجزة.",
+    details: "كانت مريم ابنة عمران، تقية نقية. كفلها زكريا. بشرتها الملائكة بعيسى. اعتزلت الناس فجاءها المخاض إلى جذع النخلة. أوحى الله إليها أن تهز الجذع فتساقط عليها رطباً جنياً. جاءت بقومها تحمله، فقالوا: \"يا مريم لقد جئت شيئاً فرياً\". فأشارت إليه فتكلم في المهد: \"إني عبد الله آتاني الكتاب وجعلني نبياً\".",
+    verses: ["﴿ وَاذْكُرْ فِي الْكِتَابِ مَرْيَمَ إِذِ انتَبَذَتْ مِنْ أَهْلِهَا مَكَانًا شَرْقِيًّا ﴾ [مريم: 16]"],
+    surah: "مريم",
+    lessons: ["التقوى والطهارة", "قدرة الله المطلقة", "الصبر على البلاء"]
+  },
+  {
+    title: "قصة أصحاب السبت",
+    description: "قوم من بني إسرائيل اعتدوا في السبت فمسخهم الله قردة.",
+    details: "كان لبني إسرائيل يوم السبت الذي حرّمه الله عليهم. كان الحيتان تأتيهم يوم السبت شرعاً على سطح الماء. فاحتالوا بحيل ليصطادوها في السبت. أنذرهم النبيون فلم ينتهوا. فمسخهم الله قردة خاسئين. وكانت قرية على ساحل البحر.",
+    verses: ["﴿ وَلَقَدْ عَلِمْتُمُ الَّذِينَ اعْتَدَوْا مِنكُمْ فِي السَّبْتِ فَقُلْنَا لَهُمْ كُونُوا قِرَدَةً خَاسِئِينَ ﴾ [البقرة: 65]"],
+    surah: "البقرة",
+    lessons: ["الالتزام بأوامر الله", "عدم الاحتيال على الشرع", "عاقبة المعصية"]
+  },
+  {
+    title: "قصة قارون",
+    description: "كان من قوم موسى، آتاه الله مالاً كثيراً فتكبر وبغى، فخسف الله به وبداره الأرض.",
+    details: "كان قارون من قوم موسى، آتاه الله كنوزاً عظيمة حتى كان مفاتحها تتعب العصبة أولي القوة. تكبر وتجبر وظلم. نصحه القوم: \"لا تفرح إن الله لا يحب الفرحين\". فاستكبر وقال: \"إنما أوتيته على علم عندي\". فخسف الله به وبداره الأرض، فما كان من ينصره من دون الله.",
+    verses: ["﴿ إِنَّ قَارُونَ كَانَ مِن قَوْمِ مُوسَىٰ فَبَغَىٰ عَلَيْهِمْ ﴾ [القصص: 76]"],
+    surah: "القصص",
+    lessons: ["خطر الغرور بالمال", "شكر نعم الله", "زوال الدنيا وبقاء الآخرة"]
+  },
+  {
+    title: "قصة طالوت وجالوت",
+    description: "مختصر القصة: اختار الله طالوت ملكاً على بني إسرائيل، وقاتل جالوت بقيادة داود.",
+    details: "طلب بنو إسرائيل نبياً لهم أن يبعث الله لهم ملكاً يقاتلون تحت رايته. اختار الله طالوت ملكاً فاعترضوا لأنه ليس ذا مال. آتاه الله العلم والجسم. اختبرهم بالنهر: من شرب منه فليس مني إلا من اغترف غرفة. قاتلوا جالوت وجنوده. قتل داود جالوت فآتاه الله الملك والنبوة.",
+    verses: ["﴿ أَلَمْ تَرَ إِلَى الْمَلَإِ مِن بَنِي إِسْرَائِيلَ مِن بَعْدِ مُوسَىٰ ﴾ [البقرة: 246]"],
+    surah: "البقرة",
+    lessons: ["طاعة ولي الأمر", "الصبر على الابتلاء", "نصر الله للمؤمنين"]
+  },
+  {
+    title: "قصة أصحاب الفيل",
+    description: "جيش أبرهة الحبشي الذي جاء لهدم الكعبة، أرسل الله عليهم طيراً أبابيل.",
+    details: "جاء أبرهة الأشرم بجيش كبير ومعه الفيلة لهدم الكعبة. ساق معه فيلاً عظيماً. لما أراد دخول مكة، برك الفيل ولم يقم. أرسل الله عليهم طيراً أبابيل ترميهم بحجارة من سجيل. جعلهم كعصف مأكول. وكانت هذه الحادثة قبل مولد النبي صلى الله عليه وسلم.",
+    verses: ["﴿ أَلَمْ تَرَ كَيْفَ فَعَلَ رَبُّكَ بِأَصْحَابِ الْفِيلِ ﴾ [الفيل: 1]"],
+    surah: "الفيل",
+    lessons: ["حفظ الله لبيته", "عجز القوة البشرية أمام إرادة الله", "التوكل على الله"]
+  }
+];
+
+const hadiths = [
+  {
+    text: "«إنما الأعمالُ بالنيات، وإنما لكل امرئ ما نوى، فمن كانت هجرته إلى الله ورسوله فهجرته إلى الله ورسوله، ومن كانت هجرته لدنيا يصيبها أو امرأة ينكحها فهجرته إلى ما هاجر إليه»",
+    source: "رواه البخاري ومسلم",
+    category: "الإيمان",
+    explanation: "هذا الحديث أصل عظيم في الإسلام، وهو معيار لقبول الأعمال، فنية المؤمن خير من عمله."
+  },
+  {
+    text: "«الدين النصيحة. قلنا: لمن؟ قال: لله، ولكتابه، ولرسوله، ولأئمة المسلمين وعامتهم»",
+    source: "رواه مسلم",
+    category: "الأخلاق",
+    explanation: "النصيحة ركن من أركان الدين، وهي خلق الأنبياء والمرسلين، وعلامة على صحة الإيمان."
+  },
+  {
+    text: "«لا يؤمن أحدكم حتى يحب لأخيه ما يحب لنفسه»",
+    source: "رواه البخاري ومسلم",
+    category: "الأخلاق",
+    explanation: "حب الخير للآخرين كما تحبه لنفسك من كمال الإيمان، وهو ينفي الحسد والبغض من القلب."
+  },
+  {
+    text: "«من كان يؤمن بالله واليوم الآخر فليقل خيراً أو ليصمت»",
+    source: "رواه البخاري ومسلم",
+    category: "الأخلاق",
+    explanation: "اللسان نعمة عظيمة، والتحكم فيه من علامات الإيمان، وخير الكلام ما نفع أو سكت عنه."
+  },
+  {
+    text: "«اتق الله حيثما كنت، وأتبع السيئة الحسنة تمحها، وخالق الناس بخلق حسن»",
+    source: "رواه الترمذي",
+    category: "الأخلاق",
+    explanation: "التقوى في السر والعلن، ومحو السيئات بالحسنات، وحسن الخلق مع الناس."
+  },
+  {
+    text: "«الراحمون يرحمهم الرحمن، ارحموا من في الأرض يرحمكم من في السماء»",
+    source: "رواه الترمذي",
+    category: "الرحمة",
+    explanation: "الرحمة صفة المؤمن، ومن رحم الخلق رحمه الخالق، وهي سبب لنزول الرحمة الإلهية."
+  },
+  {
+    text: "«الكلمة الطيبة صدقة»",
+    source: "رواه البخاري ومسلم",
+    category: "الأخلاق",
+    explanation: "الكلام الطيب له أجر الصدقة، وهو يفرج الهموم ويصلح القلوب ويبني المجتمعات."
+  },
+  {
+    text: "«المسلم من سلم المسلمون من لسانه ويده»",
+    source: "رواه البخاري ومسلم",
+    category: "الإسلام",
+    explanation: "حقيقة الإسلام أن يكون المسلم آمناً للناس في أنفسهم وأموالهم وأعراضهم."
+  },
+  {
+    text: "«إن الله لا ينظر إلى صوركم وأموالكم، ولكن ينظر إلى قلوبكم وأعمالكم»",
+    source: "رواه مسلم",
+    category: "الإيمان",
+    explanation: "معيار التفاضل عند الله هو التقوى والعمل الصالح، لا المال ولا الجاه ولا النسب."
+  },
+  {
+    text: "«من صلى البردين دخل الجنة» والبردان: الفجر والعصر",
+    source: "رواه البخاري ومسلم",
+    category: "الصلاة",
+    explanation: "المحافظة على صلاة الفجر والعصر من أسباب دخول الجنة، وهما أشق الصلوات على المنافقين."
+  },
+  {
+    text: "«صلاة الجماعة تفضل صلاة الفذ بسبع وعشرين درجة»",
+    source: "رواه البخاري ومسلم",
+    category: "الصلاة",
+    explanation: "صلاة الجماعة فيها أجر عظيم، وهي تزيد على صلاة المنفرد بسبع وعشرين درجة."
+  },
+  {
+    text: "«لا تدخلون الجنة حتى تؤمنوا، ولا تؤمنوا حتى تحابوا، أولا أدلكم على شيء إذا فعلتموه تحاببتم؟ أفشوا السلام بينكم»",
+    source: "رواه مسلم",
+    category: "الأخلاق",
+    explanation: "إفشاء السلام سبب للمحبة والألفة بين المسلمين، والمحبة من ثمرات الإيمان."
+  },
+  {
+    text: "«من صلى علي صلاة صلى الله عليه بها عشراً»",
+    source: "رواه مسلم",
+    category: "الدعاء",
+    explanation: "الصلاة على النبي من أعظم العبادات، وفيها أجر عظيم، وهي سبب لنيل شفاعته صلى الله عليه وسلم."
+  },
+  {
+    text: "«الصيام جنة، فإذا كان يوم صوم أحدكم فلا يرفث ولا يصخب، فإن سابه أحد أو قاتله فليقل: إني صائم»",
+    source: "رواه البخاري ومسلم",
+    category: "الصيام",
+    explanation: "الصيام وقاية من النار وسبب للتقوى، وعلى الصائم أن يحفظ لسانه وجوارحه."
+  },
+  {
+    text: "«من غشنا فليس منا»",
+    source: "رواه مسلم",
+    category: "المعاملات",
+    explanation: "الغش خلق ذميم، وهو ناقض للأمانة، والمؤمن بعيد عن الغش والخداع."
+  },
+  {
+    text: "«اليد العليا خير من اليد السفلى، واليد العليا هي المنفقة، واليد السفلى هي السائلة»",
+    source: "رواه البخاري ومسلم",
+    category: "الزكاة",
+    explanation: "العطاء والإنفاق أفضل من الأخذ والسؤال، والكرامة في العطاء لا في الأخذ."
+  },
+  {
+    text: "«طلب العلم فريضة على كل مسلم»",
+    source: "رواه ابن ماجه",
+    category: "العلم",
+    explanation: "طلب العلم واجب على كل مسلم ومسلمة، وهو طريق إلى معرفة الله وعبادته حق عبادته."
+  },
+  {
+    text: "«خيركم من تعلم القرآن وعلمه»",
+    source: "رواه البخاري",
+    category: "القرآن",
+    explanation: "تعلم القرآن وتعليمه من أفضل الأعمال، وهو طريق إلى الفلاح في الدنيا والآخرة."
+  },
+  {
+    text: "«إن في الجنة غرفاً يُرى ظاهرها من باطنها، وباطنها من ظاهرها، أعدها الله لمن أطعم الطعام، وأفشى السلام، وصلى بالليل والناس نيام»",
+    source: "رواه الترمذي",
+    category: "الجنة",
+    explanation: "إطعام الطعام وإفشاء السلام وقيام الليل من أسباب نيل الدرجات العلى في الجنة."
+  },
+  {
+    text: "«ما نقص مال من صدقة»",
+    source: "رواه مسلم",
+    category: "الزكاة",
+    explanation: "الصدقة لا تنقص المال بل تزيده بركة ونماء، وهي سبب لحفظ الله للعبد وماله."
+  }
+];
+
+const hadithCategories = [
+  {name: "الإيمان", count: 3, icon: "fas fa-heart"},
+  {name: "الأخلاق", count: 6, icon: "fas fa-hands-helping"},
+  {name: "الصلاة", count: 3, icon: "fas fa-pray"},
+  {name: "الصيام", count: 1, icon: "fas fa-utensils"},
+  {name: "الزكاة", count: 2, icon: "fas fa-hand-holding-usd"},
+  {name: "العلم", count: 1, icon: "fas fa-graduation-cap"},
+  {name: "القرآن", count: 1, icon: "fas fa-book-quran"},
+  {name: "الجنة", count: 1, icon: "fas fa-star"},
+  {name: "الدعاء", count: 1, icon: "fas fa-hands"},
+  {name: "المعاملات", count: 1, icon: "fas fa-handshake"}
+];
+
+const AZKAR = {
+  morning: [
+    {
+      text: "أصبحنا وأصبح الملك لله، والحمد لله، لا إله إلا الله وحده لا شريك له، له الملك وله الحمد، وهو على كل شيء قدير. رب أسألك خير ما في هذا اليوم وخير ما بعده، وأعوذ بك من شر ما في هذا اليوم وشر ما بعده، رب أعوذ بك من الكسل وسوء الكبر، رب أعوذ بك من عذاب في النار وعذاب في القبر",
+      count: "مرة واحدة",
+      reward: "من قالها حين يصبح أدى شكر يومه"
+    },
+    {
+      text: "اللهم بك أصبحنا، وبك أمسينا، وبك نحيا، وبك نموت، وإليك النشور",
+      count: "مرة واحدة",
+      reward: "من قالها أمن من الفقر"
+    },
+    {
+      text: "اللهم أنت ربي لا إله إلا أنت، خلقتني وأنا عبدك، وأنا على عهدك ووعدك ما استطعت، أعوذ بك من شر ما صنعت، أبوء لك بنعمتك علي، وأبوء بذنبي فاغفر لي فإنه لا يغفر الذنوب إلا أنت",
+      count: "مرة واحدة",
+      reward: "من قالها موقناً بها حين يمسي فمات من ليلته دخل الجنة"
+    },
+    {
+      text: "سبحان الله وبحمده (100 مرة)",
+      count: "100 مرة",
+      reward: "حُطَّت خطاياه وإن كانت مثل زبد البحر"
+    }
+  ],
+  evening: [
+    {
+      text: "أمسينا وأمسى الملك لله، والحمد لله، لا إله إلا الله وحده لا شريك له، له الملك وله الحمد، وهو على كل شيء قدير. رب أسألك خير ما في هذه الليلة وخير ما بعدها، وأعوذ بك من شر ما في هذه الليلة وشر ما بعدها، رب أعوذ بك من الكسل وسوء الكبر، رب أعوذ بك من عذاب في النار وعذاب في القبر",
+      count: "مرة واحدة",
+      reward: "من قالها حين يمسي أدى شكر ليلته"
+    },
+    {
+      text: "اللهم بك أمسينا، وبك أصبحنا، وبك نحيا، وبك نموت، وإليك المصير",
+      count: "مرة واحدة",
+      reward: "من قالها أمن من الفقر"
+    },
+    {
+      text: "اللهم إني أمسيت أشهدك، وأشهد حملة عرشك، وملائكتك، وجميع خلقك، أنك أنت الله لا إله إلا أنت، وأن محمداً عبدك ورسولك",
+      count: "مرة واحدة",
+      reward: "من قالها أعتقه الله من النار"
+    },
+    {
+      text: "أستغفر الله الذي لا إله إلا هو الحي القيوم وأتوب إليه (100 مرة)",
+      count: "100 مرة",
+      reward: "غفرت ذنوبه ولو كانت مثل زبد البحر"
+    }
+  ],
+  afterPrayer: [
+    {
+      text: "أستغفر الله (3 مرات) اللهم أنت السلام ومنك السلام تباركت يا ذا الجلال والإكرام",
+      count: "3 مرات",
+      reward: "مغفرة الذنوب"
+    },
+    {
+      text: "لا إله إلا الله وحده لا شريك له، له الملك وله الحمد وهو على كل شيء قدير (10 مرات بعد الفجر والمغرب)",
+      count: "10 مرات",
+      reward: "كتب له عشر حسنات، ومحي عنه عشر سيئات، ورفع له عشر درجات"
+    },
+    {
+      text: "سبحان الله (33 مرة) الحمد لله (33 مرة) الله أكبر (34 مرة)",
+      count: "100 مرة",
+      reward: "خير مما طلعت عليه الشمس"
+    }
+  ],
+  sleep: [
+    {
+      text: "باسمك اللهم أموت وأحيا",
+      count: "مرة واحدة",
+      reward: "حفظ من الشيطان"
+    },
+    {
+      text: "اللهم أسلمت نفسي إليك، ووجهت وجهي إليك، وفوضت أمري إليك، وألجأت ظهري إليك، رغبة ورهبة إليك، لا ملجأ ولا منجا منك إلا إليك، آمنت بكتابك الذي أنزلت، وبنبيك الذي أرسلت",
+      count: "مرة واحدة",
+      reward: "من مات على ذلك مات على الفطرة"
+    },
+    {
+      text: "سبحان الله (33 مرة) الحمد لله (33 مرة) الله أكبر (34 مرة)",
+      count: "100 مرة",
+      reward: "كانت له عدل رقبة"
+    }
+  ],
+  wakeup: [
+    {
+      text: "الحمد لله الذي أحيانا بعد ما أماتنا وإليه النشور",
+      count: "مرة واحدة",
+      reward: "شكر النعمة"
+    },
+    {
+      text: "لا إله إلا الله وحده لا شريك له، له الملك وله الحمد، وهو على كل شيء قدير، سبحان الله، والحمد لله، ولا إله إلا الله، والله أكبر، ولا حول ولا قوة إلا بالله العلي العظيم",
+      count: "مرة واحدة",
+      reward: "غفرت ذنوبه"
+    }
+  ],
+  general: [
+    {
+      text: "سبحان الله وبحمده سبحان الله العظيم",
+      count: "100 مرة",
+      reward: "حطت خطاياه وإن كانت مثل زبد البحر"
+    },
+    {
+      text: "لا إله إلا الله الملك الحق المبين",
+      count: "100 مرة",
+      reward: "كانت له عدل عشر رقاب، وكتبت له مئة حسنة، ومحيت عنه مئة سيئة"
+    },
+    {
+      text: "اللهم صل على محمد وعلى آل محمد كما صليت على إبراهيم وعلى آل إبراهيم إنك حميد مجيد، اللهم بارك على محمد وعلى آل محمد كما باركت على إبراهيم وعلى آل إبراهيم إنك حميد مجيد",
+      count: "10 مرات",
+      reward: "صلى الله عليه عشر صلوات، وحط عنه عشر خطيئات، ورفع له عشر درجات"
+    }
+  ]
+};
+
+const ADIYAH = {
+  quran: {
+    title: "دعاء ختم القرآن",
+    text: "اللهم ارحمني بالقرآن واجعله لي إماماً ونوراً وهدى ورحمة. اللهم ذكرني منه ما نسيت، وعلمني منه ما جهلت، وارزقني تلاوته آناء الليل وأطراف النهار، واجعله لي حجة يا رب العالمين."
+  },
+  sickness: {
+    title: "دعاء المرض",
+    text: "اللهم رب الناس، أذهب البأس، اشف أنت الشافي، لا شفاء إلا شفاؤك، شفاء لا يغادر سقماً. اللهم عافني في بدني، اللهم عافني في سمعي، اللهم عافني في بصري، لا إله إلا أنت."
+  },
+  travel: {
+    title: "دعاء السفر",
+    text: "الله أكبر، الله أكبر، الله أكبر، سبحان الذي سخر لنا هذا وما كنا له مقرنين، وإنا إلى ربنا لمنقلبون. اللهم إنا نسألك في سفرنا هذا البر والتقوى، ومن العمل ما ترضى، اللهم هون علينا سفرنا هذا، واطو عنا بعده، اللهم أنت الصاحب في السفر، والخليفة في الأهل."
+  },
+  rain: {
+    title: "دعاء نزول المطر",
+    text: "اللهم صيباً نافعاً، اللهم صيباً هنيئاً، اللهم لا تقتلنا بغضبك، ولا تهلكنا بعذابك، وعافنا قبل ذلك. اللهم اسقنا غيثاً مغيثاً مريئاً نافعاً غير ضار."
+  }
+};
+
+const islamicQuestions = [
+  {
+    question: "ما هي أركان الإسلام؟",
+    answer: "أركان الإسلام خمسة: شهادة أن لا إله إلا الله وأن محمداً رسول الله، إقام الصلاة، إيتاء الزكاة، صوم رمضان، وحج البيت لمن استطاع إليه سبيلا.",
+    category: "aqeedah",
+    source: "حديث جبريل المشهور"
+  },
+  {
+    question: "ما هي أركان الإيمان؟",
+    answer: "أركان الإيمان ستة: الإيمان بالله، وملائكته، وكتبه، ورسله، واليوم الآخر، والقدر خيره وشره.",
+    category: "aqeedah",
+    source: "حديث جبريل المشهور"
+  },
+  {
+    question: "ما هي شروط الصلاة؟",
+    answer: "شروط الصلاة تسعة: الإسلام، والعقل، والتمييز، ورفع الحدث، وإزالة النجاسة، وستر العورة، ودخول الوقت، واستقبال القبلة، والنية.",
+    category: "fiqh",
+    source: "كتب الفقه"
+  },
+  {
+    question: "ما هي مبطلات الصلاة؟",
+    answer: "من مبطلات الصلاة: ترك ركن أو شرط من شروطها عمداً، الكلام عمداً، الأكل والشرب، الضحك، الخروج من الصلاة بغير سبب شرعي.",
+    category: "fiqh",
+    source: "كتب الفقه"
+  },
+  {
+    question: "ما أول ما نزل من القرآن الكريم؟",
+    answer: "أول ما نزل من القرآن الكريم هو قوله تعالى: ﴿ اقْرَأْ بِاسْمِ رَبِّكَ الَّذِي خَلَقَ ﴾ من سورة العلق.",
+    category: "quran",
+    source: "سورة العلق"
+  },
+  {
+    question: "ما هي آخر آية نزلت من القرآن؟",
+    answer: "آخر آية نزلت من القرآن هي قوله تعالى: ﴿ وَاتَّقُوا يَوْمًا تُرْجَعُونَ فِيهِ إِلَى اللَّهِ ثُمَّ تُوَفَّىٰ كُلُّ نَفْسٍ مَّا كَسَبَتْ وَهُمْ لَا يُظْلَمُونَ ﴾ [البقرة: 281].",
+    category: "quran",
+    source: "سورة البقرة"
+  },
+  {
+    question: "كم عدد الأنبياء والرسل؟",
+    answer: "عدد الأنبياء والرسل كثير، وقد ورد في الحديث: «كانت بنو إسرائيل تسوسهم الأنبياء، كلما هلك نبي خلفه نبي، وإنه لا نبي بعدي» (متفق عليه). وقد ذكر القرآن 25 نبياً ورسولاً.",
+    category: "aqeedah",
+    source: "القرآن والحديث"
+  },
+  {
+    question: "ما هي السور المكية والمدنية؟",
+    answer: "السور المكية: هي التي نزلت قبل الهجرة ولو بغير مكة، وتتميز بموضوعات العقيدة والأخلاق. السور المدنية: هي التي نزلت بعد الهجرة ولو بغير المدينة، وتتميز بموضوعات التشريع والأحكام.",
+    category: "quran",
+    source: "علوم القرآن"
+  },
+  {
+    question: "ما هي الصلوات الخمس وعدد ركعاتها؟",
+    answer: "الصلوات الخمس هي: الفجر (ركعتان)، الظهر (4 ركعات)، العصر (4 ركعات)، المغرب (3 ركعات)، العشاء (4 ركعات).",
+    category: "fiqh",
+    source: "السنة النبوية"
+  },
+  {
+    question: "ما هي أعمال الحج؟",
+    answer: "أعمال الحج هي: الإحرام، الوقوف بعرفة، المبيت بمزدلفة، رمي الجمرات، الطواف، السعي، الحلق أو التقصير.",
+    category: "fiqh",
+    source: "مناسك الحج"
+  },
+  {
+    question: "ما هي الغزوات التي شارك فيها الرسول صلى الله عليه وسلم؟",
+    answer: "غزوات الرسول صلى الله عليه وسلم 27 غزوة، أشهرها: بدر، أحد، الخندق، خيبر، فتح مكة، حنين، تبوك.",
+    category: "seerah",
+    source: "السيرة النبوية"
+  },
+  {
+    question: "من هم الخلفاء الراشدون؟",
+    answer: "الخلفاء الراشدون هم: أبو بكر الصديق، عمر بن الخطاب، عثمان بن عفان، علي بن أبي طالب رضي الله عنهم.",
+    category: "seerah",
+    source: "التاريخ الإسلامي"
+  },
+  {
+    question: "ما هي أحكام الطهارة؟",
+    answer: "الطهارة تنقسم إلى: طهارة من الحدث (الوضوء، الغسل، التيمم)، وطهارة من الخبث (إزالة النجاسة). وهي شرط لصحة الصلاة.",
+    category: "fiqh",
+    source: "كتب الفقه"
+  },
+  {
+    question: "ما هي أنواع الزكاة؟",
+    answer: "الزكاة أنواع: زكاة المال، زكاة الفطر، زكاة الزروع والثمار، زكاة الأنعام، زكاة المعدن والركاز.",
+    category: "fiqh",
+    source: "كتب الفقه"
+  },
+  {
+    question: "ما هي آداب تلاوة القرآن؟",
+    answer: "من آداب تلاوة القرآن: الطهارة، استقبال القبلة، الترتيل، التدبر، عدم الانشغال بأمور الدنيا، الخشوع والبكاء.",
+    category: "quran",
+    source: "آداب التلاوة"
+  }
+];
+
+const additionalHadiths = [
+  {
+    text: "«من سلك طريقاً يلتمس فيه علماً سهل الله له به طريقاً إلى الجنة»",
+    source: "رواه مسلم",
+    category: "العلم",
+    explanation: "فضل طلب العلم وثوابه العظيم عند الله تعالى."
+  },
+  {
+    text: "«من لا يشكر الناس لا يشكر الله»",
+    source: "رواه الترمذي",
+    category: "الأخلاق",
+    explanation: "الحث على شكر الناس والمعروف، وعلاقة ذلك بشكر الله تعالى."
+  },
+  {
+    text: "«تبسمك في وجه أخيك صدقة»",
+    source: "رواه الترمذي",
+    category: "الأخلاق",
+    explanation: "البشاشة والتبسم من أبواب الخير والمعروف بين الناس."
+  },
+  {
+    text: "«البر حسن الخلق، والإثم ما حاك في نفسك وكرهت أن يطلع عليه الناس»",
+    source: "رواه مسلم",
+    category: "الأخلاق",
+    explanation: "معيار معرفة الخير والشر من خلال ما تستريح له النفس وما تستنكره."
+  },
+  {
+    text: "«ما نقص مال من صدقة، وما زاد الله عبداً بعفو إلا عزاً، وما تواضع أحد لله إلا رفعه الله»",
+    source: "رواه مسلم",
+    category: "الأخلاق",
+    explanation: "الفوائد العظيمة للصدقة والعفو والتواضع."
+  },
+  {
+    text: "«من كان في حاجة أخيه كان الله في حاجته»",
+    source: "رواه البخاري",
+    category: "التعاون",
+    explanation: "فضل قضاء حوائج المسلمين ومساعدة بعضهم البعض."
+  },
+  {
+    text: "«لا تغضب»",
+    source: "رواه البخاري",
+    category: "الأخلاق",
+    explanation: "الوصية النبوية بالابتعاد عن الغضب ومفاتحه."
+  },
+  {
+    text: "«أحب الأعمال إلى الله أدومها وإن قل»",
+    source: "رواه البخاري ومسلم",
+    category: "العبادة",
+    explanation: "فضل العمل الدائم المستمر وإن كان قليلاً."
+  },
+  {
+    text: "«إن الله يحب إذا عمل أحدكم عملاً أن يتقنه»",
+    source: "رواه البيهقي",
+    category: "العمل",
+    explanation: "الحث على إتقان العمل وإحسان الصنعة."
+  },
+  {
+    text: "«الدنيا سجن المؤمن وجنة الكافر»",
+    source: "رواه مسلم",
+    category: "الزهد",
+    explanation: "حقيقة الدنيا ومكانتها عند المؤمن والكافر."
+  }
+];
+
+const additionalAdiyah = {
+  forgiveness: {
+    title: "دعاء الاستغفار",
+    text: "اللهم أنت ربي لا إله إلا أنت، خلقتني وأنا عبدك، وأنا على عهدك ووعدك ما استطعت، أعوذ بك من شر ما صنعت، أبوء لك بنعمتك علي، وأبوء بذنبي فاغفر لي فإنه لا يغفر الذنوب إلا أنت."
+  },
+  guidance: {
+    title: "دعاء الهداية",
+    text: "اللهم اهدني فيمن هديت، وعافني فيمن عافيت، وتولني فيمن توليت، وبارك لي فيما أعطيت، وقني شر ما قضيت، إنك تقضي ولا يقضى عليك، إنه لا يذل من واليت، تباركت ربنا وتعاليت."
+  },
+  parents: {
+    title: "دعاء للوالدين",
+    text: "رب اغفر لي ولوالدي، رب ارحمهما كما ربياني صغيراً."
+  },
+  hardship: {
+    title: "دعاء الكرب والهم",
+    text: "لا إله إلا الله العظيم الحليم، لا إله إلا الله رب العرش العظيم، لا إله إلا الله رب السماوات ورب الأرض ورب العرش الكريم."
+  }
+};
+
+function loadIslamicQuestions() {
+  const container = $('#questionsContainer');
+  container.innerHTML = '';
+  
+  islamicQuestions.forEach((q, index) => {
+    const card = document.createElement('div');
+    card.className = 'question-card rounded-2xl p-6 shadow-lg bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700';
+    card.innerHTML = `
+      <div class="flex justify-between items-start mb-4">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-green-600 to-blue-600 flex items-center justify-center text-white font-bold">
+            ${index + 1}
+          </div>
+          <div>
+            <h3 class="font-bold text-lg">${q.question}</h3>
+            <div class="text-xs px-2 py-1 rounded-full bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400 inline-block">
+              ${q.category === 'aqeedah' ? 'عقيدة' : q.category === 'fiqh' ? 'فقه' : q.category === 'seerah' ? 'سيرة' : 'قرآن'}
+            </div>
+          </div>
+        </div>
+        <button class="text-green-600 hover:text-green-800 dark:text-green-400" onclick="toggleAnswer(${index})">
+          <i class="fas fa-chevron-down"></i>
+        </button>
+      </div>
+      <div id="answer-${index}" class="hidden mt-4 p-4 bg-green-50 dark:bg-green-900/20 rounded-xl">
+        <div class="font-bold mb-2 text-green-700 dark:text-green-300">الجواب:</div>
+        <div class="mb-3">${q.answer}</div>
+        <div class="text-xs text-gray-500">المصدر: ${q.source}</div>
+      </div>
+    `;
+    container.appendChild(card);
+  });
+}
+
+function toggleAnswer(index) {
+  const answerEl = $(`#answer-${index}`);
+  const button = answerEl.parentElement.querySelector('button');
+  
+  answerEl.classList.toggle('hidden');
+  
+  if (answerEl.classList.contains('hidden')) {
+    button.innerHTML = '<i class="fas fa-chevron-down"></i>';
+    button.parentElement.parentElement.classList.remove('active');
+  } else {
+    button.innerHTML = '<i class="fas fa-chevron-up"></i>';
+    button.parentElement.parentElement.classList.add('active');
+  }
+}
+
+function filterQuestions(category) {
+  const buttons = $$('#questions button');
+  buttons.forEach(btn => btn.classList.remove('bg-green-600', 'text-white', 'active-category'));
+  
+  const activeBtn = event.target;
+  activeBtn.classList.add('bg-green-600', 'text-white', 'active-category');
+  
+  const questions = $$('.question-card');
+  questions.forEach((card, index) => {
+    if (category === 'all') {
+      card.style.display = 'block';
+    } else {
+      const qCategory = islamicQuestions[index].category;
+      if (qCategory === category) {
+        card.style.display = 'block';
+      } else {
+        card.style.display = 'none';
+      }
+    }
+  });
+}
+
+function loadMoreQuestions() {
+  toast('جاري تحميل المزيد من الأسئلة...', 'info');
+  
+  setTimeout(() => {
+    const additionalQuestions = [
+      {
+        question: "ما حكم تارك الصلاة؟",
+        answer: "تارك الصلاة كافر عند بعض العلماء، وعاصٍ فاسق عند آخرين، والأحوط المبادرة إلى التوبة والمحافظة على الصلاة.",
+        category: "fiqh",
+        source: "كتب الفقه"
+      },
+      {
+        question: "ما هي أحكام الصيام؟",
+        answer: "الصيام فرض على كل مسلم بالغ عاقل قادر، ويجب الإمساك عن المفطرات من طلوع الفجر إلى غروب الشمس مع النية.",
+        category: "fiqh",
+        source: "كتب الفقه"
+      }
+    ];
+    
+    islamicQuestions.push(...additionalQuestions);
+    
+    loadIslamicQuestions();
+    toast('تم تحميل المزيد من الأسئلة', 'success');
+  }, 1000);
+}
+
+function loadHadiths() {
+  const allHadiths = [...hadiths, ...additionalHadiths];
+  
+  const updatedCategories = [
+    {name: "الإيمان", count: 4, icon: "fas fa-heart"},
+    {name: "الأخلاق", count: 10, icon: "fas fa-hands-helping"},
+    {name: "الصلاة", count: 3, icon: "fas fa-pray"},
+    {name: "الصيام", count: 1, icon: "fas fa-utensils"},
+    {name: "الزكاة", count: 2, icon: "fas fa-hand-holding-usd"},
+    {name: "العلم", count: 2, icon: "fas fa-graduation-cap"},
+    {name: "القرآن", count: 1, icon: "fas fa-book-quran"},
+    {name: "الجنة", count: 1, icon: "fas fa-star"},
+    {name: "الدعاء", count: 1, icon: "fas fa-hands"},
+    {name: "المعاملات", count: 1, icon: "fas fa-handshake"},
+    {name: "التعاون", count: 1, icon: "fas fa-people-carry"},
+    {name: "العمل", count: 1, icon: "fas fa-briefcase"},
+    {name: "الزهد", count: 1, icon: "fas fa-mountain"}
+  ];
+  
+  const categoriesContainer = $('#hadithCategories');
+  categoriesContainer.innerHTML = '';
+  
+  updatedCategories.forEach(category => {
+    const item = document.createElement('button');
+    item.className = 'w-full text-right px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-700 hover:bg-green-50 dark:hover:bg-gray-700 mb-2 flex justify-between items-center';
+    item.innerHTML = `
+      <div class="flex items-center">
+        <i class="${category.icon} mr-2 text-green-600"></i>
+        ${category.name}
+      </div>
+      <span class="text-xs bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400 px-2 py-1 rounded-full">${category.count}</span>
+    `;
+    item.onclick = () => filterHadiths(category.name, allHadiths);
+    categoriesContainer.appendChild(item);
+  });
+  
+  rollHadith(allHadiths);
+}
+
+function rollHadith(hadithsList = [...hadiths, ...additionalHadiths]) {
+  const randomIndex = Math.floor(Math.random() * hadithsList.length);
+  const hadith = hadithsList[randomIndex];
+  
+  $('#hadithBox').textContent = hadith.text;
+  $('#hadithSource').textContent = hadith.source;
+  $('#hadithExplanation').textContent = hadith.explanation;
+}
+
+function filterHadiths(category, hadithsList = [...hadiths, ...additionalHadiths]) {
+  const filteredHadiths = hadithsList.filter(h => h.category === category);
+  
+  if (filteredHadiths.length > 0) {
+    const randomIndex = Math.floor(Math.random() * filteredHadiths.length);
+    const hadith = filteredHadiths[randomIndex];
+    
+    $('#hadithBox').textContent = hadith.text;
+    $('#hadithSource').textContent = hadith.source;
+    $('#hadithExplanation').textContent = hadith.explanation;
+    
+    $('#categoriesModal').classList.add('hidden');
+    toast(`عرض حديث من تصنيف ${category}`, 'info');
+  } else {
+    toast('لا توجد أحاديث في هذا التصنيف', 'warning');
+  }
+}
+
+function updateAdiyah() {
+  Object.assign(ADIYAH, additionalAdiyah);
+}
+
+$('#mobileMenuBtn').onclick = () => {
+  const menu = $('#mobileMenu');
+  menu.classList.toggle('open');
+  
+  if (menu.classList.contains('open')) {
+    $('#mobileMenuBtn').innerHTML = '<i class="fas fa-times"></i>';
+  } else {
+    $('#mobileMenuBtn').innerHTML = '<i class="fas fa-bars"></i>';
+  }
+};
+
+$('#fab').onclick = () => {
+  const quranSection = $('#quran');
+  if (quranSection) {
+    window.scrollTo({
+      top: quranSection.offsetTop - 80,
+      behavior: 'smooth'
+    });
+  }
+  
+  const menu = $('#mobileMenu');
+  if (menu.classList.contains('open')) {
+    menu.classList.remove('open');
+    $('#mobileMenuBtn').innerHTML = '<i class="fas fa-bars"></i>';
+  }
+};
+
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+  anchor.addEventListener('click', function (e) {
+    const targetId = this.getAttribute('href');
+    if (targetId === '#') return;
+    
+    const targetElement = document.querySelector(targetId);
+    if (targetElement) {
+      e.preventDefault();
+      
+      window.scrollTo({
+        top: targetElement.offsetTop - 80,
+        behavior: 'smooth'
+      });
+      
+      const menu = $('#mobileMenu');
+      if (menu.classList.contains('open')) {
+        menu.classList.remove('open');
+        $('#mobileMenuBtn').innerHTML = '<i class="fas fa-bars"></i>';
+      }
+    }
+  });
+});
+
+function adaptQuranForMobile() {
+  const ayahsContainer = $('#ayahs');
+  if (window.innerWidth < 768 && ayahsContainer) {
+    const ayahCards = $$('.surah-card');
+    ayahCards.forEach(card => {
+      card.classList.add('mobile-padding');
+      card.classList.add('mobile-margin');
+    });
+  }
+}
+
+function loadProphetsStories() {
+  const container = $('#prophetsContainer');
+  container.innerHTML = '';
+  
+  prophetsStories.forEach(prophet => {
+    const card = document.createElement('div');
+    card.className = `prophet-card rounded-2xl p-6 shadow-lg border border-gray-100 dark:border-gray-700 transform hover:-translate-y-2 transition duration-300 ${prophet.category}`;
+    card.innerHTML = `
+      <div class="flex items-start gap-4 mb-4">
+        <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-green-700 to-green-500 flex items-center justify-center text-white text-2xl font-bold shadow">
+          ${prophet.name.charAt(0)}
+        </div>
+        <div class="flex-1">
+          <h3 class="font-bold text-xl text-green-800 dark:text-green-300">${prophet.name}</h3>
+          <div class="text-xs px-2 py-1 rounded-full bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400 inline-block mt-1">
+            ${prophet.category === 'ulu-l-azm' ? 'أولو العزم' : prophet.category === 'messengers' ? 'رسول' : 'نبي'}
+          </div>
+        </div>
+      </div>
+      <p class="text-gray-700 dark:text-gray-300 mb-4 text-sm leading-relaxed">${prophet.description}</p>
+      <div class="space-y-2 mb-4">
+        ${prophet.verses.map(verse => `
+          <div class="text-xs p-2 bg-green-50 dark:bg-green-900/20 rounded-lg arabic-font">${verse}</div>
+        `).join('')}
+      </div>
+      <div class="text-xs text-gray-600 dark:text-gray-400">
+        <i class="fas fa-graduation-cap mr-1"></i>
+        الدروس: ${prophet.lessons.join('، ')}
+      </div>
+    `;
+    container.appendChild(card);
+  });
+}
+
+function filterProphets(category) {
+  const buttons = $$('#prophets button');
+  buttons.forEach(btn => btn.classList.remove('bg-green-600', 'text-white', 'active-category'));
+  
+  const activeBtn = event.target;
+  activeBtn.classList.add('bg-green-600', 'text-white', 'active-category');
+  
+  const cards = $$('.prophet-card');
+  cards.forEach(card => {
+    if (category === 'all' || card.classList.contains(category)) {
+      card.style.display = 'block';
+    } else {
+      card.style.display = 'none';
+    }
+  });
+}
+
+function loadQuranStories() {
+  const container = $('#quranStoriesContainer');
+  container.innerHTML = '';
+  
+  quranStories.forEach((story, index) => {
+    const card = document.createElement('div');
+    card.className = 'rounded-2xl p-6 shadow-lg bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 hover:shadow-xl transition transform hover:-translate-y-1';
+    card.innerHTML = `
+      <div class="flex items-start gap-4 mb-4">
+        <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-600 to-cyan-600 flex items-center justify-center text-white text-xl font-bold shadow">
+          ${index + 1}
+        </div>
+        <div>
+          <h3 class="font-bold text-lg text-blue-800 dark:text-blue-300">${story.title}</h3>
+          <div class="text-xs text-blue-600 dark:text-blue-400">سورة ${story.surah}</div>
+        </div>
+      </div>
+      <p class="text-gray-700 dark:text-gray-300 mb-4 text-sm leading-relaxed">${story.description}</p>
+      <div class="space-y-2 mb-4">
+        ${story.verses.map(verse => `
+          <div class="text-xs p-2 bg-blue-50 dark:bg-blue-900/20 rounded-lg arabic-font">${verse}</div>
+        `).join('')}
+      </div>
+      <div class="text-xs text-gray-600 dark:text-gray-400">
+        <i class="fas fa-lightbulb mr-1"></i>
+        العبرة: ${story.lessons.join('، ')}
+      </div>
+    `;
+    container.appendChild(card);
+  });
+}
+
+function showHadithCategories() {
+  const modal = $('#categoriesModal');
+  const content = $('#categoriesContent');
+  
+  content.innerHTML = `
+    <div class="grid grid-cols-2 gap-3">
+      ${hadithCategories.map(cat => `
+        <button onclick="filterHadiths('${cat.name}')" class="p-3 rounded-xl border border-gray-300 dark:border-gray-700 hover:bg-green-50 dark:hover:bg-gray-700 text-center">
+          <i class="${cat.icon} text-xl text-green-600 mb-2"></i>
+          <div class="font-bold">${cat.name}</div>
+          <div class="text-xs text-gray-500">${cat.count} حديث</div>
+        </button>
+      `).join('')}
+    </div>
+  `;
+  
+  modal.classList.remove('hidden');
+}
+
+function searchInHadith() {
+  const query = $('#searchHadith').value.trim().toLowerCase();
+  if (!query) return toast('أدخل كلمة للبحث', 'warning');
+  
+  const results = hadiths.filter(h => 
+    h.text.toLowerCase().includes(query) || 
+    h.category.toLowerCase().includes(query) ||
+    h.explanation.toLowerCase().includes(query)
+  );
+  
+  const container = $('#hadithSearchResults');
+  container.innerHTML = '';
+  
+  if (results.length === 0) {
+    container.innerHTML = '<div class="text-center py-4 text-gray-500">لا توجد نتائج</div>';
+    return;
+  }
+  
+  results.slice(0, 5).forEach(hadith => {
+    const item = document.createElement('div');
+    item.className = 'p-3 border-b border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 cursor-pointer';
+    item.innerHTML = `
+      <div class="text-sm arabic-font line-clamp-2">${hadith.text.substring(0, 100)}...</div>
+      <div class="text-xs text-gray-500 mt-1">${hadith.category} - ${hadith.source}</div>
+    `;
+    item.onclick = () => {
+      $('#hadithBox').textContent = hadith.text;
+      $('#hadithSource').textContent = hadith.source;
+      $('#hadithExplanation').textContent = hadith.explanation;
+      $('#searchHadith').value = '';
+      container.innerHTML = '';
+      toast('تم عرض الحديث', 'success');
+    };
+    container.appendChild(item);
+  });
+}
+
+function setAzkar(type) {
+  const buttons = $$('#azkar button');
+  buttons.forEach(btn => btn.classList.remove('bg-green-600', 'text-white', 'active-azkar'));
+  
+  const activeBtn = event.target;
+  activeBtn.classList.add('bg-green-600', 'text-white', 'active-azkar');
+  
+  const box = $('#azkarBox');
+  box.innerHTML = '';
+  
+  let title = '';
+  switch(type) {
+    case 'morning': title = 'أذكار الصباح'; break;
+    case 'evening': title = 'أذكار المساء'; break;
+    case 'afterPrayer': title = 'أذكار بعد الصلاة'; break;
+    case 'sleep': title = 'أذكار النوم'; break;
+    case 'wakeup': title = 'أذكار الاستيقاظ'; break;
+    case 'general': title = 'أذكار عامة'; break;
+  }
+  
+  const titleEl = document.createElement('div');
+  titleEl.className = 'text-2xl font-bold text-green-700 dark:text-green-400 mb-6 flex items-center';
+  titleEl.innerHTML = `<i class="fas fa-star mr-3"></i> ${title}`;
+  box.appendChild(titleEl);
+  
+  (AZKAR[type] || []).forEach((zkr, i) => {
+    const d = document.createElement('div');
+    d.className = 'p-5 rounded-xl border border-gray-200 dark:border-gray-700 bg-white/50 dark:bg-gray-800/50 mb-4';
+    d.innerHTML = `
+      <div class="flex items-start gap-4">
+        <div class="w-10 h-10 rounded-full bg-green-100 dark:bg-green-900/30 flex items-center justify-center text-green-700 dark:text-green-400 text-lg font-bold">
+          ${i+1}
+        </div>
+        <div class="flex-1">
+          <div class="arabic-font text-xl leading-loose mb-3">${zkr.text}</div>
+          <div class="flex justify-between items-center text-sm">
+            <div class="text-green-600 dark:text-green-400 font-medium">
+              <i class="fas fa-redo mr-1"></i> ${zkr.count}
+            </div>
+            <div class="text-gray-600 dark:text-gray-400">
+              <i class="fas fa-award mr-1"></i> ${zkr.reward}
+            </div>
+          </div>
+        </div>
+      </div>
+    `;
+    box.appendChild(d);
+  });
+}
+
+let counter = localStorage.getItem('azkarCounter') ? parseInt(localStorage.getItem('azkarCounter')) : 0;
+function renderCounter(){ 
+  $('#counter').textContent = toArabicDigits(counter);
+}
+function incrementCounter(amount) {
+  counter += amount;
+  renderCounter();
+  saveCounter();
+  toast(`تم إضافة ${toArabicDigits(amount)} تسبيحة`, 'success');
+}
+function saveCounter() {
+  localStorage.setItem('azkarCounter', counter);
+  toast('تم حفظ العداد', 'success');
+}
+
+function showDua(type) {
+  const dua = ADIYAH[type];
+  if (!dua) return;
+  
+  $('#duaTitle').textContent = dua.title;
+  $('#duaContent').innerHTML = `
+    <div class="arabic-font text-2xl leading-loose text-center mb-6">${dua.text}</div>
+    <div class="p-4 bg-green-50 dark:bg-green-900/20 rounded-xl">
+      <div class="font-bold mb-2 text-green-700 dark:text-green-300"><i class="fas fa-lightbulb mr-2"></i> نصائح للدعاء:</div>
+      <ul class="text-sm text-gray-700 dark:text-gray-300 space-y-1">
+        <li>• اخفض صوتك وادع بخشوع</li>
+        <li>• أخلص النية لله تعالى</li>
+        <li>• ادع في أوقات الإجابة</li>
+        <li>• استقبل القبلة وارفع يديك</li>
+      </ul>
+    </div>
+  `;
+  $('#duaModal').classList.remove('hidden');
+}
+
+let userPos = {lat:null, lon:null};
+const prayMap = {Fajr:"الفجر", Sunrise:"الشروق", Dhuhr:"الظهر", Asr:"العصر", Maghrib:"المغرب", Isha:"العشاء"};
+
+async function getLocationByIP() {
+  try {
+    const response = await fetch('https://ipapi.co/json/');
+    const data = await response.json();
+    if (data.latitude && data.longitude) {
+      userPos = {lat: data.latitude, lon: data.longitude};
+      $('#locBox').innerHTML = `
+        <div class="font-bold">${data.city || 'موقعك'}</div>
+        <div class="text-sm text-gray-500">${toArabicDigits(data.latitude.toFixed(3))}, ${toArabicDigits(data.longitude.toFixed(3))}</div>
+      `;
+      return true;
+    } else {
+      throw new Error('No location data');
+    }
+  } catch (error) {
+    try {
+      const fallbackResponse = await fetch('https://ip-api.com/json/');
+      const fallbackData = await fallbackResponse.json();
+      if (fallbackData.lat && fallbackData.lon) {
+        userPos = {lat: fallbackData.lat, lon: fallbackData.lon};
+        $('#locBox').innerHTML = `
+          <div class="font-bold">${fallbackData.city || 'موقعك'}</div>
+          <div class="text-sm text-gray-500">${toArabicDigits(fallbackData.lat.toFixed(3))}, ${toArabicDigits(fallbackData.lon.toFixed(3))}</div>
+        `;
+        return true;
+      }
+    } catch (e) {
+      userPos = {lat: 24.7136, lon: 46.6753};
+      $('#locBox').innerHTML = `
+        <div class="font-bold">الرياض (موقع افتراضي)</div>
+        <div class="text-sm text-gray-500">استخدم زر تحديد الموقع أدناه</div>
+      `;
+      return false;
+    }
+  }
+}
+
+const KAABA = {lat: 21.4225, lon: 39.8262};
+function updateDistanceToKaaba() {
+  if (!userPos.lat) return;
+  
+  const R = 6371;
+  const dLat = toRad(KAABA.lat - userPos.lat);
+  const dLon = toRad(KAABA.lon - userPos.lon);
+  const a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+            Math.cos(toRad(userPos.lat)) * Math.cos(toRad(KAABA.lat)) *
+            Math.sin(dLon/2) * Math.sin(dLon/2);
+  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+  const distance = R * c;
+  
+  $('#distanceToKaaba').textContent = `${toArabicDigits(distance.toFixed(0))} كم`;
+}
+
+function loadPrayerTimes(){
+  if(!userPos.lat) return;
+  const url = `https://api.aladhan.com/v1/timings?latitude=${userPos.lat}&longitude=${userPos.lon}&method=5`;
+  fetch(url).then(r=>r.json()).then(j=>{
+    const t = j.data.timings;
+    const grid = $('#prayTimes');
+    grid.innerHTML = '';
+    
+    const prayers = [
+      {key: 'Fajr', name: 'الفجر', icon: 'fas fa-moon'},
+      {key: 'Sunrise', name: 'الشروق', icon: 'fas fa-sun'},
+      {key: 'Dhuhr', name: 'الظهر', icon: 'fas fa-sun'},
+      {key: 'Asr', name: 'العصر', icon: 'fas fa-sun'},
+      {key: 'Maghrib', name: 'المغرب', icon: 'fas fa-sun'},
+      {key: 'Isha', name: 'العشاء', icon: 'fas fa-moon'}
+    ];
+    
+    prayers.forEach(prayer => {
+      const card = document.createElement('div');
+      card.className = "rounded-xl p-4 border border-gray-200 dark:border-gray-700 bg-white/50 dark:bg-gray-800/50 shadow-sm";
+      card.innerHTML = `
+        <div class="flex items-center justify-between mb-2">
+          <div class="text-gray-500 text-sm">${prayer.name}</div>
+          <i class="${prayer.icon} text-gray-400"></i>
+        </div>
+        <div class="text-2xl font-black text-green-600 dark:text-green-400">${toArabicDigits(t[prayer.key])}</div>
+      `;
+      grid.appendChild(card);
+    });
+    
+    const now = new Date();
+    const todayTimes = Object.entries({Fajr:t.Fajr, Dhuhr:t.Dhuhr, Asr:t.Asr, Maghrib:t.Maghrib, Isha:t.Isha})
+      .map(([k,v])=>({name:prayMap[k], time:new Date(now.toDateString()+' '+v)}))
+      .filter(x=>!isNaN(x.time));
+    
+    let next = todayTimes.find(x=>x.time>now);
+    if(!next){ 
+      next = todayTimes[0]; 
+      next.time.setDate(next.time.getDate()+1); 
+    }
+    
+    const diffMs = next.time-now;
+    const mins = Math.round(diffMs/60000);
+    const hours = Math.floor(mins / 60);
+    const remainingMins = mins % 60;
+    
+    let timeText = '';
+    if (hours > 0) {
+      timeText = `${toArabicDigits(hours)} ساعة و${toArabicDigits(remainingMins)} دقيقة`;
+    } else {
+      timeText = `${toArabicDigits(mins)} دقيقة`;
+    }
+    
+    $('#nextPrayer').innerHTML = `
+      <div class="flex items-center justify-center gap-3 mb-2">
+        <i class="fas fa-clock text-2xl text-green-600"></i>
+        <div class="text-xl font-bold">الصلاة التالية: ${next.name}</div>
+      </div>
+      <div class="text-lg">بعد ${timeText} تقريباً</div>
+      <div class="text-sm text-gray-500 mt-2">${toArabicDigits(next.time.getHours())}:${toArabicDigits(next.time.getMinutes())}</div>
+    `;
+    
+    scheduleAdhanReminder(next.time);
+  }).catch(()=>{ 
+    $('#prayTimes').innerHTML = '<div class="col-span-3 text-center py-8 text-gray-500">تعذر تحميل المواقيت</div>'; 
+  });
+}
+
+let qiblaBearing = 0;
+let compassActive = false;
+
+function toRad(d){ return d*Math.PI/180 }
+function toDeg(r){ return r*180/Math.PI }
+
+function bearing(from,to){
+  const φ1=toRad(from.lat), φ2=toRad(to.lat), Δλ=toRad(to.lon-from.lon);
+  const y=Math.sin(Δλ)*Math.cos(φ2);
+  const x=Math.cos(φ1)*Math.sin(φ2)-Math.sin(φ1)*Math.cos(φ2)*Math.cos(Δλ);
+  return (toDeg(Math.atan2(y,x))+360)%360;
+}
+
+function updateNeedle(heading=0){
+  const rotation = qiblaBearing - heading;
+  $('#needle').style.transform = `translate(-50%, -100%) rotate(${rotation}deg)`;
+}
+
+function initCompass() {
+  if(window.DeviceOrientationEvent && typeof DeviceOrientationEvent.requestPermission === 'function'){
+    DeviceOrientationEvent.requestPermission()
+      .then(permissionState => {
+        if (permissionState === 'granted') {
+          window.addEventListener('deviceorientation', handleOrientation);
+          compassActive = true;
+          toast('تم تفعيل البوصلة بنجاح. قم بتدوير هاتفك لرؤية اتجاه القبلة.', 'success');
+        } else {
+          toast('تم رفض إذن البوصلة.', 'error');
+        }
+      })
+      .catch(() => toast('المتصفح لا يدعم البوصلة.', 'error'));
+  } else if(window.DeviceOrientationEvent) {
+    window.addEventListener('deviceorientation', handleOrientation);
+    compassActive = true;
+    toast('تم تفعيل البوصلة بنجاح. قم بتدوير هاتفك لرؤية اتجاه القبلة.', 'success');
+  } else {
+    toast('المتصفح أو الجهاز لا يدعم البوصلة.', 'warning');
+  }
+}
+
+function handleOrientation(event) {
+  const heading = event.webkitCompassHeading || (360 - event.alpha);
+  updateNeedle(heading);
+}
+
+function setCity(name, lat, lon) {
+  userPos = {lat, lon};
+  $('#locBox').innerHTML = `
+    <div class="font-bold">${name}</div>
+    <div class="text-sm text-gray-500">${toArabicDigits(lat.toFixed(3))}, ${toArabicDigits(lon.toFixed(3))}</div>
+  `;
+  
+  qiblaBearing = bearing(userPos, KAABA);
+  $('#qiblaInfo').textContent = `زاوية القبلة: ${toArabicDigits(qiblaBearing.toFixed(0))}° من الشمال.`;
+  
+  updateDistanceToKaaba();
+  loadPrayerTimes();
+  
+  toast(`تم تغيير الموقع إلى ${name}`, 'success');
+}
+
+const surahSelect = $('#surahSelect');
+async function loadSurahList(){
+  try{
+    const r = await fetch('https://api.alquran.cloud/v1/surah');
+    const j = await r.json();
+    
+    surahSelect.innerHTML = '';
+    
+    j.data.forEach(s=>{
+      const opt = document.createElement('option');
+      opt.value = s.number;
+      opt.textContent = `${s.number}. ${s.name} — ${s.englishName} (${s.numberOfAyahs} آية)`;
+      surahSelect.appendChild(opt);
+    });
+    
+    surahSelect.addEventListener('change', function() {
+      if (this.value) {
+        showSurah(this.value);
+      }
+    });
+    
+    surahSelect.value = 1;
+    showSurah(1);
+    
+  } catch(e) { 
+    surahSelect.innerHTML = '<option>تعذر التحميل. حاول مرة أخرى</option>';
+    console.error('Error loading surah list:', e);
+  }
+}
+
+async function showSurah(n){
+  $('#ayahs').innerHTML = '<div class="text-center py-12"><i class="fas fa-spinner fa-spin text-4xl text-green-600"></i><div class="mt-4 text-lg">جاري تحميل السورة...</div></div>';
+  $('#surahMeta').textContent = '';
+  
+  try{
+    const r = await fetch(`https://api.alquran.cloud/v1/surah/${n}/ar.alafasy`);
+    const j = await r.json();
+    const s = j.data;
+    
+    $('#surahMeta').innerHTML = `
+      <div class="flex items-center">
+        <i class="fas fa-info-circle mr-2"></i>
+        <div>
+          سورة <span class="font-bold">${s.name}</span> • 
+          ${s.numberOfAyahs} آية • 
+          ${s.revelationType==='Meccan'?'مكية':'مدنية'}
+        </div>
+      </div>
+    `;
+    
+    const box = document.createElement('div');
+    box.className = 'space-y-6';
+    
+    s.ayahs.forEach(a=>{
+      const item = document.createElement('div');
+      item.className = "p-6 rounded-2xl border border-gray-200 dark:border-gray-700 bg-white/50 dark:bg-gray-800/50 shadow-sm hover:shadow-md transition surah-card";
+      item.innerHTML = `
+        <div class="flex justify-between items-start mb-4">
+          <div class="flex items-center gap-2">
+            <div class="w-8 h-8 rounded-full bg-green-100 dark:bg-green-900/30 flex items-center justify-center text-green-700 dark:text-green-400 text-sm font-bold">
+              ${a.numberInSurah}
+            </div>
+            <div class="text-sm text-gray-500">آية ${toArabicDigits(a.numberInSurah)}</div>
+          </div>
+          <div class="flex gap-2">
+            <button class="px-3 py-1.5 rounded-lg border border-gray-300 dark:border-gray-700 text-sm hover:bg-green-50 dark:hover:bg-gray-700" data-audio="${a.audio}">
+              <i class="fa-solid fa-play mr-1"></i> استماع
+            </button>
+            <button class="px-3 py-1.5 rounded-lg border border-gray-300 dark:border-gray-700 text-sm hover:bg-green-50 dark:hover:bg-gray-700" onclick="copyStr('${a.text.replace(/'/g, "\\'")}')">
+              <i class="fa-solid fa-copy mr-1"></i> نسخ
+            </button>
+          </div>
+        </div>
+        <div class="quran-text arabic-font text-2xl leading-loose">${a.text}</div>
+      `;
+      box.appendChild(item);
+    });
+    
+    $('#ayahs').innerHTML = '';
+    $('#ayahs').appendChild(box);
+    
+    $$('#ayahs [data-audio]').forEach(btn=>{
+      btn.onclick = ()=>{ 
+        const src=btn.getAttribute('data-audio'); 
+        const audio=$('#audio'); 
+        audio.src=src; 
+        audio.play();
+        toast('جاري تشغيل التلاوة...', 'info');
+      };
+    });
+    
+    saveToHistory(n, s.name);
+    
+  } catch(e){
+    console.error('Error loading surah:', e);
+    $('#ayahs').innerHTML = '<div class="text-center py-12 text-red-600"><i class="fas fa-exclamation-triangle text-3xl"></i><div class="mt-4 text-lg">تعذر تحميل السورة. حاول مرة أخرى</div></div>';
+  }
+}
+
+function saveToHistory(surahNumber, surahName) {
+  const history = JSON.parse(localStorage.getItem('quranHistory') || '[]');
+  
+  const existingIndex = history.findIndex(item => item.number === surahNumber);
+  if (existingIndex > -1) {
+    history.splice(existingIndex, 1);
+  }
+  
+  history.unshift({
+    number: surahNumber,
+    name: surahName,
+    date: new Date().toLocaleString('ar-EG')
+  });
+  
+  if (history.length > 5) history.pop();
+  
+  localStorage.setItem('quranHistory', JSON.stringify(history));
+  updateHistoryDisplay();
+}
+
+function updateHistoryDisplay() {
+  const history = JSON.parse(localStorage.getItem('quranHistory') || '[]');
+  const container = $('#lastRead');
+  
+  if (history.length === 0) {
+    container.innerHTML = '<div class="text-center py-4 text-gray-500">لا توجد سجلات قراءة سابقة</div>';
+    return;
+  }
+  
+  container.innerHTML = history.map(item => `
+    <div class="p-3 border-b border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 cursor-pointer" onclick="surahSelect.value=${item.number}; showSurah(${item.number})">
+      <div class="font-medium">سورة ${item.name}</div>
+      <div class="text-xs text-gray-500">${item.date}</div>
+    </div>
+  `).join('');
+}
+
+function clearHistory() {
+  localStorage.removeItem('quranHistory');
+  updateHistoryDisplay();
+  toast('تم مسح سجل القراءة', 'success');
+}
+
+function searchInQuran() {
+  const query = $('#searchQuran').value.trim();
+  if (!query) return toast('أدخل كلمة للبحث', 'warning');
+  
+  $('#searchResults').innerHTML = '<div class="text-center py-4"><i class="fas fa-spinner fa-spin"></i> جاري البحث...</div>';
+  
+  setTimeout(() => {
+    $('#searchResults').innerHTML = `
+      <div class="p-3 border-b border-gray-200">
+        <div class="font-medium">البحث في القرآن</div>
+        <div class="text-xs text-gray-500">هذه خاصية تجريبية. في النسخة الكاملة سيتم البحث في جميع آيات القرآن.</div>
+      </div>
+      <div class="p-3 hover:bg-gray-50 cursor-pointer" onclick="surahSelect.value=1; showSurah(1); toast('جاري عرض سورة الفاتحة')">
+        <div class="font-medium">سورة الفاتحة</div>
+        <div class="text-xs text-gray-500">الآية 1: ﴿ بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ ﴾</div>
+      </div>
+      <div class="p-3 hover:bg-gray-50 cursor-pointer" onclick="surahSelect.value=2; showSurah(2); toast('جاري عرض سورة البقرة')">
+        <div class="font-medium">سورة البقرة</div>
+        <div class="text-xs text-gray-500">الآية 255: ﴿ اللَّهُ لَا إِلَٰهَ إِلَّا هُوَ الْحَيُّ الْقَيُّومُ ﴾</div>
+      </div>
+    `;
+  }, 1000);
+}
+
+function updateMemorizedProgress() {
+  const memorized = JSON.parse(localStorage.getItem('memorizedSurahs') || '[]');
+  const count = memorized.length;
+  const progress = (count / 114) * 100;
+  
+  $('#memorizedCount').textContent = toArabicDigits(count);
+  $('#memorizedProgress').style.width = `${progress}%`;
+}
+
+function addMemorized() {
+  const currentSurah = parseInt(surahSelect.value);
+  const surahName = surahSelect.options[surahSelect.selectedIndex].text;
+  
+  const memorized = JSON.parse(localStorage.getItem('memorizedSurahs') || '[]');
+  
+  if (!memorized.includes(currentSurah)) {
+    memorized.push(currentSurah);
+    localStorage.setItem('memorizedSurahs', JSON.stringify(memorized));
+    updateMemorizedProgress();
+    toast(`تم إضافة سورة ${surahName.split('—')[0]} إلى المحفوظات`, 'success');
+  } else {
+    toast('السورة مضافة مسبقاً إلى المحفوظات', 'info');
+  }
+}
+
+let notifEnabled = false;
+$('#notifToggle').addEventListener('change', async (e)=>{
+  if(e.target.checked){
+    const perm = await Notification.requestPermission();
+    notifEnabled = perm==='granted';
+    if(!notifEnabled){ 
+      e.target.checked=false; 
+      toast('لم يُمنح إذن الإشعارات. يرجى التحقق من إعدادات المتصفح.', 'error'); 
+    } else {
+      toast('تم تفعيل إشعارات الأذان بنجاح.', 'success');
+    }
+  } else {
+    notifEnabled=false;
+    toast('تم إيقاف إشعارات الأذان.', 'info');
+  }
+});
+
+function scheduleAdhanReminder(when){
+  if(!notifEnabled) return;
+  const ms = when - Date.now() - 10*60*1000;
+  if(ms>0) setTimeout(()=>{
+    new Notification('موقع الفتح - تذكير الأذان', { 
+      body: 'تبقّى 10 دقائق على أذان الصلاة التالية بإذن الله.',
+      icon: 'https://cdn-icons-png.flaticon.com/512/2107/2107845.png'
+    });
+  }, Math.min(ms, 2_147_000_000));
+}
+
+function copyStr(s){ 
+  navigator.clipboard?.writeText(s).then(()=>toast('تم نسخ النص بنجاح', 'success')).catch(()=>{
+    const textarea = document.createElement('textarea');
+    textarea.value = s;
+    document.body.appendChild(textarea);
+    textarea.select();
+    document.execCommand('copy');
+    document.body.removeChild(textarea);
+    toast('تم نسخ النص', 'success');
+  }); 
+}
+
+function copyText(selector){ 
+  const text = $(selector)?.textContent || ''; 
+  copyStr(text); 
+}
+
+function copyHadith() {
+  const hadith = $('#hadithBox').textContent;
+  copyStr(hadith);
+}
+
+function shareHadith() {
+  const hadith = $('#hadithBox').textContent;
+  if (navigator.share) {
+    navigator.share({
+      title: 'حديث من موقع الفتح',
+      text: hadith,
+      url: window.location.href
+    }).then(() => {
+      toast('تمت المشاركة بنجاح', 'success');
+    }).catch(() => {
+      copyStr(hadith);
+    });
+  } else {
+    copyStr(hadith);
+  }
+}
+
+function shareSite() {
+  if (navigator.share) {
+    navigator.share({
+      title: 'موقع الفتح - قرآن كريم شامل',
+      text: 'موقع الفتح: قرآن كريم، أوقات الصلاة، أذكار، أحاديث، قصص الأنبياء',
+      url: window.location.href
+    });
+  } else {
+    copyStr(window.location.href);
+    toast('تم نسخ رابط الموقع', 'success');
+  }
+}
+
+function contactUs() {
+  const email = 'omaromaramqud2@gmail.com';
+  const subject = 'استفسار عن موقع الفتح';
+  const body = 'أود الاستفسار عن:\n\n';
+  
+  window.open(`mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`, '_blank');
+}
+
+async function initGeo(){
+  const locationSuccess = await getLocationByIP();
+  if (locationSuccess) {
+    qiblaBearing = bearing(userPos, KAABA);
+    $('#qiblaInfo').textContent = `زاوية القبلة: ${toArabicDigits(qiblaBearing.toFixed(0))}° من الشمال.`;
+    loadPrayerTimes();
+    setInterval(loadPrayerTimes, 60*60*1000);
+  } else {
+    $('#locBox').textContent = 'تعذر تحديد الموقع. استخدام موقع افتراضي.';
+  }
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+  initGeo();
+  loadSurahList();
+  loadProphetsStories();
+  loadQuranStories();
+  loadHadiths();
+  setAzkar('morning');
+  updateMemorizedProgress();
+  updateHistoryDisplay();
+  renderCounter();
+  loadIslamicQuestions();
+  updateAdiyah();
+  
+  const firstCategoryBtn = document.querySelector('#prophets button');
+  if (firstCategoryBtn) {
+    firstCategoryBtn.classList.add('bg-green-600', 'text-white', 'active-category');
+  }
+  
+  const firstAzkarBtn = document.querySelector('#azkar button');
+  if (firstAzkarBtn) {
+    firstAzkarBtn.classList.add('bg-green-600', 'text-white', 'active-azkar');
+  }
+  
+  $('#playAll').onclick = async () => {
+    const selectedSurah = surahSelect.value;
+    if (!selectedSurah) {
+      toast('يرجى اختيار سورة أولاً', 'warning');
+      return;
+    }
+    
+    try{
+      $('#audio').src = `https://cdn.islamic.network/quran/audio-surah/128/ar.alafasy/${selectedSurah}.mp3`;
+      $('#audio').play();
+      toast('جاري تشغيل تلاوة السورة كاملة...', 'info');
+    } catch(e) {
+      toast('تعذر تشغيل التلاوة', 'error');
+    }
+  };
+  
+  $('#saveBookmark').onclick = () => {
+    const surahNumber = surahSelect.value;
+    const surahName = surahSelect.options[surahSelect.selectedIndex].text.split('—')[0].trim();
+    localStorage.setItem('bookmark', JSON.stringify({surah: surahNumber, name: surahName}));
+    toast(`تم حفظ الموضع: سورة ${surahName}`, 'success');
+  };
+  
+  adaptQuranForMobile();
+  
+  window.addEventListener('resize', adaptQuranForMobile);
+  
+  setTimeout(() => {
+    toast('مرحباً بك في موقع الفتح. استمتع بتجربة إسلامية تم التطوير بواسطة عمر.', 'info');
+  }, 1500);
+});
+</script>
+</body>
+</html>
