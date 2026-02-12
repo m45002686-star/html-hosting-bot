@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta content="morahost.gg" property="og:title">
+    <meta content="Billing software for mora el youtuber" property="og:description">
+    <meta content='https://mora.dash.naruto-dev.site/logo.png' property="og:image">
+
+    <!-- CSRF Token -->
+    <meta name="csrf-token" content="uwumRMmMzWoRfneXgNE1GJf1TZ64y3cR08jpQZwW">
+
+    <title>Mora</title>
+    <link rel="icon"
+        href="https://mora.dash.naruto-dev.site/favicon.ico"
+        type="image/x-icon">
+
+    <script src="https://mora.dash.naruto-dev.site/js/app.js" defer></script>
+
+    <!-- Fonts -->
+    <link rel="dns-prefetch" href="//fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+
+    <link rel="preload" href="https://mora.dash.naruto-dev.site/plugins/fontawesome-free/css/all.min.css" as="style"
+        onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+        <link rel="stylesheet" href="https://mora.dash.naruto-dev.site/plugins/fontawesome-free/css/all.min.css">
+    </noscript>
+        <link rel="preload" as="style" href="https://mora.dash.naruto-dev.site/build/assets/app-83c7c59a.css" /><link rel="stylesheet" href="https://mora.dash.naruto-dev.site/build/assets/app-83c7c59a.css" /></head>
+    <body class="hold-transition dark-mode login-page">
+  <div class="login-box">
+    <!-- /.login-logo -->
+    <div class="card card-outline card-primary">
+      <div class="text-center card-header">
+        <a href="https://mora.dash.naruto-dev.site" class="mb-2 h1"><b
+            class="mr-1">Mora</b></a>
+                  <img
+            src="https://mora.dash.naruto-dev.site/storage/logo.png"
+            alt="Mora Logo"
+            style="opacity: .8; max-width:100%; height: 150px; margin-top: 10px;">
+              </div>
+      <div class="pt-0 card-body">
+        <p class="login-box-msg">✦ يُرجى إدخال بيانات حسابك للوصول إلى المنصّة ✦</p>
+
+        
+        <form action="https://mora.dash.naruto-dev.site/login" method="post">
+          <input type="hidden" name="_token" value="uwumRMmMzWoRfneXgNE1GJf1TZ64y3cR08jpQZwW" autocomplete="off">          
+          <div class="form-group">
+            <div class="mb-3 input-group">
+              <input type="text" name="email"
+                     class="form-control  "
+                     placeholder="Email or Username">
+              <div class="input-group-append">
+                <div class="input-group-text">
+                  <span class="fas fa-envelope"></span>
+                </div>
+              </div>
+
+            </div>
+                      </div>
+
+          <div class="form-group">
+            <div class="mb-3 input-group">
+              <input type="password" name="password"
+                     class="form-control "
+                     placeholder="Password">
+              <div class="input-group-append">
+                <div class="input-group-text">
+                  <span class="fas fa-lock"></span>
+                </div>
+              </div>
+
+            </div>
+                      </div>
+
+
+                    
+
+          <div class="row">
+            <div class="col-8">
+              <div class="icheck-primary">
+                <input type="checkbox" name="remember" id="remember"
+                  >
+                <label for="remember">
+                  Remember Me
+                </label>
+              </div>
+            </div>
+            <!-- /.col -->
+            <div class="col-4">
+              <button type="submit" class="btn btn-primary btn-block">Sign In</button>
+            </div>
+            <!-- /.col -->
+          </div>
+
+          <input type="hidden" name="_token" value="uwumRMmMzWoRfneXgNE1GJf1TZ64y3cR08jpQZwW">
+        </form>
+        <p class="mb-1">
+                      <a class="" href="https://mora.dash.naruto-dev.site/password/reset">
+              ✦ هل نـسـيـت كـلـمـة الـسـر؟ ✦
+            </a>
+                  </p>
+        <p class="mb-0">
+          <a href="https://mora.dash.naruto-dev.site/register" class="text-center">✦ تسجيل حسـاب جـديـد ✦</a>
+        </p>
+      </div>
+      <!-- /.card-body -->
+    </div>
+    <!-- /.card -->
+  </div>
+  <!-- /.login-box -->
+
+  
+  <div class="fixed-bottom ">
+    <div class="container text-center">
+                      </div>
+  </div>
+  </body>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.14.1/dist/sweetalert2.all.min.js"></script>
+
+<script>
+    
+    </script>
+
+</html>
