@@ -1,0 +1,249 @@
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SBR SITE DANCE PLAYER</title>
+    <style>
+        :root {
+            --fire-color: #ff4500;
+            --lava-gradient: linear-gradient(180deg, #ff8c00, #ff4500, #8b0000);
+            --dark-bg: #0a0a0a;
+        }
+
+        body {
+            background-color: var(--dark-bg);
+            color: white;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-image: radial-gradient(circle at center, #2c0a00 0%, #0a0a0a 100%);
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: "";
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: url('https://www.transparenttextures.com/patterns/carbon-fibre.png');
+            opacity: 0.2; z-index: -1;
+        }
+
+        header { 
+            text-align: center; 
+            padding: 50px 0; 
+        }
+
+        .fire-frame {
+            display: inline-block;
+            padding: 15px 45px;
+            border: 3px solid #e23e00; 
+            position: relative;
+            border-radius: 12px;
+            box-shadow: 0 0 15px rgba(226, 62, 0, 0.4);
+            background: rgba(0, 0, 0, 0.6);
+        }
+
+        .fire-frame::after {
+            content: "";
+            position: absolute;
+            top: -8px; left: -8px; right: -8px; bottom: -8px;
+            border: 1px solid #ff8c00;
+            border-radius: 16px;
+            opacity: 0.5;
+        }
+
+        h1 {
+            font-size: 2.8rem; 
+            margin: 0; 
+            letter-spacing: 4px; 
+            color: #ffffff;
+            text-transform: uppercase;
+            font-weight: 800;
+            text-shadow: 1px 1px 2px #000, 0 0 8px rgba(255, 69, 0, 0.6); 
+        }
+
+        .container {
+            max-width: 900px; margin: 0 auto;
+            background: rgba(20, 20, 20, 0.95); padding: 30px;
+            border: 2px solid #ff4500; border-radius: 20px;
+            box-shadow: 0 0 40px rgba(255, 69, 0, 0.3);
+        }
+
+        .input-group { margin-bottom: 25px; }
+
+        label { display: block; margin-bottom: 12px; color: #ffa500; font-weight: bold; font-size: 1.1rem; }
+
+        input {
+            width: 100%; padding: 15px; background: #151515; border: 1px solid #444;
+            color: #fff; border-radius: 10px; font-size: 1.1rem; box-sizing: border-box;
+            outline: none; transition: 0.3s; border-left: 5px solid #ff4500;
+        }
+
+        input:focus { border-color: #ff8c00; box-shadow: 0 0 15px rgba(255, 69, 0, 0.4); }
+
+        .id-container { display: flex; gap: 10px; margin-bottom: 10px; }
+
+        .btn-add {
+            background: #ff4500; border: none; color: white; padding: 0 20px;
+            border-radius: 10px; cursor: pointer; font-size: 1.8rem;
+            display: flex; align-items: center; justify-content: center;
+        }
+
+        .emotes-grid {
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+            gap: 15px; margin-top: 20px;
+        }
+
+        .emote-card {
+            background: #1a1a1a; border: 2px solid #333; border-radius: 12px;
+            padding: 8px; cursor: pointer; transition: 0.4s; text-align: center;
+        }
+
+        .emote-card:hover {
+            border-color: #ff4500; transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(255, 69, 0, 0.5);
+        }
+
+        .emote-card img { width: 100%; height: auto; border-radius: 8px; }
+
+        .modal {
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.92); z-index: 1000; justify-content: center; align-items: center;
+            backdrop-filter: blur(8px);
+        }
+
+        .modal-content {
+            background: #1a1a1a; padding: 40px; border-radius: 25px; border: 4px solid #ff4500;
+            text-align: center; box-shadow: 0 0 60px #ff4500;
+        }
+
+        .modal-content h2 { color: #ff4500; font-size: 3rem; margin: 0; }
+
+        .modal-content p { color: #ff8c00; margin-top: 15px; font-weight: bold; }
+
+        .btn-close {
+            margin-top: 25px; background: #fff; border: none; padding: 12px 40px;
+            border-radius: 8px; cursor: pointer; font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="fire-frame">
+            <h1>𝐖𝐄𝐋𝐂𝐎𝐌𝐄 𝐒𝐁𝐑 𝐖𝐄𝐁</h1>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="input-group">
+            <label>𝐄𝐍𝐓𝐄𝐑 𝐓𝐄𝐀𝐌 𝐂𝐎𝐃𝐄</label>
+            <input type="text" id="teamCode" placeholder="𝐄𝐗 : 𝟒𝟎𝟒𝟔𝟒𝟓𝟓">
+        </div>
+
+        <div class="input-group">
+            <label>𝐄𝐍𝐓𝐄𝐑 𝐈𝐃 𝐏𝐋𝐀𝐘𝐄𝐑</label>
+            <div id="idInputs">
+                <div class="id-container">
+                    <input type="text" class="player-id" placeholder="𝐄𝐗 : 𝟏𝟐𝟑𝟒𝟓𝟔𝟕𝟖">
+                    <button class="btn-add" onclick="addNewIdInput()">+</button>
+                </div>
+            </div>
+        </div>
+
+        <p style="text-align: center; color: #ff8c00;">𝐒𝐄𝐋𝐄𝐂𝐓 𝐄𝐌𝐎𝐓𝐄 𝐓𝐎 𝐀𝐂𝐓𝐈𝐕𝐀𝐓𝐄 𝐃𝐈𝐑𝐄𝐂𝐓𝐋𝐘</p>
+        <div class="emotes-grid" id="emotesGrid"></div>
+    </div>
+
+    <div id="successModal" class="modal">
+        <div class="modal-content">
+            <h2>SUCCÈS</h2>
+            <p>​✅ 𝐄𝐌𝐎𝐓𝐄 𝐀𝐂𝐓𝐈𝐎𝐍 𝐃𝐈𝐒𝐏𝐀𝐓𝐂𝐇𝐄𝐃 𝐒𝐔𝐂𝐂𝐄𝐒𝐒𝐅𝐔𝐋𝐋𝐘!</p>
+            <button class="btn-close" onclick="closeModal()">OK</button>
+        </div>
+    </div>
+
+    <script>
+        // ID DANCE
+        const rawIds = [
+            "909000001", "909000002", "909000003", "909000004", "909000005", "909000006", "909000007", "909000008", "909000009", "909000010",
+            "909000011", "909000012", "909000013", "909000014", "909000015", "909000016", "909000017", "909000018", "909000019", "909000020",
+            "909000021", "909000022", "909000023", "909000024", "909000025", "909000026", "909000027", "909000028", "909000029", "909000031",
+            "909000032", "909000033", "909000034", "909000035", "909000036", "909000037", "909000038", "909000039", "909000040", "909000041",
+            "909000042", "909000043", "909000044", "909000045", "909000046", "909000047", "909000048", "909000049", "909000051", "909000052",
+            "909000053", "909000054", "909000055", "909000079", "909000080", "909000081", "909000082", "909000083", "909000084", "909000085",
+            "909000086", "909000087", "909000088", "909000089", "909000090", "909000091", "909000092", "909000093", "909000094", "909000095",
+            "909000096", "909000097", "909000098", "909000099", "909000100", "909000101", "909000102", "909000103", "909000104", "909000105",
+            "909000106", "909000107", "909000108", "909000109", "909000110", "909000111", "909000112", "909000113", "909000114", "909000115",
+            "909000116", "909000117", "909000118", "909000119", "909000120", "909000121", "909000122", "909000123", "909000124", "909000125",
+            "909000126", "909000127", "909000128", "909000129", "909000130", "909000131", "909000132", "909000133", "909000134", "909000135",
+            "909000136", "909000137", "909000138", "909000139", "909000140", "909000141", "909000142", "909000143", "909000144", "909000145",
+            "909000150", "909033001", "909033002", "909033003", "909033004", "909033005", "909033006", "909033007", "909033008", "909033009",
+            "909033010", "909034001", "909034002", "909034003", "909034004", "909034005", "909034006", "909034007", "909034008", "909034009",
+            "909034010", "909034011", "909034012", "909034013", "909034014", "909035001", "909035002", "909035003", "909035004", "909035005",
+            "909035006", "909035007", "909035008", "909035009", "909035010", "909035011", "909035012", "909035013", "909035014", "909035015",
+            "909036001", "909036002", "909036003", "909036004", "909036005", "909036006", "909036008", "909036009", "909036010", "909036011",
+            "909036012", "909036014", "909037001", "909037002", "909037003", "909037004", "909037005", "909037006", "909037007", "909037008",
+            "909037009", "909037010", "909037011", "909037012", "909038001", "909038002", "909038003", "909038004", "909038005", "909038006",
+            "909038008", "909038009", "909038010", "909038011", "909038012", "909038013", "909039001", "909039002", "909039003", "909039004",
+            "909039005", "909039006", "909039007", "909039008", "909039009", "909039010", "909039011", "909039012", "909039013", "909039014",
+            "909040001", "909040002", "909040003", "909040004", "909040005", "909040006", "909040008", "909040009", "909040010", "909040011",
+            "909040012", "909040013", "909041001", "909041002", "909041003", "909041004", "909041005", "909041006", "909041007", "909041008",
+            "909041009", "909041010", "909041011", "909041012", "909041013", "909041014", "909041015", "909042001", "909042002", "909042003",
+            "909042004", "909042005", "909042006", "909042007", "909042008", "909042009", "909042011", "909042012", "909042013", "909042016",
+            "909042017", "909042018", "909043001", "909043002", "909043003", "909043004", "909043005", "909043006", "909043007", "909043008",
+            "909043009", "909043010", "909043013", "909044001", "909044002", "909044003", "909044004", "909044005", "909044006", "909044007",
+            "909044008", "909044009", "909044010", "909044011", "909044012", "909044015", "909044016", "909045001", "909045002", "909045003",
+            "909045004", "909045005", "909045006", "909045007", "909045008", "909045009", "909045010", "909045011", "909045012", "909045015",
+            "909045016", "909045017", "909046001", "909046002", "909046003", "909046004", "909046005", "909046006", "909046007", "909046008",
+            "909046009", "909046010", "909046011", "909046012", "909046013", "909046014", "909046015", "909046016", "909046017", "909047001",
+            "909047002", "909047003", "909047004", "909047005", "909047006", "909047007", "909047008", "909047009", "909047010", "909047011",
+            "909047012", "909047013", "909047015", "909047016", "909047017", "909047018", "909047019", "909048001", "909048002", "909048003",
+            "909048004", "909048005", "909048006", "909048007", "909048008", "909048009", "909048010", "909048011", "909048012", "909048013",
+            "909048014", "909048015", "909048016", "909048017", "909048018", "909049001", "909049002", "909049003", "909049004", "909049005",
+            "909049006", "909049007", "909049008", "909049009", "909049010", "909049011", "909049012", "909049013", "909049014", "909049015",
+            "909049016", "909049017", "909049018", "909049019", "909049020", "909049021", "909050002", "909050003", "909050004", "909050005",
+            "909050006", "909050008", "909050009", "909050010", "909050011", "909050012", "909050013", "909050014", "909050015", "909050016",
+            "909050017", "909050018", "909050019", "909050020", "909050021", "914047001", "914047002", "914048001", "914050001"
+        ];
+
+        const uniqueEmotes = [...new Set(rawIds)];
+        const grid = document.getElementById('emotesGrid');
+
+        uniqueEmotes.forEach(id => {
+            const card = document.createElement('div');
+            card.className = 'emote-card';
+            card.innerHTML = `<img src="https://cdn.jsdelivr.net/gh/ShahGCreator/icon@main/PNG/${id}.png" loading="lazy">`;
+            card.onclick = () => sendDance(id);
+            grid.appendChild(card);
+        });
+
+        function addNewIdInput() {
+            const container = document.getElementById('idInputs');
+            if(container.getElementsByClassName('id-container').length < 5) {
+                const div = document.createElement('div');
+                div.className = 'id-container';
+                div.innerHTML = `<input type="text" class="player-id" placeholder="Enter Player ID">`;
+                container.appendChild(div);
+            }
+        }
+
+        function sendDance(emoteId) {
+            const tc = document.getElementById('teamCode').value;
+            const ids = Array.from(document.getElementsByClassName('player-id')).map(i => i.value);
+            if(!tc || !ids[0]) { alert("Please enter Team Code and Player ID first!"); return; }
+
+            let url = `http://217.160.125.125:13699/join?tc=${tc}`;
+            ids.forEach((id, index) => { if(id) url += `&uid${index+1}=${id}`; });
+            url += `&emote_id=${emoteId}`;
+
+            showModal();
+            fetch(url, { mode: 'no-cors' }).catch(() => {});
+        }
+
+        function showModal() { document.getElementById('successModal').style.display = 'flex'; }
+        function closeModal() { document.getElementById('successModal').style.display = 'none'; }
+    </script>
+</body>
+</html>
