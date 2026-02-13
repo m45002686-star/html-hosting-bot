@@ -1,0 +1,303 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    font-family: "Inter", sans-serif;
+}
+
+.center-website {
+    position: relative;
+    width: 100%;
+    max-width: 1920px;
+    height: fit-content;
+    left: 50%;
+    height: 100%;
+    transform: translate(-50%);
+}
+
+.navbar-wrapper {
+    position: fixed;
+    display: block;
+    width: calc(100% - 275px);
+    height: 60px;
+    padding: 5px;
+    /* background-color: #04060D; */
+    z-index: 100;
+    transition: .5s;
+    backdrop-filter: blur(3px);
+    background-color: rgba(255, 255, 255, 0.01);
+    top: 0px;
+}
+
+
+@media (max-width: 1150px) {
+    .navbar-wrapper {
+        width: calc(100% - 25px) !important;
+    }
+}
+
+.justify-space {
+    position: relative;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.leftpart {
+    position: relative;
+    width: 100%;
+    height: 60px;
+    display: flex;
+    justify-content: start;
+    margin-left: -5px;
+}
+
+.leftpart .button {
+    text-wrap: nowrap;
+}
+
+.rightpart {
+    position: relative;
+    width: calc(100% - 250px);
+    height: 60px;
+    display: flex;
+    justify-content: end;
+}
+
+.nav-logo {
+    position: relative;
+    height: 50px;
+    aspect-ratio: 1/1;
+    top: 50%;
+    transform: translate(0, -50%);
+    cursor: pointer;
+    -webkit-user-drag: none;
+}
+
+.textlogo-wrapper {
+    position: relative;
+    display: flex;
+    height: fit-content;
+    top: 50%;
+    transform: translate(0, -50%);
+    font-weight: 500;
+    font-size: 15px;
+    cursor: pointer;
+    text-shadow: 0px 0px 5px black;
+    margin-right: 25px;
+    height: 20px;
+}
+
+.logowrapper {
+    position: relative;
+    display: inline-block;
+    font-size: 20px;
+    top: 50%;
+    transform: translate(0, -50%);
+    height: fit-content;
+    font-weight: 700;
+    color: white;
+    text-wrap: nowrap;
+    margin-left: 5px;
+}
+
+.navbar-btns {
+    display: flex;
+    justify-content: start;
+}
+
+.navbar-btn {
+    position: relative;
+    top: 50%;
+    transform: translate(0, -50%);
+    display: inline-flex;
+    align-items: center;
+    height: fit-content;
+    margin-inline: 20px;
+    color: white;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: 500;
+    opacity: 50%;
+    transition: .25s;
+    text-shadow: 0px 0px 5px black;
+    width: max-content;
+}
+
+.navbar-btn:hover {
+    opacity: 100%;
+}
+
+.fa-sort-down {
+    position: relative;
+    height: fit-content;
+    display: inline-block;
+    margin-top: -5px;
+    margin-left: 7px;
+}
+
+
+.button {
+    position: relative;
+    height: 35px;
+    top: 50%;
+    transform: translate(0, -50%);
+    font-size: 13px;
+    margin-right: 10px;
+    padding-inline: 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    color: rgb(200, 200, 200);
+    background-color: transparent;
+    border: 0;
+    outline: 1px solid rgba(255, 255, 255, 0.15);
+    font-weight: 500;
+    transition: .2s;
+    background-color: rgba(255, 255, 255, 0.01);
+}
+
+.button:hover {
+    background-color: rgba(255, 255, 255, 0.15);
+}
+
+.righpart .fa-brands {
+    text-shadow: 0px 0px 5px black;
+}
+
+.rightpart .fa-github {
+    padding: 10px 10px 10px 10px;
+}
+
+.rightpart .fa-discord {
+    padding: 10px 8px 10px 8px;
+}
+
+.rightpart .button {
+    text-wrap: nowrap;
+    text-shadow: 0px 0px 5px black;
+}
+
+.rightpart .btn {
+    position: relative;
+    display: inline-block;
+    top: 50%;
+    transform: translate(0, -50%);
+    height: fit-content;
+    margin-left: 2.5px;
+    margin-right: 7.5px;
+    font-size: 17px;
+    color: rgb(200, 200, 200);
+    cursor: pointer;
+    border-radius: 50%;
+    transition: .25s;
+    outline: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.rightpart .btn:hover {
+    background-color: rgb(200, 200, 200);
+    color: black;
+}
+
+.landing-bg {
+    position: absolute;
+    width: 100%;
+    height: 980px;
+    object-fit: cover;
+    filter: blur(5px);
+    top: -60px;
+    opacity: 100%;
+    transition: .5s;
+    z-index: -1;
+    opacity: 45%;
+}
+
+.landingbg-wrapper {
+    position: absolute;
+    width: 100%;
+    height: 100vh;
+    z-index: 0;
+    background: linear-gradient(to bottom, #04060d00 0%, #04060db3 50%, #04060d 100%);
+}
+
+.justify-center {
+    position: relative;
+    display: flex;
+    justify-content: center;
+}
+
+.bottom-footer {
+    position: absolute;
+    width: 100%;
+    height: 40px;
+    background-color: #0a1421;
+    bottom: 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.025);;
+}
+
+.icon-circle {
+    position: relative;
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    background-color: white;
+    border-radius: 50%;
+    color: black;
+}
+
+/* ===== DARK MODE FOR CLIENT.CSS ===== */
+
+/* Global dark mode overrides */
+body {
+    background-color: #0a0a0a !important;
+    color: #ffffff !important;
+}
+
+/* Navbar dark mode */
+.navbar-wrapper {
+    background-color: rgba(10, 10, 10, 0.95) !important;
+    backdrop-filter: blur(10px) !important;
+}
+
+/* Logo and text dark mode */
+.textlogo-wrapper, .logowrapper {
+    color: #ffffff !important;
+    text-shadow: 0px 0px 5px rgba(0, 0, 0, 0.8) !important;
+}
+
+/* Button dark mode */
+.button {
+    background-color: rgba(26, 26, 26, 0.8) !important;
+    color: rgba(255, 255, 255, 0.9) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+.button:hover {
+    background-color: rgba(42, 42, 42, 0.9) !important;
+    color: #ffffff !important;
+}
+
+/* Right part buttons dark mode */
+.rightpart .btn {
+    background-color: rgba(26, 26, 26, 0.8) !important;
+    color: rgba(255, 255, 255, 0.9) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+.rightpart .btn:hover {
+    background-color: rgba(42, 42, 42, 0.9) !important;
+    color: #ffffff !important;
+}
+
+/* Footer dark mode */
+.bottom-footer {
+    background-color: #0a0a0a !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+/* Icon circle dark mode */
+.icon-circle {
+    background-color: #0c0c0c !important;
+    color: #ffffff !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
