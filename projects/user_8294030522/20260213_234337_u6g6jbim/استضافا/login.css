@@ -1,0 +1,798 @@
+body {
+    overflow-x: hidden;
+    background-color: #0a1421;
+    background-image: url('/client/assets/srv_banner.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    color: #ffffff;
+    position: relative;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: -1;
+}
+
+.login-wrapper {
+    position: relative;
+    padding-inline: 25px;
+    padding-block: 35px;
+    background-color: #2b303c2b;
+    color: #ffffff;
+    width: 375px;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    backdrop-filter: blur(10px);
+    animation: fadeIn 0.8s ease-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.wrapper-title {
+    position: relative;
+    font-weight: 600;
+    font-size: 20px;
+    color: #ffffff;
+    margin-left: 0px;
+    margin-top: 0px;
+    text-shadow: 0px 2px 4px rgba(0, 0, 0, 0.7);
+}
+
+.center-title {
+    position: relative;
+    display: block;
+    margin-block: 25px;
+    width: 100%;
+    text-align: center;
+    color: white;
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.cf-turnstile {
+    position: relative;
+    margin-top: 25px;
+    display: flex;
+    justify-content: center;
+}
+
+.center-title-small {
+    position: relative;
+    display: block;
+    margin-block: 15px;
+    width: 100%;
+    text-align: center;
+    color: white;
+    font-size: 12px;
+    font-weight: 400;
+}
+
+.signinput {
+    position: relative;
+    display: block;
+    min-width: 125px;
+    height: 45px;
+    margin-block: 10px;
+    border-radius: 8px;
+    background-color: rgba(255, 255, 255, 0.05);
+    outline: 1px solid rgba(255, 255, 255, 0.1);
+    width: calc(100% - 10px);
+    padding-left: 15px;
+    border: 0;
+    color: #ffffff;
+    transition: all 0.3s ease;
+    margin-top: 5px;
+    font-size: 14px;
+}
+
+.signinput::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+    font-weight: 400;
+}
+
+.signinput:invalid {
+    border-color: rgba(244, 67, 54, 0.3);
+}
+
+.signinput:valid {
+    border-color: rgba(76, 175, 80, 0.3);
+}
+
+.signinput:focus {
+    outline: 1px solid rgba(91, 119, 255, 0.6);
+    background-color: rgba(255, 255, 255, 0.08);
+    box-shadow: 0 0 0 3px rgba(91, 119, 255, 0.1);
+}
+
+.login-btn {
+    position: relative;
+    display: block;
+    width: 100%;
+    height: 45px;
+    border-radius: 10px;
+    color: white;
+    background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%);
+    font-weight: 600;
+    font-size: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    overflow: hidden;
+    margin-top: 25px;
+    z-index: 10000;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.login-btn:hover {
+    background: linear-gradient(135deg, #2a2a2a 0%, #3a3a3a 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+.login-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.login-btn:disabled:hover {
+    background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%);
+    transform: none;
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+.login-wrapper .justify-space {
+    position: relative;
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+}
+
+.twofivepx {
+    position: relative;
+    display: inline-block;
+    width: 25px;
+}
+
+.navbar-wrapper {
+    background-color: rgba(10, 20, 33, 0.3);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(15px);
+    padding: 15px 0;
+    width: 100%;
+    position: relative;
+}
+
+.navbar-wrapper .center-website {
+    position: relative;
+    width: 100%;
+    max-width: 1920px;
+    left: 50%;
+    transform: translate(-50%);
+    padding: 0 25px;
+    box-sizing: border-box;
+}
+
+.brand-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.brand-wrapper:hover {
+    transform: scale(1.02);
+}
+
+.brand-logo {
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+}
+
+.brand-text {
+    display: flex;
+    flex-direction: column;
+}
+
+.brand-name {
+    font-size: 18px;
+    font-weight: 700;
+    color: #ffffff;
+    line-height: 1;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.7);
+}
+
+.brand-tagline {
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.7);
+    font-weight: 400;
+    line-height: 1;
+    margin-top: 2px;
+}
+
+.live-stats-container {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+
+.live-stat-box {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 8px 12px;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
+}
+
+.live-stat-box:hover {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.15);
+}
+
+.live-stat-icon {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 14px;
+}
+
+.live-stat-content {
+    display: flex;
+    flex-direction: column;
+}
+
+.live-stat-label {
+    font-size: 10px;
+    color: rgba(255, 255, 255, 0.6);
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    line-height: 1;
+}
+
+.live-stat-value {
+    font-size: 14px;
+    color: #ffffff;
+    font-weight: 700;
+    line-height: 1;
+    margin-top: 2px;
+}
+
+.icon-secondary {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 18px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    padding: 8px;
+    border-radius: 6px;
+}
+
+.icon-secondary:hover {
+    color: #ffffff;
+    background: rgba(255, 255, 255, 0.1);
+    transform: scale(1.1);
+}
+
+.alternative-btn {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    height: 45px;
+    border-radius: 10px;
+    cursor: pointer;
+    color: white;
+    border: 0px;
+    font-size: 15px;
+    font-weight: 500;
+    background-color: transparent;
+    transition: .25s;
+    opacity: 75%;
+    text-shadow: 0px 0px 5px black;
+}
+
+.alternative-btn:hover {
+    opacity: 100%;
+}
+
+.google {
+    color: #ffffff;
+    border: 3px solid #a42014;
+}
+
+.discord {
+    color: #ffffff;
+    border: 3px solid #1a2492
+}
+
+.google:hover {
+    background-color: #a42014;
+    color: white;
+}
+
+.discord:hover {
+    background-color: #1a2492;
+    color: white;
+}
+
+.forgotpass {
+    position: relative;
+    font-size: 12px;
+    display: inline-block;
+    height: fit-content;
+    top: 50%;
+    transform: translate(0, -50%);
+    cursor: pointer;
+    color: rgb(33, 98, 163);
+}
+
+.small-txt {
+    position: relative;
+    font-size: 13px;
+    display: block;
+    color: rgba(255, 255, 255, 0.8);
+    font-weight: 500;
+}
+
+.forgotspace {
+    height: 20px;
+    margin-top: 15px;
+}
+
+.small-center {
+    position: relative;
+    display: block;
+    width: 100%;
+    text-align: center;
+    font-size: 12px;
+    margin-top: 35px;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.continue-via {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 45px;
+    background-color: rgba(255, 255, 255, 0.05);
+    outline: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    cursor: pointer;
+    margin-inline: 5px;
+    transition: all 0.3s ease;
+}
+
+.continue-via .via {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.continue-via:hover {
+    outline: 1px solid rgba(255, 255, 255, 0.2);
+    background-color: rgba(255, 255, 255, 0.1);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.long-line {
+    position: relative;
+    display: block;
+    width: 100%;
+    height: 1px;
+    background-color: rgba(92, 92, 92, 0.3);
+    ;
+    margin-block: 15px;
+}
+
+.create-account {
+    position: relative;
+    display: block;
+    margin-top: 15px;
+    width: 100%;
+    text-align: center;
+    font-size: 13px;
+    cursor: pointer;
+    opacity: 90%;
+    color: rgba(255, 255, 255, 0.8);
+    transition: all 0.3s ease;
+}
+
+.create-account:hover {
+    color: #ffffff;
+    opacity: 100%;
+}
+
+.wrapper-for-login .left-wrapper {
+    position: relative;
+    width: 300px;
+    opacity: 65%;
+    min-height: 475px;
+}
+
+.wrapper-for-login {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    left: 50%;
+    top: 50%;
+    overflow: hidden;
+    border-radius: 15px;
+    transform: translate(-50%, -50%);
+    background-color: #0a1421;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+    animation: slideInUp 0.6s ease-out;
+}
+
+@keyframes slideInUp {
+    from {
+        opacity: 0;
+        transform: translate(-50%, -40%);
+    }
+    to {
+        opacity: 1;
+        transform: translate(-50%, -50%);
+    }
+}
+
+.left-wrapper .pylexrounded {
+    position: relative;
+    display: block;
+    width: 75px;
+    left: 50%;
+    transform: translate(-50%);
+    margin-top: 135px;
+}
+
+.smalltxt {
+    position: relative;
+    display: block;
+    width: 100%;
+    text-align: center;
+    font-size: 12px;
+    color: white;
+    opacity: 75%;
+    margin-top: 15px;
+}
+
+.pylextxt {
+    position: relative;
+    display: block;
+    width: 100%;
+    text-align: center;
+    color: white;
+    margin-top: 3px;
+    font-size: 30px;
+    font-weight: 500;
+}
+
+.smalldesc {
+    position: relative;
+    display: block;
+    width: 90%;
+    left: 50%;
+    transform: translate(-50%);
+    text-align: center;
+    color: white;
+    opacity: 90%;
+    font-size: 13px;
+    margin-top: 5px;
+    font-weight: 400;
+}
+
+.loginwrapperbtn {
+    position: relative;
+    margin-top: 15px;
+    max-width: 45%;
+    width: fit-content;
+    padding-inline: 20px;
+    margin-inline: 5px;
+    height: 30px;
+    border-radius: 5px;
+    color: white;
+    background-color: #1a20377e;
+    font-weight: 500;
+    font-size: 12px;
+    border: 0;
+    outline: 1px solid rgba(255, 255, 255, 0.15);
+    cursor: pointer;
+    transition: .25s;
+    font-weight: 400;
+}
+
+.loginwrapperbtn:hover {
+    background-color: #4c5269aa;
+    outline: 1px solid rgba(84, 83, 116, 0.15);
+}
+
+.login-wrapper .box-bg {
+    position: absolute;
+    opacity: 25%;
+    top: 150px;
+    left: 125px;
+    transform: rotate(45deg);
+}
+
+.login-btn .box-bg {
+    position: absolute;
+    opacity: 25%;
+    z-index: 10000;
+    width: 100%;
+    transform: rotate(180deg);
+    top: 0;
+    left: 0;
+}
+
+a {
+    text-decoration: none;
+}
+
+.continue-via-discord {
+    position: relative;
+    display: block;
+    width: 100%;
+    height: 42px;
+    border-radius: 10px;
+    color: black;
+    opacity: 90%;
+    background-color: #45507a22;
+    font-weight: 450;
+    cursor: pointer;
+    outline: 1px solid rgba(92, 92, 92, 0.5);
+    border: 0;
+    transition: .2s;
+    margin-top: 15px;
+    margin-bottom: 30px;
+    font-size: 14px;
+    overflow: hidden;
+}
+
+.continue-via-discord:hover {
+    background-color: #45507a53;
+    outline: 1px solid rgba(92, 92, 92, 0.25);
+}
+
+.continue-via-discord .box-bg {
+    position: absolute;
+    max-height: 100%;
+    width: 100%;
+    opacity: 25%;
+    left: 0;
+    top: 0px;
+    width: 100%;
+    transform: rotate(0);
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+}
+
+#twofacode {
+    position: relative;
+    width: 60px;
+    min-width: 60px;
+    text-align: center;
+    left: 50%;
+    transform: translate(-50%);
+    padding-left: 10px;
+    padding-right: 10px;
+    ;
+}
+
+.goback {
+    background-color: transparent;
+    font-weight: 500;
+    font-size: 13px;
+    border: 0;
+    color: black;
+    margin-top: 5px;
+    opacity: 100%;
+}
+
+.goback:hover {
+    background-color: transparent;
+}
+
+.twofa-prompt {
+    position: relative;
+    height: fit-content;
+    top: 50%;
+    transform: translate(0, -50%);
+    margin-top: -10px;
+    text-align: center;
+}
+
+.forgot-pass-prompt {
+    position: relative;
+    height: fit-content;
+    top: 50%;
+    transform: translate(0, -50%);
+}
+
+.pass-req {
+    position: relative;
+    display: block;
+    margin-block: 2.5px;
+    margin-left: 5px;
+}
+
+.pass-req .fa-circle-check {
+    color: rgb(54, 157, 54);
+}
+
+.forgot-pass-prompt .notif-box {
+    position: relative;
+    max-width: 95%;
+    width: 100%;
+    margin-bottom: 25px;
+    margin-top: -25px;
+
+}
+
+@media(max-height: 800px) {
+    @media (max-width: 750px) {
+        body {
+            overflow-y: scroll;
+        }
+
+        .landingbg-wrapper {
+            display: none;
+        }
+
+        .wrapper-for-login {
+            position: absolute;
+            display: block;
+        }
+    }
+}
+
+@media (max-height: 700px) {
+    body {
+        overflow-y: scroll;
+    }
+
+    .wrapper-for-login {
+        position: relative;
+        transform: translate(-50%);
+        left: 50%;
+        width: fit-content;
+        display: flex;
+        overflow: hidden;
+    }
+
+    @media (max-width: 750px) {
+        .wrapper-for-login {
+            display: block;
+            top: 150px;
+        }
+    }
+}
+
+.reducemgtop {
+    margin-top: 120px;
+}
+
+@media (max-width: 750px) {
+    .live-stats-container {
+        display: none;
+    }
+    
+    .brand-text {
+        display: none;
+    }
+    
+    .brand-logo {
+        width: 35px;
+        height: 35px;
+    }
+    
+    .wrapper-for-login {
+        position: relative;
+        display: block;
+        transform: translate(-50%);
+        left: 50%;
+        width: fit-content;
+        width: 90%;
+        max-width: 475px;
+        margin-top: 25px;
+    }
+
+    .wrapper-for-login .left-wrapper {
+        position: relative;
+        display: inline-block;
+        height: fit-content;
+        overflow: hidden;
+        width: 100%;
+        padding-block: 15px;
+    }
+
+    .wrapper-for-login .login-wrapper {
+        width: 90%;
+    }
+
+    .left-wrapper .pylexrounded {
+        position: relative;
+        top: 0;
+        left: 20px;
+        margin: 25px;
+        display: block;
+        width: 35px;
+    }
+
+    .left-wrapper .box-bg {
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+    }
+
+    .responsive-justifystart {
+        display: flex;
+        justify-content: start;
+    }
+
+    .responsive-justifystart .wrapper {
+        margin-left: -17px;
+        margin-top: 10px;
+    }
+
+    .wrapper .smalltxt {
+        display: none;
+    }
+
+    .wrapper .pylextxt {
+        margin-top: 15px;
+        margin-left: 5px;
+    }
+
+    .smalldesc {
+        margin-top: -15px;
+        font-size: 11px;
+        margin-bottom: 15px;
+        text-align: start;
+    }
+
+    .responsive-extrastuff {
+        display: none;
+    }
+
+    .reducemgtop {
+        margin-top: 0px;
+    }
+    .forgot-pass-prompt {
+        top: 0;
+        transform: translate(0, 0);
+    }
+    .pylexrounded {
+        margin-top: 25px !important;
+    }
+    .left-wrapper {
+        min-height: fit-content !important;
+    }
+}
