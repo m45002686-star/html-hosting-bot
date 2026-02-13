@@ -1,0 +1,104 @@
+.pos-abs-center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;;
+}
+
+.loading-circle {
+    position: relative;
+    display: inline-block;
+    border-radius: 50%;
+    border-left: 5px solid white;
+    border-top: 5px solid transparent;
+    width: 40px;
+    height: 40px;
+    left: 50%;
+    transform: translate(-50%);
+    animation: spin 1s linear infinite;
+    mask-image: linear-gradient(to bottom, rgba(0,0,0,1), rgba(0,0,0,0.1), rgba(0,0,0,0)); /* Adjust gradient for better visibility */
+    -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,1), rgba(0,0,0,0.1), rgba(0,0,0,0)); /* For WebKit browsers */
+}
+
+
+.loading-circle::before {
+    content: '';
+    position: absolute;
+    top: 0px;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background-color: white;
+    z-index: 100;
+}
+
+@keyframes spin {
+    0% {
+        transform: translateX(-50%) rotate(0deg);
+    }
+    100% {
+        transform: translateX(-50%) rotate(360deg);
+    }
+}
+
+.fixed-wrapper {
+    position: relative;
+    width: 40px;
+    height: 40px;
+    left: 50%;
+    transform: translate(-50%);
+}
+
+.center-mini-img {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1000;
+    margin-top: 4px;
+    animation: pulse 2s linear infinite;
+}
+
+@keyframes pulse {
+    0% {
+        width: 15px;
+        height: 15px;
+        opacity: 25%;
+    }
+    50% {
+        width: 20px;
+        height: 20px;
+        opacity: 75%;
+    }
+    100% {
+        width: 15px;
+        height: 15px;
+        opacity: 25%;
+    }
+}
+
+.fun-fact {
+    position: relative;
+    max-width: calc(95% - 30px);
+    width: fit-content;
+    height: fit-content;
+    padding: 15px; 
+    background-color: #2b303c2b;;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.65);
+    border-radius: 10px;
+    left: 50%;
+    transform: translate(-50%);
+    text-align: center;
+    margin-top: 25px;
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.75);
+}
+
+.fun-fact .text .fa-circle-info {
+    position: relative;
+    display: inline-block;
+    margin-right: 7px;
+}
