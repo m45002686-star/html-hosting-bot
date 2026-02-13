@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+﻿<html>
+    <head>
+    <meta charset="UTF-8">
+    <title>تجربب</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Color Styler By ALI</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="bootstrap.min.css">
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body class="bg-dark page">
+        <header>
+		<nav class="bg-white navbar navbar-white navbar-expand-md fixed-top">
+			<div class="container-fluid">
+				<a href='#' class="navbar-brand align-items-center">
+			    <img src="./project-2.jpg" width="40">
+			    <strong>Color Styler</strong>
+			    </a>
+			    <button
+                    class="navbar-toggler"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#navbarHeader"
+                    aria-controls="navbarCollapse"
+                    aria-expanded="false"
+                    aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+			    
+		        
+    			<div class='collapse navbar-collapse' id='navbarHeader'>
+    				    <div class="py-4">
+    				        <h4>About</h4>
+    				        Color Styler is simple web app to create color code's
+    				    </div>
+    				    <div>
+    				        <h4>Email Me</h4>
+    				        <a href="#">my7029698@gmail.com</a>
+    				    </div>
+    				</div>
+				</nav>
+			</div>
+		</header>
+        <main class="container down text-white main">
+                <div class="text-center">
+                     <input class="btn btn-primary bg-white text-dark" id="output" placeholder="Color"></input>
+                </div>
+                <div class="text-center">
+                    <input type="color" id="color" class="down" onchange="show_color();">
+                </div>
+                <button class="down btn btn-outline-primary" onclick="showHistory();">History</button>
+            </main>
+            <main class="container text-white history down">
+                <div id="historyMain"></div>
+                <button class="btn btn-outline-primary down2" onclick="clear_data();">Clear Data</button>
+                <button class="btn btn-outline-primary down2" onclick="showMain();">Main</button>
+            </main>
+		<script src="bootstrap.bundle.min.js"></script>
+        <script src="jquery.min.js"></script>
+	    <script src='script.js'></script>
+    </body>
+</html>
