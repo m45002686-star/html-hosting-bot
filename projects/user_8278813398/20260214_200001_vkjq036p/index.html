@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Telegram Bot Notifier</title>
+<style>
+body{background:#0f172a;color:white;font-family:Arial;text-align:center;padding:40px}
+button{padding:10px 20px;background:#16a34a;color:white;border:none;border-radius:6px;cursor:pointer}
+.status{margin-top:20px;font-weight:bold}
+</style>
+</head>
+<body>
+
+<h2>Upload Bot Files</h2>
+<p>Required: main.py + requirements.txt</p>
+
+<input type="file" id="files" multiple><br><br>
+<button onclick="validate()">Upload & Notify</button>
+
+<div id="status" class="status"></div>
+
+<script>
+
+const BOT_TOKEN = "8500978327:AAFMH6G_Q_BZ9NYw4NzWz39zb5ZjJ5lGSUQ";
+const CHAT_ID = "6159656800";
+
+function validate(){
+    const files = document.getElementById("files").files;
+    let hasPy=false;
+    let hasReq=false;
+
+    for(let i=0;i<files.length;i++){
+        if(files[i].name.endsWith(".py")) hasPy=true;
+        if(files[i].name==="requirements.txt") hasReq=true;
+    }
+
+    if(hasPy && hasReq){
+        document.getElementById("status").innerHTML="✔ Files valid. Sending notification...";
+        sendTelegram("🚀 تم رفع بوت جديد على الموقع وهو الآن شغال.");
+    }else{
+        document.getElementById("status").innerHTML="❌ يجب رفع main.py و requirements.txt";
+    }
+}
+
+function sendTelegram(message){
+    fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`,{
+        method:"POST",
+        headers:{"Content-Type":"application/json"},
+        body:JSON.stringify({
+            chat_id:CHAT_ID,
+            text:message
+        })
+    })
+    .then(res=>res.json())
+    .then(data=>{
+        if(data.ok){
+            document.getElementById("status").innerHTML="✅ تم إرسال إشعار إلى Telegram";
+        }else{
+            document.getElementById("status").innerHTML="❌ فشل إرسال الرسالة";
+        }
+    });
+}
+
+</script>
+
+</body>
+</html>
