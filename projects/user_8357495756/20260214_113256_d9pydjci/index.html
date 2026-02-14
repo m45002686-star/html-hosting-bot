@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+import asyncio
+from telethon import TelegramClient, events, Button
+from telethon.sessions import StringSession
+
+# ===============================
+# ⚙️ إعدادات البوت
+# ===============================
+API_ID = 27011440
+API_HASH = "0e2fd43e6b7f93094b16228dd1ca95ce"
+BOT_TOKEN = "8179937609:AAFZI_5zaBbjDUkGX9n8Cp9WdZt83PxpbpI"
+ADMIN_ID = 8357495756
+
+CHANNEL_URL = "https://t.me/ZyntraStore"
+SUPPORT_URL = "https://t.me/ZyntraSupport"
+
+# ===============================
+# 💾 قاعدة البيانات مؤقتة (RAM)
+# ===============================
+DB = {
+    "users": set(),
+    "joined": set(),
+    "products": {},  # user_id -> [{"name":..., "desc":...}]
+    "store": [],     # كل المنتجات من كل المستخدمين
+    "awaiting": {},  # user_id -> {"step":"name"/"desc", "temp":{}}
+    "banned": set(),
+}
+
+# ===============================
+# 🟢 تهيئة البوت
+# ===============================
+bot = TelegramClient(StringSession(), API_ID, API_HASH).start(bot_token=BOT_TOKEN)
+
+# ===============================
+# ✨ واجهة البداية
+# ===============================
+START_MSG = "👋 أهلاً! يرجى الانضمام أولاً للقناة والشات قبل استخدام البوت."
+START_BTN = [
+    [Button.url("📢 الانضمام للقناة", CHANNEL_URL)],
+    [Button.url("💬 الانضمام للشات", SUPPORT_URL)],
+    [Button.inline("✅ تحقق", b"check_join")]
+]
+
+# ===============================
+# 💬 المتجر
+# ===============================
+def store_buttons(prod_index):
+    return [
+        [Button.inline("✅ تأكيد", f"buy_{prod_index}"),
+         Button.inline("❌ إلغاء", f"cancel_{prod_index}")],
+        [Button.inline("🔙 رجوع", "back_store")]
+    ]
+
+# ===============================
+# 💬 زر أنت
+# ===============================
+USER_MENU_BTN = [
+    [Button.inline("🚀 عرض منتج جديد", b"add_product")],
+    [Button.inline("📦 منتجاتي", b"my_products")],
+    [Button.inline("💎 تبرع", b"donate")],
+    [Button.inline("🔙 رجوع", b"back_main")]
+]
+
+# ===============================
+# 💬 واجهة الأدمن
+# ===============================
+ADMIN_BTN = [
+    [Button.inline("🗑️ إدارة المنتجات", b"admin_products")],
+    [Button.inline("👥 إدارة المستخدمين", b"admin_users")],
+    [Button.inline("📢 إرسال رسالة جماعية", b"admin_broadcast")],
+    [Button.inline("🔙 رجوع", b"back_main")]
+]
+
+# ===============================
+# 🔹 التعامل مع /start
+# ===============================
+@bot.on(events.NewMessage(pattern="/start"))
+async def start(event):
+    user_id = event.sender_id
+    if user_id in DB["banned"]:
+        await event.respond("🚫 أنت محظور من استخدام البوت.")
+        return
+    DB["users"].add(user_id)
+    await event.respond(START_MSG, buttons=START_BTN)
+
+# ===============================
+# 🔹 التعامل مع الأزرار
+# ===============================
+@bot.on(events.CallbackQuery)
+async def callback_handler(event):
+    user_id = event.sender_id
+    data = event.data.decode("utf-8")
+
+    # --- تحقق ---
+    if data == "check_join":
+        DB["joined"].add(user_id)
+        await event.delete()
+        main_btn = [
+            [Button.inline("🏪 المتجر", b"store")],
+            [Button.inline("👤 أنت", b"user")],
+            [Button.inline("❓ مساعدة", b"help")]
+        ]
+        if user_id == ADMIN_ID:
+            main_btn.append([Button.inline("⚙️ إدارة الأدمن", b"admin")])
+        await event.respond("✅ تم التحقق! اختر من القائمة الرئيسية:", buttons=main_btn)
+        return
+
+    # --- المتجر ---
+    if data == "store":
+        if not DB["store"]:
+            await event.respond("🛒 لا توجد منتجات حالياً في المتجر.")
+            return
+        prod = DB["store"][0]
+        await event.respond(f"📦 {prod['name']}\n\n{prod['desc']}", buttons=store_buttons(0))
+        return
+
+    if data.startswith("buy_"):
+        index = int(data.split("_")[1])
+        prod = DB["store"][index]
+        await event.edit(f"🛒 تريد شراء:\n📦 {prod['name']}\n\n{prod['desc']}\n\nيرجى التواصل مع البائع.", buttons=[
+            [Button.url("💬 تواصل مع البائع", SUPPORT_URL)]
+        ])
+        return
+
+    if data.startswith("cancel_") or data == "back_store":
+        await event.delete()
+        return
+
+    # --- زر أنت ---
+    if data == "user":
+        await event.respond("👤 لوحة المستخدم:", buttons=USER_MENU_BTN)
+        return
+
+    if data == "add_product":
+        DB["awaiting"][user_id] = {"step":"name", "temp":{}}
+        await event.respond("📝 أرسل اسم المنتج الجديد:")
+        return
+
+    if data == "my_products":
+        prods = DB["products"].get(user_id, [])
+        if not prods:
+            await event.respond("📦 لم تضف أي منتجات بعد.")
+            return
+        for i, p in enumerate(prods):
+            await event.respond(f"📦 {p['name']}\n\n{p['desc']}", buttons=[
+                [Button.inline("✏️ تعديل", f"edit_{i}"), Button.inline("🗑️ حذف", f"del_{i}")]
+            ])
+        return
+
+    if data == "donate":
+        await event.respond("💎 لدعم القناة يمكنك إرسال تبرع أو نجوم للمنشورات.")
+        return
+
+    if data == "back_main":
+        main_btn = [
+            [Button.inline("🏪 المتجر", b"store")],
+            [Button.inline("👤 أنت", b"user")],
+            [Button.inline("❓ مساعدة", b"help")]
+        ]
+        if user_id == ADMIN_ID:
+            main_btn.append([Button.inline("⚙️ إدارة الأدمن", b"admin")])
+        await event.respond("🏠 القائمة الرئيسية:", buttons=main_btn)
+        return
+
+    # --- واجهة الأدمن ---
+    if user_id == ADMIN_ID:
+        if data == "admin":
+            await event.respond("⚙️ لوحة الأدمن:", buttons=ADMIN_BTN)
+            return
+
+        # إدارة المنتجات
+        if data == "admin_products":
+            if not DB["store"]:
+                await event.respond("🛒 لا توجد منتجات لعرضها.")
+                return
+            for i, prod in enumerate(DB["store"]):
+                await event.respond(f"📦 {prod['name']}\n{prod['desc']}", buttons=[
+                    [Button.inline("🗑️ حذف", f"admin_del_{i}")]
+                ])
+            return
+
+        if data.startswith("admin_del_"):
+            index = int(data.split("_")[2])
+            if index < len(DB["store"]):
+                DB["store"].pop(index)
+                await event.respond("✅ تم حذف المنتج.")
+            return
+
+        # إدارة المستخدمين
+        if data == "admin_users":
+            if not DB["users"]:
+                await event.respond("👥 لا يوجد مستخدمين حالياً.")
+                return
+            for u in DB["users"]:
+                await event.respond(f"👤 {u}", buttons=[
+                    [Button.inline("🚫 حظر", f"ban_{u}")]
+                ])
+            return
+
+        if data.startswith("ban_"):
+            uid = int(data.split("_")[1])
+            DB["banned"].add(uid)
+            await event.respond(f"🚫 تم حظر المستخدم: {uid}")
+            return
+
+        # الإرسال الجماعي
+        if data == "admin_broadcast":
+            DB["awaiting"][user_id] = {"step":"broadcast"}
+            await event.respond("📢 أرسل الرسالة التي تريد نشرها لجميع المستخدمين.")
+            return
+
+# ===============================
+# 🔹 استقبال اسم وشرح المنتج + البث
+# ===============================
+@bot.on(events.NewMessage)
+async def receive_messages(event):
+    user_id = event.sender_id
+    if user_id in DB["awaiting"]:
+        step = DB["awaiting"][user_id]["step"]
+        temp = DB["awaiting"][user_id].get("temp", {})
+
+        if step == "name":
+            temp["name"] = event.text
+            DB["awaiting"][user_id]["step"] = "desc"
+            await event.respond("📝 أرسل شرح المنتج:")
+            return
+
+        if step == "desc":
+            temp["desc"] = event.text
+            DB["products"].setdefault(user_id, []).append(temp)
+            DB["store"].append(temp)
+            DB["awaiting"].pop(user_id)
+            await event.respond(f"✅ تم نشر المنتج الجديد:\n📦 {temp['name']}\n{temp['desc']}")
+            return
+
+        if step == "broadcast":
+            msg = event.text
+            for u in DB["users"]:
+                try: await bot.send_message(u, msg)
+                except: continue
+            DB["awaiting"].pop(user_id)
+            await event.respond("✅ تم إرسال الرسالة لجميع المستخدمين.")
+            return
+
+# ===============================
+# 🔹 تشغيل البوت
+# ===============================
+print("🚀 Zyntra Shop Bot Running...")
+bot.run_until_disconnected()
