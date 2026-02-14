@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Telegram Bot Hosting Panel</title>
+<style>
+body{
+    margin:0;
+    font-family:Arial;
+    background:#0f172a;
+    color:white;
+}
+header{
+    background:#111827;
+    padding:20px;
+    text-align:center;
+    font-size:22px;
+    font-weight:bold;
+}
+.container{
+    padding:30px;
+}
+.card{
+    background:#1e293b;
+    padding:20px;
+    border-radius:12px;
+    margin-bottom:20px;
+}
+input{
+    margin:10px 0;
+}
+button{
+    padding:8px 18px;
+    border:none;
+    border-radius:6px;
+    cursor:pointer;
+    margin-right:10px;
+}
+.start{ background:#16a34a; color:white; }
+.stop{ background:#dc2626; color:white; }
+.upload{ background:#2563eb; color:white; }
+
+.status{
+    margin-top:10px;
+    font-weight:bold;
+}
+.console{
+    background:black;
+    padding:15px;
+    height:200px;
+    overflow:auto;
+    font-family:monospace;
+    margin-top:15px;
+}
+.running{ color:lime; }
+.stopped{ color:red; }
+</style>
+</head>
+<body>
+
+<header>Telegram Bot Hosting Panel</header>
+
+<div class="container">
+
+<div class="card">
+    <h3>Upload Bot Files</h3>
+    <p>Required: main.py + requirements.txt</p>
+    <input type="file" id="files" multiple><br>
+    <button class="upload" onclick="validate()">Validate Files</button>
+    <div id="validation" class="status"></div>
+</div>
+
+<div class="card">
+    <h3>Bot Control</h3>
+    <button class="start" onclick="startBot()">Start</button>
+    <button class="stop" onclick="stopBot()">Stop</button>
+    <div id="botStatus" class="status stopped">Status: Stopped</div>
+
+    <div class="console" id="console">
+        > Waiting for action...
+    </div>
+</div>
+
+</div>
+
+<script>
+let validFiles = false;
+let running = false;
+
+function validate(){
+    const files = document.getElementById("files").files;
+    let hasPy=false;
+    let hasReq=false;
+
+    for(let i=0;i<files.length;i++){
+        if(files[i].name==="main.py") hasPy=true;
+        if(files[i].name==="requirements.txt") hasReq=true;
+    }
+
+    const validation=document.getElementById("validation");
+
+    if(hasPy && hasReq){
+        validFiles=true;
+        validation.style.color="lime";
+        validation.innerHTML="✔ Files Valid. Ready to start.";
+    }else{
+        validFiles=false;
+        validation.style.color="red";
+        validation.innerHTML="❌ Missing main.py or requirements.txt";
+    }
+}
+
+function startBot(){
+    if(!validFiles){
+        log("> Cannot start. Upload required files first.");
+        return;
+    }
+    if(running){
+        log("> Bot already running.");
+        return;
+    }
+
+    running=true;
+    document.getElementById("botStatus").innerHTML="Status: Running";
+    document.getElementById("botStatus").className="status running";
+
+    log("> Installing requirements...");
+    setTimeout(()=>log("> Starting bot..."),1000);
+    setTimeout(()=>log("> Bot connected to Telegram API"),2000);
+}
+
+function stopBot(){
+    if(!running){
+        log("> Bot already stopped.");
+        return;
+    }
+
+    running=false;
+    document.getElementById("botStatus").innerHTML="Status: Stopped";
+    document.getElementById("botStatus").className="status stopped";
+
+    log("> Bot stopped.");
+}
+
+function log(text){
+    const consoleBox=document.getElementById("console");
+    consoleBox.innerHTML+= "<br>"+text;
+    consoleBox.scrollTop=consoleBox.scrollHeight;
+}
+</script>
+
+</body>
+</html>
