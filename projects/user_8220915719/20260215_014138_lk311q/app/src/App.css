@@ -1,0 +1,104 @@
+/* App-specific styles */
+
+/* Editor Grid Layout */
+.editor-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+@media (min-width: 1024px) {
+  .editor-grid {
+    grid-template-columns: 1.5fr 1fr;
+  }
+}
+
+/* Ensure the editor takes full height */
+.monaco-editor {
+  height: 100% !important;
+}
+
+/* Editor container */
+.editor-container {
+  position: relative;
+  height: 100%;
+  width: 100%;
+}
+
+/* Loading overlay animation */
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.loading-shimmer {
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.05) 50%,
+    transparent 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 2s infinite;
+}
+
+/* Glow effect for the run button */
+.run-button-glow {
+  position: relative;
+}
+
+.run-button-glow::after {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  background: linear-gradient(135deg, #fbbf24, #a855f7);
+  border-radius: inherit;
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  filter: blur(8px);
+}
+
+.run-button-glow:hover::after {
+  opacity: 0.5;
+}
+
+/* Code syntax highlighting colors */
+.syntax-keyword {
+  color: #c586c0;
+}
+
+.syntax-string {
+  color: #ce9178;
+}
+
+.syntax-comment {
+  color: #6a9955;
+}
+
+.syntax-function {
+  color: #dcdcaa;
+}
+
+.syntax-number {
+  color: #b5cea8;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1023px) {
+  .editor-grid {
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr;
+  }
+}
+
+/* Print styles */
+@media print {
+  .no-print {
+    display: none !important;
+  }
+}
