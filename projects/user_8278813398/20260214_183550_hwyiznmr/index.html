@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>استضافة بايثون - بوت التلجرام</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 3px solid #667eea;
+        }
+
+        .header h1 {
+            color: #333;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .header h1 i {
+            color: #667eea;
+        }
+
+        .developer {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 50px;
+            display: inline-block;
+            font-size: 1.2em;
+            margin-top: 10px;
+        }
+
+        .bot-info {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 30px;
+            border: 2px solid #667eea;
+        }
+
+        .bot-info h2 {
+            color: #667eea;
+            margin-bottom: 15px;
+        }
+
+        .info-item {
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            border-right: 5px solid #764ba2;
+        }
+
+        .info-item strong {
+            color: #667eea;
+            display: inline-block;
+            min-width: 80px;
+        }
+
+        .token-box {
+            background: #333;
+            color: #00ff00;
+            padding: 15px;
+            border-radius: 10px;
+            font-family: monospace;
+            font-size: 1.1em;
+            direction: ltr;
+            text-align: left;
+            margin-top: 10px;
+            overflow-x: auto;
+        }
+
+        .hosting-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin: 30px 0;
+        }
+
+        .hosting-card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+            border: 1px solid #e0e0e0;
+        }
+
+        .hosting-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(102, 126, 234, 0.3);
+        }
+
+        .hosting-card h3 {
+            color: #667eea;
+            font-size: 1.5em;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #764ba2;
+            padding-bottom: 10px;
+        }
+
+        .features {
+            list-style: none;
+            margin: 15px 0;
+        }
+
+        .features li {
+            margin: 10px 0;
+            padding: 5px 0;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .features li:before {
+            content: "✓ ";
+            color: #00c853;
+            font-weight: bold;
+            margin-left: 5px;
+        }
+
+        .price {
+            font-size: 1.8em;
+            color: #333;
+            margin: 15px 0;
+            font-weight: bold;
+        }
+
+        .price small {
+            font-size: 0.6em;
+            color: #666;
+        }
+
+        .stars {
+            color: #ffc107;
+            font-size: 1.2em;
+            margin: 10px 0;
+        }
+
+        .btn-telegram {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            width: 100%;
+            text-align: center;
+        }
+
+        .btn-telegram:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .comparison-table {
+            margin: 40px 0;
+            overflow-x: auto;
+        }
+
+        .comparison-table table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+        }
+
+        .comparison-table th {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px;
+            font-size: 1.1em;
+        }
+
+        .comparison-table td {
+            padding: 12px;
+            text-align: center;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .comparison-table tr:hover {
+            background: #f5f5f5;
+        }
+
+        .tips-section {
+            background: linear-gradient(135deg, #fff5f5 0%, #f0f4ff 100%);
+            border-radius: 15px;
+            padding: 25px;
+            margin: 30px 0;
+        }
+
+        .tips-section h3 {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 1.8em;
+        }
+
+        .tips-section ul {
+            list-style: none;
+        }
+
+        .tips-section li {
+            margin: 10px 0;
+            padding: 10px;
+            background: white;
+            border-radius: 10px;
+            border-right: 5px solid #764ba2;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 2px solid #e0e0e0;
+            color: #666;
+        }
+
+        .footer a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+            
+            .header h1 {
+                font-size: 1.8em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- رأس الصفحة -->
+        <div class="header">
+            <h1>🚀 <i>استضافة بايثون مع دعم ZIP</i></h1>
+            <div class="developer">
+                👨‍💻 المطور: @RLH55
+            </div>
+        </div>
+
+        <!-- معلومات بوت التلجرام -->
+        <div class="bot-info">
+            <h2>🤖 معلومات بوت التلجرام</h2>
+            <div class="info-item">
+                <strong>🆔 الايدي:</strong> <span dir="ltr">6159656800</span>
+            </div>
+            <div class="info-item">
+                <strong>🔑 التوكن:</strong>
+                <div class="token-box" dir="ltr">
+                    8500978327:AAFMH6G_Q_BZ9NYw4NzWz39zb5ZjJ5lGSUQ
+                </div>
+            </div>
+            <div style="text-align: center; margin-top: 20px;">
+                <a href="https://t.me/RLH55" target="_blank" class="btn-telegram" style="width: auto; padding: 10px 40px;">
+                    📱 التواصل مع المطور @RLH55
+                </a>
+            </div>
+        </div>
+
+        <!-- بطاقات الاستضافات -->
+        <h2 style="color: #333; margin: 30px 0 20px; text-align: center;">🏢 أفضل خيارات الاستضافة</h2>
+        <div class="hosting-grid">
+            <!-- Hostinger -->
+            <div class="hosting-card">
+                <h3>Hostinger</h3>
+                <div class="stars">★★★★★</div>
+                <div class="price">$1.99 <small>/شهر</small></div>
+                <ul class="features">
+                    <li>دعم كامل للبايثون 3.x</li>
+                    <li>رفع واستخراج ZIP تلقائي</li>
+                    <li>دعم Flask و Django</li>
+                    <li>مدير ملفات متقدم</li>
+                    <li>لوحة تحكم عربية</li>
+                </ul>
+                <a href="https://t.me/RLH55" target="_blank" class="btn-telegram">احجز الآن</a>
+            </div>
+
+            <!-- A2 Hosting -->
+            <div class="hosting-card">
+                <h3>A2 Hosting</h3>
+                <div class="stars">★★★★☆</div>
+                <div class="price">$2.99 <small>/شهر</small></div>
+                <ul class="features">
+                    <li>جميع إصدارات البايثون</li>
+                    <li>دعم ZIP عبر لوحة التحكم</li>
+                    <li>سرعة فائقة</li>
+                    <li>دعم فني 24/7</li>
+                    <li>نطاق مجاني</li>
+                </ul>
+                <a href="https://t.me/RLH55" target="_blank" class="btn-telegram">احجز الآن</a>
+            </div>
+
+            <!-- PythonAnywhere -->
+            <div class="hosting-card">
+                <h3>PythonAnywhere</h3>
+                <div class="stars">★★★★★</div>
+                <div class="price">مجاني - $5 <small>/شهر</small></div>
+                <ul class="features">
+                    <li>متخصصة في البايثون</li>
+                    <li>بيئة تطوير متكاملة</li>
+                    <li>رفع ZIP واستخراج مباشر</li>
+                    <li>دعم MySQL و PostgreSQL</li>
+                    <li>نطاق فرعي مجاني</li>
+                </ul>
+                <a href="https://t.me/RLH55" target="_blank" class="btn-telegram">احجز الآن</a>
+            </div>
+
+            <!-- Railway -->
+            <div class="hosting-card">
+                <h3>Railway</h3>
+                <div class="stars">★★★★☆</div>
+                <div class="price">حسب الاستخدام</div>
+                <ul class="features">
+                    <li>استضافة سحابية حديثة</li>
+                    <li>نشر من GitHub</li>
+                    <li>دعم رفع ZIP</li>
+                    <li>قابلية توسع عالية</li>
+                    <li>نشر آلي</li>
+                </ul>
+                <a href="https://t.me/RLH55" target="_blank" class="btn-telegram">احجز الآن</a>
+            </div>
+
+            <!-- Kinsta -->
+            <div class="hosting-card">
+                <h3>Kinsta</h3>
+                <div class="stars">★★★★★</div>
+                <div class="price">$35 <small>/شهر</small></div>
+                <ul class="features">
+                    <li>سرعة فائقة</li>
+                    <li>دعم بايثون حديث</li>
+                    <li>نشر آلي مع ZIP</li>
+                    <li>أمان متقدم</li>
+                    <li>لمشاريع كبيرة</li>
+                </ul>
+                <a href="https://t.me/RLH55" target="_blank" class="btn-telegram">احجز الآن</a>
+            </div>
+        </div>
+
+        <!-- جدول المقارنة -->
+        <div class="comparison-table">
+            <h2 style="color: #333; margin-bottom: 20px;">📊 مقارنة سريعة</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>الاستضافة</th>
+                        <th>السعر</th>
+                        <th>دعم Python</th>
+                        <th>دعم ZIP</th>
+                        <th>سهولة الاستخدام</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Hostinger</strong></td>
+                        <td>$1.99</td>
+                        <td>✅✅</td>
+                        <td>✅✅</td>
+                        <td>⭐⭐⭐⭐⭐</td>
+                    </tr>
+                    <tr>
+                        <td><strong>A2 Hosting</strong></td>
+                        <td>$2.99</td>
+                        <td>✅✅✅</td>
+                        <td>✅✅</td>
+                        <td>⭐⭐⭐⭐</td>
+                    </tr>
+                    <tr>
+                        <td><strong>PythonAnywhere</strong></td>
+                        <td>مجاني - $5</td>
+                        <td>✅✅✅</td>
+                        <td>✅✅✅</td>
+                        <td>⭐⭐⭐⭐⭐</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Railway</strong></td>
+                        <td>حسب الاستخدام</td>
+                        <td>✅✅✅</td>
+                        <td>✅✅</td>
+                        <td>⭐⭐⭐⭐</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- نصائح مهمة -->
+        <div class="tips-section">
+            <h3>📌 نصائح مهمة عند الاختيار</h3>
+            <ul>
+                <li>🔹 تأكد من دعم Python 3.x (الأحدث هو 3.11+)</li>
+                <li>🔹 تحقق من إمكانية تثبيت المكتبات (pip install)</li>
+                <li>🔹 ابحث عن دعم أطر العمل مثل Flask و Django</li>
+                <li>🔹 تأكد من وجود مدير ملفات يدعم رفع واستخراج ZIP</li>
+                <li>🔹 انتبه لحدود المساحة وعدد الزوار المسموح</li>
+            </ul>
+        </div>
+
+        <!-- توصيات -->
+        <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border-radius: 15px; padding: 25px; margin: 30px 0;">
+            <h2 style="color: white; margin-bottom: 20px;">💡 توصيتي الشخصية</h2>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
+                <div style="background: rgba(255,255,255,0.2); padding: 20px; border-radius: 10px;">
+                    <h3 style="color: white;">🔰 للمشاريع الصغيرة</h3>
+                    <p>PythonAnywhere - الخطة المجانية</p>
+                </div>
+                <div style="background: rgba(255,255,255,0.2); padding: 20px; border-radius: 10px;">
+                    <h3 style="color: white;">📊 للمشاريع المتوسطة</h3>
+                    <p>Hostinger - أفضل قيمة مقابل سعر</p>
+                </div>
+                <div style="background: rgba(255,255,255,0.2); padding: 20px; border-radius: 10px;">
+                    <h3 style="color: white;">🏢 للمشاريع الكبيرة</h3>
+                    <p>A2 Hosting أو Kinsta</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- تذييل الصفحة -->
+        <div class="footer">
+            <p>© 2024 جميع الحقوق محفوظة - <a href="https://t.me/RLH55" target="_blank">@RLH55</a></p>
+            <p style="margin-top: 10px; font-size: 0.9em;">للحجز والاستفسار، تواصل مع المطور عبر التلجرام</p>
+        </div>
+    </div>
+</body>
+</html>
