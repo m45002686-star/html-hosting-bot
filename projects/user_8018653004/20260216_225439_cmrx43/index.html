@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PHOENIX CLOUD | نظام التشغيل والسيطرة</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Cairo:wght@300;600;900&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #00f2ff;
+            --secondary: #7000ff;
+            --success: #00ff9d;
+            --danger: #ff3e3e;
+            --bg: #03030b;
+            --card-bg: rgba(10, 10, 20, 0.95);
+            --border: rgba(0, 242, 255, 0.15);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; outline: none; }
+        body { background: var(--bg); color: #fff; font-family: 'Cairo', sans-serif; height: 100vh; overflow: hidden; display: flex; }
+
+        /* Sidebar Navigation */
+        nav {
+            width: 260px;
+            background: rgba(5, 5, 10, 1);
+            border-left: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            padding: 30px 15px;
+            z-index: 100;
+        }
+
+        .nav-logo { font-family: 'Orbitron'; color: var(--primary); font-size: 1.5rem; font-weight: 700; margin-bottom: 50px; text-align: center; letter-spacing: 2px; }
+        
+        .nav-item {
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: #888;
+            font-weight: 600;
+        }
+
+        .nav-item:hover, .nav-item.active { background: rgba(0, 242, 255, 0.1); color: var(--primary); }
+
+        /* Main Content */
+        main { flex: 1; display: flex; flex-direction: column; overflow: hidden; position: relative; }
+        
+        .top-bar {
+            height: 70px;
+            background: var(--card-bg);
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 30px;
+        }
+
+        .system-stats { display: flex; gap: 30px; font-family: 'Orbitron'; font-size: 0.8rem; }
+        .stat-val { color: var(--primary); }
+
+        .dashboard {
+            flex: 1;
+            padding: 30px;
+            overflow-y: auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 25px;
+        }
+
+        /* Widgets */
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 15px;
+            padding: 20px;
+            position: relative;
+        }
+
+        .card-title { font-size: 1.1rem; font-weight: 900; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; }
+
+        /* File Manager Simulation */
+        .file-list { display: flex; flex-direction: column; gap: 10px; }
+        .file-item {
+            background: rgba(255,255,255,0.03);
+            padding: 12px 15px;
+            border-radius: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border: 1px solid transparent;
+            transition: 0.3s;
+        }
+        .file-item:hover { border-color: var(--primary); }
+        .file-info { display: flex; align-items: center; gap: 10px; }
+        .file-status { font-size: 0.7rem; padding: 2px 8px; border-radius: 4px; background: var(--success); color: #000; font-weight: bold; }
+
+        /* Live Terminal */
+        .terminal {
+            background: #000;
+            border-radius: 10px;
+            padding: 15px;
+            height: 300px;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.85rem;
+            overflow-y: auto;
+            color: var(--success);
+            line-height: 1.5;
+            border: 1px solid #1a1a1a;
+        }
+
+        /* AI Analysis Panel */
+        .ai-panel { background: linear-gradient(135deg, rgba(0, 242, 255, 0.05), rgba(112, 0, 255, 0.05)); }
+        .progress-circle {
+            width: 150px; height: 150px; border-radius: 50%;
+            border: 5px solid #111; border-top: 5px solid var(--primary);
+            margin: 20px auto; display: flex; align-items: center; justify-content: center;
+            font-family: 'Orbitron'; font-size: 1.5rem;
+            animation: spin 2s linear infinite;
+        }
+
+        /* Upload Button */
+        .btn-upload {
+            background: var(--primary);
+            color: #000;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            font-weight: 900;
+            cursor: pointer;
+            font-family: 'Cairo';
+        }
+
+        /* Footer Credits */
+        .footer-credits {
+            position: absolute; bottom: 20px; right: 30px; left: 30px;
+            display: flex; justify-content: space-between;
+            color: #555; font-size: 0.8rem; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 15px;
+        }
+        .dev-highlight { color: #aaa; font-weight: bold; }
+
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        @keyframes blink { 50% { opacity: 0; } }
+        .cursor { display: inline-block; width: 8px; height: 15px; background: var(--primary); animation: blink 1s infinite; }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar { width: 5px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 10px; }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="nav-logo">PHOENIX</div>
+        <div class="nav-item active">🏠 لوحة التحكم</div>
+        <div class="nav-item">📁 ملفات Python</div>
+        <div class="nav-item">🧠 تحليل AI</div>
+        <div class="nav-item">⚙️ الإعدادات</div>
+        
+        <div style="margin-top: auto;">
+            <a href="https://t.me/fareshw" style="text-decoration:none; color:inherit;">
+                <div class="nav-item" style="border: 1px solid var(--primary);">📢 قناة التحديثات</div>
+            </a>
+        </div>
+    </nav>
+
+    <main>
+        <div class="top-bar">
+            <div class="system-stats">
+                <div>CPU: <span class="stat-val" id="cpu-load">12%</span></div>
+                <div>RAM: <span class="stat-val" id="ram-load">0.8 / 16 GB</span></div>
+                <div>UPTIME: <span class="stat-val" id="uptime">00:00:00</span></div>
+            </div>
+            <button class="btn-upload" onclick="simulateUpload()">+ رفع سكربت جديد</button>
+        </div>
+
+        <div class="dashboard">
+            <!-- Left Side -->
+            <div style="display: flex; flex-direction: column; gap: 25px;">
+                <div class="card">
+                    <div class="card-title">الملفات النشطة (Running Scripts) <span style="font-size: 0.7rem; color: var(--success);">24/7 Runtime ACTIVE</span></div>
+                    <div class="file-list" id="file-list">
+                        <div class="file-item">
+                            <div class="file-info">
+                                <b>main_bot.py</b>
+                                <span class="file-status">RUNNING</span>
+                            </div>
+                            <div style="font-family: 'Orbitron'; font-size: 0.8rem;">PID: 4492</div>
+                        </div>
+                        <div class="file-item">
+                            <div class="file-info">
+                                <b>api_handler.py</b>
+                                <span class="file-status">RUNNING</span>
+                            </div>
+                            <div style="font-family: 'Orbitron'; font-size: 0.8rem;">PID: 1028</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-title">تيرمينال التشغيل الحي (Live Output)</div>
+                    <div class="terminal" id="terminal-output">
+                        [SYS] Phoenix Engine v2.0 initialized.<br>
+                        [SYS] Checking for 24/7 persistence... OK.<br>
+                        [AI] Monitoring all active processes...<br>
+                        > Ready for input. <span class="cursor"></span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Side -->
+            <div style="display: flex; flex-direction: column; gap: 25px;">
+                <div class="card ai-panel">
+                    <div class="card-title">التحليل الذكي (AI Insight)</div>
+                    <div class="progress-circle" id="ai-score">98%</div>
+                    <p style="text-align: center; color: var(--primary); font-weight: bold;">جودة استقرار النظام</p>
+                    <ul style="margin-top: 20px; font-size: 0.85rem; color: #aaa; list-style: none;">
+                        <li>• لا توجد تسريبات ذاكرة</li>
+                        <li>• معالجة الأخطاء: مفعلة</li>
+                        <li>• تحسين السرعة: 100%</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <div class="card-title">مدير المكتبات (PIP)</div>
+                    <div id="pip-list" style="font-family: 'Fira Code'; font-size: 0.8rem; color: #888;">
+                        requests==2.31.0<br>
+                        discord.py==2.3.2<br>
+                        python-telegram-bot==20.7<br>
+                        numpy==1.26.0
+                    </div>
+                    <button style="width:100%; margin-top:15px; background:transparent; border:1px solid var(--primary); color:var(--primary); padding:8px; cursor:pointer;" onclick="simulatePip()">تثبيت مكتبة جديدة</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-credits">
+            <div>© جميع الحقوق محفوظة – <span class="dev-highlight">فارس | Python Developer</span></div>
+            <div>المطور الأساسي: <span class="dev-highlight">@zo_kid</span></div>
+        </div>
+    </main>
+
+    <script>
+        // 1. محاكاة الرفع (Upload)
+        function simulateUpload() {
+            const fileName = prompt("أدخل اسم ملف الـ Python (مثلاً bot.py):");
+            if(fileName) {
+                const list = document.getElementById('file-list');
+                const newFile = document.createElement('div');
+                newFile.className = 'file-item';
+                newFile.innerHTML = `
+                    <div class="file-info">
+                        <b>${fileName}</b>
+                        <span class="file-status" style="background:var(--primary)">UPLOADING...</span>
+                    </div>
+                    <div style="font-family: 'Orbitron'; font-size: 0.8rem;">PID: NEW</div>
+                `;
+                list.prepend(newFile);
+                writeToTerminal(`[SYS] Uploading ${fileName}...`);
+                
+                setTimeout(() => {
+                    newFile.querySelector('.file-status').style.background = 'var(--success)';
+                    newFile.querySelector('.file-status').innerText = 'RUNNING';
+                    newFile.querySelector('div:last-child').innerText = 'PID: ' + Math.floor(Math.random()*9000 + 1000);
+                    writeToTerminal(`[SYS] ${fileName} has been deployed successfully 24/7.`);
+                }, 2000);
+            }
+        }
+
+        // 2. محاكاة التيرمينال (Terminal)
+        function writeToTerminal(text) {
+            const term = document.getElementById('terminal-output');
+            const entry = document.createElement('div');
+            entry.innerHTML = `> ${text}`;
+            term.appendChild(entry);
+            term.scrollTop = term.scrollHeight;
+        }
+
+        // 3. محاكاة PIP
+        function simulatePip() {
+            const lib = prompt("اسم المكتبة المطلوب تثبيتها:");
+            if(lib) {
+                writeToTerminal(`<span style="color:var(--primary)">[PIP] Installing ${lib}...</span>`);
+                setTimeout(() => {
+                    document.getElementById('pip-list').innerHTML += `<br>${lib}==latest`;
+                    writeToTerminal(`<span style="color:var(--success)">[PIP] ${lib} installed successfully.</span>`);
+                }, 1500);
+            }
+        }
+
+        // 4. عداد التشغيل (Uptime) والموارد
+        let seconds = 0;
+        setInterval(() => {
+            seconds++;
+            let h = Math.floor(seconds / 3600).toString().padStart(2, '0');
+            let m = Math.floor((seconds % 3600) / 60).toString().padStart(2, '0');
+            let s = (seconds % 60).toString().padStart(2, '0');
+            document.getElementById('uptime').innerText = `${h}:${m}:${s}`;
+            
+            // محاكاة استهلاك CPU/RAM
+            document.getElementById('cpu-load').innerText = Math.floor(Math.random()*15 + 5) + '%';
+            document.getElementById('ram-load').innerText = (Math.random()*0.5 + 0.7).toFixed(1) + ' / 16 GB';
+        }, 1000);
+
+        // محاكاة تحليلات AI عشوائية
+        setInterval(() => {
+            writeToTerminal(`[AI] Analyzing script performance... Stability: 99.9%`);
+        }, 15000);
+
+    </script>
+</body>
+</html>
