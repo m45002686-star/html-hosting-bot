@@ -1,0 +1,932 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>APIServer - نظام إدارة الاعتمادات API</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+
+        /* شريط التنقل */
+        .navbar {
+            background: white;
+            padding: 20px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #667eea;
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 20px;
+        }
+
+        .nav-buttons button {
+            padding: 10px 25px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .login-btn {
+            background: transparent;
+            color: #667eea;
+            border: 2px solid #667eea !important;
+        }
+
+        .login-btn:hover {
+            background: #667eea;
+            color: white;
+        }
+
+        .register-btn {
+            background: #667eea;
+            color: white;
+        }
+
+        .register-btn:hover {
+            background: #5a67d8;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        /* الحاوية الرئيسية */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 100px 20px 40px;
+        }
+
+        /* القسم الرئيسي */
+        .hero {
+            text-align: center;
+            padding: 60px 0;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            margin-bottom: 60px;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .hero h1 span {
+            color: #667eea;
+            position: relative;
+        }
+
+        .hero h1 span::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: #667eea;
+        }
+
+        .hero p {
+            font-size: 18px;
+            color: #666;
+            margin-bottom: 30px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        .primary-btn {
+            padding: 15px 40px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .primary-btn:hover {
+            background: #5a67d8;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .secondary-btn {
+            padding: 15px 40px;
+            background: transparent;
+            color: #667eea;
+            border: 2px solid #667eea;
+            border-radius: 10px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .secondary-btn:hover {
+            background: #667eea;
+            color: white;
+        }
+
+        /* نظام إنشاء الحساب */
+        .auth-section {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            margin: 40px 0;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+        }
+
+        .auth-tabs {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #f0f0f0;
+            padding-bottom: 20px;
+        }
+
+        .auth-tab {
+            padding: 10px 30px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            border: none;
+            background: transparent;
+            color: #666;
+            position: relative;
+        }
+
+        .auth-tab.active {
+            color: #667eea;
+        }
+
+        .auth-tab.active::after {
+            content: '';
+            position: absolute;
+            bottom: -22px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: #667eea;
+        }
+
+        .auth-form {
+            display: none;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        .auth-form.active {
+            display: block;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: 500;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #f0f0f0;
+            border-radius: 10px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 15px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            background: #5a67d8;
+        }
+
+        /* لوحة التحكم */
+        .dashboard {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            margin: 40px 0;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            display: none;
+        }
+
+        .dashboard.active {
+            display: block;
+        }
+
+        .dashboard-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+
+        .dashboard-header h2 {
+            color: #333;
+        }
+
+        .logout-btn {
+            padding: 10px 25px;
+            background: #f56565;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .logout-btn:hover {
+            background: #e53e3e;
+        }
+
+        .api-keys {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .api-card {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            border-right: 4px solid #667eea;
+        }
+
+        .api-card h3 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .api-card p {
+            color: #666;
+            font-family: monospace;
+            font-size: 14px;
+            margin-bottom: 15px;
+            word-break: break-all;
+        }
+
+        .copy-btn {
+            padding: 8px 15px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .copy-btn:hover {
+            background: #5a67d8;
+        }
+
+        /* بطاقات المميزات */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin: 60px 0;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 50px rgba(0,0,0,0.15);
+        }
+
+        .feature-icon {
+            font-size: 40px;
+            margin-bottom: 20px;
+        }
+
+        .feature-card h3 {
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        .feature-card p {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        /* قسم اللغات */
+        .languages {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            margin: 40px 0;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        .language-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 30px;
+        }
+
+        .lang-btn {
+            padding: 10px 25px;
+            background: #f0f0f0;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .lang-btn:hover {
+            background: #667eea;
+            color: white;
+        }
+
+        .lang-btn.active {
+            background: #667eea;
+            color: white;
+        }
+
+        /* قسم الدعم */
+        .support {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            margin: 40px 0;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        .support-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin-top: 30px;
+        }
+
+        .telegram-btn {
+            padding: 15px 40px;
+            background: #0088cc;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 18px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .telegram-btn:hover {
+            background: #0077b5;
+        }
+
+        .community-btn {
+            padding: 15px 40px;
+            background: #7289da;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 18px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .community-btn:hover {
+            background: #5f73bc;
+        }
+
+        /* التذييل */
+        .footer {
+            text-align: center;
+            padding: 40px 0;
+            color: white;
+        }
+
+        /* التنبيهات */
+        .alert {
+            position: fixed;
+            top: 100px;
+            right: 20px;
+            padding: 15px 25px;
+            border-radius: 10px;
+            color: white;
+            font-weight: 600;
+            z-index: 2000;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        .alert.success {
+            background: #48bb78;
+        }
+
+        .alert.error {
+            background: #f56565;
+        }
+
+        .alert.info {
+            background: #4299e1;
+        }
+
+        /* تصميم متجاوب */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 32px;
+            }
+            
+            .hero-buttons {
+                flex-direction: column;
+            }
+            
+            .auth-tabs {
+                flex-direction: column;
+            }
+            
+            .support-buttons {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- شريط التنقل -->
+    <nav class="navbar">
+        <div class="logo">⚡ APIServer</div>
+        <div class="nav-buttons">
+            <button class="login-btn" onclick="showLogin()">تسجيل الدخول</button>
+            <button class="register-btn" onclick="showRegister()">إنشاء حساب</button>
+        </div>
+    </nav>
+
+    <!-- الحاوية الرئيسية -->
+    <div class="container">
+        <!-- القسم الرئيسي -->
+        <section class="hero">
+            <h1>
+                ابدأ مشروعك مع<br>
+                <span>APIServer</span>
+            </h1>
+            <p>نظام إدارة الاعتمادات API الأقوى والأسهل للتطبيقات</p>
+            <div class="hero-buttons">
+                <button class="primary-btn" onclick="showRegister()">ابدأ الآن مجاناً</button>
+                <button class="secondary-btn" onclick="showDashboard()">عرض لوحة التحكم</button>
+            </div>
+        </section>
+
+        <!-- نظام إنشاء الحساب -->
+        <section class="auth-section">
+            <div class="auth-tabs">
+                <button class="auth-tab active" onclick="switchTab('login')">تسجيل الدخول</button>
+                <button class="auth-tab" onclick="switchTab('register')">إنشاء حساب جديد</button>
+            </div>
+
+            <!-- نموذج تسجيل الدخول -->
+            <div id="login-form" class="auth-form active">
+                <h2 style="text-align: center; margin-bottom: 30px;">تسجيل الدخول</h2>
+                <div class="form-group">
+                    <label>البريد الإلكتروني</label>
+                    <input type="email" id="login-email" placeholder="أدخل بريدك الإلكتروني">
+                </div>
+                <div class="form-group">
+                    <label>كلمة المرور</label>
+                    <input type="password" id="login-password" placeholder="أدخل كلمة المرور">
+                </div>
+                <button class="submit-btn" onclick="loginUser()">تسجيل الدخول</button>
+            </div>
+
+            <!-- نموذج إنشاء حساب -->
+            <div id="register-form" class="auth-form">
+                <h2 style="text-align: center; margin-bottom: 30px;">إنشاء حساب جديد</h2>
+                <div class="form-group">
+                    <label>الاسم الكامل</label>
+                    <input type="text" id="register-name" placeholder="أدخل اسمك الكامل">
+                </div>
+                <div class="form-group">
+                    <label>البريد الإلكتروني</label>
+                    <input type="email" id="register-email" placeholder="أدخل بريدك الإلكتروني">
+                </div>
+                <div class="form-group">
+                    <label>كلمة المرور</label>
+                    <input type="password" id="register-password" placeholder="أدخل كلمة المرور">
+                </div>
+                <div class="form-group">
+                    <label>تأكيد كلمة المرور</label>
+                    <input type="password" id="register-confirm" placeholder="أعد إدخال كلمة المرور">
+                </div>
+                <button class="submit-btn" onclick="registerUser()">إنشاء حساب</button>
+            </div>
+        </section>
+
+        <!-- لوحة التحكم -->
+        <section id="dashboard" class="dashboard">
+            <div class="dashboard-header">
+                <h2>مرحباً بك في لوحة التحكم</h2>
+                <button class="logout-btn" onclick="logoutUser()">تسجيل الخروج</button>
+            </div>
+            <div id="user-info">
+                <p style="font-size: 18px; color: #333;">البريد الإلكتروني: <span id="user-email"></span></p>
+                <p style="font-size: 18px; color: #333;">تاريخ التسجيل: <span id="user-date"></span></p>
+            </div>
+            <h3 style="margin: 30px 0 20px;">مفاتيح API الخاصة بك</h3>
+            <div class="api-keys" id="api-keys">
+                <!-- سيتم إضافة المفاتيح هنا عبر JavaScript -->
+            </div>
+        </section>
+
+        <!-- قسم المميزات -->
+        <section class="features">
+            <div class="feature-card">
+                <div class="feature-icon">🔒</div>
+                <h3>الأمان</h3>
+                <p>بيانات مشفرة بأعلى معايير الأمان لحماية معلوماتك</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🔑</div>
+                <h3>مفاتيح مخصصة</h3>
+                <p>مفاتيح API مخصصة لكل مشروع مع صلاحيات محددة</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🌐</div>
+                <h3>دعم اللغات</h3>
+                <p>واجهة متعددة اللغات تناسب المستخدمين حول العالم</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🤖</div>
+                <h3>بوت تلغرام</h3>
+                <p>بوت مخصص لتلغرام يمكنك من كسب المال عبر الروابط المختصرة</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">👥</div>
+                <h3>إدارة الموزعين</h3>
+                <p>نظام متكامل لإدارة الموزعين والوكلاء</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">📚</div>
+                <h3>توثيق شامل</h3>
+                <p>توثيق مفصل ومبسط لسهولة الاستخدام والتكامل</p>
+            </div>
+        </section>
+
+        <!-- قسم اللغات -->
+        <section class="languages">
+            <h2>تغطية شاملة لجميع المميزات</h2>
+            <p style="color: #666; margin: 20px 0;">مميزات إضافية ومرونة عالية</p>
+            <div class="language-buttons">
+                <button class="lang-btn active" onclick="changeLanguage('ar')">العربية</button>
+                <button class="lang-btn" onclick="changeLanguage('en')">English</button>
+                <button class="lang-btn" onclick="changeLanguage('vi')">Vietnamese</button>
+                <button class="lang-btn" onclick="changeLanguage('zh')">Chinese</button>
+                <button class="lang-btn" onclick="changeLanguage('pt')">Portuguese</button>
+            </div>
+        </section>
+
+        <!-- قسم الدعم -->
+        <section class="support">
+            <h2>لم تجد إجابة لسؤالك؟</h2>
+            <p style="color: #666; margin: 20px 0;">تواصل معنا على تلغرام</p>
+            <div class="support-buttons">
+                <button class="telegram-btn" onclick="window.open('https://t.me/APIServer', '_blank')">
+                    📱 اسأل على تلغرام
+                </button>
+                <button class="community-btn" onclick="window.open('https://t.me/APIServerCommunity', '_blank')">
+                    👥 انضم للمجتمع
+                </button>
+            </div>
+        </section>
+
+        <!-- التذييل -->
+        <footer class="footer">
+            <p>© 2026 APIServer - جميع الحقوق محفوظة</p>
+        </footer>
+    </div>
+
+    <script>
+        // بيانات المستخدمين (تخزين محلي)
+        let users = JSON.parse(localStorage.getItem('users')) || [];
+        let currentUser = JSON.parse(localStorage.getItem('currentUser')) || null;
+
+        // دوال التبويبات
+        function switchTab(tab) {
+            const tabs = document.querySelectorAll('.auth-tab');
+            const forms = document.querySelectorAll('.auth-form');
+            
+            tabs.forEach(t => t.classList.remove('active'));
+            forms.forEach(f => f.classList.remove('active'));
+            
+            if (tab === 'login') {
+                tabs[0].classList.add('active');
+                document.getElementById('login-form').classList.add('active');
+            } else {
+                tabs[1].classList.add('active');
+                document.getElementById('register-form').classList.add('active');
+            }
+        }
+
+        // إنشاء حساب جديد
+        function registerUser() {
+            const name = document.getElementById('register-name').value;
+            const email = document.getElementById('register-email').value;
+            const password = document.getElementById('register-password').value;
+            const confirm = document.getElementById('register-confirm').value;
+
+            // التحقق من المدخلات
+            if (!name || !email || !password || !confirm) {
+                showAlert('يرجى ملء جميع الحقول', 'error');
+                return;
+            }
+
+            if (password !== confirm) {
+                showAlert('كلمة المرور غير متطابقة', 'error');
+                return;
+            }
+
+            if (password.length < 6) {
+                showAlert('كلمة المرور يجب أن تكون 6 أحرف على الأقل', 'error');
+                return;
+            }
+
+            // التحقق من وجود البريد الإلكتروني
+            if (users.find(u => u.email === email)) {
+                showAlert('البريد الإلكتروني موجود بالفعل', 'error');
+                return;
+            }
+
+            // إنشاء مفاتيح API
+            const apiKeys = generateAPIKeys();
+
+            // إضافة المستخدم الجديد
+            const newUser = {
+                id: Date.now(),
+                name: name,
+                email: email,
+                password: password,
+                date: new Date().toLocaleDateString('ar-EG'),
+                apiKeys: apiKeys
+            };
+
+            users.push(newUser);
+            localStorage.setItem('users', JSON.stringify(users));
+
+            // تسجيل الدخول مباشرة
+            currentUser = newUser;
+            localStorage.setItem('currentUser', JSON.stringify(currentUser));
+
+            showAlert('تم إنشاء الحساب بنجاح!', 'success');
+            
+            // عرض لوحة التحكم
+            document.querySelector('.auth-section').style.display = 'none';
+            document.getElementById('dashboard').classList.add('active');
+            updateDashboard();
+            
+            // تنظيف الحقول
+            document.getElementById('register-name').value = '';
+            document.getElementById('register-email').value = '';
+            document.getElementById('register-password').value = '';
+            document.getElementById('register-confirm').value = '';
+        }
+
+        // تسجيل الدخول
+        function loginUser() {
+            const email = document.getElementById('login-email').value;
+            const password = document.getElementById('login-password').value;
+
+            if (!email || !password) {
+                showAlert('يرجى إدخال البريد الإلكتروني وكلمة المرور', 'error');
+                return;
+            }
+
+            const user = users.find(u => u.email === email && u.password === password);
+
+            if (user) {
+                currentUser = user;
+                localStorage.setItem('currentUser', JSON.stringify(currentUser));
+                
+                showAlert('تم تسجيل الدخول بنجاح!', 'success');
+                
+                document.querySelector('.auth-section').style.display = 'none';
+                document.getElementById('dashboard').classList.add('active');
+                updateDashboard();
+                
+                document.getElementById('login-email').value = '';
+                document.getElementById('login-password').value = '';
+            } else {
+                showAlert('البريد الإلكتروني أو كلمة المرور غير صحيحة', 'error');
+            }
+        }
+
+        // تسجيل الخروج
+        function logoutUser() {
+            currentUser = null;
+            localStorage.removeItem('currentUser');
+            
+            document.querySelector('.auth-section').style.display = 'block';
+            document.getElementById('dashboard').classList.remove('active');
+            
+            showAlert('تم تسجيل الخروج بنجاح', 'info');
+        }
+
+        // تحديث لوحة التحكم
+        function updateDashboard() {
+            if (currentUser) {
+                document.getElementById('user-email').textContent = currentUser.email;
+                document.getElementById('user-date').textContent = currentUser.date;
+                
+                // عرض مفاتيح API
+                const apiKeysDiv = document.getElementById('api-keys');
+                apiKeysDiv.innerHTML = '';
+                
+                currentUser.apiKeys.forEach(key => {
+                    const card = document.createElement('div');
+                    card.className = 'api-card';
+                    card.innerHTML = `
+                        <h3>${key.name}</h3>
+                        <p>${key.key}</p>
+                        <button class="copy-btn" onclick="copyToClipboard('${key.key}')">نسخ المفتاح</button>
+                    `;
+                    apiKeysDiv.appendChild(card);
+                });
+            }
+        }
+
+        // إنشاء مفاتيح API
+        function generateAPIKeys() {
+            return [
+                {
+                    name: 'مفتاح API الرئيسي',
+                    key: 'APIServer_' + Math.random().toString(36).substr(2, 16).toUpperCase()
+                },
+                {
+                    name: 'مفتاح البوت',
+                    key: 'BOT_' + Math.random().toString(36).substr(2, 16).toUpperCase()
+                },
+                {
+                    name: 'مفتاح الاختبار',
+                    key: 'TEST_' + Math.random().toString(36).substr(2, 16).toUpperCase()
+                }
+            ];
+        }
+
+        // نسخ إلى الحافظة
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(() => {
+                showAlert('تم نسخ المفتاح بنجاح!', 'success');
+            }).catch(() => {
+                showAlert('فشل النسخ، حاول مرة أخرى', 'error');
+            });
+        }
+
+        // إظهار التنبيهات
+        function showAlert(message, type) {
+            const alert = document.createElement('div');
+            alert.className = `alert ${type}`;
+            alert.textContent = message;
+            
+            document.body.appendChild(alert);
+            
+            setTimeout(() => {
+                alert.remove();
+            }, 3000);
+        }
+
+        // إظهار نموذج تسجيل الدخول
+        function showLogin() {
+            document.querySelector('.auth-section').scrollIntoView({ behavior: 'smooth' });
+            switchTab('login');
+        }
+
+        // إظهار نموذج إنشاء حساب
+        function showRegister() {
+            document.querySelector('.auth-section').scrollIntoView({ behavior: 'smooth' });
+            switchTab('register');
+        }
+
+        // إظهار لوحة التحكم
+        function showDashboard() {
+            if (currentUser) {
+                document.querySelector('.auth-section').style.display = 'none';
+                document.getElementById('dashboard').classList.add('active');
+                updateDashboard();
+            } else {
+                showAlert('يرجى تسجيل الدخول أولاً', 'info');
+                showLogin();
+            }
+        }
+
+        // تغيير اللغة
+        function changeLanguage(lang) {
+            const buttons = document.querySelectorAll('.lang-btn');
+            buttons.forEach(b => b.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            const messages = {
+                'ar': 'تم تغيير اللغة إلى العربية',
+                'en': 'Language changed to English',
+                'vi': 'Đã chuyển ngôn ngữ sang tiếng Việt',
+                'zh': '语言已更改为中文',
+                'pt': 'Idioma alterado para português'
+            };
+            
+            showAlert(messages[lang], 'info');
+        }
+
+        // التحقق من المستخدم الحالي عند تحميل الصفحة
+        if (currentUser) {
+            document.querySelector('.auth-section').style.display = 'none';
+            document.getElementById('dashboard').classList.add('active');
+            updateDashboard();
+        }
+
+        // إضافة بعض المستخدمين للتجربة (اختياري)
+        if (users.length === 0) {
+            const demoUser = {
+                id: 1,
+                name: 'مستخدم تجريبي',
+                email: 'demo@example.com',
+                password: '123456',
+                date: new Date().toLocaleDateString('ar-EG'),
+                apiKeys: [
+                    { name: 'مفتاح API الرئيسي', key: 'APISERVER_DEMO_123456' },
+                    { name: 'مفتاح البوت', key: 'BOT_DEMO_123456' },
+                    { name: 'مفتاح الاختبار', key: 'TEST_DEMO_123456' }
+                ]
+            };
+            users.push(demoUser);
+            localStorage.setItem('users', JSON.stringify(users));
+        }
+    </script>
+</body>
+</html>
