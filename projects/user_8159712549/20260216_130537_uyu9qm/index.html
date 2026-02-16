@@ -1,0 +1,1632 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SBAYSY XIT | متجر بيع المفاتيح والبانل</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Cairo', 'Tajawal', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #0a0a0f 0%, #1a1a2e 100%);
+            color: #fff;
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* خلفية متحركة */
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .bg-animation span {
+            position: absolute;
+            display: block;
+            width: 20px;
+            height: 20px;
+            background: rgba(255, 215, 0, 0.03);
+            border-radius: 50%;
+            animation: float 20s linear infinite;
+            bottom: -150px;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.5;
+            }
+            90% {
+                opacity: 0.5;
+            }
+            100% {
+                transform: translateY(-1000px) rotate(720deg);
+                opacity: 0;
+            }
+        }
+
+        .bg-animation span:nth-child(1) { left: 10%; width: 80px; height: 80px; animation-duration: 25s; }
+        .bg-animation span:nth-child(2) { left: 20%; width: 40px; height: 40px; animation-duration: 18s; animation-delay: 2s; }
+        .bg-animation span:nth-child(3) { left: 30%; width: 60px; height: 60px; animation-duration: 22s; animation-delay: 4s; }
+        .bg-animation span:nth-child(4) { left: 40%; width: 30px; height: 30px; animation-duration: 15s; animation-delay: 1s; }
+        .bg-animation span:nth-child(5) { left: 50%; width: 70px; height: 70px; animation-duration: 28s; animation-delay: 3s; }
+        .bg-animation span:nth-child(6) { left: 60%; width: 50px; height: 50px; animation-duration: 20s; animation-delay: 5s; }
+        .bg-animation span:nth-child(7) { left: 70%; width: 90px; height: 90px; animation-duration: 30s; animation-delay: 0s; }
+        .bg-animation span:nth-child(8) { left: 80%; width: 45px; height: 45px; animation-duration: 17s; animation-delay: 3.5s; }
+        .bg-animation span:nth-child(9) { left: 90%; width: 55px; height: 55px; animation-duration: 23s; animation-delay: 2.5s; }
+        .bg-animation span:nth-child(10) { left: 95%; width: 35px; height: 35px; animation-duration: 14s; animation-delay: 1.5s; }
+
+        .container {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* زر لوحة التحكم */
+        .dashboard-btn {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: linear-gradient(45deg, #ffd700, #ffaa00);
+            color: #1a1a2e;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            cursor: pointer;
+            box-shadow: 0 5px 20px rgba(255, 215, 0, 0.3);
+            transition: 0.3s;
+            z-index: 1001;
+            border: none;
+        }
+
+        .dashboard-btn:hover {
+            transform: rotate(90deg) scale(1.1);
+        }
+
+        /* لوحة التحكم */
+        .dashboard-panel {
+            position: fixed;
+            top: 0;
+            left: -400px;
+            width: 380px;
+            height: 100vh;
+            background: rgba(10, 10, 20, 0.95);
+            backdrop-filter: blur(20px);
+            border-left: 2px solid #ffd700;
+            padding: 30px;
+            transition: 0.4s;
+            z-index: 1000;
+            overflow-y: auto;
+            box-shadow: 0 0 50px rgba(0,0,0,0.5);
+        }
+
+        .dashboard-panel.open {
+            left: 0;
+        }
+
+        .dashboard-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #ffd700;
+        }
+
+        .dashboard-header h3 {
+            color: #ffd700;
+            font-size: 24px;
+        }
+
+        .close-dashboard {
+            background: none;
+            border: none;
+            color: #ffd700;
+            font-size: 24px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .close-dashboard:hover {
+            transform: rotate(90deg);
+        }
+
+        .dashboard-section {
+            margin-bottom: 30px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 20px;
+        }
+
+        .dashboard-section h4 {
+            color: #ffd700;
+            margin-bottom: 15px;
+            font-size: 18px;
+        }
+
+        .setting-item {
+            margin-bottom: 20px;
+        }
+
+        .setting-item label {
+            display: block;
+            margin-bottom: 8px;
+            color: #aaa;
+            font-size: 14px;
+        }
+
+        .setting-item input,
+        .setting-item textarea {
+            width: 100%;
+            padding: 12px;
+            background: rgba(0,0,0,0.3);
+            border: 1px solid #ffd700;
+            border-radius: 10px;
+            color: white;
+            font-family: inherit;
+        }
+
+        .setting-item input:focus,
+        .setting-item textarea:focus {
+            outline: none;
+            border-color: #00ff00;
+        }
+
+        .save-btn {
+            background: linear-gradient(45deg, #00ff00, #00cc00);
+            color: #1a1a2e;
+            border: none;
+            padding: 15px;
+            border-radius: 10px;
+            font-weight: bold;
+            width: 100%;
+            cursor: pointer;
+            transition: 0.3s;
+            font-size: 16px;
+        }
+
+        .save-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0,255,0,0.3);
+        }
+
+        .reset-default {
+            background: rgba(255,0,0,0.2);
+            color: #ff4444;
+            border: 1px solid #ff4444;
+            padding: 10px;
+            border-radius: 10px;
+            width: 100%;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: 0.3s;
+        }
+
+        .reset-default:hover {
+            background: #ff4444;
+            color: white;
+        }
+
+        /* شريط التليجرام العلوي */
+        .telegram-bar {
+            background: linear-gradient(90deg, #0088cc, #005f8c, #0088cc);
+            padding: 20px;
+            border-radius: 20px;
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            box-shadow: 0 10px 30px rgba(0, 136, 204, 0.3);
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            animation: slideDown 0.8s ease;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .telegram-info {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .telegram-icon {
+            width: 60px;
+            height: 60px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 35px;
+            color: #0088cc;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.7);
+            }
+            50% {
+                box-shadow: 0 0 20px 5px rgba(255, 255, 255, 0.3);
+            }
+        }
+
+        .telegram-text h2 {
+            font-size: 28px;
+            margin-bottom: 5px;
+        }
+
+        .telegram-text p {
+            color: #ffd700;
+            font-size: 18px;
+        }
+
+        .telegram-buttons {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .btn-telegram {
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid #ffd700;
+            color: #ffd700;
+            padding: 12px 25px;
+            border-radius: 15px;
+            text-decoration: none;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: 0.3s;
+        }
+
+        .btn-telegram:hover {
+            background: #ffd700;
+            color: #1a1a2e;
+            transform: translateY(-3px);
+        }
+
+        .btn-telegram i {
+            font-size: 20px;
+        }
+
+        /* صورة القناة */
+        .channel-image {
+            text-align: center;
+            margin-bottom: 40px;
+            animation: fadeIn 1s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .channel-image img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            border: 4px solid #ffd700;
+            box-shadow: 0 0 50px rgba(255, 215, 0, 0.3);
+            transition: 0.3s;
+            cursor: pointer;
+            object-fit: cover;
+        }
+
+        .channel-image img:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 70px rgba(255, 215, 0, 0.5);
+        }
+
+        .channel-name {
+            font-size: 42px;
+            margin-top: 20px;
+            background: linear-gradient(45deg, #ffd700, #ffaa00, #ff8800);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: bold;
+        }
+
+        .channel-link {
+            display: inline-block;
+            background: rgba(0, 136, 204, 0.2);
+            border: 1px solid #0088cc;
+            padding: 10px 30px;
+            border-radius: 50px;
+            margin-top: 15px;
+            color: #0088cc;
+            text-decoration: none;
+            font-size: 18px;
+            transition: 0.3s;
+        }
+
+        .channel-link:hover {
+            background: #0088cc;
+            color: white;
+            transform: translateY(-3px);
+        }
+
+        /* عنوان القسم */
+        .section-title {
+            font-size: 36px;
+            text-align: center;
+            margin: 60px 0 40px;
+            position: relative;
+            padding-bottom: 20px;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            width: 150px;
+            height: 4px;
+            background: linear-gradient(90deg, #ffd700, #0088cc);
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 2px;
+        }
+
+        .section-title i {
+            color: #ffd700;
+            margin-left: 10px;
+        }
+
+        /* بطاقات فلوريت */
+        .florite-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+
+        .florite-card {
+            background: rgba(20, 30, 50, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 215, 0, 0.2);
+            border-radius: 30px;
+            padding: 40px 30px;
+            text-align: center;
+            transition: 0.4s;
+            position: relative;
+            overflow: hidden;
+            animation: fadeInUp 0.8s ease;
+            animation-fill-mode: both;
+        }
+
+        .florite-card:nth-child(1) { animation-delay: 0.2s; }
+        .florite-card:nth-child(2) { animation-delay: 0.4s; }
+        .florite-card:nth-child(3) { animation-delay: 0.6s; }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .florite-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255, 215, 0, 0.1), transparent);
+            transform: rotate(45deg);
+            transition: 0.5s;
+        }
+
+        .florite-card:hover::before {
+            left: 100%;
+        }
+
+        .florite-card:hover {
+            transform: translateY(-15px);
+            border-color: #ffd700;
+            box-shadow: 0 30px 40px rgba(255, 215, 0, 0.3);
+        }
+
+        .florite-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #ffd700, #ffaa00);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 25px;
+            font-size: 40px;
+            color: #1a1a2e;
+        }
+
+        .florite-card h3 {
+            font-size: 32px;
+            color: #ffd700;
+            margin-bottom: 15px;
+        }
+
+        .florite-price {
+            font-size: 48px;
+            font-weight: bold;
+            margin: 20px 0;
+            background: linear-gradient(45deg, #fff, #ffd700);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .florite-price small {
+            font-size: 18px;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .florite-features {
+            list-style: none;
+            margin: 25px 0;
+        }
+
+        .florite-features li {
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255, 215, 0, 0.2);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        .florite-features li i {
+            color: #00ff00;
+        }
+
+        .btn-buy {
+            display: inline-block;
+            background: linear-gradient(45deg, #ffd700, #ffaa00);
+            color: #1a1a2e;
+            padding: 15px 40px;
+            border-radius: 15px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 20px;
+            transition: 0.3s;
+            margin-top: 20px;
+            width: 100%;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-buy:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 30px rgba(255, 215, 0, 0.4);
+        }
+
+        /* بطاقات بانل الاندرويد */
+        .android-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+
+        .android-card {
+            background: rgba(20, 30, 50, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(0, 136, 204, 0.2);
+            border-radius: 30px;
+            padding: 30px;
+            text-align: center;
+            transition: 0.4s;
+            position: relative;
+            overflow: hidden;
+            animation: fadeInUp 0.8s ease;
+            animation-fill-mode: both;
+        }
+
+        .android-card:nth-child(1) { animation-delay: 0.1s; }
+        .android-card:nth-child(2) { animation-delay: 0.2s; }
+        .android-card:nth-child(3) { animation-delay: 0.3s; }
+        .android-card:nth-child(4) { animation-delay: 0.4s; }
+
+        .android-card:hover {
+            transform: translateY(-15px);
+            border-color: #0088cc;
+            box-shadow: 0 30px 40px rgba(0, 136, 204, 0.3);
+        }
+
+        .android-icon {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, #0088cc, #005f8c);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 35px;
+            color: white;
+        }
+
+        .android-card h3 {
+            font-size: 24px;
+            color: #0088cc;
+            margin-bottom: 10px;
+        }
+
+        .android-price {
+            font-size: 32px;
+            font-weight: bold;
+            color: #ffd700;
+            margin: 15px 0;
+        }
+
+        .android-price small {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .android-duration {
+            background: rgba(0, 136, 204, 0.2);
+            padding: 8px;
+            border-radius: 10px;
+            margin: 15px 0;
+            color: #0088cc;
+            font-weight: bold;
+        }
+
+        /* بطاقات BOT RESET */
+        .bot-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+
+        .bot-card {
+            background: rgba(20, 30, 50, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 68, 68, 0.2);
+            border-radius: 30px;
+            padding: 30px;
+            text-align: center;
+            transition: 0.4s;
+            animation: fadeInUp 0.8s ease;
+            animation-fill-mode: both;
+        }
+
+        .bot-card:nth-child(1) { animation-delay: 0.2s; }
+        .bot-card:nth-child(2) { animation-delay: 0.4s; }
+        .bot-card:nth-child(3) { animation-delay: 0.6s; }
+
+        .bot-card:hover {
+            transform: translateY(-15px);
+            border-color: #ff4444;
+            box-shadow: 0 30px 40px rgba(255, 68, 68, 0.3);
+        }
+
+        .bot-icon {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, #ff4444, #cc0000);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 35px;
+            color: white;
+        }
+
+        .bot-card h3 {
+            font-size: 24px;
+            color: #ff4444;
+            margin-bottom: 10px;
+        }
+
+        .bot-price {
+            font-size: 36px;
+            font-weight: bold;
+            color: #ffd700;
+            margin: 15px 0;
+        }
+
+        .bot-price small {
+            font-size: 16px;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        /* جدول المقارنة */
+        .comparison-section {
+            background: rgba(20, 30, 50, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 215, 0, 0.2);
+            border-radius: 30px;
+            padding: 40px;
+            margin: 60px 0;
+            animation: fadeInUp 0.8s ease;
+            animation-delay: 0.5s;
+            animation-fill-mode: both;
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 30px;
+        }
+
+        .comparison-table th {
+            background: rgba(255, 215, 0, 0.2);
+            padding: 20px;
+            font-size: 20px;
+            color: #ffd700;
+            border-radius: 15px 15px 0 0;
+        }
+
+        .comparison-table td {
+            padding: 15px;
+            text-align: center;
+            border-bottom: 1px solid rgba(255, 215, 0, 0.1);
+        }
+
+        .comparison-table tr:hover {
+            background: rgba(255, 215, 0, 0.05);
+        }
+
+        /* معلومات الدفع */
+        .payment-section {
+            background: linear-gradient(135deg, rgba(0, 136, 204, 0.2), rgba(255, 215, 0, 0.2));
+            border-radius: 30px;
+            padding: 40px;
+            margin: 40px 0;
+            text-align: center;
+            animation: fadeInUp 0.8s ease;
+            animation-delay: 0.6s;
+            animation-fill-mode: both;
+        }
+
+        .payment-methods {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+
+        .payment-method {
+            background: rgba(255, 255, 255, 0.1);
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+            transition: 0.3s;
+        }
+
+        .payment-method:hover {
+            transform: translateY(-10px);
+            background: rgba(255, 215, 0, 0.3);
+        }
+
+        /* قسم التواصل */
+        .contact-section {
+            background: rgba(20, 30, 50, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 215, 0, 0.2);
+            border-radius: 30px;
+            padding: 50px;
+            margin: 60px 0;
+            text-align: center;
+            animation: fadeInUp 0.8s ease;
+            animation-delay: 0.7s;
+            animation-fill-mode: both;
+        }
+
+        .contact-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            margin: 40px 0;
+            flex-wrap: wrap;
+        }
+
+        .contact-btn {
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid;
+            padding: 20px 45px;
+            border-radius: 20px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 22px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            transition: 0.3s;
+        }
+
+        .contact-btn.telegram {
+            border-color: #0088cc;
+            color: #0088cc;
+        }
+
+        .contact-btn.telegram:hover {
+            background: #0088cc;
+            color: white;
+            transform: translateY(-5px);
+        }
+
+        .contact-btn.group {
+            border-color: #ffd700;
+            color: #ffd700;
+        }
+
+        .contact-btn.group:hover {
+            background: #ffd700;
+            color: #1a1a2e;
+            transform: translateY(-5px);
+        }
+
+        .qr-code {
+            width: 200px;
+            height: 200px;
+            background: white;
+            margin: 30px auto;
+            border-radius: 20px;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 150px;
+            color: #1a1a2e;
+        }
+
+        /* الفوتر */
+        .footer {
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(10px);
+            border-radius: 30px 30px 0 0;
+            padding: 40px;
+            margin-top: 80px;
+            text-align: center;
+        }
+
+        .footer-text {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 18px;
+        }
+
+        .footer-text a {
+            color: #ffd700;
+            text-decoration: none;
+        }
+
+        /* زر العودة للأعلى */
+        .scroll-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: #ffd700;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #1a1a2e;
+            text-decoration: none;
+            font-size: 24px;
+            box-shadow: 0 5px 20px rgba(255, 215, 0, 0.3);
+            transition: 0.3s;
+            opacity: 0;
+            visibility: hidden;
+            z-index: 1000;
+        }
+
+        .scroll-top.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .scroll-top:hover {
+            background: #ffaa00;
+            transform: translateY(-5px);
+        }
+
+        /* رسالة التأكيد */
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #00ff00;
+            color: #1a1a2e;
+            padding: 15px 25px;
+            border-radius: 10px;
+            font-weight: bold;
+            transform: translateX(400px);
+            transition: 0.3s;
+            z-index: 2000;
+            box-shadow: 0 5px 20px rgba(0,255,0,0.3);
+        }
+
+        .notification.show {
+            transform: translateX(0);
+        }
+
+        /* للجوال */
+        @media (max-width: 768px) {
+            .telegram-bar {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .telegram-info {
+                justify-content: center;
+            }
+            
+            .channel-name {
+                font-size: 32px;
+            }
+            
+            .section-title {
+                font-size: 28px;
+            }
+            
+            .contact-buttons {
+                flex-direction: column;
+            }
+            
+            .contact-btn {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .dashboard-panel {
+                width: 100%;
+                left: -100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- خلفية متحركة -->
+    <div class="bg-animation">
+        <span></span><span></span><span></span><span></span><span></span>
+        <span></span><span></span><span></span><span></span><span></span>
+    </div>
+
+    <!-- زر لوحة التحكم -->
+    <button class="dashboard-btn" onclick="toggleDashboard()">
+        <i class="fas fa-cog"></i>
+    </button>
+
+    <!-- لوحة التحكم -->
+    <div class="dashboard-panel" id="dashboardPanel">
+        <div class="dashboard-header">
+            <h3><i class="fas fa-crown"></i> لوحة التحكم</h3>
+            <button class="close-dashboard" onclick="toggleDashboard()">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+
+        <div class="dashboard-section">
+            <h4><i class="fas fa-image"></i> صورة القناة</h4>
+            <div class="setting-item">
+                <label>رابط الصورة</label>
+                <input type="url" id="channelImageUrl" placeholder="https://example.com/image.jpg" value="https://via.placeholder.com/150/ffd700/1a1a2e?text=SBAYSY">
+            </div>
+            <div class="setting-item">
+                <label>رابط القناة</label>
+                <input type="text" id="channelLink" value="https://t.me/VIP_LVL_PRO">
+            </div>
+            <div class="setting-item">
+                <label>اسم القناة</label>
+                <input type="text" id="channelName" value="SBAYSY XIT 🔥">
+            </div>
+        </div>
+
+        <div class="dashboard-section">
+            <h4><i class="fas fa-tag"></i> أسعار فلوريت</h4>
+            <div class="setting-item">
+                <label>سعر يوم واحد (1DAY)</label>
+                <input type="number" id="florite1day" step="0.01" value="4.00">
+            </div>
+            <div class="setting-item">
+                <label>سعر 7 أيام (7DAY)</label>
+                <input type="number" id="florite7day" step="0.01" value="11.00">
+            </div>
+            <div class="setting-item">
+                <label>سعر 30 يوم (30DAY)</label>
+                <input type="number" id="florite30day" step="0.01" value="19.00">
+            </div>
+        </div>
+
+        <div class="dashboard-section">
+            <h4><i class="fas fa-android"></i> أسعار بانل الاندرويد</h4>
+            <div class="setting-item">
+                <label>سعر يوم واحد (1DAY)</label>
+                <input type="number" id="android1day" step="0.01" value="2.00">
+            </div>
+            <div class="setting-item">
+                <label>سعر 7 أيام (7DAY)</label>
+                <input type="number" id="android7day" step="0.01" value="4.00">
+            </div>
+            <div class="setting-item">
+                <label>سعر 15 يوم (15DAY)</label>
+                <input type="number" id="android15day" step="0.01" value="6.00">
+            </div>
+            <div class="setting-item">
+                <label>سعر 30 يوم (MONTH)</label>
+                <input type="number" id="android30day" step="0.01" value="10.00">
+            </div>
+        </div>
+
+        <div class="dashboard-section">
+            <h4><i class="fas fa-robot"></i> أسعار BOT RESET</h4>
+            <div class="setting-item">
+                <label>سعر يوم واحد (1DAY)</label>
+                <input type="number" id="bot1day" step="0.01" value="2.00">
+            </div>
+            <div class="setting-item">
+                <label>سعر 15 يوم (15DAY)</label>
+                <input type="number" id="bot15day" step="0.01" value="5.00">
+            </div>
+            <div class="setting-item">
+                <label>سعر 30 يوم (30DAY)</label>
+                <input type="number" id="bot30day" step="0.01" value="10.00">
+            </div>
+        </div>
+
+        <div class="dashboard-section">
+            <h4><i class="fab fa-telegram"></i> حسابات التليجرام</h4>
+            <div class="setting-item">
+                <label>حساب البوت</label>
+                <input type="text" id="telegramBot" value="@SBAYSY_XIT">
+            </div>
+            <div class="setting-item">
+                <label>رابط الجروب</label>
+                <input type="url" id="telegramGroup" value="https://t.me/VIP_LVL_PRO">
+            </div>
+        </div>
+
+        <button class="save-btn" onclick="saveSettings()">
+            <i class="fas fa-save"></i> حفظ التغييرات
+        </button>
+
+        <button class="reset-default" onclick="resetToDefault()">
+            <i class="fas fa-undo"></i> استعادة الإعدادات الافتراضية
+        </button>
+    </div>
+
+    <!-- إشعار -->
+    <div class="notification" id="notification">
+        <i class="fas fa-check-circle"></i> تم حفظ التغييرات بنجاح
+    </div>
+
+    <div class="container">
+        <!-- شريط التليجرام العلوي -->
+        <div class="telegram-bar">
+            <div class="telegram-info">
+                <div class="telegram-icon">
+                    <i class="fab fa-telegram-plane"></i>
+                </div>
+                <div class="telegram-text">
+                    <h2 id="headerTitle">SBAYSY XIT 🔥</h2>
+                    <p><i class="fas fa-bolt"></i> متجر بيع المفاتيح والباندل الرسمي <i class="fas fa-bolt"></i></p>
+                </div>
+            </div>
+            <div class="telegram-buttons">
+                <a href="https://t.me/SBAYSY_XIT" target="_blank" class="btn-telegram" id="telegramBotLink">
+                    <i class="fab fa-telegram"></i> <span id="telegramBotText">@SBAYSY_XIT</span>
+                </a>
+                <a href="https://t.me/VIP_LVL_PRO" target="_blank" class="btn-telegram" id="telegramGroupLink">
+                    <i class="fas fa-users"></i> الجروب
+                </a>
+            </div>
+        </div>
+
+        <!-- صورة القناة -->
+        <div class="channel-image">
+            <img id="channelImg" src="https://via.placeholder.com/150/ffd700/1a1a2e?text=SBAYSY" alt="SBAYSY XIT" onclick="document.getElementById('channelImageUrl').click()">
+            <div class="channel-name" id="channelNameDisplay">SBAYSY XIT 🔥</div>
+            <a href="https://t.me/VIP_LVL_PRO" target="_blank" class="channel-link" id="channelLinkDisplay">
+                <i class="fab fa-telegram"></i> <span id="channelLinkText">t.me/VIP_LVL_PRO</span>
+            </a>
+        </div>
+
+        <!-- قسم فلوريت -->
+        <h2 class="section-title">
+            <i class="fas fa-crown"></i> فلوريت - Florite <i class="fas fa-crown"></i>
+        </h2>
+        <div class="florite-grid">
+            <div class="florite-card" id="floriteCard1">
+                <div class="florite-icon">
+                    <i class="fas fa-calendar-day"></i>
+                </div>
+                <h3>يوم واحد</h3>
+                <div class="florite-price"><span id="floritePrice1">4.00</span>$ <small>USD</small></div>
+                <ul class="florite-features">
+                    <li><i class="fas fa-check"></i> فلوريت كامل</li>
+                    <li><i class="fas fa-check"></i> دعم فني 24/7</li>
+                    <li><i class="fas fa-check"></i> تحديثات مستمرة</li>
+                </ul>
+                <a href="https://t.me/SBAYSY_XIT" target="_blank" class="btn-buy" id="buyBtn1">
+                    <i class="fab fa-telegram"></i> شراء الآن
+                </a>
+            </div>
+
+            <div class="florite-card" id="floriteCard2">
+                <div class="florite-icon">
+                    <i class="fas fa-calendar-week"></i>
+                </div>
+                <h3>7 أيام</h3>
+                <div class="florite-price"><span id="floritePrice2">11.00</span>$ <small>USD</small></div>
+                <ul class="florite-features">
+                    <li><i class="fas fa-check"></i> فلوريت كامل</li>
+                    <li><i class="fas fa-check"></i> دعم فني 24/7</li>
+                    <li><i class="fas fa-check"></i> تحديثات مستمرة</li>
+                    <li><i class="fas fa-check"></i> خصم 15%</li>
+                </ul>
+                <a href="https://t.me/SBAYSY_XIT" target="_blank" class="btn-buy" id="buyBtn2">
+                    <i class="fab fa-telegram"></i> شراء الآن
+                </a>
+            </div>
+
+            <div class="florite-card" id="floriteCard3">
+                <div class="florite-icon">
+                    <i class="fas fa-calendar-alt"></i>
+                </div>
+                <h3>30 يوم</h3>
+                <div class="florite-price"><span id="floritePrice3">19.00</span>$ <small>USD</small></div>
+                <ul class="florite-features">
+                    <li><i class="fas fa-check"></i> فلوريت كامل</li>
+                    <li><i class="fas fa-check"></i> دعم فني VIP</li>
+                    <li><i class="fas fa-check"></i> تحديثات مستمرة</li>
+                    <li><i class="fas fa-check"></i> خصم 30%</li>
+                    <li><i class="fas fa-check"></i> هدية مجانية</li>
+                </ul>
+                <a href="https://t.me/SBAYSY_XIT" target="_blank" class="btn-buy" id="buyBtn3">
+                    <i class="fab fa-telegram"></i> شراء الآن
+                </a>
+            </div>
+        </div>
+
+        <!-- قسم بانل الاندرويد - DRIP CLINT -->
+        <h2 class="section-title">
+            <i class="fas fa-android"></i> بانل الاندرويد - DRIP CLINT <i class="fas fa-android"></i>
+        </h2>
+        <div class="android-grid">
+            <div class="android-card" id="androidCard1">
+                <div class="android-icon">
+                    <i class="fas fa-calendar-day"></i>
+                </div>
+                <h3>يوم واحد</h3>
+                <div class="android-duration">1 DAY</div>
+                <div class="android-price"><span id="androidPrice1">2.00</span>$</div>
+                <a href="https://t.me/SBAYSY_XIT" target="_blank" class="btn-buy" style="background: #0088cc;" id="androidBuy1">
+                    <i class="fab fa-telegram"></i> شراء
+                </a>
+            </div>
+
+            <div class="android-card" id="androidCard2">
+                <div class="android-icon">
+                    <i class="fas fa-calendar-week"></i>
+                </div>
+                <h3>7 أيام</h3>
+                <div class="android-duration">7 DAY</div>
+                <div class="android-price"><span id="androidPrice2">4.00</span>$</div>
+                <a href="https://t.me/SBAYSY_XIT" target="_blank" class="btn-buy" style="background: #0088cc;" id="androidBuy2">
+                    <i class="fab fa-telegram"></i> شراء
+                </a>
+            </div>
+
+            <div class="android-card" id="androidCard3">
+                <div class="android-icon">
+                    <i class="fas fa-calendar-alt"></i>
+                </div>
+                <h3>15 يوم</h3>
+                <div class="android-duration">15 DAY</div>
+                <div class="android-price"><span id="androidPrice3">6.00</span>$</div>
+                <a href="https://t.me/SBAYSY_XIT" target="_blank" class="btn-buy" style="background: #0088cc;" id="androidBuy3">
+                    <i class="fab fa-telegram"></i> شراء
+                </a>
+            </div>
+
+            <div class="android-card" id="androidCard4">
+                <div class="android-icon">
+                    <i class="fas fa-calendar-alt"></i>
+                </div>
+                <h3>30 يوم</h3>
+                <div class="android-duration">30 DAY (شهر)</div>
+                <div class="android-price"><span id="androidPrice4">10.00</span>$</div>
+                <a href="https://t.me/SBAYSY_XIT" target="_blank" class="btn-buy" style="background: #0088cc;" id="androidBuy4">
+                    <i class="fab fa-telegram"></i> شراء
+                </a>
+            </div>
+        </div>
+
+        <!-- قسم BOT RESET -->
+        <h2 class="section-title">
+            <i class="fas fa-robot"></i> BOT RESET <i class="fas fa-robot"></i>
+        </h2>
+        <div class="bot-grid">
+            <div class="bot-card" id="botCard1">
+                <div class="bot-icon">
+                    <i class="fas fa-calendar-day"></i>
+                </div>
+                <h3>يوم واحد</h3>
+                <div class="bot-price"><span id="botPrice1">2</span>$</div>
+                <a href="https://t.me/SBAYSY_XIT" target="_blank" class="btn-buy" style="background: #ff4444;" id="botBuy1">
+                    <i class="fab fa-telegram"></i> شراء
+                </a>
+            </div>
+
+            <div class="bot-card" id="botCard2">
+                <div class="bot-icon">
+                    <i class="fas fa-calendar-week"></i>
+                </div>
+                <h3>15 يوم</h3>
+                <div class="bot-price"><span id="botPrice2">5</span>$</div>
+                <a href="https://t.me/SBAYSY_XIT" target="_blank" class="btn-buy" style="background: #ff4444;" id="botBuy2">
+                    <i class="fab fa-telegram"></i> شراء
+                </a>
+            </div>
+
+            <div class="bot-card" id="botCard3">
+                <div class="bot-icon">
+                    <i class="fas fa-calendar-alt"></i>
+                </div>
+                <h3>30 يوم</h3>
+                <div class="bot-price"><span id="botPrice3">10</span>$</div>
+                <a href="https://t.me/SBAYSY_XIT" target="_blank" class="btn-buy" style="background: #ff4444;" id="botBuy3">
+                    <i class="fab fa-telegram"></i> شراء
+                </a>
+            </div>
+        </div>
+
+        <!-- جدول مقارنة الأسعار -->
+        <div class="comparison-section">
+            <h2 style="text-align: center; color: #ffd700; font-size: 32px; margin-bottom: 30px;">
+                <i class="fas fa-chart-bar"></i> جدول مقارنة الأسعار
+            </h2>
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>الخدمة</th>
+                        <th>يوم واحد</th>
+                        <th>7 أيام</th>
+                        <th>15 يوم</th>
+                        <th>30 يوم</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong style="color: #ffd700;">فلوريت</strong></td>
+                        <td id="compareFlorite1">4.00$</td>
+                        <td id="compareFlorite2">11.00$</td>
+                        <td>-</td>
+                        <td id="compareFlorite3">19.00$</td>
+                    </tr>
+                    <tr>
+                        <td><strong style="color: #0088cc;">بانل اندرويد</strong></td>
+                        <td id="compareAndroid1">2.00$</td>
+                        <td id="compareAndroid2">4.00$</td>
+                        <td id="compareAndroid3">6.00$</td>
+                        <td id="compareAndroid4">10.00$</td>
+                    </tr>
+                    <tr>
+                        <td><strong style="color: #ff4444;">BOT RESET</strong></td>
+                        <td id="compareBot1">2$</td>
+                        <td>-</td>
+                        <td id="compareBot2">5$</td>
+                        <td id="compareBot3">10$</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- قسم طرق الدفع -->
+        <div class="payment-section">
+            <h2 style="color: #ffd700; font-size: 32px; margin-bottom: 20px;">
+                <i class="fas fa-credit-card"></i> طرق الدفع المتاحة
+            </h2>
+            <div class="payment-methods">
+                <div class="payment-method">
+                    <i class="fab fa-bitcoin" style="color: #f7931a;"></i>
+                </div>
+                <div class="payment-method">
+                    <i class="fab fa-ethereum" style="color: #627eea;"></i>
+                </div>
+                <div class="payment-method">
+                    <i class="fas fa-dollar-sign" style="color: #85bb65;"></i>
+                </div>
+                <div class="payment-method">
+                    <i class="fab fa-paypal" style="color: #003087;"></i>
+                </div>
+                <div class="payment-method">
+                    <i class="fas fa-credit-card" style="color: #ffd700;"></i>
+                </div>
+            </div>
+            <p style="color: rgba(255,255,255,0.8); font-size: 18px;">جميع طرق الدفع آمنة ومشفرة</p>
+        </div>
+
+        <!-- قسم التواصل -->
+        <div class="contact-section">
+            <h2 style="color: #ffd700; font-size: 36px; margin-bottom: 20px;">
+                <i class="fas fa-headset"></i> تواصل معنا
+            </h2>
+            <p style="color: white; font-size: 20px; margin-bottom: 40px;">للطلب والاستفسار، تواصل عبر التليجرام</p>
+            
+            <div class="contact-buttons">
+                <a href="https://t.me/SBAYSY_XIT" target="_blank" class="contact-btn telegram" id="contactBot">
+                    <i class="fab fa-telegram"></i> <span id="contactBotText">@SBAYSY_XIT</span>
+                </a>
+                <a href="https://t.me/VIP_LVL_PRO" target="_blank" class="contact-btn group" id="contactGroup">
+                    <i class="fas fa-users"></i> @VIP_LVL_PRO
+                </a>
+            </div>
+
+            <div class="qr-code">
+                <i class="fab fa-telegram"></i>
+            </div>
+            <p style="color: #ffd700;" id="qrText">@SBAYSY_XIT</p>
+        </div>
+
+        <!-- الفوتر -->
+        <footer class="footer">
+            <div class="footer-text">
+                <p>جميع الحقوق محفوظة © 2026 | <span id="footerName">SBAYSY XIT 🔥</span></p>
+                <p style="margin-top: 15px;">
+                    <i class="fab fa-telegram"></i> 
+                    <a href="https://t.me/SBAYSY_XIT" target="_blank" id="footerBot">@SBAYSY_XIT</a> | 
+                    <i class="fas fa-users"></i> 
+                    <a href="https://t.me/VIP_LVL_PRO" target="_blank" id="footerGroup">@VIP_LVL_PRO</a>
+                </p>
+            </div>
+        </footer>
+    </div>
+
+    <!-- زر العودة للأعلى -->
+    <a href="#" class="scroll-top" id="scrollTop">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+
+    <script>
+        // متغيرات عامة
+        let dashboardOpen = false;
+
+        // تهيئة الصفحة
+        window.onload = function() {
+            loadSettings();
+            setupEventListeners();
+        };
+
+        // تبديل لوحة التحكم
+        function toggleDashboard() {
+            const panel = document.getElementById('dashboardPanel');
+            dashboardOpen = !dashboardOpen;
+            if (dashboardOpen) {
+                panel.classList.add('open');
+            } else {
+                panel.classList.remove('open');
+            }
+        }
+
+        // إعداد مستمعي الأحداث
+        function setupEventListeners() {
+            // إغلاق لوحة التحكم بالضغط على ESC
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && dashboardOpen) {
+                    toggleDashboard();
+                }
+            });
+
+            // زر العودة للأعلى
+            window.onscroll = function() {
+                const scrollBtn = document.getElementById('scrollTop');
+                if (document.documentElement.scrollTop > 500) {
+                    scrollBtn.classList.add('show');
+                } else {
+                    scrollBtn.classList.remove('show');
+                }
+            };
+
+            document.getElementById('scrollTop').addEventListener('click', function(e) {
+                e.preventDefault();
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+
+            // تأثيرات أزرار الشراء
+            const buyButtons = document.querySelectorAll('.btn-buy');
+            buyButtons.forEach(button => {
+                button.addEventListener('click', function(e) {
+                    const card = this.closest('.florite-card, .android-card, .bot-card');
+                    const service = card.querySelector('h3').textContent;
+                    const confirmMsg = `سيتم تحويلك إلى محادثة التليجرام لطلب: ${service}\nهل أنت متأكد؟`;
+                    if (!confirm(confirmMsg)) {
+                        e.preventDefault();
+                    }
+                });
+            });
+        }
+
+        // حفظ الإعدادات
+        function saveSettings() {
+            // صورة القناة
+            const imgUrl = document.getElementById('channelImageUrl').value;
+            document.getElementById('channelImg').src = imgUrl;
+
+            // اسم القناة
+            const channelName = document.getElementById('channelName').value;
+            document.getElementById('channelNameDisplay').textContent = channelName;
+            document.getElementById('headerTitle').textContent = channelName;
+            document.getElementById('footerName').textContent = channelName;
+
+            // رابط القناة
+            const channelLink = document.getElementById('channelLink').value;
+            document.getElementById('channelLinkDisplay').href = channelLink;
+            document.getElementById('channelLinkText').textContent = channelLink.replace('https://', '');
+
+            // أسعار فلوريت
+            const florite1 = document.getElementById('florite1day').value;
+            const florite2 = document.getElementById('florite7day').value;
+            const florite3 = document.getElementById('florite30day').value;
+            
+            document.getElementById('floritePrice1').textContent = parseFloat(florite1).toFixed(2);
+            document.getElementById('floritePrice2').textContent = parseFloat(florite2).toFixed(2);
+            document.getElementById('floritePrice3').textContent = parseFloat(florite3).toFixed(2);
+            
+            document.getElementById('compareFlorite1').textContent = parseFloat(florite1).toFixed(2) + '$';
+            document.getElementById('compareFlorite2').textContent = parseFloat(florite2).toFixed(2) + '$';
+            document.getElementById('compareFlorite3').textContent = parseFloat(florite3).toFixed(2) + '$';
+
+            // أسعار الاندرويد
+            const android1 = document.getElementById('android1day').value;
+            const android2 = document.getElementById('android7day').value;
+            const android3 = document.getElementById('android15day').value;
+            const android4 = document.getElementById('android30day').value;
+            
+            document.getElementById('androidPrice1').textContent = parseFloat(android1).toFixed(2);
+            document.getElementById('androidPrice2').textContent = parseFloat(android2).toFixed(2);
+            document.getElementById('androidPrice3').textContent = parseFloat(android3).toFixed(2);
+            document.getElementById('androidPrice4').textContent = parseFloat(android4).toFixed(2);
+            
+            document.getElementById('compareAndroid1').textContent = parseFloat(android1).toFixed(2) + '$';
+            document.getElementById('compareAndroid2').textContent = parseFloat(android2).toFixed(2) + '$';
+            document.getElementById('compareAndroid3').textContent = parseFloat(android3).toFixed(2) + '$';
+            document.getElementById('compareAndroid4').textContent = parseFloat(android4).toFixed(2) + '$';
+
+            // أسعار البوت
+            const bot1 = document.getElementById('bot1day').value;
+            const bot2 = document.getElementById('bot15day').value;
+            const bot3 = document.getElementById('bot30day').value;
+            
+            document.getElementById('botPrice1').textContent = parseFloat(bot1).toFixed(2);
+            document.getElementById('botPrice2').textContent = parseFloat(bot2).toFixed(2);
+            document.getElementById('botPrice3').textContent = parseFloat(bot3).toFixed(2);
+            
+            document.getElementById('compareBot1').textContent = parseFloat(bot1).toFixed(2) + '$';
+            document.getElementById('compareBot2').textContent = parseFloat(bot2).toFixed(2) + '$';
+            document.getElementById('compareBot3').textContent = parseFloat(bot3).toFixed(2) + '$';
+
+            // حسابات التليجرام
+            const botUsername = document.getElementById('telegramBot').value;
+            const groupLink = document.getElementById('telegramGroup').value;
+            
+            document.getElementById('telegramBotText').textContent = botUsername;
+            document.getElementById('contactBotText').textContent = botUsername;
+            document.getElementById('qrText').textContent = botUsername;
+            document.getElementById('footerBot').textContent = botUsername;
+            
+            document.getElementById('telegramBotLink').href = 'https://t.me/' + botUsername.replace('@', '');
+            document.getElementById('contactBot').href = 'https://t.me/' + botUsername.replace('@', '');
+            
+            document.getElementById('telegramGroupLink').href = groupLink;
+            document.getElementById('contactGroup').href = groupLink;
+            document.getElementById('footerGroup').href = groupLink;
+
+            // حفظ في localStorage
+            localStorage.setItem('channelImageUrl', imgUrl);
+            localStorage.setItem('channelName', channelName);
+            localStorage.setItem('channelLink', channelLink);
+            localStorage.setItem('florite1', florite1);
+            localStorage.setItem('florite2', florite2);
+            localStorage.setItem('florite3', florite3);
+            localStorage.setItem('android1', android1);
+            localStorage.setItem('android2', android2);
+            localStorage.setItem('android3', android3);
+            localStorage.setItem('android4', android4);
+            localStorage.setItem('bot1', bot1);
+            localStorage.setItem('bot2', bot2);
+            localStorage.setItem('bot3', bot3);
+            localStorage.setItem('telegramBot', botUsername);
+            localStorage.setItem('telegramGroup', groupLink);
+
+            // إظهار إشعار
+            showNotification('تم حفظ التغييرات بنجاح ✅');
+            
+            // إغلاق لوحة التحكم
+            setTimeout(() => {
+                toggleDashboard();
+            }, 1500);
+        }
+
+        // تحميل الإعدادات
+        function loadSettings() {
+            if (localStorage.getItem('channelImageUrl')) {
+                document.getElementById('channelImageUrl').value = localStorage.getItem('channelImageUrl');
+                document.getElementById('channelImg').src = localStorage.getItem('channelImageUrl');
+            }
+            
+            if (localStorage.getItem('channelName')) {
+                const name = localStorage.getItem('channelName');
+                document.getElementById('channelName').value = name;
+                document.getElementById('channelNameDisplay').textContent = name;
+                document.getElementById('headerTitle').textContent = name;
+                document.getElementById('footerName').textContent = name;
+            }
+            
+            if (localStorage.getItem('channelLink')) {
+                const link = localStorage.getItem('channelLink');
+                document.getElementById('channelLink').value = link;
+                document.getElementById('channelLinkDisplay').href = link;
+                document.getElementById('channelLinkText').textContent = link.replace('https://', '');
+            }
+            
+            if (localStorage.getItem('florite1')) {
+                document.getElementById('florite1day').value = localStorage.getItem('florite1');
+                document.getElementById('floritePrice1').textContent = parseFloat(localStorage.getItem('florite1')).toFixed(2);
+                document.getElementById('compareFlorite1').textContent = parseFloat(localStorage.getItem('florite1')).toFixed(2) + '$';
+            }
+            
+            if (localStorage.getItem('florite2')) {
+                document.getElementById('florite7day').value = localStorage.getItem('florite2');
+                document.getElementById('floritePrice2').textContent = parseFloat(localStorage.getItem('florite2')).toFixed(2);
+                document.getElementById('compareFlorite2').textContent = parseFloat(localStorage.getItem('florite2')).toFixed(2) + '$';
+            }
+            
+            if (localStorage.getItem('florite3')) {
+                document.getElementById('florite30day').value = localStorage.getItem('florite3');
+                document.getElementById('floritePrice3').textContent = parseFloat(localStorage.getItem('florite3')).toFixed(2);
+                document.getElementById('compareFlorite3').textContent = parseFloat(localStorage.getItem('florite3')).toFixed(2) + '$';
+            }
+            
+            if (localStorage.getItem('android1')) {
+                document.getElementById('android1day').value = localStorage.getItem('android1');
+                document.getElementById('androidPrice1').textContent = parseFloat(localStorage.getItem('android1')).toFixed(2);
+                document.getElementById('compareAndroid1').textContent = parseFloat(localStorage.getItem('android1')).toFixed(2) + '$';
+            }
+            
+            if (localStorage.getItem('android2')) {
+                document.getElementById('android7day').value = localStorage.getItem('android2');
+                document.getElementById('androidPrice2').textContent = parseFloat(localStorage.getItem('android2')).toFixed(2);
+                document.getElementById('compareAndroid2').textContent = parseFloat(localStorage.getItem('android2')).toFixed(2) + '$';
+            }
+            
+            if (localStorage.getItem('android3')) {
+                document.getElementById('android15day').value = localStorage.getItem('android3');
+                document.getElementById('androidPrice3').textContent = parseFloat(localStorage.getItem('android3')).toFixed(2);
+                document.getElementById('compareAndroid3').textContent = parseFloat(localStorage.getItem('android3')).toFixed(2) + '$';
+            }
+            
+            if (localStorage.getItem('android4')) {
+                document.getElementById('android30day').value = localStorage.getItem('android4');
+                document.getElementById('androidPrice4').textContent = parseFloat(localStorage.getItem('android4')).toFixed(2);
+                document.getElementById('compareAndroid4').textContent = parseFloat(localStorage.getItem('android4')).toFixed(2) + '$';
+            }
+            
+            if (localStorage.getItem('bot1')) {
+                document.getElementById('bot1day').value = localStorage.getItem('bot1');
+                document.getElementById('botPrice1').textContent = parseFloat(localStorage.getItem('bot1')).toFixed(2);
+                document.getElementById('compareBot1').textContent = parseFloat(localStorage.getItem('bot1')).toFixed(2) + '$';
+            }
+            
+            if (localStorage.getItem('bot2')) {
+                document.getElementById('bot15day').value = localStorage.getItem('bot2');
+                document.getElementById('botPrice2').textContent = parseFloat(localStorage.getItem('bot2')).toFixed(2);
+                document.getElementById('compareBot2').textContent = parseFloat(localStorage.getItem('bot2')).toFixed(2) + '$';
+            }
+            
+            if (localStorage.getItem('bot3')) {
+                document.getElementById('bot30day').value = localStorage.getItem('bot3');
+                document.getElementById('botPrice3').textContent = parseFloat(localStorage.getItem('bot3')).toFixed(2);
+                document.getElementById('compareBot3').textContent = parseFloat(localStorage.getItem('bot3')).toFixed(2) + '$';
+            }
+            
+            if (localStorage.getItem('telegramBot')) {
+                const bot = localStorage.getItem('telegramBot');
+                document.getElementById('telegramBot').value = bot;
+                document.getElementById('telegramBotText').textContent = bot;
+                document.getElementById('contactBotText').textContent = bot;
+                document.getElementById('qrText').textContent = bot;
+                document.getElementById('footerBot').textContent = bot;
+                document.getElementById('telegramBotLink').href = 'https://t.me/' + bot.replace('@', '');
+                document.getElementById('contactBot').href = 'https://t.me/' + bot.replace('@', '');
+            }
+            
+            if (localStorage.getItem('telegramGroup')) {
+                const group = localStorage.getItem('telegramGroup');
+                document.getElementById('telegramGroup').value = group;
+                document.getElementById('telegramGroupLink').href = group;
+                document.getElementById('contactGroup').href = group;
+                document.getElementById('footerGroup').href = group;
+            }
+        }
+
+        // استعادة الإعدادات الافتراضية
+        function resetToDefault() {
+            if (confirm('هل أنت متأكد من استعادة الإعدادات الافتراضية؟')) {
+                localStorage.clear();
+                location.reload();
+            }
+        }
+
+        // إظهار الإشعار
+        function showNotification(message) {
+            const notification = document.getElementById('notification');
+            notification.innerHTML = `<i class="fas fa-check-circle"></i> ${message}`;
+            notification.classList.add('show');
+            
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 3000);
+        }
+
+        // تأثير كتابة في العنوان
+        const channelNameElement = document.querySelector('.channel-name');
+        if (channelNameElement && !localStorage.getItem('channelName')) {
+            const originalText = channelNameElement.textContent;
+            channelNameElement.textContent = '';
+            let i = 0;
+            
+            const typing = setInterval(() => {
+                if (i < originalText.length) {
+                    channelNameElement.textContent += originalText.charAt(i);
+                    i++;
+                } else {
+                    clearInterval(typing);
+                }
+            }, 100);
+        }
+    </script>
+</body>
+</html>
