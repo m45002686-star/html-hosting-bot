@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>YESSER XIT PANEL V7</title>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:tahoma}
+
+body{
+    background:linear-gradient(135deg,#0f051d,#1a0033,#000);
+    color:#fff;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    min-height:100vh;
+    overflow:hidden;
+}
+
+/* خلفية متحركة */
+body::before{
+    content:"";
+    position:fixed;
+    width:200%;
+    height:200%;
+    background:radial-gradient(circle,#9c27b0 1px,transparent 1px);
+    background-size:60px 60px;
+    animation:move 20s linear infinite;
+    opacity:0.15;
+}
+
+@keyframes move{
+    from{transform:translateY(0)}
+    to{transform:translateY(-60px)}
+}
+
+/* الصفحات */
+.page{display:none;width:100%;max-width:420px;z-index:1}
+.page.active{display:block}
+
+.box{
+    background:rgba(255,255,255,0.05);
+    backdrop-filter:blur(15px);
+    padding:30px;
+    border-radius:20px;
+    box-shadow:0 0 40px rgba(156,39,176,0.7);
+    text-align:center;
+    border:1px solid rgba(255,255,255,0.1);
+    position:relative;
+}
+
+/* welcome */
+.welcome-text{
+    font-size:24px;
+    color:#e040fb;
+    text-shadow:0 0 15px #e040fb;
+    margin-bottom:10px;
+}
+
+/* صورة تحت welcome */
+.welcome-img{
+    width:100%;
+    border-radius:15px;
+    margin:15px 0;
+    box-shadow:0 0 25px #9c27b0;
+}
+
+/* inputs */
+input{
+    width:100%;
+    padding:12px;
+    margin:8px 0;
+    border-radius:10px;
+    border:none;
+    outline:none;
+    background:rgba(255,255,255,0.1);
+    color:#fff;
+}
+
+/* buttons */
+button{
+    width:100%;
+    padding:12px;
+    margin:8px 0;
+    border:none;
+    border-radius:10px;
+    cursor:pointer;
+    font-weight:bold;
+    transition:0.3s;
+}
+
+button:hover{transform:scale(1.05)}
+
+.main-btn{background:linear-gradient(45deg,#9c27b0,#e040fb);color:#fff}
+.login-btn{background:linear-gradient(45deg,#ff9800,#ff5722);color:#fff}
+.admin-btn{background:linear-gradient(45deg,#3f51b5,#2196f3);color:#fff}
+.logout-btn{background:linear-gradient(45deg,#f44336,#e91e63);color:#fff}
+.delete-btn{background:linear-gradient(45deg,#d32f2f,#b71c1c);color:#fff}
+
+/* زر شراء */
+.buy-btn{
+    position:absolute;
+    top:20px;
+    left:20px;
+    background:linear-gradient(45deg,#ff0080,#ff8c00);
+    padding:8px 18px;
+    border-radius:30px;
+    text-decoration:none;
+    color:#fff;
+    font-size:14px;
+}
+
+/* list */
+.list{
+    margin-top:10px;
+    background:rgba(0,0,0,0.4);
+    padding:10px;
+    border-radius:10px;
+}
+.item{padding:8px;position:relative}
+.item a{color:#e040fb;text-decoration:none}
+
+/* عداد الوقت */
+.timer-badge{
+    position:absolute;
+    top:5px;
+    left:5px;
+    background:linear-gradient(45deg,#00c853,#00e676);
+    padding:4px 10px;
+    border-radius:15px;
+    font-size:12px;
+    font-weight:bold;
+    color:#fff;
+}
+
+.timer-badge.expired{
+    background:linear-gradient(45deg,#d32f2f,#f44336);
+}
+
+.timer-badge.warning{
+    background:linear-gradient(45deg,#ff9800,#ffc107);
+}
+
+/* عنصر الحساب */
+.account-item{
+    background:rgba(255,255,255,0.05);
+    padding:15px;
+    border-radius:10px;
+    margin:10px 0;
+    position:relative;
+}
+
+.account-name{
+    font-size:18px;
+    color:#e040fb;
+    font-weight:bold;
+    margin-bottom:5px;
+}
+
+.account-details{
+    color:#aaa;
+    font-size:13px;
+}
+
+/* عنصر الحساب في الأدمن */
+.admin-account-item{
+    background:rgba(255,255,255,0.05);
+    padding:10px;
+    border-radius:10px;
+    margin:5px 0;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.account-info .name{color:#e040fb;font-weight:bold}
+.account-info .time{color:#aaa;font-size:12px}
+
+.delete-btn-small{
+    padding:5px 15px;
+    font-size:12px;
+    margin:0;
+}
+
+/* footer */
+footer{
+    position:fixed;
+    bottom:10px;
+    width:100%;
+    text-align:center;
+    font-size:13px;
+    color:#aaa;
+    letter-spacing:1px;
+}
+</style>
+</head>
+<body>
+
+<!-- الصفحة الرئيسية -->
+<div id="main" class="page active">
+<div class="box">
+<h2 class="welcome-text">WELCOME</h2>
+<h1>YESSER XIT PANEL</h1>
+
+<!-- الصورة تحت welcome -->
+<img src="YOUR_IMAGE_LINK_HERE" class="welcome-img">
+
+<a href="https://www.instagram.com/yesser.ard" target="_blank" class="buy-btn">🛒 شراء</a>
+
+<button class="main-btn" onclick="show('login')">🔐 دخول المستخدم</button>
+<button class="admin-btn" onclick="show('adminLogin')">⚙️ دخول الأدمن</button>
+</div>
+</div>
+
+<!-- تسجيل دخول المستخدم -->
+<div id="login" class="page">
+<div class="box">
+<h2>تسجيل الدخول</h2>
+<input id="user" placeholder="اسم المستخدم">
+<input id="pass" type="password" placeholder="كلمة المرور">
+<button class="login-btn" onclick="login()">دخول</button>
+<button onclick="show('main')">رجوع</button>
+</div>
+</div>
+
+<!-- بانل المستخدم -->
+<div id="panel" class="page">
+<div class="box">
+<h2>مرحبا بك 🔥</h2>
+
+<h3>📡 قنواتي:</h3>
+<div class="list">
+<div class="item"><a href="https://t.me/groot1kbot" target="_blank">Telegram</a></div>
+<div class="item"><a href="https://instagram.com/yesser.ard" target="_blank">Instagram</a></div>
+<div class="item"><a href="https://youtube.com/@yesserprv" target="_blank">YouTube</a></div>
+</div>
+
+<h3>🎮 حساباتي:</h3>
+<div id="myAccount" class="list"></div>
+
+<button class="logout-btn" onclick="show('main')">🚪 تسجيل خروج</button>
+</div>
+</div>
+
+<!-- تسجيل دخول الأدمن -->
+<div id="adminLogin" class="page">
+<div class="box">
+<h2>دخول الأدمن</h2>
+<input id="adminUser" placeholder="يوزر الأدمن">
+<input id="adminPass" type="password" placeholder="باس الأدمن">
+<button class="admin-btn" onclick="adminLogin()">دخول</button>
+<button onclick="show('main')">رجوع</button>
+</div>
+</div>
+
+<!-- بانل الأدمن -->
+<div id="adminPanel" class="page">
+<div class="box">
+<h2>لوحة الأدمن</h2>
+
+<h3>➕ إضافة حساب</h3>
+<input id="newUser" placeholder="اسم المستخدم">
+<input id="newPass" placeholder="كلمة المرور">
+<input id="expireDays" type="number" placeholder="عدد الأيام (افتراضي: 30)">
+<button onclick="addUser()">إضافة حساب</button>
+
+<h3>📋 جميع الحسابات:</h3>
+<div id="allAccounts" class="list"></div>
+
+<h3>📦 البرامج:</h3>
+<input id="progName" placeholder="اسم البرنامج">
+<input id="progUrl" placeholder="رابط البرنامج">
+<button onclick="addProgram()">إضافة برنامج</button>
+<div id="adminPrograms" class="list"></div>
+
+<button class="logout-btn" onclick="show('main')">خروج</button>
+</div>
+</div>
+
+<footer>
+جميع الحقوق محفوظة yesser_xit © 2026
+</footer>
+
+<script>
+var ADMIN_USER = "yesserard";
+var ADMIN_PASS = "1234";
+
+var users = JSON.parse(localStorage.getItem("users")) || [];
+var programs = JSON.parse(localStorage.getItem("programs")) || [];
+var currentUser = null;
+
+function save() {
+    localStorage.setItem("users", JSON.stringify(users));
+    localStorage.setItem("programs", JSON.stringify(programs));
+}
+
+function show(id) {
+    document.querySelectorAll(".page").forEach(function(p) {
+        p.classList.remove("active");
+    });
+    document.getElementById(id).classList.add("active");
+}
+
+function login() {
+    var u = document.getElementById("user").value.trim();
+    var p = document.getElementById("pass").value.trim();
+    var found = users.find(function(x) {
+        return x.user == u && x.pass == p;
+    });
+    if (found) {
+        currentUser = found;
+        loadMyAccount();
+        show("panel");
+    } else {
+        alert("بيانات خاطئة");
+    }
+}
+
+function adminLogin() {
+    var adminUser = document.getElementById("adminUser").value;
+    var adminPass = document.getElementById("adminPass").value;
+    
+    if (adminUser === ADMIN_USER && adminPass === ADMIN_PASS) {
+        loadAllAccounts();
+        loadAdminPrograms();
+        show("adminPanel");
+    } else {
+        alert("خطأ في بيانات الأدمن");
+    }
+}
+
+function addUser() {
+    var u = document.getElementById("newUser");
+    var p = document.getElementById("newPass");
+    var days = document.getElementById("expireDays").value;
+    
+    if (!u.value || !p.value) {
+        alert("يرجى تعبئة اسم المستخدم وكلمة المرور");
+        return;
+    }
+    
+    // التحقق من وجود المستخدم
+    var exists = users.find(function(x) { return x.user == u.value; });
+    if (exists) {
+        alert("اسم المستخدم موجود مسبقاً!");
+        return;
+    }
+    
+    var expireDays = days ? parseInt(days) : 30;
+    var expireDate = new Date();
+    expireDate.setDate(expireDate.getDate() + expireDays);
+    
+    users.push({
+        user: u.value,
+        pass: p.value,
+        expireDate: expireDate.getTime(),
+        createdDate: new Date().getTime()
+    });
+    
+    save();
+    loadAllAccounts();
+    alert("تم إضافة الحساب بنجاح! ينتهي في: " + expireDate.toLocaleDateString());
+    u.value = "";
+    p.value = "";
+    document.getElementById("expireDays").value = "";
+}
+
+function deleteUser(index) {
+    if (confirm("هل أنت متأكد من حذف هذا الحساب؟")) {
+        users.splice(index, 1);
+        save();
+        loadAllAccounts();
+        alert("تم حذف الحساب");
+    }
+}
+
+function addProgram() {
+    var n = document.getElementById("progName");
+    var u = document.getElementById("progUrl");
+    if (n.value && u.value) {
+        programs.push({name: n.value, url: u.value});
+        save();
+        loadAdminPrograms();
+        alert("تم إضافة البرنامج بنجاح");
+        n.value = "";
+        u.value = "";
+    } else {
+        alert("يرجى تعبئة الحقول");
+    }
+}
+
+function loadMyAccount() {
+    var list = document.getElementById("myAccount");
+    list.innerHTML = "";
+    
+    if (!currentUser) return;
+    
+    var remaining = getRemainingTime(currentUser.expireDate);
+    var timerClass = remaining.expired ? "timer-badge expired" : 
+                    remaining.days < 3 ? "timer-badge warning" : "timer-badge";
+    
+    list.innerHTML = 
+        '<div class="account-item">' +
+        '<span class="' + timerClass + '">' + remaining.text + '</span>' +
+        '<div class="account-name">' + currentUser.user + '</div>' +
+        '<div class="account-details">' +
+        'تاريخ الانتهاء: ' + new Date(currentUser.expireDate).toLocaleDateString() +
+        '</div>' +
+        '</div>';
+}
+
+function loadAllAccounts() {
+    var list = document.getElementById("allAccounts");
+    list.innerHTML = "";
+    
+    if (users.length === 0) {
+        list.innerHTML = '<div class="item">لا توجد حسابات</div>';
+    } else {
+        for (var i = 0; i < users.length; i++) {
+            var user = users[i];
+            var remaining = getRemainingTime(user.expireDate);
+            var status = remaining.expired ? "منتهي" : remaining.text;
+            
+            list.innerHTML = list.innerHTML + 
+                '<div class="admin-account-item">' +
+                '<div class="account-info">' +
+                '<div class="name">' + user.user + '</div>' +
+                '<div class="time">متبقي: ' + status + '</div>' +
+                '</div>' +
+                '<button class="delete-btn delete-btn-small" onclick="deleteUser(' + i + ')">حذف</button>' +
+                '</div>';
+        }
+    }
+}
+
+function loadAdminPrograms() {
+    var list = document.getElementById("adminPrograms");
+    list.innerHTML = "";
+    if (programs.length === 0) {
+        list.innerHTML = '<div class="item">لا توجد برامج</div>';
+    } else {
+        for (var i = 0; i < programs.length; i++) {
+            list.innerHTML = list.innerHTML + 
+                '<div class="item">' + programs[i].name + '</div>';
+        }
+    }
+}
+
+function getRemainingTime(expireTimestamp) {
+    var now = new Date().getTime();
+    var diff = expireTimestamp - now;
+    
+    if (diff <= 0) {
+        return { expired: true, text: "منتهي", days: 0, hours: 0, minutes: 0 };
+    }
+    
+    var days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    var hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    var minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+    
+    var text = "";
+    if (days > 0) text += days + "ي ";
+    if (hours > 0) text += hours + "س ";
+    text += minutes + "د";
+    
+    return { expired: false, text: text, days: days, hours: hours, minutes: minutes };
+}
+
+// تحديث العداد كل دقيقة
+setInterval(function() {
+    if (document.getElementById("panel").classList.contains("active")) {
+        loadMyAccount();
+    }
+    if (document.getElementById("adminPanel").classList.contains("active")) {
+        loadAllAccounts();
+    }
+}, 60000);
+</script>
+
+</body>
+</html>
