@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SBASY XIT · متجر احترافي</title>
+    <!-- Font Awesome 6 (مجاني) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Google Fonts - Cairo (حديث ومجاني) -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Cairo', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(145deg, #0b0c1a 0%, #1a1f35 100%);
+            min-height: 100vh;
+            color: #e0e0ff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 16px;
+        }
+
+        /* الحاوية الرئيسية */
+        .glass-panel {
+            width: 100%;
+            max-width: 1300px;
+            background: rgba(12, 15, 30, 0.8);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(90, 120, 255, 0.3);
+            border-radius: 42px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7), 0 0 0 2px rgba(70, 130, 255, 0.1) inset;
+            padding: 24px;
+        }
+
+        /* شاشات التبديل */
+        .screen {
+            display: none;
+        }
+
+        .screen.active {
+            display: block;
+        }
+
+        /* ترويسة عامة */
+        .header-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 24px;
+            background: rgba(0, 10, 30, 0.7);
+            border-radius: 60px;
+            margin-bottom: 30px;
+            border: 1px solid #2f3e9e;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .logo h1 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #a5c9ff, #5f8cff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: 1px;
+        }
+
+        .logo span {
+            font-size: 0.9rem;
+            color: #9bb4ff;
+            display: block;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            background: #10162e;
+            padding: 8px 22px;
+            border-radius: 40px;
+            border: 1px solid #2f4f9f;
+        }
+
+        .user-info i {
+            font-size: 1.4rem;
+            color: #5f9eff;
+        }
+
+        .logout-btn {
+            background: transparent;
+            border: 1.5px solid #ff5577;
+            color: #ff99aa;
+            padding: 6px 20px;
+            border-radius: 40px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .logout-btn:hover {
+            background: #ff5577;
+            color: white;
+        }
+
+        /* بطاقات احترافية */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+            gap: 25px;
+            margin: 30px 0;
+        }
+
+        .premium-card {
+            background: rgba(18, 22, 55, 0.8);
+            backdrop-filter: blur(6px);
+            border: 1px solid #3c4b9a;
+            border-radius: 32px;
+            padding: 20px;
+            transition: 0.25s ease;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
+        }
+
+        .premium-card:hover {
+            transform: translateY(-5px);
+            border-color: #7a9cff;
+            box-shadow: 0 15px 30px #000c33;
+        }
+
+        .btn {
+            background: linear-gradient(145deg, #1f2b5c, #101840);
+            border: none;
+            border-radius: 50px;
+            padding: 12px 30px;
+            color: white;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            border: 1px solid #4160c0;
+            transition: 0.15s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(145deg, #3f5fd1, #25389c);
+            box-shadow: 0 5px 15px #0027b3;
+        }
+
+        .btn-danger {
+            background: #992244;
+            border-color: #ff7080;
+        }
+
+        input, select, textarea {
+            background: #101730;
+            border: 1.5px solid #33447c;
+            border-radius: 40px;
+            padding: 14px 20px;
+            width: 100%;
+            color: white;
+            font-size: 1rem;
+            margin-bottom: 18px;
+            outline: none;
+            transition: 0.2s;
+        }
+
+        input:focus, select:focus {
+            border-color: #6a8cff;
+            box-shadow: 0 0 0 3px rgba(105, 140, 255, 0.3);
+        }
+
+        label {
+            font-weight: 600;
+            margin-right: 12px;
+            color: #b0c6ff;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: #0f1535;
+            border-radius: 30px;
+            overflow: hidden;
+            margin: 20px 0;
+        }
+
+        th {
+            background: #1a2560;
+            padding: 16px;
+            text-align: center;
+            font-weight: 700;
+        }
+
+        td {
+            padding: 14px;
+            border-bottom: 1px solid #25307c;
+            text-align: center;
+        }
+
+        .badge {
+            background: #2b3f99;
+            padding: 4px 12px;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            color: #cfdaff;
+        }
+
+        .telegram-link {
+            margin-top: 40px;
+            text-align: center;
+        }
+
+        .telegram-link a {
+            color: #40a3ff;
+            font-size: 1.4rem;
+            text-decoration: none;
+            background: #111b3a;
+            padding: 12px 40px;
+            border-radius: 60px;
+            border: 1px solid #6080ff;
+            transition: 0.2s;
+            display: inline-block;
+        }
+
+        .telegram-link a:hover {
+            background: #204080;
+            color: white;
+            border-color: #aac3ff;
+        }
+
+        .flex-row {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .code-block {
+            background: #0b1025;
+            padding: 10px 15px;
+            border-radius: 40px;
+            font-family: monospace;
+            direction: ltr;
+            text-align: left;
+            border: 1px dashed #6f96ff;
+            color: #b3ffaa;
+        }
+
+        .error-msg {
+            color: #ff9f9f;
+            background: #4c1a2a;
+            padding: 10px 20px;
+            border-radius: 50px;
+            margin: 10px 0;
+        }
+
+        .success-msg {
+            color: #b8ffc0;
+            background: #144d28;
+            padding: 10px 20px;
+            border-radius: 50px;
+        }
+    </style>
+</head>
+<body>
+<div class="glass-panel" id="appContainer">
+
+    <!-- ========== شاشة تسجيل الدخول ========= -->
+    <div id="loginScreen" class="screen active">
+        <div style="max-width: 480px; margin: 40px auto;">
+            <div class="premium-card" style="padding: 40px;">
+                <div style="text-align: center; margin-bottom: 30px;">
+                    <i class="fas fa-crown" style="font-size: 4rem; color: #ffd966;"></i>
+                    <h2 style="font-size: 2.2rem; color: #ccdfff;">SBASY XIT</h2>
+                    <p style="color: #99b3ff;">بوابتك الآمنة</p>
+                </div>
+                <form id="loginForm">
+                    <label><i class="fas fa-user"></i> اسم المستخدم</label>
+                    <input type="text" id="loginUsername" placeholder="أدخل اسمك" required>
+
+                    <label><i class="fas fa-lock"></i> كلمة المرور</label>
+                    <input type="password" id="loginPassword" placeholder="••••••••" required>
+
+                    <button type="submit" class="btn btn-primary" style="width: 100%;"><i class="fas fa-sign-in-alt"></i> دخول</button>
+                </form>
+                <div id="loginMessage" class="error-msg" style="margin-top: 20px; display: none;"></div>
+                <div class="telegram-link" style="margin-top: 25px;">
+                    <a href="https://t.me/VIP_LVL_PRO" target="_blank"><i class="fab fa-telegram"></i> @VIP_LVL_PRO</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== شاشة الأدمن ========= -->
+    <div id="adminScreen" class="screen">
+        <div class="header-bar">
+            <div class="logo">
+                <h1>SBASY XIT <i class="fas fa-shield-alt"></i></h1>
+                <span>لوحة التحكم • الأدمن</span>
+            </div>
+            <div class="user-info">
+                <i class="fas fa-user-cog"></i>
+                <span id="adminNameDisplay">admin</span>
+                <button class="logout-btn" id="adminLogout"><i class="fas fa-sign-out-alt"></i> خروج</button>
+            </div>
+        </div>
+
+        <!-- أقسام الإدارة -->
+        <div class="flex-row" style="justify-content: center; gap: 12px; margin-bottom: 25px;">
+            <button class="btn" id="showUsersSection"><i class="fas fa-users"></i> المستخدمين</button>
+            <button class="btn" id="showProductsSection"><i class="fas fa-box"></i> المنتجات</button>
+            <button class="btn" id="showCodesSection"><i class="fas fa-qrcode"></i> الأكواد</button>
+            <button class="btn" id="showSalesSection"><i class="fas fa-chart-line"></i> استراتيجية</button>
+        </div>
+
+        <!-- قسم المستخدمين (إدارة) -->
+        <div id="adminUsersPanel" class="premium-card" style="display: block;">
+            <h2><i class="fas fa-user-plus"></i> إنشاء مستخدم جديد (كلمة مرور فريدة)</h2>
+            <div class="flex-row" style="align-items: flex-end;">
+                <div style="flex:2;">
+                    <input type="text" id="newUsername" placeholder="اسم المستخدم">
+                </div>
+                <div style="flex:2;">
+                    <input type="text" id="newPassword" placeholder="كلمة المرور (يجب أن تكون فريدة)">
+                </div>
+                <div style="flex:1;">
+                    <button class="btn btn-primary" id="createUserBtn"><i class="fas fa-save"></i> إضافة</button>
+                </div>
+            </div>
+            <div id="adminUserMsg"></div>
+            <hr style="border-color:#33469b; margin:25px 0;">
+            <h3>جميع المستخدمين</h3>
+            <div id="usersTableContainer"></div>
+        </div>
+
+        <!-- قسم المنتجات (إدارة) -->
+        <div id="adminProductsPanel" class="premium-card" style="display: none;">
+            <h2><i class="fas fa-plus-circle"></i> أضف منتجاً جديداً</h2>
+            <div class="flex-row">
+                <input type="text" id="prodName" placeholder="اسم المنتج (مثال: Fluorite iOS FF)" style="flex:2">
+                <input type="text" id="prodDesc" placeholder="وصف سريع" style="flex:3">
+                <input type="number" id="prodPrice" placeholder="السعر $" style="flex:1">
+                <input type="text" id="prodDuration" placeholder="المدة (1 Day...)" style="flex:1">
+            </div>
+            <button class="btn btn-primary" id="addProductBtn"><i class="fas fa-plus"></i> إضافة منتج</button>
+            <div id="productMsg"></div>
+            <h3 style="margin-top:30px;">المنتجات الحالية</h3>
+            <div id="productsTableContainer"></div>
+        </div>
+
+        <!-- قسم الأكواد (إدارة المخزون) -->
+        <div id="adminCodesPanel" class="premium-card" style="display: none;">
+            <h2><i class="fas fa-key"></i> إضافة كود لمنتج</h2>
+            <div class="flex-row">
+                <select id="codeProductSelect" style="flex:2"></select>
+                <input type="text" id="codeInput" placeholder="أدخل الكود (مثل: XXXX-XXXX)" style="flex:3">
+                <button class="btn btn-primary" id="addCodeBtn"><i class="fas fa-plus"></i> إدراج</button>
+            </div>
+            <button class="btn" id="generateRandomCodeBtn"><i class="fas fa-random"></i> توليد كود عشوائي</button>
+            <div id="codeMsg"></div>
+            <h3>جميع الأكواد غير المستخدمة</h3>
+            <div id="codesTableContainer"></div>
+        </div>
+
+        <!-- قسم استراتيجية المبيعات -->
+        <div id="adminSalesPanel" class="premium-card" style="display: none;">
+            <h2><i class="fas fa-bullhorn"></i> استراتيجية المبيعات الذكية</h2>
+            <div class="card-grid">
+                <div class="premium-card">
+                    <i class="fas fa-fire" style="color:orange; font-size:2rem;"></i>
+                    <h3>🔥 عرض اللحظة</h3>
+                    <p>خصم 15% على جميع منتجات Fluorite لمدة 3 أيام</p>
+                    <span class="badge">مستمر</span>
+                </div>
+                <div class="premium-card">
+                    <i class="fas fa-gem" style="color:cyan;"></i>
+                    <h3>💎 Drip Client</h3>
+                    <p>اشتر شهر واحصل على 7 أيام مجاناً (كود: DRIP2025)</p>
+                    <span class="badge">شهري</span>
+                </div>
+                <div class="premium-card">
+                    <i class="fas fa-star" style="color:gold;"></i>
+                    <h3>🏆 برنامج الولاء</h3>
+                    <p>كل 3 مشتريات تحصل على كود 1 day مجاني تلقائياً</p>
+                </div>
+            </div>
+            <p class="success-msg"><i class="fas fa-chart-pie"></i> إجمالي المبيعات (محاكاة): 47 عملية | إجمالي الإيرادات: $892</p>
+            <p><i class="fas fa-tag"></i> استراتيجية مقترحة: باكجات "2 منتج بسعر مخفض 20%"</p>
+        </div>
+    </div>
+
+    <!-- ========== شاشة المستخدم العادي ========= -->
+    <div id="userScreen" class="screen">
+        <div class="header-bar">
+            <div class="logo">
+                <h1>SBASY XIT <i class="fas fa-store"></i></h1>
+                <span>متجر رقمي • Fluoris & Drip</span>
+            </div>
+            <div class="user-info">
+                <i class="fas fa-user"></i>
+                <span id="userNameDisplay">مستخدم</span>
+                <button class="logout-btn" id="userLogout"><i class="fas fa-sign-out-alt"></i> خروج</button>
+            </div>
+        </div>
+
+        <!-- المنتجات المتاحة للمستخدم -->
+        <h2 style="margin-bottom: 10px;"><i class="fas fa-cubes"></i> المنتجات المتاحة</h2>
+        <div id="userProductsGrid" class="card-grid"></div>
+
+        <!-- سجل مشتريات المستخدم -->
+        <div class="premium-card" style="margin-top: 35px;">
+            <h3><i class="fas fa-history"></i> الأكواد التي اشتريتها</h3>
+            <div id="userPurchasesList"></div>
+        </div>
+
+        <!-- رابط التليجرام الخاص -->
+        <div class="telegram-link">
+            <a href="https://t.me/VIP_LVL_PRO" target="_blank"><i class="fab fa-telegram-plane"></i> @VIP_LVL_PRO للدعم</a>
+        </div>
+    </div>
+</div>
+
+<script>
+    (function() {
+        // ---------- البيانات المخزنة ----------
+        const STORAGE_KEYS = {
+            USERS: 'sbasy_users',
+            PRODUCTS: 'sbasy_products',
+            CODES: 'sbasy_codes',
+            PURCHASES: 'sbasy_purchases'
+        };
+
+        // تهيئة التخزين
+        function initData() {
+            // المستخدمين
+            if (!localStorage.getItem(STORAGE_KEYS.USERS)) {
+                const defaultUsers = [
+                    { username: 'admin', password: 'admin123', isAdmin: true },
+                    { username: 'VIP_Steve', password: 'steveFF', isAdmin: false },
+                    { username: 'DragonFF', password: 'drago99', isAdmin: false }
+                ];
+                localStorage.setItem(STORAGE_KEYS.USERS, JSON.stringify(defaultUsers));
+            }
+
+            // المنتجات الافتراضية
+            if (!localStorage.getItem(STORAGE_KEYS.PRODUCTS)) {
+                const defaultProducts = [
+                    { id: 'p1', name: 'Fluorite iOS FF', description: '1 يوم', price: 4.0, duration: '1 Day' },
+                    { id: 'p2', name: 'Fluorite iOS FF', description: '7 أيام', price: 12.0, duration: '7 Days' },
+                    { id: 'p3', name: 'Fluorite iOS FF', description: '30 يوم', price: 24.0, duration: '30 Days' },
+                    { id: 'p4', name: 'Drip Client', description: '1 يوم', price: 2.0, duration: '1 Day' },
+                    { id: 'p5', name: 'Drip Client', description: '7 أيام', price: 4.0, duration: '7 Days' },
+                    { id: 'p6', name: 'Drip Client', description: '15 يوم', price: 6.0, duration: '15 Days' },
+                    { id: 'p7', name: 'Drip Client', description: 'شهر', price: 10.0, duration: '30 Days' }
+                ];
+                localStorage.setItem(STORAGE_KEYS.PRODUCTS, JSON.stringify(defaultProducts));
+            }
+
+            // الأكواد (لكل منتج)
+            if (!localStorage.getItem(STORAGE_KEYS.CODES)) {
+                const defaultCodes = [
+                    { id: 'c1', productId: 'p1', code: 'FL1A-2B33', used: false },
+                    { id: 'c2', productId: 'p1', code: 'FL77-9XZ1', used: false },
+                    { id: 'c3', productId: 'p2', code: 'F7D2-4K9W', used: false },
+                    { id: 'c4', productId: 'p4', code: 'DR1P-001X', used: false },
+                    { id: 'c5', productId: 'p5', code: 'DR7D-22AF', used: false },
+                    { id: 'c6', productId: 'p7', code: 'DR30-999M', used: false }
+                ];
+                localStorage.setItem(STORAGE_KEYS.CODES, JSON.stringify(defaultCodes));
+            }
+
+            if (!localStorage.getItem(STORAGE_KEYS.PURCHASES)) {
+                localStorage.setItem(STORAGE_KEYS.PURCHASES, JSON.stringify([]));
+            }
+        }
+        initData();
+
+        // قراءة البيانات
+        function getUsers() { return JSON.parse(localStorage.getItem(STORAGE_KEYS.USERS)); }
+        function getProducts() { return JSON.parse(localStorage.getItem(STORAGE_KEYS.PRODUCTS)); }
+        function getCodes() { return JSON.parse(localStorage.getItem(STORAGE_KEYS.CODES)); }
+        function getPurchases() { return JSON.parse(localStorage.getItem(STORAGE_KEYS.PURCHASES)); }
+
+        function saveUsers(users) { localStorage.setItem(STORAGE_KEYS.USERS, JSON.stringify(users)); }
+        function saveProducts(prods) { localStorage.setItem(STORAGE_KEYS.PRODUCTS, JSON.stringify(prods)); }
+        function saveCodes(codes) { localStorage.setItem(STORAGE_KEYS.CODES, JSON.stringify(codes)); }
+        function savePurchases(purchases) { localStorage.setItem(STORAGE_KEYS.PURCHASES, JSON.stringify(purchases)); }
+
+        // متغير الجلسة
+        let currentUser = null;
+        try {
+            const saved = sessionStorage.getItem('sbasy_current_user');
+            if (saved) currentUser = JSON.parse(saved);
+        } catch (e) {}
+
+        // عناصر الشاشات
+        const loginScreen = document.getElementById('loginScreen');
+        const adminScreen = document.getElementById('adminScreen');
+        const userScreen = document.getElementById('userScreen');
+
+        // دالة التحديث
+        function renderScreen() {
+            loginScreen.classList.remove('active');
+            adminScreen.classList.remove('active');
+            userScreen.classList.remove('active');
+
+            if (!currentUser) {
+                loginScreen.classList.add('active');
+                document.getElementById('loginUsername').value = '';
+                document.getElementById('loginPassword').value = '';
+            } else if (currentUser.isAdmin) {
+                adminScreen.classList.add('active');
+                document.getElementById('adminNameDisplay').innerText = currentUser.username;
+                renderAdminPanels();
+            } else {
+                userScreen.classList.add('active');
+                document.getElementById('userNameDisplay').innerText = currentUser.username;
+                renderUserShop();
+            }
+        }
+
+        // تسجيل الخروج
+        function logout() {
+            sessionStorage.removeItem('sbasy_current_user');
+            currentUser = null;
+            renderScreen();
+        }
+
+        // ------------------ الأدمن بانل ------------------
+        function renderAdminPanels() {
+            showAdminUsers();
+            showAdminProducts();
+            showAdminCodes();
+            fillProductSelectForCodes();
+        }
+
+        // عرض المستخدمين
+        function showAdminUsers() {
+            const users = getUsers();
+            let html = '<table><tr><th>اسم المستخدم</th><th>صلاحية</th><th>كلمة المرور</th></tr>';
+            users.forEach(u => {
+                html += `<tr><td>${u.username}</td><td>${u.isAdmin ? 'أدمن' : 'مستخدم'}</td><td>${u.password}</td></tr>`;
+            });
+            html += '</table>';
+            document.getElementById('usersTableContainer').innerHTML = html;
+        }
+
+        // إضافة مستخدم (منع تكرار كلمة المرور)
+        document.getElementById('createUserBtn').addEventListener('click', function() {
+            const username = document.getElementById('newUsername').value.trim();
+            const password = document.getElementById('newPassword').value.trim();
+            const msgDiv = document.getElementById('adminUserMsg');
+            if (!username || !password) {
+                msgDiv.innerHTML = '<span class="error-msg">املأ الحقول</span>'; return;
+            }
+            let users = getUsers();
+            // فحص تكرار كلمة المرور
+            if (users.some(u => u.password === password)) {
+                msgDiv.innerHTML = '<span class="error-msg">كلمة المرور مستخدمة بالفعل! اختر كلمة فريدة.</span>'; return;
+            }
+            if (users.some(u => u.username === username)) {
+                msgDiv.innerHTML = '<span class="error-msg">اسم المستخدم موجود مسبقاً</span>'; return;
+            }
+            users.push({ username, password, isAdmin: false });
+            saveUsers(users);
+            msgDiv.innerHTML = '<span class="success-msg">تم إنشاء المستخدم بنجاح</span>';
+            document.getElementById('newUsername').value = '';
+            document.getElementById('newPassword').value = '';
+            showAdminUsers();
+        });
+
+        // عرض المنتجات (إدارة)
+        function showAdminProducts() {
+            const prods = getProducts();
+            let html = '<table><tr><th>الاسم</th><th>الوصف</th><th>السعر</th><th>المدة</th></tr>';
+            prods.forEach(p => {
+                html += `<tr><td>${p.name}</td><td>${p.description}</td><td>$${p.price}</td><td>${p.duration}</td></tr>`;
+            });
+            html += '</table>';
+            document.getElementById('productsTableContainer').innerHTML = html;
+        }
+
+        document.getElementById('addProductBtn').addEventListener('click', function() {
+            const name = document.getElementById('prodName').value.trim();
+            const desc = document.getElementById('prodDesc').value.trim();
+            const price = parseFloat(document.getElementById('prodPrice').value);
+            const dur = document.getElementById('prodDuration').value.trim();
+            if (!name || !desc || isNaN(price) || !dur) {
+                document.getElementById('productMsg').innerHTML = '<span class="error-msg">تحقق من المدخلات</span>'; return;
+            }
+            const prods = getProducts();
+            const newId = 'p' + Date.now() + Math.random().toString(36).substring(2);
+            prods.push({ id: newId, name, description: desc, price, duration: dur });
+            saveProducts(prods);
+            document.getElementById('productMsg').innerHTML = '<span class="success-msg">تمت الإضافة</span>';
+            document.getElementById('prodName').value = ''; document.getElementById('prodDesc').value = ''; 
+            document.getElementById('prodPrice').value = ''; document.getElementById('prodDuration').value = '';
+            showAdminProducts();
+            fillProductSelectForCodes();
+        });
+
+        // الأكواد
+        function showAdminCodes() {
+            const codes = getCodes().filter(c => !c.used);
+            const prods = getProducts();
+            let html = '<table><tr><th>المنتج</th><th>الكود</th></tr>';
+            codes.forEach(c => {
+                const prod = prods.find(p => p.id === c.productId) || { name: 'غير معروف' };
+                html += `<tr><td>${prod.name} - ${prod.duration || ''}</td><td class="code-block">${c.code}</td></tr>`;
+            });
+            html += '</table>';
+            document.getElementById('codesTableContainer').innerHTML = html;
+        }
+
+        function fillProductSelectForCodes() {
+            const prods = getProducts();
+            const select = document.getElementById('codeProductSelect');
+            select.innerHTML = prods.map(p => `<option value="${p.id}">${p.name} - ${p.duration} ($${p.price})</option>`).join('');
+        }
+
+        document.getElementById('addCodeBtn').addEventListener('click', function() {
+            const prodId = document.getElementById('codeProductSelect').value;
+            const codeText = document.getElementById('codeInput').value.trim();
+            if (!codeText) { document.getElementById('codeMsg').innerHTML = '<span class="error-msg">أدخل الكود</span>'; return; }
+            const codes = getCodes();
+            if (codes.some(c => c.code === codeText)) {
+                document.getElementById('codeMsg').innerHTML = '<span class="error-msg">هذا الكود موجود مسبقاً</span>'; return;
+            }
+            codes.push({ id: 'c'+Date.now()+Math.random(), productId: prodId, code: codeText, used: false });
+            saveCodes(codes);
+            document.getElementById('codeMsg').innerHTML = '<span class="success-msg">تمت الإضافة</span>';
+            document.getElementById('codeInput').value = '';
+            showAdminCodes();
+        });
+
+        document.getElementById('generateRandomCodeBtn').addEventListener('click', function() {
+            const rand = Math.random().toString(36).substring(2, 10).toUpperCase() + '-' + Math.random().toString(36).substring(2, 6).toUpperCase();
+            document.getElementById('codeInput').value = rand;
+        });
+
+        // أزرار التنقل بين أقسام الأدمن
+        document.getElementById('showUsersSection').addEventListener('click', ()=>{
+            document.getElementById('adminUsersPanel').style.display = 'block';
+            document.getElementById('adminProductsPanel').style.display = 'none';
+            document.getElementById('adminCodesPanel').style.display = 'none';
+            document.getElementById('adminSalesPanel').style.display = 'none';
+            showAdminUsers();
+        });
+        document.getElementById('showProductsSection').addEventListener('click', ()=>{
+            document.getElementById('adminUsersPanel').style.display = 'none';
+            document.getElementById('adminProductsPanel').style.display = 'block';
+            document.getElementById('adminCodesPanel').style.display = 'none';
+            document.getElementById('adminSalesPanel').style.display = 'none';
+            showAdminProducts();
+        });
+        document.getElementById('showCodesSection').addEventListener('click', ()=>{
+            document.getElementById('adminUsersPanel').style.display = 'none';
+            document.getElementById('adminProductsPanel').style.display = 'none';
+            document.getElementById('adminCodesPanel').style.display = 'block';
+            document.getElementById('adminSalesPanel').style.display = 'none';
+            showAdminCodes(); fillProductSelectForCodes();
+        });
+        document.getElementById('showSalesSection').addEventListener('click', ()=>{
+            document.getElementById('adminUsersPanel').style.display = 'none';
+            document.getElementById('adminProductsPanel').style.display = 'none';
+            document.getElementById('adminCodesPanel').style.display = 'none';
+            document.getElementById('adminSalesPanel').style.display = 'block';
+        });
+
+        // ------------------ المستخدم العادي ------------------
+        function renderUserShop() {
+            const prods = getProducts();
+            let html = '';
+            prods.forEach(p => {
+                html += `<div class="premium-card">
+                    <h3>${p.name}</h3>
+                    <p>${p.description} | ${p.duration}</p>
+                    <p style="font-size:1.6rem; color:#ffd966;">$${p.price}</p>
+                    <button class="btn btn-primary buy-btn" data-prod-id="${p.id}"><i class="fas fa-shopping-cart"></i> اشتري الآن</button>
+                </div>`;
+            });
+            document.getElementById('userProductsGrid').innerHTML = html;
+
+            // إضافة مستمعين للشراء
+            document.querySelectorAll('.buy-btn').forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    const prodId = this.dataset.prodId;
+                    purchaseProduct(prodId);
+                });
+            });
+
+            // عرض مشتريات المستخدم
+            const purchases = getPurchases().filter(pr => pr.username === currentUser.username);
+            const codesAll = getCodes();
+            const products = getProducts();
+            let historyHtml = '<table><tr><th>المنتج</th><th>الكود</th><th>التاريخ</th></tr>';
+            if (purchases.length === 0) historyHtml = '<p>لا توجد مشتريات بعد.</p>';
+            else {
+                purchases.forEach(pur => {
+                    const prod = products.find(pr => pr.id === pur.productId) || { name: 'منتج' };
+                    historyHtml += `<tr><td>${prod.name} ${prod.duration || ''}</td><td class="code-block">${pur.code}</td><td>${pur.date}</td></tr>`;
+                });
+                historyHtml += '</table>';
+            }
+            document.getElementById('userPurchasesList').innerHTML = historyHtml;
+        }
+
+        function purchaseProduct(prodId) {
+            const codes = getCodes();
+            const availableCode = codes.find(c => c.productId === prodId && !c.used);
+            if (!availableCode) {
+                alert('عذراً، لا يوجد كود متاح حالياً لهذا المنتج. تواصل مع الدعم.');
+                return;
+            }
+            // تحديث الكود كمستخدم
+            availableCode.used = true;
+            saveCodes(codes);
+
+            const purchase = {
+                username: currentUser.username,
+                productId: prodId,
+                code: availableCode.code,
+                date: new Date().toLocaleString('ar-EG')
+            };
+            const purchases = getPurchases();
+            purchases.push(purchase);
+            savePurchases(purchases);
+
+            alert(`تم الشراء بنجاح! كودك: ${availableCode.code}`);
+            renderUserShop(); // تحديث الصفحة
+        }
+
+        // ------------------ تسجيل الدخول ------------------
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const username = document.getElementById('loginUsername').value.trim();
+            const password = document.getElementById('loginPassword').value.trim();
+            const msgDiv = document.getElementById('loginMessage');
+            const users = getUsers();
+            const user = users.find(u => u.username === username && u.password === password);
+            if (user) {
+                msgDiv.style.display = 'none';
+                currentUser = { username: user.username, isAdmin: user.isAdmin || false };
+                sessionStorage.setItem('sbasy_current_user', JSON.stringify(currentUser));
+                renderScreen();
+            } else {
+                msgDiv.style.display = 'block';
+                msgDiv.innerHTML = 'اسم مستخدم أو كلمة مرور غير صحيحة.';
+            }
+        });
+
+        // أزرار الخروج
+        document.getElementById('adminLogout').addEventListener('click', logout);
+        document.getElementById('userLogout').addEventListener('click', logout);
+
+        // تهيئة أولية
+        renderScreen();
+
+        // جعل أقسام الأدمن قابلة للتصفح
+        // لضمان عدم وجود undefined
+        // نسخة احتياطية لوحة المنتجات للأدمن
+        // أيضا منع أي خطأ
+        // التاكد من وجود بعض البيانات
+    })();
+</script>
+<!-- دعم عرض الجوال والأمان -->
+</body>
+</html>
