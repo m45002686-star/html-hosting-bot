@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>YESSER XIT PANEL V7</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:tahoma}
+html, body{
+    background:linear-gradient(135deg,#0f051d,#1a0033,#000);
+    color:#fff;
+    min-height:100vh;
+    overflow-x:hidden;
+    scroll-behavior:smooth;
+}
+body::before{
+    content:"";
+    position:fixed;
+    width:200%;
+    height:200%;
+    background:radial-gradient(circle,#9c27b0 1px,transparent 1px);
+    background-size:60px 60px;
+    animation:move 20s linear infinite;
+    opacity:0.15;
+    z-index:-1;
+}
+@keyframes move{from{transform:translateY(0)}to{transform:translateY(-60px)}}
+.container{
+    display:flex;
+    justify-content:center;
+    padding:50px 0;
+}
+.page{
+    display:none;
+    width:100%;
+    max-width:420px;
+    z-index:1;
+}
+.page.active{display:block}
+.box{
+    background:rgba(255,255,255,0.05);
+    backdrop-filter:blur(15px);
+    padding:30px;
+    border-radius:20px;
+    box-shadow:0 0 40px rgba(156,39,176,0.7);
+    text-align:center;
+    border:1px solid rgba(255,255,255,0.1);
+    position:relative;
+    margin-bottom:30px;
+}
+.welcome-text{
+    font-size:24px;
+    color:#e040fb;
+    text-shadow:0 0 15px #e040fb;
+    margin-bottom:10px;
+}
+.welcome-img{
+    width:100%;
+    border-radius:15px;
+    margin:15px 0;
+    box-shadow:0 0 25px #9c27b0;
+}
+input{
+    width:100%;
+    padding:12px;
+    margin:8px 0;
+    border-radius:10px;
+    border:none;
+    outline:none;
+    background:rgba(255,255,255,0.1);
+    color:#fff;
+}
+button{
+    width:100%;
+    padding:12px;
+    margin:8px 0;
+    border:none;
+    border-radius:10px;
+    cursor:pointer;
+    font-weight:bold;
+    transition:0.3s;
+}
+button:hover{transform:scale(1.05)}
+.main-btn{background:linear-gradient(45deg,#9c27b0,#e040fb);color:#fff}
+.login-btn{background:linear-gradient(45deg,#ff9800,#ff5722);color:#fff}
+.admin-btn{background:linear-gradient(45deg,#3f51b5,#2196f3);color:#fff}
+.logout-btn{background:linear-gradient(45deg,#f44336,#e91e63);color:#fff}
+.delete-btn{background:linear-gradient(45deg,#d32f2f,#b71c1c);color:#fff}
+.buy-btn{
+    position:absolute;
+    top:20px;
+    left:20px;
+    background:linear-gradient(45deg,#ff0080,#ff8c00);
+    padding:8px 18px;
+    border-radius:30px;
+    text-decoration:none;
+    color:#fff;
+    font-size:14px;
+}
+.list{
+    margin-top:10px;
+    background:rgba(0,0,0,0.4);
+    padding:10px;
+    border-radius:10px;
+}
+.item{padding:8px;position:relative}
+.item a{color:#e040fb;text-decoration:none}
+.timer-badge{
+    position:absolute;
+    top:5px;
+    left:5px;
+    background:linear-gradient(45deg,#00c853,#00e676);
+    padding:4px 10px;
+    border-radius:15px;
+    font-size:12px;
+    font-weight:bold;
+    color:#fff;
+}
+.timer-badge.expired{
+    background:linear-gradient(45deg,#d32f2f,#f44336);
+}
+.timer-badge.warning{
+    background:linear-gradient(45deg,#ff9800,#ffc107);
+}
+.account-item{
+    background:rgba(255,255,255,0.05);
+    padding:15px;
+    border-radius:10px;
+    margin:10px 0;
+    position:relative;
+}
+.account-name{
+    font-size:18px;
+    color:#e040fb;
+    font-weight:bold;
+    margin-bottom:5px;
+}
+.account-details{
+    color:#aaa;
+    font-size:13px;
+}
+.admin-account-item{
+    background:rgba(255,255,255,0.05);
+    padding:10px;
+    border-radius:10px;
+    margin:5px 0;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+.account-info .name{color:#e040fb;font-weight:bold}
+.account-info .time{color:#aaa;font-size:12px}
+.delete-btn-small{
+    padding:5px 15px;
+    font-size:12px;
+    margin:0;
+}
+footer{
+    text-align:center;
+    font-size:13px;
+    color:#aaa;
+    letter-spacing:1px;
+    margin-top:20px;
+}
+/* لوحة الرقصات */
+#dancePanel{
+    display:none;
+    margin-top:15px;
+    background:rgba(0,0,0,0.5);
+    padding:15px;
+    border-radius:15px;
+}
+#dancePanel input{width:48%; display:inline-block; margin-bottom:10px;}
+#emotesGrid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:10px;
+}
+.emote-card img{width:100%;border-radius:8px;cursor:pointer;}
+</style>
+</head>
+<body>
+<div class="container">
+
+<!-- الصفحة الرئيسية -->
+<div id="main" class="page active">
+<div class="box">
+<h2 class="welcome-text">WELCOME</h2>
+<h1>YESSER XIT PANEL</h1>
+<img src="IMG_20260219_203639_753.jpg" class="welcome-img">
+<a href="https://www.instagram.com/yesser.ard" target="_blank" class="buy-btn">🛒 شراء</a>
+<button class="main-btn" onclick="show('login')">🔐 دخول المستخدم</button>
+<button class="admin-btn" onclick="show('adminLogin')">⚙️ دخول الأدمن</button>
+</div>
+</div>
+
+<!-- تسجيل دخول المستخدم -->
+<div id="login" class="page">
+<div class="box">
+<h2>تسجيل الدخول</h2>
+<input id="user" placeholder="اسم المستخدم">
+<input id="pass" type="password" placeholder="كلمة المرور">
+<button class="login-btn" onclick="login()">دخول</button>
+<button onclick="goBack()">رجوع</button>
+</div>
+</div>
+
+<!-- بانل المستخدم -->
+<div id="panel" class="page">
+<div class="box">
+<h2>مرحبا بك 🔥</h2>
+<h3>📡 قنواتي:</h3>
+<div class="list">
+<div class="item"><a href="https://t.me/groot1kbot" target="_blank">Telegram</a></div>
+<div class="item"><a href="https://instagram.com/yesser.ard" target="_blank">Instagram</a></div>
+<div class="item"><a href="https://youtube.com/@yesserprv" target="_blank">YouTube</a></div>
+</div>
+
+<h3>🎮 حساباتي:</h3>
+<div id="myAccount" class="list"></div>
+
+<button class="main-btn" onclick="toggleDancePanel()">💃 رقصات مجانا</button>
+<div id="dancePanel">
+<input id="teamCode" placeholder="Enter Team Code">
+<input id="playerId" placeholder="Enter Player ID">
+<div id="emotesGrid"></div>
+</div>
+
+<button class="logout-btn" onclick="show('main')">🚪 تسجيل خروج</button>
+<button onclick="goBack()">رجوع</button>
+</div>
+</div>
+
+<!-- تسجيل دخول الأدمن -->
+<div id="adminLogin" class="page">
+<div class="box">
+<h2>دخول الأدمن</h2>
+<input id="adminUser" placeholder="يوزر الأدمن">
+<input id="adminPass" type="password" placeholder="باس الأدمن">
+<button class="admin-btn" onclick="adminLogin()">دخول</button>
+<button onclick="goBack()">رجوع</button>
+</div>
+</div>
+
+<!-- بانل الأدمن -->
+<div id="adminPanel" class="page">
+<div class="box">
+<h2>لوحة الأدمن</h2>
+<h3>➕ إضافة حساب</h3>
+<input id="newUser" placeholder="اسم المستخدم">
+<input id="newPass" placeholder="كلمة المرور">
+<input id="expireDays" type="number" placeholder="عدد الأيام (افتراضي: 30)">
+<button onclick="addUser()">إضافة حساب</button>
+<h3>📋 جميع الحسابات:</h3>
+<div id="allAccounts" class="list"></div>
+<h3>📦 البرامج:</h3>
+<input id="progName" placeholder="اسم البرنامج">
+<input id="progUrl" placeholder="رابط البرنامج">
+<button onclick="addProgram()">إضافة برنامج</button>
+<div id="adminPrograms" class="list"></div>
+<button class="logout-btn" onclick="show('main')">خروج</button>
+<button onclick="goBack()">رجوع</button>
+</div>
+</div>
+
+</div>
+<footer>
+جميع الحقوق محفوظة yesser_xit © 2026
+</footer>
+
+<script>
+var ADMIN_USER = "yesserard";
+var ADMIN_PASS = "1234";
+var users = JSON.parse(localStorage.getItem("users")) || [];
+var programs = JSON.parse(localStorage.getItem("programs")) || [];
+var currentUser = null;
+var pageHistory = [];
+
+function save() {
+    localStorage.setItem("users", JSON.stringify(users));
+    localStorage.setItem("programs", JSON.stringify(programs));
+}
+
+function show(id){
+    if(document.querySelector(".page.active")) pageHistory.push(document.querySelector(".page.active").id);
+    document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
+    document.getElementById(id).classList.add("active");
+}
+
+function goBack(){
+    if(pageHistory.length>0) show(pageHistory.pop());
+}
+
+// تسجيل دخول المستخدم
+function login(){
+    var u=document.getElementById("user").value.trim();
+    var p=document.getElementById("pass").value.trim();
+    var found = users.find(x=>x.user==u && x.pass==p);
+    if(found){ currentUser=found; loadMyAccount(); show("panel"); }
+    else alert("بيانات خاطئة");
+}
+
+// تسجيل دخول الأدمن
+function adminLogin(){
+    var a=document.getElementById("adminUser").value;
+    var b=document.getElementById("adminPass").value;
+    if(a===ADMIN_USER && b===ADMIN_PASS){ loadAllAccounts(); loadAdminPrograms(); show("adminPanel"); }
+    else alert("خطأ في بيانات الأدمن");
+}
+
+// إضافة وحذف حساب
+function addUser(){
+    var u=document.getElementById("newUser");
+    var p=document.getElementById("newPass");
+    var d=document.getElementById("expireDays").value;
+    if(!u.value || !p.value){ alert("يرجى تعبئة اسم المستخدم وكلمة المرور"); return; }
+    if(users.find(x=>x.user==u.value)){ alert("اسم المستخدم موجود مسبقاً!"); return; }
+    var days = d?parseInt(d):30;
+    var exp=new Date(); exp.setDate(exp.getDate()+days);
+    users.push({user:u.value,pass:p.value,expireDate:exp.getTime(),createdDate:new Date().getTime()});
+    save(); loadAllAccounts(); alert("تم إضافة الحساب بنجاح! ينتهي في: "+exp.toLocaleDateString());
+    u.value="";p.value="";document.getElementById("expireDays").value="";
+}
+function deleteUser(i){ if(confirm("هل أنت متأكد من حذف هذا الحساب؟")){ users.splice(i,1); save(); loadAllAccounts(); alert("تم حذف الحساب"); } }
+function addProgram(){ var n=document.getElementById("progName"); var u=document.getElementById("progUrl"); if(n.value && u.value){ programs.push({name:n.value,url:u.value}); save(); loadAdminPrograms(); alert("تم إضافة البرنامج بنجاح"); n.value=""; u.value=""; } else alert("يرجى تعبئة الحقول"); }
+
+function loadMyAccount(){
+    var list=document.getElementById("myAccount"); list.innerHTML="";
+    if(!currentUser) return;
+    var rem=getRemainingTime(currentUser.expireDate);
+    var cls=rem.expired?"timer-badge expired": rem.days<3?"timer-badge warning":"timer-badge";
+    list.innerHTML='<div class="account-item"><span class="'+cls+'">'+rem.text+'</span><div class="account-name">'+currentUser.user+'</div><div class="account-details">تاريخ الانتهاء: '+new Date(currentUser.expireDate).toLocaleDateString()+'</div></div>';
+}
+
+function loadAllAccounts(){
+    var list=document.getElementById("allAccounts"); list.innerHTML="";
+    if(users.length===0) list.innerHTML='<div class="item">لا توجد حسابات</div>';
+    else users.forEach((user,i)=>{
+        var rem=getRemainingTime(user.expireDate);
+        var status=rem.expired?"منتهي":rem.text;
+        list.innerHTML+='<div class="admin-account-item"><div class="account-info"><div class="name">'+user.user+'</div><div class="time">متبقي: '+status+'</div></div><button class="delete-btn delete-btn-small" onclick="deleteUser('+i+')">حذف</button></div>';
+    });
+}
+
+function loadAdminPrograms(){
+    var list=document.getElementById("adminPrograms"); list.innerHTML="";
+    if(programs.length===0) list.innerHTML='<div class="item">لا توجد برامج</div>';
+    else programs.forEach(p=>{ list.innerHTML+='<div class="item">'+p.name+'</div>'; });
+}
+
+function getRemainingTime(expireTimestamp){
+    var now=new Date().getTime();
+    var diff=expireTimestamp-now;
+    if(diff<=0) return {expired:true,text:"منتهي",days:0,hours:0,minutes:0};
+    var days=Math.floor(diff/(1000*60*60*24));
+    var hours=Math.floor((diff%(1000*60*60*24))/(1000*60*60));
+    var minutes=Math.floor((diff%(1000*60*60))/(1000*60));
+    var text=""; if(days>0) text+=days+"ي "; if(hours>0) text+=hours+"س "; text+=minutes+"د";
+    return {expired:false,text:text,days:days,hours:hours,minutes:minutes};
+}
+
+setInterval(function(){
+    if(document.getElementById("panel").classList.contains("active")) loadMyAccount();
+    if(document.getElementById("adminPanel").classList.contains("active")) loadAllAccounts();
+},60000);
+
+// *** سكربت الرقصات ***
+function toggleDancePanel(){
+    const panel=document.getElementById("dancePanel");
+    panel.style.display = panel.style.display==="block"?"none":"block";
+    if(panel.style.display==="block") loadDanceEmotes();
+}
+
+function loadDanceEmotes(){
+    const emotes=[
+        "909000001","909000002","909000003","909000004","909000005","909000006","909000007",
+        "909000008","909000009","909000010","909000011","909000012","909000013","909000014",
+        "909000015","909000016","909000017","909000018","909000019","909000020","909000021",
+        "909000022","909000023","909000024","909000025","909000026","909000027","909000028",
+        "909000029","909000031","909000032","909000033"
+    ];
+    const grid=document.getElementById("emotesGrid");
+    grid.innerHTML="";
+    emotes.forEach(id=>{
+        const card=document.createElement("div");
+        card.className="emote-card";
+        card.innerHTML=`<img src="https://cdn.jsdelivr.net/gh/ShahGCreator/icon@main/PNG/${id}.png">`;
+        card.onclick=()=>{ 
+            const tc=document.getElementById("teamCode").value.trim();
+            const pid=document.getElementById("playerId").value.trim();
+            if(!tc||!pid){ alert("يرجى إدخال Team Code و Player ID"); return; }
+            alert(`تم إرسال الإيموت!\nTeam Code: ${tc}\nPlayer ID: ${pid}\nEmote ID: ${id}`);
+        };
+        grid.appendChild(card);
+    });
+}
+</script>
+</body>
+</html>
