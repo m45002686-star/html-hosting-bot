@@ -1,0 +1,55 @@
+/* إعدادات الشكل */
+body {
+  background: linear-gradient(45deg, #1e90ff, #4682b4);
+  color: white;
+  font-family: 'Arial', sans-serif;
+  transition: all 0.3s ease;
+}
+
+/* الوضع الداكن */
+body.dark-mode {
+  background-color: #333;
+  color: white;
+}
+
+/* العناوين */
+h1 {
+  font-family: 'Georgia', serif;
+  text-align: center;
+  font-size: 2.5em;
+  text-decoration: underline;
+  font-weight: bold;
+}
+
+/* الأزرار */
+button {
+  background-color: #00bfff;
+  border: none;
+  padding: 10px 20px;
+  font-size: 1.2em;
+  color: white;
+  cursor: pointer;
+  border-radius: 10px;
+  margin: 10px;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #4682b4;
+}
+
+/* القوائم المنسدلة */
+.submenu {
+  display: none;
+  text-align: center;
+  margin-top: 20px;
+}
+
+/* زر القنوات */
+#channelMenuBtn {
+  background-color: #ff6347;
+}
+
+#channelMenuBtn:hover {
+  background-color: #e04e32;
+}
