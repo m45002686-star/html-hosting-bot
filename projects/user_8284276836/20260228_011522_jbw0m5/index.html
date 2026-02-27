@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>استضافة Python الذكية - سياسة الاستخدام والضوابط الأمنية</title>
+    <!-- تضمين Tailwind CSS عبر CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- تخصيص Tailwind -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'dark-bg': '#0a0a0a',
+                        'darker-bg': '#050505',
+                        'fire-red': '#ff2e00',
+                        'fire-orange': '#ff6a00',
+                        'ember': '#cc3300',
+                        'dark-charcoal': '#1a1a1a',
+                        'metal-gray': '#2a2a2a'
+                    },
+                    fontFamily: {
+                        'arabic': ['Tajawal', 'Arial', 'sans-serif'],
+                    },
+                    backgroundImage: {
+                        'fire-gradient': 'linear-gradient(135deg, rgba(255,46,0,0.15) 0%, rgba(255,106,0,0.1) 50%, rgba(204,51,0,0.05) 100%)',
+                        'dark-gradient': 'linear-gradient(to bottom right, #050505 0%, #0a0a0a 50%, #111 100%)',
+                        'radial-fire': 'radial-gradient(circle at 50% 0%, rgba(255,46,0,0.2) 0%, rgba(0,0,0,0) 70%)',
+                        'section-gradient': 'linear-gradient(145deg, rgba(42,42,42,0.7) 0%, rgba(26,26,26,0.8) 50%, rgba(10,10,10,0.9) 100%)'
+                    },
+                    boxShadow: {
+                        'fire-glow': '0 0 15px rgba(255, 46, 0, 0.5)',
+                        'fire-glow-strong': '0 0 25px rgba(255, 46, 0, 0.7)',
+                        'dark-glow': '0 0 20px rgba(0, 0, 0, 0.8)',
+                        'inner-fire': 'inset 0 0 20px rgba(255, 46, 0, 0.3)'
+                    },
+                    animation: {
+                        'pulse-glow': 'pulse-glow 2s ease-in-out infinite alternate',
+                        'float': 'float 6s ease-in-out infinite',
+                        'fire-flicker': 'fire-flicker 3s ease-in-out infinite alternate',
+                    },
+                    keyframes: {
+                        'pulse-glow': {
+                            '0%': { 'box-shadow': '0 0 10px rgba(255, 46, 0, 0.3)' },
+                            '100%': { 'box-shadow': '0 0 25px rgba(255, 46, 0, 0.8)' }
+                        },
+                        'float': {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-10px)' }
+                        },
+                        'fire-flicker': {
+                            '0%': { opacity: '0.8' },
+                            '100%': { opacity: '1' }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- خط Tajawal للعربية -->
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Tajawal', Arial, sans-serif;
+        }
+        
+        .fire-border {
+            border: 1px solid;
+            border-image: linear-gradient(45deg, #ff2e00, #ff6a00, #cc3300) 1;
+        }
+        
+        .fire-text {
+            background: linear-gradient(to right, #ff6a00, #ff2e00);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .dark-text-shadow {
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.9);
+        }
+        
+        .glowing-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #ff2e00;
+            box-shadow: 0 0 10px 2px rgba(255, 46, 0, 0.7);
+            animation: pulse-glow 1.5s ease-in-out infinite alternate;
+        }
+        
+        /* تخصيصات للعرض على الجوال */
+        @media (max-width: 768px) {
+            .mobile-padding {
+                padding-left: 1rem;
+                padding-right: 1rem;
+            }
+        }
+        
+        /* تأثيرات التمرير */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+        
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* تأثيرات للعناصر التفاعلية */
+        .hover-lift {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .hover-lift:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5), 0 0 15px rgba(255, 46, 0, 0.4);
+        }
+    </style>
+</head>
+<body class="min-h-screen bg-dark-bg text-white font-arabic overflow-x-hidden">
+
+    <!-- تأثير الخلفية الناري -->
+    <div class="fixed inset-0 bg-dark-gradient z-0"></div>
+    <div class="fixed inset-0 bg-radial-fire z-0"></div>
+    
+    <!-- Header -->
+    <header class="sticky top-0 z-50 bg-darker-bg/90 backdrop-blur-md border-b border-fire-red/30 shadow-dark-glow">
+        <div class="container mx-auto px-4 py-4">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-3 space-x-reverse">
+                    <div class="relative">
+                        <div class="absolute inset-0 bg-fire-red rounded-xl blur-md opacity-70 animate-pulse-glow"></div>
+                        <div class="relative bg-gradient-to-br from-darker-bg to-metal-gray p-3 rounded-xl border border-fire-red/50 shadow-fire-glow">
+                            <!-- Bot Icon -->
+                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-8 h-8 text-fire-orange">
+                                <path d="M12 8V4H8"/><path d="M2 14h2a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2H2v-7Z"/><path d="M22 14h-2a2 2 0 0 0-2 2v3a2 2 0 0 0 2 2h2v-7Z"/><path d="M15 6v12a3 3 0 1 0 3-3H6a3 3 0 1 0 3 3V6"/><path d="M10 10h.01"/><path d="M14 10h.01"/>
+                            </svg>
+                        </div>
+                    </div>
+                    <div>
+                        <h1 class="text-2xl font-bold text-white dark-text-shadow">استضافة Python الذكية</h1>
+                        <p class="text-fire-orange text-sm font-medium">نظام التلجرام الآمن</p>
+                    </div>
+                </div>
+                <div class="hidden md:flex items-center space-x-6 space-x-reverse text-sm">
+                    <div class="flex items-center space-x-2 space-x-reverse px-4 py-2 bg-dark-charcoal/80 rounded-full border border-metal-gray">
+                        <div class="glowing-dot"></div>
+                        <span class="text-gray-300 font-medium">نظام حماية نشط</span>
+                    </div>
+                    <div class="flex items-center space-x-2 space-x-reverse px-4 py-2 bg-dark-charcoal/80 rounded-full border border-metal-gray">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 text-fire-orange">
+                            <path d="M12 5a3 3 0 1 0-3 3"/><path d="M12 5a3 3 0 1 1 3 3"/><path d="M12 15a3 3 0 1 0 3 3"/><path d="M12 15a3 3 0 1 1-3 3"/><path d="M15 9a6 6 0 0 1 6 6"/><path d="M9 9a6 6 0 0 0-6 6"/><path d="M18 12a6 6 0 0 0-6-6"/><path d="M6 12a6 6 0 0 1 6-6"/>
+                        </svg>
+                        <span class="text-gray-300 font-medium">مدعوم بالذكاء الاصطناعي</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="py-20 px-4 relative overflow-hidden">
+        <div class="absolute inset-0 bg-fire-gradient z-0"></div>
+        <div class="container mx-auto max-w-5xl text-center relative z-10">
+            <div class="inline-flex items-center justify-center bg-gradient-to-r from-ember/30 to-fire-red/30 text-fire-orange px-6 py-3 rounded-full mb-8 border border-fire-red/50 shadow-fire-glow animate-fire-flicker">
+                <!-- AlertTriangle Icon -->
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 ml-2">
+                    <path d="m21.73 18-9-15-9 15z"/><path d="M12 9v4"/><path d="M12 17h.01"/>
+                </svg>
+                <span class="font-bold text-lg">سياسة الاستخدام والضوابط الأمنية</span>
+            </div>
+            <h1 class="text-5xl md:text-7xl font-extrabold text-white mb-8 leading-tight dark-text-shadow fade-in">
+                نظام <span class="fire-text">الحماية الناري</span> المتقدم
+            </h1>
+            <p class="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed fade-in" style="animation-delay: 0.2s">
+                استضافة آمنة تستخدم خوارزميات ذكاء اصطناعي متطورة لفحص الملفات والكشف عن التهديدات في الوقت الفعلي. قبل رفع أي مشروع، تأكد من قراءة التعليمات أدناه بعناية.
+            </p>
+            <div class="mt-12 flex justify-center">
+                <div class="relative animate-float">
+                    <div class="absolute -inset-1 bg-fire-red/30 blur-xl rounded-full"></div>
+                    <div class="relative flex items-center justify-center w-20 h-20 bg-darker-bg rounded-full border-2 border-fire-red/50">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-10 h-10 text-fire-orange">
+                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"/>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content Sections -->
+    <div class="container mx-auto max-w-6xl px-4 pb-20 relative z-10">
+
+        <!-- Section 1: Smart Protection -->
+        <section class="mb-20 fade-in">
+            <div class="text-center mb-12">
+                <div class="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-ember/30 to-fire-red/30 rounded-2xl mb-6 border-2 border-fire-red/50 shadow-fire-glow">
+                    <!-- AlertTriangle Icon -->
+                    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-8 h-8 text-fire-orange">
+                        <path d="m21.73 18-9-15-9 15z"/><path d="M12 9v4"/><path d="M12 17h.01"/>
+                    </svg>
+                </div>
+                <h2 class="text-4xl md:text-5xl font-bold text-white mb-6 dark-text-shadow">نظام الحماية والفحص الذكي</h2>
+                <div class="w-24 h-1 bg-gradient-to-r from-fire-red to-fire-orange mx-auto rounded-full mb-6"></div>
+                <p class="text-xl text-gray-300 max-w-3xl mx-auto">نظام مراقبة متكامل يعمل باستمرار على كشف وتحليل أي نشاط مشبوه في الوقت الفعلي</p>
+            </div>
+
+            <div class="grid lg:grid-cols-2 gap-8">
+                <div class="bg-section-gradient p-8 rounded-2xl border border-metal-gray shadow-dark-glow hover-lift">
+                    <div class="flex items-center mb-6">
+                        <div class="w-12 h-12 bg-gradient-to-br from-ember/40 to-fire-red/40 rounded-xl flex items-center justify-center mr-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6 text-fire-orange">
+                                <path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v2H4a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h16Z"/><path d="M8 6h8"/><path d="M8 10h8"/><path d="M8 14h8"/><path d="M8 18h8"/>
+                            </svg>
+                        </div>
+                        <h3 class="text-2xl font-bold text-white">الأنشطة المراقبة</h3>
+                    </div>
+                    <ul class="space-y-4">
+                        <li class="flex items-start">
+                            <div class="flex-shrink-0 w-2 h-2 bg-fire-red rounded-full mt-2 ml-3"></div>
+                            <span class="text-gray-300 text-lg">الأكواد الضارة وملفات الاختراق والبرمجيات الخبيثة</span>
+                        </li>
+                        <li class="flex items-start">
+                            <div class="flex-shrink-0 w-2 h-2 bg-fire-red rounded-full mt-2 ml-3"></div>
+                            <span class="text-gray-300 text-lg">سكربتات الهجمات (Flood / Spam / DDOS / Brute Force)</span>
+                        </li>
+                        <li class="flex items-start">
+                            <div class="flex-shrink-0 w-2 h-2 bg-fire-red rounded-full mt-2 ml-3"></div>
+                            <span class="text-gray-300 text-lg">برامج التعدين الخفي واستهلاك الموارد غير المصرح به</span>
+                        </li>
+                        <li class="flex items-start">
+                            <div class="flex-shrink-0 w-2 h-2 bg-fire-red rounded-full mt-2 ml-3"></div>
+                            <span class="text-gray-300 text-lg">البوتات التي تحاول تشغيل استضافة داخل الاستضافة</span>
+                        </li>
+                        <li class="flex items-start">
+                            <div class="flex-shrink-0 w-2 h-2 bg-fire-red rounded-full mt-2 ml-3"></div>
+                            <span class="text-gray-300 text-lg">الملفات المشفرة أو الملفات مجهولة المصدر والهوية</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="bg-gradient-to-br from-ember/30 to-fire-red/20 p-8 rounded-2xl border border-fire-red/40 shadow-fire-glow-strong hover-lift">
+                    <div class="flex items-center mb-6">
+                        <div class="w-12 h-12 bg-gradient-to-br from-fire-red/50 to-ember/50 rounded-xl flex items-center justify-center mr-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6 text-white">
+                                <line x1="22" x2="2" y1="12" y2="12"/><path d="M5.45 5.11 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"/><line x1="6" x2="6.01" y1="16" y2="16"/><line x1="10" x2="10.01" y1="16" y2="16"/>
+                            </svg>
+                        </div>
+                        <h3 class="text-2xl font-bold text-white">الإجراءات التلقائية الفورية</h3>
+                    </div>
+                    <ul class="space-y-4">
+                        <li class="flex items-start">
+                            <div class="flex-shrink-0 w-3 h-3 bg-fire-red rounded-full mt-2 ml-3 animate-pulse"></div>
+                            <span class="text-white text-lg font-medium">إيقاف المشروع فورياً دون سابق إنذار</span>
+                        </li>
+                        <li class="flex items-start">
+                            <div class="flex-shrink-0 w-3 h-3 bg-fire-red rounded-full mt-2 ml-3 animate-pulse"></div>
+                            <span class="text-white text-lg font-medium">حذف جميع الملفات نهائياً من السيرفر</span>
+                        </li>
+                        <li class="flex items-start">
+                            <div class="flex-shrink-0 w-3 h-3 bg-fire-red rounded-full mt-2 ml-3 animate-pulse"></div>
+                            <span class="text-white text-lg font-medium">حظر الحساب وجميع المشاريع المرتبطة به</span>
+                        </li>
+                        <li class="flex items-start">
+                            <div class="flex-shrink-0 w-3 h-3 bg-yellow-500 rounded-full mt-2 ml-3 animate-pulse"></div>
+                            <span class="text-yellow-400 text-lg font-bold">بدون أي تحذير مسبق أو فرصة للاستئناف</span>
+                        </li>
+                        <li class="flex items-start">
+                            <div class="flex-shrink-0 w-3 h-3 bg-red-600 rounded-full mt-2 ml-3 animate-pulse"></div>
+                            <span class="text-red-400 text-lg font-bold">الإبلاغ التلقائي عن الحساب للمشرفين</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 2: Prohibited Files -->
+        <section class="mb-20 fade-in" style="animation-delay: 0.1s">
+            <div class="text-center mb-12">
+                <div class="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-red-900/50 to-ember/40 rounded-2xl mb-6 border-2 border-red-700/60 shadow-fire-glow">
+                    <!-- Ban Icon -->
+                    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-8 h-8 text-red-500">
+                        <circle cx="12" cy="12" r="10"/><path d="m4.22 4.22 15.56 15.56"/>
+                    </svg>
+                </div>
+                <h2 class="text-4xl md:text-5xl font-bold text-white mb-6 dark-text-shadow">الملفات الممنوع رفعها نهائياً</h2>
+                <div class="w-24 h-1 bg-gradient-to-r from-red-700 to-ember mx-auto rounded-full mb-6"></div>
+                <p class="text-xl text-gray-300 max-w-3xl mx-auto">🔴 فئة محظورة تماماً - سيتم اتخاذ إجراءات صارمة فور اكتشافها</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-6 max-w-5xl mx-auto">
+                <!-- Prohibited Items -->
+                <div class="bg-gradient-to-br from-red-900/40 to-ember/30 p-6 rounded-xl border border-red-700/60 shadow-dark-glow hover-lift">
+                    <div class="flex items-start">
+                        <div class="flex-shrink-0 w-10 h-10 bg-red-900/80 rounded-lg flex items-center justify-center ml-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 text-red-400">
+                                <path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="m14.5 12.5-5 5"/><path d="m9.5 12.5 5 5"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <h4 class="text-xl font-bold text-red-400 mb-2">الأكواد الخبيثة والضارة</h4>
+                            <p class="text-gray-400">(Keyloggers, RATs, Malware, Spyware)</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-gradient-to-br from-red-900/40 to-ember/30 p-6 rounded-xl border border-red-700/60 shadow-dark-glow hover-lift">
+                    <div class="flex items-start">
+                        <div class="flex-shrink-0 w-10 h-10 bg-red-900/80 rounded-lg flex items-center justify-center ml-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 text-red-400">
+                                <circle cx="12" cy="12" r="10"/><path d="m4.22 4.22 15.56 15.56"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <h4 class="text-xl font-bold text-red-400 mb-2">أنظمة الاستضافة المتداخلة</h4>
+                            <p class="text-gray-400">(بوتات الاستضافة أو الأنظمة المماثلة)</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-gradient-to-br from-red-900/40 to-ember/30 p-6 rounded-xl border border-red-700/60 shadow-dark-glow hover-lift">
+                    <div class="flex items-start">
+                        <div class="flex-shrink-0 w-10 h-10 bg-red-900/80 rounded-lg flex items-center justify-center ml-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 text-red-400">
+                                <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <h4 class="text-xl font-bold text-red-400 mb-2">برامج التعدين واستهلاك الموارد</h4>
+                            <p class="text-gray-400">(Cryptominers, Resource Abusers)</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-gradient-to-br from-red-900/40 to-ember/30 p-6 rounded-xl border border-red-700/60 shadow-dark-glow hover-lift">
+                    <div class="flex items-start">
+                        <div class="flex-shrink-0 w-10 h-10 bg-red-900/80 rounded-lg flex items-center justify-center ml-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 text-red-400">
+                                <rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <h4 class="text-xl font-bold text-red-400 mb-2">الملفات المشفرة مجهولة المصدر</h4>
+                            <p class="text-gray-400">(Encrypted/Obfuscated Files)</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-10 p-6 bg-gradient-to-r from-red-900/30 to-ember/20 rounded-xl border border-red-800/50 max-w-4xl mx-auto text-center">
+                <p class="text-red-300 text-xl font-bold">⚠️ تحذير: أي محاولة لرفع هذه الملفات ستؤدي إلى حظر دائم فوري</p>
+            </div>
+        </section>
+
+        <!-- Section 3: Allowed Files -->
+        <section class="mb-20 fade-in" style="animation-delay: 0.2s">
+            <div class="text-center mb-12">
+                <div class="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-green-900/50 to-emerald-800/40 rounded-2xl mb-6 border-2 border-emerald-700/60 shadow-dark-glow">
+                    <!-- FileCheck Icon -->
+                    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-8 h-8 text-emerald-400">
+                        <path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="m9 15 2 2 4-4"/>
+                    </svg>
+                </div>
+                <h2 class="text-4xl md:text-5xl font-bold text-white mb-6 dark-text-shadow">المشاريع والملفات المسموح بها</h2>
+                <div class="w-24 h-1 bg-gradient-to-r from-emerald-600 to-green-500 mx-auto rounded-full mb-6"></div>
+                <p class="text-xl text-gray-300 max-w-3xl mx-auto">✅ فئة مسموح بها - مشاريع آمنة ومتوافقة مع شروط الخدمة</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-6 max-w-5xl mx-auto">
+                <!-- Allowed Items -->
+                <div class="bg-gradient-to-br from-emerald-900/30 to-green-900/20 p-6 rounded-xl border border-emerald-700/50 shadow-dark-glow hover-lift">
+                    <div class="flex items-start">
+                        <div class="flex-shrink-0 w-10 h-10 bg-emerald-900/80 rounded-lg flex items-center justify-center ml-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 text-emerald-400">
+                                <path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="m9 15 2 2 4-4"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <h4 class="text-xl font-bold text-emerald-400 mb-2">بوتات تليجرام العادية</h4>
+                            <p class="text-gray-400">(Bots for automation, moderation, utilities)</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-gradient-to-br from-emerald-900/30 to-green-900/20 p-6 rounded-xl border border-emerald-700/50 shadow-dark-glow hover-lift">
+                    <div class="flex items-start">
+                        <div class="flex-shrink-0 w-10 h-10 bg-emerald-900/80 rounded-lg flex items-center justify-center ml-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 text-emerald-400">
+                                <path d="m7.5 4.27 9 5.16"/><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <h4 class="text-xl font-bold text-emerald-400 mb-2">مواقع ويب وتطبيقات خفيفة</h4>
+                            <p class="text-gray-400">(Lightweight web apps and websites)</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-gradient-to-br from-emerald-900/30 to-green-900/20 p-6 rounded-xl border border-emerald-700/50 shadow-dark-glow hover-lift">
+                    <div class="flex items-start">
+                        <div class="flex-shrink-0 w-10 h-10 bg-emerald-900/80 rounded-lg flex items-center justify-center ml-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 text-emerald-400">
+                                <ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14a9 3 0 0 0 18 0V5"/><path d="M3 12a9 3 0 0 0 18 0"/><path d="M3 19a9 3 0 0 0 18 0"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <h4 class="text-xl font-bold text-emerald-400 mb-2">واجهات برمجة وتطبيقات ويب</h4>
+                            <p class="text-gray-400">(APIs, Webhooks, Backend services)</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-gradient-to-br from-emerald-900/30 to-green-900/20 p-6 rounded-xl border border-emerald-700/50 shadow-dark-glow hover-lift">
+                    <div class="flex items-start">
+                        <div class="flex-shrink-0 w-10 h-10 bg-emerald-900/80 rounded-lg flex items-center justify-center ml-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 text-emerald-400">
+                                <path d="M12 5a3 3 0 1 0-3 3"/><path d="M12 5a3 3 0 1 1 3 3"/><path d="M12 15a3 3 0 1 0 3 3"/><path d="M12 15a3 3 0 1 1-3 3"/><path d="M15 9a6 6 0 0 1 6 6"/><path d="M9 9a6 6 0 0 0-6 6"/><path d="M18 12a6 6 0 0 0-6-6"/><path d="M6 12a6 6 0 0 1 6-6"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <h4 class="text-xl font-bold text-emerald-400 mb-2">سكربتات Python التعليمية</h4>
+                            <p class="text-gray-400">(Educational scripts, Tools, Utilities)</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 4: Smart Inspection -->
+        <section class="mb-20 fade-in" style="animation-delay: 0.3s">
+            <div class="text-center mb-12">
+                <div class="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-purple-900/50 to-violet-800/40 rounded-2xl mb-6 border-2 border-purple-700/60 shadow-fire-glow">
+                    <!-- Eye Icon -->
+                    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-8 h-8 text-purple-400">
+                        <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/>
+                    </svg>
+                </div>
+                <h2 class="text-4xl md:text-5xl font-bold text-white mb-6 dark-text-shadow">آلية عمل نظام الفحص الذكي</h2>
+                <div class="w-24 h-1 bg-gradient-to-r from-purple-600 to-violet-500 mx-auto rounded-full mb-6"></div>
+                <p class="text-xl text-gray-300 max-w-3xl mx-auto">يقوم النظام تلقائياً بتنفيذ عمليات الفحص المتقدمة خلال ثوانٍ فقط</p>
+            </div>
+
+            <div class="space-y-5 max-w-4xl mx-auto">
+                <!-- Inspection Steps -->
+                <div class="flex items-start p-6 bg-gradient-to-r from-dark-charcoal to-metal-gray rounded-xl border border-metal-gray shadow-dark-glow hover-lift">
+                    <div class="flex-shrink-0 w-12 h-12 bg-gradient-to-r from-purple-700 to-violet-600 rounded-full flex items-center justify-center text-white font-bold text-xl ml-4 shadow-fire-glow">
+                        1
+                    </div>
+                    <div>
+                        <h4 class="text-white text-xl font-bold mb-2">تحليل بنية الملف وتفاصيله</h4>
+                        <p class="text-gray-400">فحص هيكل الملفات والتأكد من سلامة التكوين</p>
+                    </div>
+                </div>
+                <div class="flex items-start p-6 bg-gradient-to-r from-dark-charcoal to-metal-gray rounded-xl border border-metal-gray shadow-dark-glow hover-lift">
+                    <div class="flex-shrink-0 w-12 h-12 bg-gradient-to-r from-purple-700 to-violet-600 rounded-full flex items-center justify-center text-white font-bold text-xl ml-4 shadow-fire-glow">
+                        2
+                    </div>
+                    <div>
+                        <h4 class="text-white text-xl font-bold mb-2">قراءة الأكواد وفحص أنماط التنفيذ</h4>
+                        <p class="text-gray-400">تحليل شيفرات المصدر للكشف عن الأنماط المشبوهة</p>
+                    </div>
+                </div>
+                <div class="flex items-start p-6 bg-gradient-to-r from-dark-charcoal to-metal-gray rounded-xl border border-metal-gray shadow-dark-glow hover-lift">
+                    <div class="flex-shrink-0 w-12 h-12 bg-gradient-to-r from-purple-700 to-violet-600 rounded-full flex items-center justify-center text-white font-bold text-xl ml-4 shadow-fire-glow">
+                        3
+                    </div>
+                    <div>
+                        <h4 class="text-white text-xl font-bold mb-2">مقارنة الأنماط مع قاعدة بيانات التهديدات</h4>
+                        <p class="text-gray-400">استخدام الذكاء الاصطناعي لمقارنة مع قاعدة بيانات التهديدات المعروفة</p>
+                    </div>
+                </div>
+                <div class="flex items-start p-6 bg-gradient-to-r from-dark-charcoal to-metal-gray rounded-xl border border-metal-gray shadow-dark-glow hover-lift">
+                    <div class="flex-shrink-0 w-12 h-12 bg-gradient-to-r from-purple-700 to-violet-600 rounded-full flex items-center justify-center text-white font-bold text-xl ml-4 shadow-fire-glow">
+                        4
+                    </div>
+                    <div>
+                        <h4 class="text-white text-xl font-bold mb-2">مراقبة أداء المشروع بعد التشغيل</h4>
+                        <p class="text-gray-400">مراقبة استهلاك الموارد والسلوك أثناء التنفيذ</p>
+                    </div>
+                </div>
+                <div class="flex items-start p-6 bg-gradient-to-r from-dark-charcoal to-metal-gray rounded-xl border border-metal-gray shadow-dark-glow hover-lift">
+                    <div class="flex-shrink-0 w-12 h-12 bg-gradient-to-r from-purple-700 to-violet-600 rounded-full flex items-center justify-center text-white font-bold text-xl ml-4 shadow-fire-glow">
+                        5
+                    </div>
+                    <div>
+                        <h4 class="text-white text-xl font-bold mb-2">الإجراء التلقائي في حالة السلوك غير الطبيعي</h4>
+                        <p class="text-gray-400">إيقاف أي مشروع يظهر عليه سلوك غير طبيعي أو مشبوه</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center mt-10">
+                <div class="inline-flex items-center space-x-3 space-x-reverse bg-gradient-to-r from-purple-800 to-violet-700 text-white px-8 py-4 rounded-full shadow-fire-glow animate-pulse-glow">
+                    <!-- Clock Icon -->
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5">
+                        <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+                    </svg>
+                    <span class="font-bold text-lg">العملية تكتمل خلال ثوانٍ فقط</span>
+                </div>
+                <p class="text-purple-300 mt-4 text-lg">لضمان أعلى مستوى من الحماية والسرعة</p>
+            </div>
+        </section>
+
+        <!-- Section 5: User Commitment -->
+        <section class="mb-20 fade-in" style="animation-delay: 0.4s">
+            <div class="text-center mb-12">
+                <div class="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-blue-900/50 to-cyan-800/40 rounded-2xl mb-6 border-2 border-blue-700/60 shadow-dark-glow">
+                    <!-- MessageSquare Icon -->
+                    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-8 h-8 text-blue-400">
+                        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+                    </svg>
+                </div>
+                <h2 class="text-4xl md:text-5xl font-bold text-white mb-6 dark-text-shadow">التزام المستخدم والموافقة</h2>
+                <div class="w-24 h-1 bg-gradient-to-r from-blue-600 to-cyan-500 mx-auto rounded-full mb-6"></div>
+                <p class="text-xl text-gray-300 max-w-3xl mx-auto">بمجرد استخدامك للاستضافة، فأنت توافق وتلتزم بالشروط التالية</p>
+            </div>
+
+            <div class="bg-gradient-to-br from-blue-900/30 to-cyan-900/20 p-8 rounded-2xl border border-blue-800/50 shadow-dark-glow mb-10 max-w-4xl mx-auto">
+                <!-- User Commitments -->
+                <div class="flex items-start mb-5">
+                    <div class="flex-shrink-0 w-8 h-8 bg-gradient-to-r from-blue-700 to-cyan-600 rounded-full flex items-center justify-center ml-4 mt-1">
+                        <div class="w-2 h-2 bg-white rounded-full"></div>
+                    </div>
+                    <div>
+                        <h4 class="text-blue-300 text-xl font-bold mb-1">عدم رفع أي محتوى ضار أو ممنوع</h4>
+                        <p class="text-gray-400">الالتزام بقائمة الملفات المسموحة وتجنب الممنوعة</p>
+                    </div>
+                </div>
+                <div class="flex items-start mb-5">
+                    <div class="flex-shrink-0 w-8 h-8 bg-gradient-to-r from-blue-700 to-cyan-600 rounded-full flex items-center justify-center ml-4 mt-1">
+                        <div class="w-2 h-2 bg-white rounded-full"></div>
+                    </div>
+                    <div>
+                        <h4 class="text-blue-300 text-xl font-bold mb-1">عدم محاولة تخطي أو تعطيل نظام الفحص</h4>
+                        <p class="text-gray-400">أي محاولة لتجنب الكشف ستؤدي إلى حظر فوري ودائم</p>
+                    </div>
+                </div>
+                <div class="flex items-start mb-5">
+                    <div class="flex-shrink-0 w-8 h-8 bg-gradient-to-r from-blue-700 to-cyan-600 rounded-full flex items-center justify-center ml-4 mt-1">
+                        <div class="w-2 h-2 bg-white rounded-full"></div>
+                    </div>
+                    <div>
+                        <h4 class="text-blue-300 text-xl font-bold mb-1">عدم استغلال الخادم لمصالح خارج نطاق الخدمة</h4>
+                        <p class="text-gray-400">الالتزام باستخدام الموارد المخصصة لمشروعك فقط</p>
+                    </div>
+                </div>
+                <div class="flex items-start">
+                    <div class="flex-shrink-0 w-8 h-8 bg-gradient-to-r from-blue-700 to-cyan-600 rounded-full flex items-center justify-center ml-4 mt-1">
+                        <div class="w-2 h-2 bg-white rounded-full"></div>
+                    </div>
+                    <div>
+                        <h4 class="text-blue-300 text-xl font-bold mb-1">الالتزام بسياسة الموارد واستخدام المعالج</h4>
+                        <p class="text-gray-400">عدم تجاوز الحدود المخصصة لاستهلاك الموارد</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center max-w-3xl mx-auto">
+                <div class="inline-flex items-center space-x-3 space-x-reverse bg-gradient-to-r from-blue-700 to-cyan-600 text-white px-8 py-4 rounded-full shadow-dark-glow hover-lift">
+                    <!-- CheckCircle Icon -->
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5">
+                        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="m9 11 3 3L22 4"/>
+                    </svg>
+                    <span class="font-bold text-lg">بالتوفيق في مشروعك!</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 6: Support -->
+        <section class="mb-16 fade-in" style="animation-delay: 0.5s">
+            <div class="text-center mb-12">
+                <div class="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-yellow-900/50 to-amber-800/40 rounded-2xl mb-6 border-2 border-amber-700/60 shadow-dark-glow">
+                    <!-- HelpCircle Icon -->
+                    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-8 h-8 text-amber-400">
+                        <circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><path d="M12 17h.01"/>
+                    </svg>
+                </div>
+                <h2 class="text-4xl md:text-5xl font-bold text-white mb-6 dark-text-shadow">الدعم والمساعدة الفنية</h2>
+                <div class="w-24 h-1 bg-gradient-to-r from-amber-600 to-yellow-500 mx-auto rounded-full mb-6"></div>
+                <p class="text-xl text-gray-300 max-w-3xl mx-auto">إذا واجهت أي مشكلة أو كان لديك استفسار، اتبع الخطوات التالية</p>
+            </div>
+
+            <div class="space-y-6 max-w-4xl mx-auto">
+                <!-- Support Steps -->
+                <div class="flex items-start p-6 bg-gradient-to-r from-dark-charcoal to-metal-gray rounded-xl border border-metal-gray shadow-dark-glow hover-lift">
+                    <div class="flex-shrink-0 w-12 h-12 bg-gradient-to-r from-amber-700 to-yellow-600 rounded-full flex items-center justify-center text-white font-bold text-xl ml-4 shadow-fire-glow">
+                        1
+                    </div>
+                    <div>
+                        <h4 class="text-white text-xl font-bold mb-2">تحدث مع الدعم الفني عبر بوت الدعم</h4>
+                        <p class="text-gray-400">استخدم صفحة البوت المخصصة للدعم الفني</p>
+                    </div>
+                </div>
+                <div class="flex items-start p-6 bg-gradient-to-r from-dark-charcoal to-metal-gray rounded-xl border border-metal-gray shadow-dark-glow hover-lift">
+                    <div class="flex-shrink-0 w-12 h-12 bg-gradient-to-r from-amber-700 to-yellow-600 rounded-full flex items-center justify-center text-white font-bold text-xl ml-4 shadow-fire-glow">
+                        2
+                    </div>
+                    <div>
+                        <h4 class="text-white text-xl font-bold mb-2">اشرح مشكلتك بالتفصيل والدقة</h4>
+                        <p class="text-gray-400">قدم معلومات دقيقة عن المشكلة التي تواجهها</p>
+                    </div>
+                </div>
+                <div class="flex items-start p-6 bg-gradient-to-r from-dark-charcoal to-metal-gray rounded-xl border border-metal-gray shadow-dark-glow hover-lift">
+                    <div class="flex-shrink-0 w-12 h-12 bg-gradient-to-r from-amber-700 to-yellow-600 rounded-full flex items-center justify-center text-white font-bold text-xl ml-4 shadow-fire-glow">
+                        3
+                    </div>
+                    <div>
+                        <h4 class="text-white text-xl font-bold mb-2">انتظر الرد في أسرع وقت ممكن</h4>
+                        <p class="text-gray-400">سيتم الرد عليك من قبل فريق الدعم الفني المتخصص</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-darker-bg border-t border-metal-gray/50 py-8">
+        <div class="container mx-auto px-4">
+            <div class="text-center">
+                <div class="flex justify-center items-center mb-6">
+                    <div class="w-10 h-10 bg-gradient-to-br from-fire-red to-fire-orange rounded-lg flex items-center justify-center ml-3">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 text-white">
+                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-white">استضافة Python الذكية</h3>
+                </div>
+                <p class="text-gray-500 mb-4">جميع الحقوق محفوظة © 2023 | نظام حماية متطور مدعوم بالذكاء الاصطناعي</p>
+                <p class="text-gray-600 text-sm">آخر تحديث: نوفمبر 2023 | الإصدار 2.5</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript للتفاعلات -->
+    <script>
+        // تأثير الظهور عند التمرير
+        document.addEventListener('DOMContentLoaded', function() {
+            const fadeElements = document.querySelectorAll('.fade-in');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, {
+                threshold: 0.1
+            });
+            
+            fadeElements.forEach(element => {
+                observer.observe(element);
+            });
+            
+            // إضافة تأثيرات تفاعلية إضافية
+            const hoverLiftElements = document.querySelectorAll('.hover-lift');
+            hoverLiftElements.forEach(element => {
+                element.addEventListener('mouseenter', function() {
+                    this.style.transition = 'transform 0.3s ease, box-shadow 0.3s ease';
+                });
+            });
+        });
+    </script>
+
+</body>
+</html>
