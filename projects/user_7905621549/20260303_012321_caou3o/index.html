@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RedFox Bot Panel</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<style>
+body{
+    margin:0;
+    font-family:Tahoma;
+    background: radial-gradient(circle at top,#0b1c3d,#071022 60%);
+    color:#fff;
+}
+
+.container{
+    width:95%;
+    max-width:900px;
+    margin:auto;
+    text-align:center;
+}
+
+.logo{
+    width:120px;
+    height:120px;
+    margin:30px auto 10px;
+    background:linear-gradient(135deg,#3a8bff,#1b3f91);
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:40px;
+    box-shadow:0 0 40px #2f6bff88;
+}
+
+h1{
+    font-size:48px;
+    margin:10px 0;
+    color:#5aa2ff;
+}
+
+.subtitle{
+    color:#7eaaff;
+    margin-bottom:30px;
+}
+
+.card{
+    background:#0e1f40;
+    border-radius:20px;
+    padding:25px;
+    margin:20px 0;
+    box-shadow:0 0 30px #1e4cff33;
+}
+
+input{
+    width:90%;
+    padding:15px;
+    border-radius:15px;
+    border:none;
+    background:#132b57;
+    color:#fff;
+    font-size:16px;
+}
+
+button{
+    margin-top:15px;
+    padding:12px 25px;
+    border:none;
+    border-radius:15px;
+    background:linear-gradient(135deg,#3a8bff,#1b3f91);
+    color:#fff;
+    font-size:16px;
+    cursor:pointer;
+    box-shadow:0 0 20px #2f6bff66;
+}
+
+.status{
+    margin-top:15px;
+    padding:10px;
+    border-radius:15px;
+    background:#123b2d;
+    color:#00ff88;
+    display:none;
+}
+
+.stats{
+    display:flex;
+    justify-content:space-around;
+    flex-wrap:wrap;
+    margin-top:20px;
+}
+
+.stat-box{
+    background:#132b57;
+    border-radius:15px;
+    padding:20px;
+    width:40%;
+    margin:10px 0;
+}
+
+.stat-box h2{
+    margin:0;
+    color:#5aa2ff;
+}
+
+canvas{
+    margin-top:20px;
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+
+<div class="logo">🤖</div>
+<h1>PANEL HAMA</h1>
+<div class="subtitle">إدارة بوتك بكل حرية</div>
+
+<div class="card">
+    <h3>ربط توكن البوت</h3>
+    <input type="text" id="token" placeholder="ضع توكن البوت هنا">
+    <br>
+    <button onclick="connectBot()">تحقق وربط</button>
+    <div class="status" id="status">متصل ✔</div>
+</div>
+
+<div class="card" id="dashboard" style="display:none;">
+    <h3>إحصائيات البوت</h3>
+    <div class="stats">
+        <div class="stat-box">
+            <h2 id="users">0</h2>
+            <p>عدد المستخدمين</p>
+        </div>
+        <div class="stat-box">
+            <h2 id="messages">0</h2>
+            <p>عدد الرسائل</p>
+        </div>
+    </div>
+
+    <canvas id="chart" height="100"></canvas>
+</div>
+
+</div>
+
+<script>
+let chart;
+let totalUsers = 0;
+let totalMessages = 0;
+
+async function connectBot(){
+    let token = document.getElementById("token").value;
+    if(!token) return alert("ضع التوكن");
+
+    try{
+        let res = await fetch(`https://api.telegram.org/bot${token}/getMe`);
+        let data = await res.json();
+
+        if(data.ok){
+            document.getElementById("status").style.display="block";
+            document.getElementById("dashboard").style.display="block";
+            animateStats();
+            createChart();
+        }else{
+            alert("توكن غير صحيح ❌");
+        }
+
+    }catch{
+        alert("خطأ بالاتصال");
+    }
+}
+
+function animateStats(){
+    let userTarget = Math.floor(Math.random()*500)+100;
+    let msgTarget = Math.floor(Math.random()*2000)+500;
+
+    let userInterval = setInterval(()=>{
+        if(totalUsers<userTarget){
+            totalUsers++;
+            document.getElementById("users").innerText = totalUsers;
+        }else clearInterval(userInterval);
+    },10);
+
+    let msgInterval = setInterval(()=>{
+        if(totalMessages<msgTarget){
+            totalMessages+=3;
+            document.getElementById("messages").innerText = totalMessages;
+        }else clearInterval(msgInterval);
+    },5);
+}
+
+function createChart(){
+    const ctx = document.getElementById('chart').getContext('2d');
+
+    let dataPoints = Array.from({length:30},()=>Math.random()*100);
+
+    chart = new Chart(ctx,{
+        type:'line',
+        data:{
+            labels:Array.from({length:30},(_,i)=>i),
+            datasets:[{
+                data:dataPoints,
+                borderColor:'#3a8bff',
+                tension:0.4,
+                fill:false
+            }]
+        },
+        options:{
+            plugins:{legend:{display:false}},
+            scales:{
+                x:{display:false},
+                y:{display:false}
+            }
+        }
+    });
+
+    setInterval(()=>{
+        dataPoints.shift();
+        dataPoints.push(Math.random()*100);
+        chart.update();
+    },1000);
+}
+</script>
+
+</body>
+</html>
