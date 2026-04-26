@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>الإعدادات - BAMA TECH</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .settings-container {
+            max-width: 600px;
+            margin: 80px auto 20px;
+            padding: 20px;
+        }
+        .settings-card {
+            background: white;
+            border-radius: 25px;
+            padding: 30px;
+            margin-bottom: 20px;
+        }
+        .setting-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        .toggle-switch {
+            width: 50px;
+            height: 24px;
+            background: #cbd5e1;
+            border-radius: 40px;
+            cursor: pointer;
+            position: relative;
+        }
+        .toggle-switch.active {
+            background: #00adb5;
+        }
+        .toggle-switch::after {
+            content: '';
+            width: 20px;
+            height: 20px;
+            background: white;
+            border-radius: 50%;
+            position: absolute;
+            top: 2px;
+            right: 4px;
+            transition: 0.2s;
+        }
+        .toggle-switch.active::after {
+            right: 26px;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo"><i class="fas fa-crown"></i><span>BAMA <span class="tech">TECH</span></span></div>
+            <div class="nav-links">
+                <a href="feed.html"><i class="fas fa-home"></i> الرئيسية</a>
+                <a href="profile.html"><i class="fas fa-user"></i> ملفي</a>
+                <a href="settings.html" class="active"><i class="fas fa-cog"></i> الإعدادات</a>
+                <a href="#" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> خروج</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="settings-container">
+        <div class="settings-card">
+            <h3><i class="fas fa-bell"></i> إعدادات الإشعارات</h3>
+            <div class="setting-item">
+                <span>إشعارات الإعجابات</span>
+                <div class="toggle-switch" id="notifyLikes"></div>
+            </div>
+            <div class="setting-item">
+                <span>إشعارات التعليقات</span>
+                <div class="toggle-switch" id="notifyComments"></div>
+            </div>
+            <div class="setting-item">
+                <span>إشعارات الرسائل</span>
+                <div class="toggle-switch" id="notifyMessages"></div>
+            </div>
+        </div>
+        
+        <div class="settings-card">
+            <h3><i class="fas fa-lock"></i> الخصوصية والأمان</h3>
+            <div class="setting-item">
+                <span>إظهار البريد الإلكتروني</span>
+                <div class="toggle-switch" id="showEmail"></div>
+            </div>
+            <div class="setting-item">
+                <span>تغيير كلمة المرور</span>
+                <button onclick="changePassword()" style="background:#3b82f6;">تغيير</button>
+            </div>
+        </div>
+        
+        <div class="settings-card">
+            <h3><i class="fas fa-palette"></i> المظهر</h3>
+            <div class="setting-item">
+                <span>الوضع المظلم</span>
+                <div class="toggle-switch" id="darkMode"></div>
+            </div>
+        </div>
+        
+        <button onclick="clearAllData()" class="danger-btn" style="width:100%;"><i class="fas fa-trash"></i> حذف جميع بياناتي</button>
+    </div>
+
+    <script src="../js/main.js"></script>
+    <script>
+        let currentUser = getUserById(currentUserId);
+        if(!currentUser) window.location.href = 'login.html';
+        
+        let settings = JSON.parse(localStorage.getItem(`settings_${currentUserId}`)) || {
+            notifyLikes: true,
+            notifyComments: true,
+            notifyMessages: true,
+            showEmail: false,
+            darkMode: false
+        };
+        
+        function initToggles() {
+            let toggles = ['notifyLikes', 'notifyComments', 'notifyMessages', 'showEmail', 'darkMode'];
+            toggles.forEach(id => {
+                let el = document.getElementById(id);
+                if(settings[id]) el.classList.add('active');
+                el.onclick = () => {
+                    settings[id] = !settings[id];
+                    localStorage.setItem(`settings_${currentUserId}`, JSON.stringify(settings));
+                    if(id === 'darkMode') toggleDarkMode();
+                    initToggles();
+                };
+            });
+        }
+        
+        function toggleDarkMode() {
+            if(settings.darkMode) {
+                document.body.style.background = '#0f172a';
+            } else {
+                document.body.style.background = '';
+            }
+        }
+        
+        window.changePassword = () => {
+            let oldPass = prompt("كلمة المرور الحالية");
+            if(oldPass !== currentUser.password) {
+                alert("كلمة المرور الحالية غير صحيحة");
+                return;
+            }
+            let newPass = prompt("كلمة المرور الجديدة");
+            if(newPass && newPass.length >= 6) {
+                currentUser.password = newPass;
+                saveData();
+                alert("تم تغيير كلمة المرور بنجاح");
+            } else {
+                alert("كلمة المرور يجب أن تكون 6 أحرف على الأقل");
+            }
+        };
+        
+        window.clearAllData = () => {
+            if(confirm("⚠️ هل أنت متأكد من حذف جميع بياناتك؟ هذا لا يمكن التراجع عنه!")) {
+                posts = posts.filter(p => p.userId !== currentUserId);
+                messages = messages.filter(m => m.from !== currentUserId && m.to !== currentUserId);
+                saveData();
+                alert("تم حذف جميع بياناتك");
+                window.location.href = 'feed.html';
+            }
+        };
+        
+        document.getElementById('logoutBtn').addEventListener('click', (e) => { e.preventDefault(); logout(); });
+        
+        initToggles();
+        toggleDarkMode();
+    </script>
+</body>
+</html>
