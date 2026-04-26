@@ -1,0 +1,44 @@
+[
+  {
+    "id": 1,
+    "username": "owner",
+    "name": "مالك المنصة",
+    "password": "43a0d17178a9d26c9e0fe9a74b0b45e38d32f27aed887a008a54bf6e033bf7b9",
+    "isOwner": true,
+    "isAdmin": true,
+    "verified": true,
+    "verifiedPlus": true,
+    "bio": "👑 مؤسس ورئيس BAMA TECH",
+    "avatar": "",
+    "banned": false,
+    "createdAt": 1777154029
+  },
+  {
+    "id": 2,
+    "username": "admin1",
+    "name": "أمير الإدمن",
+    "password": "240be518fabd2724ddb6f04eeb1da5967448d7e831c08c8fa822809f74c720a9",
+    "isOwner": false,
+    "isAdmin": true,
+    "verified": true,
+    "verifiedPlus": true,
+    "bio": "مدير عام المنصة",
+    "avatar": "",
+    "banned": false,
+    "createdAt": 1777154029
+  },
+  {
+    "id": 3,
+    "username": "sarah",
+    "name": "سارة",
+    "password": "a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3",
+    "isOwner": false,
+    "isAdmin": false,
+    "verified": false,
+    "verifiedPlus": false,
+    "bio": "مرحباً، أنا جديدة هنا",
+    "avatar": "",
+    "banned": false,
+    "createdAt": 1777154029
+  }
+]
