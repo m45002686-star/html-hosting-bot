@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تعديل الملف الشخصي - BAMA TECH</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .edit-container {
+            max-width: 600px;
+            margin: 100px auto 40px;
+            padding: 20px;
+        }
+        .edit-card {
+            background: white;
+            border-radius: 30px;
+            padding: 35px;
+        }
+        .edit-card h2 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+        .form-group input, .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            font-size: 14px;
+        }
+        .avatar-preview {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: #e2e8f0;
+            margin: 10px auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+        .save-btn {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo"><i class="fas fa-crown"></i><span>BAMA <span class="tech">TECH</span></span></div>
+            <div class="nav-links">
+                <a href="feed.html"><i class="fas fa-home"></i> الرئيسية</a>
+                <a href="profile.html"><i class="fas fa-user"></i> ملفي</a>
+                <a href="#" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> خروج</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="edit-container">
+        <div class="edit-card">
+            <h2><i class="fas fa-user-edit"></i> تعديل الملف الشخصي</h2>
+            <form id="editForm">
+                <div class="avatar-preview" id="avatarPreview"></div>
+                <div class="form-group">
+                    <label>رابط الصورة الشخصية</label>
+                    <input type="text" id="avatarUrl" placeholder="https://example.com/avatar.jpg">
+                </div>
+                <div class="form-group">
+                    <label>الاسم الكامل</label>
+                    <input type="text" id="fullname" required>
+                </div>
+                <div class="form-group">
+                    <label>السيرة الذاتية</label>
+                    <textarea id="bio" rows="4" placeholder="اكتب شيئاً عن نفسك..."></textarea>
+                </div>
+                <button type="submit" class="save-btn"><i class="fas fa-save"></i> حفظ التغييرات</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="../js/main.js"></script>
+    <script>
+        let currentUser = getUserById(currentUserId);
+        if(!currentUser) window.location.href = 'login.html';
+        
+        document.getElementById('fullname').value = currentUser.name;
+        document.getElementById('bio').value = currentUser.bio || '';
+        document.getElementById('avatarUrl').value = currentUser.avatar || '';
+        
+        function updatePreview() {
+            let url = document.getElementById('avatarUrl').value;
+            let preview = document.getElementById('avatarPreview');
+            if(url) {
+                preview.innerHTML = `<img src="${url}" style="width:100%; height:100%; object-fit:cover;">`;
+            } else {
+                preview.innerHTML = `<i class="fas fa-user" style="font-size:48px; color:#94a3b8;"></i>`;
+            }
+        }
+        
+        document.getElementById('avatarUrl').addEventListener('input', updatePreview);
+        updatePreview();
+        
+        document.getElementById('editForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            let name = document.getElementById('fullname').value;
+            let bio = document.getElementById('bio').value;
+            let avatar = document.getElementById('avatarUrl').value;
+            updateProfile(name, bio, avatar);
+            setTimeout(() => { window.location.href = 'profile.html'; }, 1000);
+        });
+        
+        document.getElementById('logoutBtn').addEventListener('click', (e) => { e.preventDefault(); logout(); });
+    </script>
+</body>
+</html>
