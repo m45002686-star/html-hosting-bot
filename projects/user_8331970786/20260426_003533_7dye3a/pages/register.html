@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>إنشاء حساب - BAMA TECH</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .auth-page {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #0a0f1c, #0f172a, #1e293b);
+            padding: 80px 20px;
+        }
+        .auth-card {
+            background: white;
+            border-radius: 30px;
+            padding: 40px;
+            max-width: 480px;
+            width: 100%;
+            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5);
+            animation: fadeInUp 0.5s ease;
+        }
+        .auth-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .auth-header h2 {
+            font-size: 28px;
+            color: #1e293b;
+        }
+        .input-group {
+            margin-bottom: 20px;
+        }
+        .input-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #1e293b;
+            font-weight: 600;
+        }
+        .input-group input {
+            width: 100%;
+            padding: 14px;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            font-size: 16px;
+            transition: 0.3s;
+        }
+        .input-group input:focus {
+            outline: none;
+            border-color: #00adb5;
+        }
+        .terms {
+            margin: 20px 0;
+        }
+        .auth-btn {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #00adb5, #4facfe);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        .auth-footer {
+            text-align: center;
+            margin-top: 25px;
+        }
+        .auth-footer a {
+            color: #00adb5;
+            text-decoration: none;
+        }
+        .password-strength {
+            font-size: 12px;
+            margin-top: 5px;
+        }
+        .strength-weak { color: #ef4444; }
+        .strength-medium { color: #f59e0b; }
+        .strength-strong { color: #10b981; }
+    </style>
+</head>
+<body>
+    <div class="auth-page">
+        <div class="auth-card">
+            <div class="auth-header">
+                <i class="fas fa-rocket" style="font-size: 50px; color: #00adb5;"></i>
+                <h2>انضم إلى BAMA TECH</h2>
+                <p>أنشئ حسابك الآن وابدأ رحلتك</p>
+            </div>
+            
+            <form id="registerForm">
+                <div class="input-group">
+                    <label><i class="fas fa-user"></i> الاسم الكامل</label>
+                    <input type="text" id="fullname" placeholder="أدخل اسمك الكامل" required>
+                </div>
+                <div class="input-group">
+                    <label><i class="fas fa-at"></i> اسم المستخدم</label>
+                    <input type="text" id="username" placeholder="أدخل اسم مستخدم" required>
+                    <small id="usernameCheck" style="font-size: 12px;"></small>
+                </div>
+                <div class="input-group">
+                    <label><i class="fas fa-envelope"></i> البريد الإلكتروني</label>
+                    <input type="email" id="email" placeholder="example@email.com">
+                </div>
+                <div class="input-group">
+                    <label><i class="fas fa-lock"></i> كلمة المرور</label>
+                    <input type="password" id="password" placeholder="أدخل كلمة المرور" required>
+                    <div class="password-strength" id="passwordStrength"></div>
+                </div>
+                <div class="input-group">
+                    <label><i class="fas fa-check-circle"></i> تأكيد كلمة المرور</label>
+                    <input type="password" id="confirmPassword" placeholder="أعد إدخال كلمة المرور" required>
+                </div>
+                <div class="terms">
+                    <label>
+                        <input type="checkbox" id="agreeTerms" required>
+                        أوافق على <a href="#">الشروط والأحكام</a> و <a href="#">سياسة الخصوصية</a>
+                    </label>
+                </div>
+                <button type="submit" class="auth-btn">
+                    <i class="fas fa-user-plus"></i> إنشاء حساب
+                </button>
+            </form>
+            
+            <div class="auth-footer">
+                لديك حساب بالفعل؟ <a href="login.html">تسجيل الدخول</a>
+            </div>
+        </div>
+    </div>
+    
+    <script src="../js/main.js"></script>
+    <script>
+        // فحص قوة كلمة المرور
+        document.getElementById('password').addEventListener('input', function() {
+            let pass = this.value;
+            let strengthDiv = document.getElementById('passwordStrength');
+            let strength = 0;
+            if(pass.length >= 6) strength++;
+            if(pass.match(/[a-z]/)) strength++;
+            if(pass.match(/[0-9]/)) strength++;
+            if(pass.match(/[A-Z]/)) strength++;
+            if(pass.match(/[^a-zA-Z0-9]/)) strength++;
+            
+            if(pass.length === 0) {
+                strengthDiv.innerHTML = '';
+            } else if(strength <= 2) {
+                strengthDiv.innerHTML = '🔴 ضعيفة';
+                strengthDiv.className = 'password-strength strength-weak';
+            } else if(strength <= 4) {
+                strengthDiv.innerHTML = '🟡 متوسطة';
+                strengthDiv.className = 'password-strength strength-medium';
+            } else {
+                strengthDiv.innerHTML = '🟢 قوية';
+                strengthDiv.className = 'password-strength strength-strong';
+            }
+        });
+        
+        // فحص اسم المستخدم
+        document.getElementById('username').addEventListener('input', function() {
+            let username = this.value;
+            let users = JSON.parse(localStorage.getItem('bamatech_users_final')) || [];
+            let exists = users.some(u => u.username === username);
+            let checkSpan = document.getElementById('usernameCheck');
+            if(exists) {
+                checkSpan.innerHTML = '❌ اسم المستخدم موجود بالفعل';
+                checkSpan.style.color = '#ef4444';
+            } else if(username.length < 3) {
+                checkSpan.innerHTML = '⚠️ يجب أن يكون 3 أحرف على الأقل';
+                checkSpan.style.color = '#f59e0b';
+            } else {
+                checkSpan.innerHTML = '✅ متاح';
+                checkSpan.style.color = '#10b981';
+            }
+        });
+        
+        document.getElementById('registerForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            let fullname = document.getElementById('fullname').value;
+            let username = document.getElementById('username').value;
+            let password = document.getElementById('password').value;
+            let confirmPassword = document.getElementById('confirmPassword').value;
+            
+            if(password !== confirmPassword) {
+                alert('❌ كلمة المرور غير متطابقة');
+                return;
+            }
+            
+            if(!document.getElementById('agreeTerms').checked) {
+                alert('❌ يرجى الموافقة على الشروط والأحكام');
+                return;
+            }
+            
+            let success = registerUser(username, fullname, password);
+            if(success) {
+                setTimeout(() => {
+                    window.location.href = 'login.html';
+                }, 1500);
+            }
+        });
+    </script>
+</body>
+</html>
