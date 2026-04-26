@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>المسابقات - BAMA TECH</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .contests-container {
+            max-width: 800px;
+            margin: 80px auto 20px;
+            padding: 20px;
+        }
+        .contest-card {
+            background: white;
+            border-radius: 20px;
+            padding: 25px;
+            margin-bottom: 20px;
+            border-right: 5px solid #f59e0b;
+        }
+        .prize {
+            background: linear-gradient(135deg, #fbbf24, #f59e0b);
+            display: inline-block;
+            padding: 5px 15px;
+            border-radius: 40px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo"><i class="fas fa-crown"></i><span>BAMA <span class="tech">TECH</span></span></div>
+            <div class="nav-links">
+                <a href="feed.html"><i class="fas fa-home"></i> الرئيسية</a>
+                <a href="profile.html"><i class="fas fa-user"></i> ملفي</a>
+                <a href="contests.html" class="active"><i class="fas fa-trophy"></i> المسابقات</a>
+                <a href="#" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> خروج</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="contests-container">
+        <h2><i class="fas fa-trophy"></i> المسابقات والفعاليات</h2>
+        <div id="contestsList"></div>
+    </div>
+
+    <script src="../js/main.js"></script>
+    <script>
+        let currentUser = getUserById(currentUserId);
+        if(!currentUser) window.location.href = 'login.html';
+        
+        function renderContests() {
+            let activeContests = contests.filter(c => c.active && c.endDate > Date.now());
+            let pastContests = contests.filter(c => !c.active || c.endDate <= Date.now());
+            
+            let activeHtml = activeContests.map(c => `
+                <div class="contest-card">
+                    <h3>🏆 ${c.title}</h3>
+                    <p>${c.description}</p>
+                    <p><span class="prize">🎁 ${c.prize}</span></p>
+                    <p>👥 ${c.participants.length} مشارك</p>
+                    <p>⏰ تنتهي: ${new Date(c.endDate).toLocaleDateString()}</p>
+                    ${!c.participants.includes(currentUserId) ? 
+                        `<button onclick="joinThisContest(${c.id})"><i class="fas fa-check"></i> شارك الآن</button>` : 
+                        `<span style="color:#10b981;">✅ أنت مشترك في هذه المسابقة</span>`}
+                </div>
+            `).join('');
+            
+            let pastHtml = pastContests.map(c => `
+                <div class="contest-card" style="opacity:0.7;">
+                    <h3>🏁 ${c.title} (منتهية)</h3>
+                    <p>${c.description}</p>
+                    <p>🎁 ${c.prize}</p>
+                    <p>👥 ${c.participants.length} مشارك</p>
+                </div>
+            `).join('');
+            
+            document.getElementById('contestsList').innerHTML = `
+                <h3>🔥 مسابقات نشطة</h3>
+                ${activeHtml || '<p>لا توجد مسابقات نشطة حالياً</p>'}
+                <h3 style="margin-top:30px;">📋 المسابقات السابقة</h3>
+                ${pastHtml || '<p>لا توجد مسابقات سابقة</p>'}
+            `;
+        }
+        
+        window.joinThisContest = (id) => { joinContest(id); renderContests(); };
+        document.getElementById('logoutBtn').addEventListener('click', (e) => { e.preventDefault(); logout(); });
+        
+        renderContests();
+    </script>
+</body>
+</html>
