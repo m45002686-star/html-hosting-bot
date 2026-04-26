@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>الرئيسية - BAMA TECH</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Cairo', sans-serif;
+            background: #f1f5f9;
+        }
+        .navbar {
+            background: #0f172a;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 12px 20px;
+        }
+        .nav-container {
+            max-width: 800px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .logo {
+            font-size: 22px;
+            font-weight: 800;
+            color: white;
+        }
+        .logo span { color: #00adb5; }
+        .nav-links {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        .nav-links a {
+            color: #cbd5e1;
+            text-decoration: none;
+            padding: 6px 14px;
+            border-radius: 40px;
+            transition: 0.3s;
+            font-size: 13px;
+        }
+        .nav-links a:hover {
+            background: #00adb5;
+            color: white;
+        }
+        .logout-btn {
+            background: #ef4444;
+            color: white !important;
+            cursor: pointer;
+        }
+        .feed-container {
+            max-width: 800px;
+            margin: 80px auto 20px;
+            padding: 20px;
+        }
+        .create-post-card {
+            background: white;
+            border-radius: 20px;
+            padding: 20px;
+            margin-bottom: 25px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        .create-post-card textarea {
+            width: 100%;
+            padding: 15px;
+            border: 1px solid #e2e8f0;
+            border-radius: 16px;
+            resize: none;
+            font-size: 15px;
+            font-family: inherit;
+        }
+        .create-post-card textarea:focus {
+            outline: none;
+            border-color: #00adb5;
+        }
+        .post-options {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 12px;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        .image-input {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #e2e8f0;
+            border-radius: 40px;
+            font-size: 14px;
+        }
+        .publish-btn {
+            background: linear-gradient(135deg, #00adb5, #4facfe);
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 40px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        .post-card {
+            background: white;
+            border-radius: 20px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        .post-header {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 15px;
+        }
+        .avatar {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #00adb5, #4facfe);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 20px;
+            color: white;
+        }
+        .post-info {
+            flex: 1;
+        }
+        .post-name {
+            font-weight: bold;
+            font-size: 16px;
+        }
+        .badge {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 20px;
+            font-size: 10px;
+            font-weight: bold;
+            margin-right: 5px;
+        }
+        .badge-owner { background: #fbbf24; color: #1e293b; }
+        .badge-admin { background: #8b5cf6; color: white; }
+        .badge-verified { background: #3b82f6; color: white; }
+        .badge-verified-plus { background: #ef4444; color: white; animation: glow 1.5s infinite; }
+        @keyframes glow {
+            0% { box-shadow: 0 0 0px #ef4444; }
+            50% { box-shadow: 0 0 8px #f97316; }
+            100% { box-shadow: 0 0 0px #ef4444; }
+        }
+        .post-meta {
+            font-size: 11px;
+            color: #94a3b8;
+            margin-top: 3px;
+        }
+        .post-content {
+            margin: 15px 0;
+            line-height: 1.6;
+        }
+        .post-image {
+            max-width: 100%;
+            border-radius: 12px;
+            margin-top: 10px;
+        }
+        .post-stats {
+            display: flex;
+            gap: 20px;
+            margin: 10px 0;
+            font-size: 13px;
+            color: #64748b;
+        }
+        .post-actions {
+            display: flex;
+            gap: 15px;
+            margin-top: 10px;
+            padding-top: 10px;
+            border-top: 1px solid #e2e8f0;
+        }
+        .action-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: #64748b;
+            font-size: 14px;
+            padding: 5px 10px;
+            border-radius: 40px;
+        }
+        .action-btn:hover {
+            background: #f1f5f9;
+        }
+        .liked { color: #ef4444; }
+        .comments-section {
+            margin-top: 15px;
+            display: none;
+        }
+        .comment {
+            background: #f8fafc;
+            padding: 10px;
+            border-radius: 12px;
+            margin-bottom: 8px;
+        }
+        .comment-input {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        .comment-input input {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #e2e8f0;
+            border-radius: 40px;
+        }
+        .empty-state {
+            text-align: center;
+            padding: 60px;
+            color: #94a3b8;
+        }
+        @media (max-width: 600px) {
+            .nav-container { flex-direction: column; }
+            .feed-container { margin-top: 120px; }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo"><i class="fas fa-crown"></i> BAMA <span>TECH</span></div>
+            <div class="nav-links">
+                <a href="feed.html" class="active"><i class="fas fa-home"></i> الرئيسية</a>
+                <a href="#" id="profileLink"><i class="fas fa-user"></i> ملفي</a>
+                <a href="#" id="adminLink" style="display:none;"><i class="fas fa-shield-alt"></i> لوحة التحكم</a>
+                <a href="#" id="logoutLink" class="logout-btn"><i class="fas fa-sign-out-alt"></i> خروج</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="feed-container">
+        <div class="create-post-card">
+            <textarea id="postContent" rows="3" placeholder="ماذا يحدث؟"></textarea>
+            <div class="post-options">
+                <input type="text" id="imageUrl" class="image-input" placeholder="رابط الصورة (اختياري)">
+                <button id="publishBtn" class="publish-btn"><i class="fas fa-paper-plane"></i> نشر</button>
+            </div>
+        </div>
+        <div id="postsContainer"></div>
+    </div>
+
+    <script>
+        // جلب البيانات
+        let currentUser = JSON.parse(localStorage.getItem('currentUser'));
+        if (!currentUser) {
+            window.location.href = 'login.html';
+        }
+        
+        let users = JSON.parse(localStorage.getItem('bamatech_users_final'));
+        let posts = JSON.parse(localStorage.getItem('bamatech_posts_final'));
+        
+        // تحديث واجهة الإدمن
+        if (currentUser.isAdmin || currentUser.isOwner) {
+            document.getElementById('adminLink').style.display = 'inline-block';
+            document.getElementById('adminLink').href = 'admin-dashboard.html';
+        }
+        
+        document.getElementById('profileLink').href = 'profile.html?id=' + currentUser.id;
+        
+        // وظيفة عرض الشارات
+        function getUserBadges(user) {
+            let badges = '';
+            if (user.isOwner) badges += '<span class="badge badge-owner">👑 OWNER</span>';
+            else if (user.isAdmin) badges += '<span class="badge badge-admin">🛡️ ADMIN</span>';
+            if (user.verifiedPlus) badges += '<span class="badge badge-verified-plus">✨ VERIFIED+</span>';
+            else if (user.verified) badges += '<span class="badge badge-verified">✅ VERIFIED</span>';
+            return badges;
+        }
+        
+        // وظيفة نشر منشور جديد
+        function publishPost() {
+            let content = document.getElementById('postContent').value.trim();
+            let image = document.getElementById('imageUrl').value.trim();
+            
+            if (!content) {
+                alert('❌ الرجاء كتابة محتوى المنشور');
+                return false;
+            }
+            
+            let newPost = {
+                id: Date.now(),
+                userId: currentUser.id,
+                content: content,
+                image: image,
+                timestamp: Date.now(),
+                likes: [],
+                comments: []
+            };
+            
+            posts.unshift(newPost);
+            localStorage.setItem('bamatech_posts_final', JSON.stringify(posts));
+            
+            document.getElementById('postContent').value = '';
+            document.getElementById('imageUrl').value = '';
+            
+            renderPosts();
+            return true;
+        }
+        
+        // وظيفة إعجاب
+        function toggleLike(postId) {
+            let post = posts.find(p => p.id === postId);
+            if (post) {
+                let index = post.likes.indexOf(currentUser.id);
+                if (index === -1) {
+                    post.likes.push(currentUser.id);
+                } else {
+                    post.likes.splice(index, 1);
+                }
+                localStorage.setItem('bamatech_posts_final', JSON.stringify(posts));
+                renderPosts();
+            }
+        }
+        
+        // وظيفة تعليق
+        function addComment(postId, text) {
+            if (!text.trim()) return;
+            
+            let post = posts.find(p => p.id === postId);
+            if (post) {
+                post.comments.push({
+                    userId: currentUser.id,
+                    name: currentUser.name,
+                    text: text,
+                    timestamp: Date.now()
+                });
+                localStorage.setItem('bamatech_posts_final', JSON.stringify(posts));
+                renderPosts();
+            }
+        }
+        
+        // وظيفة حذف منشور
+        function deletePost(postId) {
+            if (currentUser.isAdmin || currentUser.isOwner) {
+                posts = posts.filter(p => p.id !== postId);
+                localStorage.setItem('bamatech_posts_final', JSON.stringify(posts));
+                renderPosts();
+            }
+        }
+        
+        // عرض التعليقات
+        function toggleComments(postId) {
+            let div = document.getElementById(`comments-${postId}`);
+            if (div) {
+                div.style.display = div.style.display === 'none' ? 'block' : 'none';
+            }
+        }
+        
+        // عرض المنشورات
+        function renderPosts() {
+            posts = JSON.parse(localStorage.getItem('bamatech_posts_final'));
+            users = JSON.parse(localStorage.getItem('bamatech_users_final'));
+            
+            let container = document.getElementById('postsContainer');
+            
+            if (posts.length === 0) {
+                container.innerHTML = '<div class="empty-state"><i class="fas fa-newspaper" style="font-size: 48px;"></i><p>لا توجد منشورات بعد... كن أول من ينشر!</p></div>';
+                return;
+            }
+            
+            let html = '';
+            for (let post of posts) {
+                let author = users.find(u => u.id === post.userId);
+                if (!author || author.banned) continue;
+                
+                let isLiked = post.likes.includes(currentUser.id);
+                
+                html += `
+                    <div class="post-card">
+                        <div class="post-header">
+                            <div class="avatar">${author.name.charAt(0)}</div>
+                            <div class="post-info">
+                                <div class="post-name">
+                                    ${author.name} ${getUserBadges(author)}
+                                </div>
+                                <div class="post-meta">
+                                    @${author.username} • ${new Date(post.timestamp).toLocaleString()}
+                                </div>
+                                <div style="font-size:12px; color:#64748b;">${author.bio || ''}</div>
+                            </div>
+                        </div>
+                        <div class="post-content">${post.content}</div>
+                        ${post.image ? `<img src="${post.image}" class="post-image" onerror="this.style.display='none'">` : ''}
+                        <div class="post-stats">
+                            <span><i class="fas fa-heart"></i> ${post.likes.length}</span>
+                            <span><i class="fas fa-comment"></i> ${post.comments.length}</span>
+                        </div>
+                        <div class="post-actions">
+                            <button class="action-btn ${isLiked ? 'liked' : ''}" onclick="toggleLike(${post.id})">
+                                <i class="fas fa-heart"></i> ${isLiked ? 'إلغاء الإعجاب' : 'إعجاب'}
+                            </button>
+                            <button class="action-btn" onclick="toggleComments(${post.id})">
+                                <i class="fas fa-comment"></i> تعليق
+                            </button>
+                            ${(currentUser.isAdmin || currentUser.isOwner) ? `
+                                <button class="action-btn" onclick="deletePost(${post.id})" style="color:#ef4444;">
+                                    <i class="fas fa-trash"></i> حذف
+                                </button>
+                            ` : ''}
+                        </div>
+                        <div class="comments-section" id="comments-${post.id}" style="display:none;">
+                            <div class="comments-list">
+                `;
+                
+                for (let comment of post.comments) {
+                    html += `
+                        <div class="comment">
+                            <strong>${comment.name || 'مستخدم'}</strong>
+                            <p>${comment.text}</p>
+                            <small>${new Date(comment.timestamp).toLocaleString()}</small>
+                        </div>
+                    `;
+                }
+                
+                html += `
+                            </div>
+                            <div class="comment-input">
+                                <input type="text" id="comment-text-${post.id}" placeholder="اكتب تعليقك...">
+                                <button class="action-btn" onclick="addComment(${post.id}, document.getElementById('comment-text-${post.id}').value)">
+                                    <i class="fas fa-paper-plane"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+            
+            container.innerHTML = html;
+        }
+        
+        // تسجيل الخروج
+        function logout() {
+            localStorage.removeItem('currentUser');
+            window.location.href = 'login.html';
+        }
+        
+        // ربط الأحداث
+        document.getElementById('publishBtn').addEventListener('click', publishPost);
+        document.getElementById('logoutLink').addEventListener('click', function(e) {
+            e.preventDefault();
+            logout();
+        });
+        
+        // جعل الدوال عامة
+        window.toggleLike = toggleLike;
+        window.toggleComments = toggleComments;
+        window.addComment = addComment;
+        window.deletePost = deletePost;
+        
+        // عرض المنشورات
+        renderPosts();
+    </script>
+</body>
+</html>
