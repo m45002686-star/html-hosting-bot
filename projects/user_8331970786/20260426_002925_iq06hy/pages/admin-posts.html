@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>إدارة المنشورات - BAMA TECH</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .admin-table-container {
+            max-width: 1000px;
+            margin: 80px auto 20px;
+            padding: 20px;
+        }
+        .post-item {
+            background: white;
+            border-radius: 16px;
+            padding: 18px;
+            margin-bottom: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+        .post-content-preview {
+            flex: 1;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo"><i class="fas fa-crown"></i><span>BAMA <span class="tech">TECH</span></span></div>
+            <div class="nav-links">
+                <a href="feed.html"><i class="fas fa-home"></i> الرئيسية</a>
+                <a href="admin-dashboard.html"><i class="fas fa-shield-alt"></i> لوحة التحكم</a>
+                <a href="#" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> خروج</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="admin-table-container">
+        <h2><i class="fas fa-newspaper"></i> إدارة المنشورات</h2>
+        <div id="postsList"></div>
+    </div>
+
+    <script src="../js/main.js"></script>
+    <script>
+        let currentUser = getUserById(currentUserId);
+        if(!currentUser || (!currentUser.isAdmin && !currentUser.isOwner)) window.location.href = 'feed.html';
+        
+        function renderAllPosts() {
+            let allPostsSorted = [...posts].sort((a,b) => b.timestamp - a.timestamp);
+            let html = allPostsSorted.map(post => {
+                let author = getUserById(post.userId);
+                return `
+                    <div class="post-item">
+                        <div class="post-content-preview">
+                            <div><strong>${author?.name || 'مستخدم محذوف'}</strong> <small>@${author?.username || '?'}</small></div>
+                            <p>${post.content.substring(0, 100)}${post.content.length > 100 ? '...' : ''}</p>
+                            <small>❤️ ${post.likes.length} | 💬 ${post.comments.length} | ${new Date(post.timestamp).toLocaleString()}</small>
+                        </div>
+                        <button onclick="deleteThisPost(${post.id})" class="danger-btn" style="padding:8px 15px;">حذف</button>
+                    </div>
+                `;
+            }).join('');
+            document.getElementById('postsList').innerHTML = html || '<p>لا توجد منشورات</p>';
+        }
+        
+        window.deleteThisPost = (id) => { deletePost(id); renderAllPosts(); };
+        document.getElementById('logoutBtn').addEventListener('click', (e) => { e.preventDefault(); logout(); });
+        
+        renderAllPosts();
+    </script>
+</body>
+</html>
