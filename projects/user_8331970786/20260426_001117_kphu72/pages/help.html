@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مساعدة - BAMA TECH</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .help-container {
+            max-width: 900px;
+            margin: 80px auto 20px;
+            padding: 20px;
+        }
+        .help-header {
+            background: linear-gradient(135deg, #0f172a, #1e293b);
+            color: white;
+            padding: 40px;
+            border-radius: 30px;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .faq-section {
+            background: white;
+            border-radius: 25px;
+            padding: 30px;
+            margin-bottom: 20px;
+        }
+        .faq-item {
+            border-bottom: 1px solid #e2e8f0;
+            padding: 15px 0;
+            cursor: pointer;
+        }
+        .faq-question {
+            font-weight: 700;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .faq-answer {
+            display: none;
+            padding-top: 10px;
+            color: #64748b;
+            line-height: 1.6;
+        }
+        .faq-item.active .faq-answer {
+            display: block;
+        }
+        .contact-support {
+            background: #f1f5f9;
+            border-radius: 20px;
+            padding: 25px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo"><i class="fas fa-crown"></i><span>BAMA <span class="tech">TECH</span></span></div>
+            <div class="nav-links">
+                <a href="feed.html"><i class="fas fa-home"></i> الرئيسية</a>
+                <a href="profile.html"><i class="fas fa-user"></i> ملفي</a>
+                <a href="help.html" class="active"><i class="fas fa-question-circle"></i> المساعدة</a>
+                <a href="#" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> خروج</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="help-container">
+        <div class="help-header">
+            <i class="fas fa-headset" style="font-size: 60px; margin-bottom: 20px;"></i>
+            <h1>مركز المساعدة</h1>
+            <p>كيف يمكننا مساعدتك؟</p>
+        </div>
+
+        <div class="faq-section">
+            <h2><i class="fas fa-question-circle"></i> الأسئلة الشائعة</h2>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>📝 كيف يمكنني إنشاء منشور جديد؟</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    اضغط على مربع النص الموجود في الصفحة الرئيسية "ماذا يحدث؟"، اكتب محتوى منشورك، يمكنك إضافة صورة عبر رابط، ثم اضغط على زر "نشر".
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>✅ كيف أحصل على شارة التوثيق؟</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    شارة التوثيق تُمنح بواسطة الإدارة للمستخدمين النشطين والمبدعين. يمكنك التواصل مع الإدمن لطلب التوثيق بعد تحقيق نشاط ملحوظ على المنصة.
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>💬 كيف أرسل رسالة خاصة لمستخدم؟</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    اذهب إلى صفحة "الرسائل" من القائمة، اختر المستخدم من قائمة المحادثات، اكتب رسالتك واضغط إرسال. يمكنك أيضاً البدء بمحادثة جديدة من صفحة البحث أو قائمة المستخدمين.
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>🏆 كيف أشارك في المسابقات؟</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    اذهب إلى صفحة "المسابقات"، اختر المسابقة المناسبة، اضغط على "شارك الآن" وسجل دخولك كمتسابق. تابع النتائج والإعلانات لمعرفة الفائزين.
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>🛡️ ما الفرق بين المالك والإدمن؟</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    المالك (OWNER) هو منشئ المنصة ويمتلك جميع الصلاحيات بما فيها إضافة إدمن جدد. الإدمن (ADMIN) لديه صلاحيات إدارة المحتوى والمستخدمين لكن لا يمكنه إضافة إدمن آخرين.
+                </div>
+            </div>
+        </div>
+
+        <div class="contact-support">
+            <i class="fas fa-envelope" style="font-size: 40px; color: #00adb5; margin-bottom: 10px;"></i>
+            <h3>لم تجد إجابتك؟</h3>
+            <p>تواصل مع فريق الدعم الفني عبر البريد الإلكتروني</p>
+            <a href="contact.html" class="btn-primary" style="display: inline-block; margin-top: 15px;">اتصل بنا</a>
+        </div>
+    </div>
+
+    <script>
+        document.querySelectorAll('.faq-item').forEach(item => {
+            item.querySelector('.faq-question').addEventListener('click', () => {
+                item.classList.toggle('active');
+            });
+        });
+        
+        document.getElementById('logoutBtn')?.addEventListener('click', (e) => {
+            e.preventDefault();
+            localStorage.removeItem('currentUserId');
+            window.location.href = 'login.html';
+        });
+    </script>
+</body>
+</html>
