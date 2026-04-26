@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>إدارة VERIFIED+ - BAMA TECH</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .verified-container {
+            max-width: 1000px;
+            margin: 80px auto 20px;
+            padding: 20px;
+        }
+        .verified-header {
+            background: linear-gradient(135deg, #ef4444, #dc2626, #f97316);
+            padding: 40px;
+            border-radius: 30px;
+            text-align: center;
+            color: white;
+            margin-bottom: 30px;
+        }
+        .verified-header i {
+            font-size: 60px;
+            animation: pulse 1.5s infinite;
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); text-shadow: 0 0 0 rgba(239,68,68,0); }
+            50% { transform: scale(1.1); text-shadow: 0 0 20px rgba(239,68,68,0.8); }
+            100% { transform: scale(1); text-shadow: 0 0 0 rgba(239,68,68,0); }
+        }
+        .search-box {
+            background: white;
+            border-radius: 60px;
+            padding: 10px 20px;
+            display: flex;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        .search-box input {
+            flex: 1;
+            border: none;
+            padding: 12px;
+            font-size: 16px;
+        }
+        .user-card {
+            background: white;
+            border-radius: 20px;
+            padding: 20px;
+            margin-bottom: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            transition: 0.3s;
+        }
+        .user-card:hover {
+            transform: translateX(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        .user-avatar {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #00adb5, #4facfe);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            font-weight: bold;
+            color: white;
+        }
+        .verified-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            background: linear-gradient(135deg, #ef4444, #dc2626, #f97316);
+            color: white;
+            font-size: 11px;
+            font-weight: bold;
+            padding: 4px 12px;
+            border-radius: 40px;
+            animation: glow 1.5s infinite;
+        }
+        @keyframes glow {
+            0% { box-shadow: 0 0 5px #ef4444; }
+            50% { box-shadow: 0 0 15px #f97316; }
+            100% { box-shadow: 0 0 5px #ef4444; }
+        }
+        .btn-grant {
+            background: linear-gradient(135deg, #f59e0b, #ef4444);
+            color: white;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 40px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        .btn-revoke {
+            background: #64748b;
+            color: white;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 40px;
+            cursor: pointer;
+        }
+        .stats-bar {
+            display: flex;
+            gap: 20px;
+            background: white;
+            padding: 20px;
+            border-radius: 20px;
+            margin-bottom: 30px;
+        }
+        .stat-item {
+            flex: 1;
+            text-align: center;
+        }
+        .stat-number {
+            font-size: 28px;
+            font-weight: 800;
+            color: #f59e0b;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo"><i class="fas fa-crown"></i><span>BAMA <span class="tech">TECH</span></span></div>
+            <div class="nav-links">
+                <a href="feed.html"><i class="fas fa-home"></i> الرئيسية</a>
+                <a href="profile.html"><i class="fas fa-user"></i> ملفي</a>
+                <a href="admin-dashboard.html"><i class="fas fa-shield-alt"></i> لوحة التحكم</a>
+                <a href="verified-plus.html" class="active"><i class="fas fa-gem"></i> VERIFIED+</a>
+                <a href="#" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> خروج</a>
+            </div>
+            <div class="menu-toggle"><i class="fas fa-bars"></i></div>
+        </div>
+    </nav>
+
+    <div class="verified-container">
+        <div class="verified-header">
+            <i class="fas fa-gem"></i>
+            <h1>إدارة شارات VERIFIED+</h1>
+            <p>الشارة المميزة لأهم وأفضل الأعضاء في المنصة</p>
+        </div>
+
+        <div class="stats-bar">
+            <div class="stat-item">
+                <div class="stat-number" id="verifiedPlusCount">0</div>
+                <div>حاصلين على VERIFIED+</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number" id="totalUsersCount">0</div>
+                <div>إجمالي المستخدمين</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number" id="verifiedPlusPercent">0%</div>
+                <div>نسبة المميزين</div>
+            </div>
+        </div>
+
+        <div class="search-box">
+            <i class="fas fa-search" style="color:#00adb5;"></i>
+            <input type="text" id="searchInput" placeholder="ابحث عن مستخدم...">
+        </div>
+
+        <div id="usersList"></div>
+        
+        <div style="background: #f1f5f9; border-radius: 20px; padding: 20px; margin-top: 30px;">
+            <h3><i class="fas fa-info-circle"></i> ما هي شارة VERIFIED+؟</h3>
+            <p style="margin-top: 10px; line-height: 1.6;">
+                ✨ شارة VERIFIED+ هي أرفع شارة في منصة BAMA TECH، تمنح للأعضاء المميزين والنشطين والمبدعين.
+                يتم منحها من قبل الإدارة فقط، وتمنح حاملها:
+            </p>
+            <ul style="margin-top: 10px; margin-right: 20px;">
+                <li>🌟 شارة خاصة متوهجة بجانب الاسم</li>
+                <li>👑 أولوية في الظهور في قوائم المستخدمين</li>
+                <li>🎁 فرصة المشاركة في مسابقات حصرية</li>
+                <li>⭐ احترام وتقدير من جميع الأعضاء</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        let users = JSON.parse(localStorage.getItem('bamatech_users_final')) || [];
+        let currentUserId = localStorage.getItem('currentUserId');
+        let currentUser = users.find(u => u.id == currentUserId);
+        
+        if(!currentUser || (!currentUser.isAdmin && !currentUser.isOwner)) {
+            window.location.href = 'login.html';
+        }
+        
+        function updateStats() {
+            let regularUsers = users.filter(u => !u.isAdmin && !u.isOwner);
+            let verifiedPlusUsers = regularUsers.filter(u => u.verifiedPlus);
+            let count = verifiedPlusUsers.length;
+            let percent = regularUsers.length > 0 ? Math.round((count / regularUsers.length) * 100) : 0;
+            
+            document.getElementById('verifiedPlusCount').innerText = count;
+            document.getElementById('totalUsersCount').innerText = regularUsers.length;
+            document.getElementById('verifiedPlusPercent').innerText = percent;
+        }
+        
+        function renderUsers(searchTerm = '') {
+            let regularUsers = users.filter(u => !u.isAdmin && !u.isOwner);
+            
+            if(searchTerm) {
+                regularUsers = regularUsers.filter(u => 
+                    u.name.includes(searchTerm) || u.username.includes(searchTerm)
+                );
+            }
+            
+            let verifiedUsers = regularUsers.filter(u => u.verifiedPlus);
+            let normalUsers = regularUsers.filter(u => !u.verifiedPlus);
+            
+            let html = `
+                <h3 style="margin: 20px 0 10px;"><i class="fas fa-gem" style="color:#f59e0b;"></i> حاصلين على VERIFIED+ (${verifiedUsers.length})</h3>
+                ${verifiedUsers.map(u => `
+                    <div class="user-card">
+                        <div class="user-info">
+                            <div class="user-avatar">${u.name.charAt(0)}</div>
+                            <div>
+                                <div><strong>${u.name}</strong> <span class="verified-badge"><i class="fas fa-gem"></i> VERIFIED+</span></div>
+                                <div style="font-size:12px; color:#64748b;">@${u.username}</div>
+                                <div style="font-size:12px;">${u.bio || 'لا يوجد بايو'}</div>
+                            </div>
+                        </div>
+                        <button class="btn-revoke" onclick="revokeVerifiedPlus(${u.id})"><i class="fas fa-times"></i> سحب الشارة</button>
+                    </div>
+                `).join('')}
+                
+                <h3 style="margin: 30px 0 10px;"><i class="fas fa-users"></i> المستخدمين العاديين (${normalUsers.length})</h3>
+                ${normalUsers.map(u => `
+                    <div class="user-card">
+                        <div class="user-info">
+                            <div class="user-avatar">${u.name.charAt(0)}</div>
+                            <div>
+                                <div><strong>${u.name}</strong> ${u.verified ? '<span style="background:#3b82f6; padding:2px 8px; border-radius:20px; font-size:11px;">✅ موثق</span>' : ''}</div>
+                                <div style="font-size:12px; color:#64748b;">@${u.username}</div>
+                                <div style="font-size:12px;">${u.bio || 'لا يوجد بايو'}</div>
+                            </div>
+                        </div>
+                        <button class="btn-grant" onclick="grantVerifiedPlus(${u.id})"><i class="fas fa-gem"></i> منح VERIFIED+</button>
+                    </div>
+                `).join('')}
+            `;
+            
+            if(regularUsers.length === 0) {
+                html = '<div style="text-align:center; padding:40px;">لا يوجد مستخدمين</div>';
+            }
+            
+            document.getElementById('usersList').innerHTML = html;
+        }
+        
+        function grantVerifiedPlus(userId) {
+            let user = users.find(u => u.id === userId);
+            if(user && !user.isAdmin && !user.isOwner) {
+                user.verifiedPlus = true;
+                user.verified = true;
+                localStorage.setItem('bamatech_users_final', JSON.stringify(users));
+                
+                let notifications = JSON.parse(localStorage.getItem('bamatech_notifications')) || [];
+                notifications.unshift({
+                    id: Date.now(),
+                    userId: userId,
+                    message: '🎖️ مبارك! لقد حصلت على شارة VERIFIED+ المميزة من الإدارة',
+                    type: 'admin',
+                    read: false,
+                    timestamp: Date.now()
+                });
+                localStorage.setItem('bamatech_notifications', JSON.stringify(notifications));
+                
+                updateStats();
+                renderUsers(document.getElementById('searchInput').value);
+                alert(`تم منح شارة VERIFIED+ للمستخدم ${user.name}`);
+            }
+        }
+        
+        function revokeVerifiedPlus(userId) {
+            let user = users.find(u => u.id === userId);
+            if(user && user.verifiedPlus) {
+                user.verifiedPlus = false;
+                localStorage.setItem('bamatech_users_final', JSON.stringify(users));
+                
+                let notifications = JSON.parse(localStorage.getItem('bamatech_notifications')) || [];
+                notifications.unshift({
+                    id: Date.now(),
+                    userId: userId,
+                    message: '⚠️ تم سحب شارة VERIFIED+ من حسابك من قبل الإدارة',
+                    type: 'admin',
+                    read: false,
+                    timestamp: Date.now()
+                });
+                localStorage.setItem('bamatech_notifications', JSON.stringify(notifications));
+                
+                updateStats();
+                renderUsers(document.getElementById('searchInput').value);
+                alert(`تم سحب شارة VERIFIED+ من ${user.name}`);
+            }
+        }
+        
+        document.getElementById('searchInput').addEventListener('input', (e) => {
+            renderUsers(e.target.value);
+        });
+        
+        document.getElementById('logoutBtn').addEventListener('click', (e) => {
+            e.preventDefault();
+            localStorage.removeItem('currentUserId');
+            window.location.href = 'login.html';
+        });
+        
+        document.querySelector('.menu-toggle')?.addEventListener('click', () => {
+            document.querySelector('.nav-links').classList.toggle('active');
+        });
+        
+        window.grantVerifiedPlus = grantVerifiedPlus;
+        window.revokeVerifiedPlus = revokeVerifiedPlus;
+        
+        updateStats();
+        renderUsers();
+    </script>
+</body>
+</html>
