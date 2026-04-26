@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BAMA TECH | المنصة الاجتماعية المتكاملة</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="landing-page">
+        <nav class="navbar">
+            <div class="nav-container">
+                <div class="logo">
+                    <i class="fas fa-crown"></i>
+                    <span>BAMA <span class="tech">TECH</span></span>
+                </div>
+                <div class="nav-links">
+                    <a href="index.html" class="active"><i class="fas fa-home"></i> الرئيسية</a>
+                    <a href="pages/login.html"><i class="fas fa-sign-in-alt"></i> دخول</a>
+                    <a href="pages/register.html"><i class="fas fa-user-plus"></i> تسجيل</a>
+                    <a href="pages/about.html"><i class="fas fa-info-circle"></i> عن الموقع</a>
+                </div>
+                <div class="menu-toggle">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </div>
+        </nav>
+
+        <section class="hero">
+            <div class="hero-content">
+                <h1 class="hero-title">مرحباً بك في <span class="highlight">BAMA TECH</span></h1>
+                <p class="hero-desc">منصة التواصل الاجتماعي الذكية التي تجمع بين الإبداع والتقنية</p>
+                <div class="hero-buttons">
+                    <a href="pages/register.html" class="btn btn-primary">
+                        <i class="fas fa-user-plus"></i> انضم الآن مجاناً
+                    </a>
+                    <a href="pages/login.html" class="btn btn-outline">
+                        <i class="fas fa-sign-in-alt"></i> تسجيل دخول
+                    </a>
+                </div>
+            </div>
+            <div class="hero-stats">
+                <div class="stat-card">
+                    <i class="fas fa-users"></i>
+                    <h3 id="totalUsers">0</h3>
+                    <p>مستخدم نشط</p>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-newspaper"></i>
+                    <h3 id="totalPosts">0</h3>
+                    <p>منشور</p>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-heart"></i>
+                    <h3 id="totalLikes">0</h3>
+                    <p>إعجاب</p>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-trophy"></i>
+                    <h3 id="totalContests">0</h3>
+                    <p>مسابقة</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="features">
+            <h2 class="section-title">مميزات المنصة <i class="fas fa-star"></i></h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-shield-alt"></i></div>
+                    <h3>توثيق فاخر</h3>
+                    <p>شارات VERIFIED و VERIFIED+ المميزة</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-comments"></i></div>
+                    <h3>محادثات فورية</h3>
+                    <p>تواصل خاص مع الأصدقاء</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-trophy"></i></div>
+                    <h3>مسابقات أسبوعية</h3>
+                    <p>جوائز قيمة للمشاركين</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-chart-line"></i></div>
+                    <h3>إحصائيات متقدمة</h3>
+                    <p>تحليلات دقيقة لنشاطك</p>
+                </div>
+            </div>
+        </section>
+
+        <footer class="footer">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>BAMA TECH</h4>
+                    <p>منصة اجتماعية ذكية تجمع المبدعين</p>
+                </div>
+                <div class="footer-section">
+                    <h4>روابط سريعة</h4>
+                    <a href="pages/about.html">عن الموقع</a>
+                    <a href="pages/help.html">مساعدة</a>
+                    <a href="pages/contact.html">اتصل بنا</a>
+                </div>
+                <div class="footer-section">
+                    <h4>تابعنا</h4>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-telegram"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 BAMA TECH - جميع الحقوق محفوظة</p>
+            </div>
+        </footer>
+    </div>
+
+    <script src="js/main.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            updateStats();
+            setInterval(updateStats, 5000);
+            
+            document.querySelector('.menu-toggle').addEventListener('click', function() {
+                document.querySelector('.nav-links').classList.toggle('active');
+            });
+        });
+        
+        function updateStats() {
+            let users = JSON.parse(localStorage.getItem('bamatech_users_final')) || [];
+            let posts = JSON.parse(localStorage.getItem('bamatech_posts_final')) || [];
+            let contests = JSON.parse(localStorage.getItem('bamatech_contests')) || [];
+            let totalLikes = posts.reduce((sum, p) => sum + (p.likes?.length || 0), 0);
+            
+            document.getElementById('totalUsers').innerText = users.filter(u => !u.banned).length;
+            document.getElementById('totalPosts').innerText = posts.length;
+            document.getElementById('totalLikes').innerText = totalLikes;
+            document.getElementById('totalContests').innerText = contests.length;
+        }
+    </script>
+</body>
+</html>
