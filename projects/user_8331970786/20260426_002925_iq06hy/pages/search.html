@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>البحث - BAMA TECH</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .search-container {
+            max-width: 800px;
+            margin: 80px auto 20px;
+            padding: 20px;
+        }
+        .search-box-large {
+            background: white;
+            border-radius: 60px;
+            padding: 15px 25px;
+            display: flex;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        .search-box-large input {
+            flex: 1;
+            border: none;
+            font-size: 16px;
+        }
+        .search-box-large input:focus {
+            outline: none;
+        }
+        .result-section {
+            margin-bottom: 30px;
+        }
+        .result-item {
+            background: white;
+            border-radius: 16px;
+            padding: 15px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        .result-avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #00adb5, #4facfe);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo"><i class="fas fa-crown"></i><span>BAMA <span class="tech">TECH</span></span></div>
+            <div class="nav-links">
+                <a href="feed.html"><i class="fas fa-home"></i> الرئيسية</a>
+                <a href="profile.html"><i class="fas fa-user"></i> ملفي</a>
+                <a href="search.html" class="active"><i class="fas fa-search"></i> البحث</a>
+                <a href="#" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> خروج</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="search-container">
+        <div class="search-box-large">
+            <i class="fas fa-search" style="color:#00adb5;"></i>
+            <input type="text" id="searchInput" placeholder="ابحث عن مستخدمين أو منشورات...">
+            <button id="searchBtn">بحث</button>
+        </div>
+        
+        <div id="searchResults"></div>
+    </div>
+
+    <script src="../js/main.js"></script>
+    <script>
+        let currentUser = getUserById(currentUserId);
+        if(!currentUser) window.location.href = 'login.html';
+        
+        function performSearch() {
+            let query = document.getElementById('searchInput').value.toLowerCase();
+            if(!query) return;
+            
+            let matchedUsers = users.filter(u => u.id !== currentUserId && !u.banned && (u.name.toLowerCase().includes(query) || u.username.toLowerCase().includes(query)));
+            let matchedPosts = posts.filter(p => p.content.toLowerCase().includes(query));
+            
+            let usersHtml = matchedUsers.map(u => `
+                <div class="result-item">
+                    <div class="result-avatar">${u.name.charAt(0)}</div>
+                    <div style="flex:1;">
+                        <div><strong>${u.name}</strong> ${getUserBadges(u)}</div>
+                        <div style="font-size:12px; color:#64748b;">@${u.username}</div>
+                        <div>${u.bio || ''}</div>
+                    </div>
+                    <a href="messages.html" onclick="localStorage.setItem('openChatWith', ${u.id})"><button>مراسلة</button></a>
+                </div>
+            `).join('');
+            
+            let postsHtml = matchedPosts.map(p => {
+                let author = getUserById(p.userId);
+                return `
+                    <div class="result-item" style="flex-direction:column; align-items:flex-start;">
+                        <div><strong>${author?.name}</strong> <small>@${author?.username}</small></div>
+                        <p>${p.content}</p>
+                        <small>❤️ ${p.likes.length} | 💬 ${p.comments.length}</small>
+                    </div>
+                `;
+            }).join('');
+            
+            document.getElementById('searchResults').html = `
+                <div class="result-section">
+                    <h3>👥 مستخدمين (${matchedUsers.length})</h3>
+                    ${usersHtml || '<p>لا توجد نتائج</p>'}
+                </div>
+                <div class="result-section">
+                    <h3>📝 منشورات (${matchedPosts.length})</h3>
+                    ${postsHtml || '<p>لا توجد نتائج</p>'}
+                </div>
+            `;
+        }
+        
+        document.getElementById('searchBtn').onclick = performSearch;
+        document.getElementById('searchInput').onkeypress = (e) => { if(e.key === 'Enter') performSearch(); };
+        document.getElementById('logoutBtn').addEventListener('click', (e) => { e.preventDefault(); logout(); });
+    </script>
+</body>
+</html>
