@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>إدارة الإعلانات - BAMA TECH</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .admin-container {
+            max-width: 800px;
+            margin: 80px auto 20px;
+            padding: 20px;
+        }
+        .form-card {
+            background: white;
+            border-radius: 20px;
+            padding: 25px;
+            margin-bottom: 30px;
+        }
+        .ad-item {
+            background: #f8fafc;
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo"><i class="fas fa-crown"></i><span>BAMA <span class="tech">TECH</span></span></div>
+            <div class="nav-links">
+                <a href="feed.html"><i class="fas fa-home"></i> الرئيسية</a>
+                <a href="admin-dashboard.html"><i class="fas fa-shield-alt"></i> لوحة التحكم</a>
+                <a href="#" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> خروج</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="admin-container">
+        <div class="form-card">
+            <h3><i class="fas fa-plus-circle"></i> إضافة إعلان جديد</h3>
+            <input type="text" id="adTitle" placeholder="عنوان الإعلان" style="width:100%; margin:10px 0;">
+            <textarea id="adContent" rows="3" placeholder="محتوى الإعلان"></textarea>
+            <input type="text" id="adLink" placeholder="رابط الإعلان (اختياري)">
+            <input type="text" id="adImage" placeholder="رابط الصورة (اختياري)">
+            <button id="addAdBtn" style="margin-top:15px;"><i class="fas fa-ad"></i> نشر الإعلان</button>
+        </div>
+        
+        <h3><i class="fas fa-list"></i> الإعلانات الحالية</h3>
+        <div id="adsList"></div>
+    </div>
+
+    <script src="../js/main.js"></script>
+    <script>
+        let currentUser = getUserById(currentUserId);
+        if(!currentUser || (!currentUser.isAdmin && !currentUser.isOwner)) window.location.href = 'feed.html';
+        
+        function renderAds() {
+            let html = advertisements.map(ad => `
+                <div class="ad-item">
+                    <div>
+                        <strong>${ad.title}</strong>
+                        <p>${ad.content}</p>
+                        <small>👁️ ${ad.views || 0} مشاهدة | 🖱️ ${ad.clicks || 0} نقرة</small>
+                    </div>
+                    <div>
+                        <button onclick="toggleAd(${ad.id})" style="background:#f59e0b;">${ad.active ? 'إيقاف' : 'تفعيل'}</button>
+                        <button onclick="deleteAd(${ad.id})" class="danger-btn">حذف</button>
+                    </div>
+                </div>
+            `).join('');
+            document.getElementById('adsList').innerHTML = html || '<p>لا توجد إعلانات</p>';
+        }
+        
+        document.getElementById('addAdBtn').onclick = () => {
+            let title = document.getElementById('adTitle').value;
+            let content = document.getElementById('adContent').value;
+            let link = document.getElementById('adLink').value;
+            let image = document.getElementById('adImage').value;
+            if(title && content) {
+                addAdvertisement(title, content, link, image);
+                document.getElementById('adTitle').value = '';
+                document.getElementById('adContent').value = '';
+                document.getElementById('adLink').value = '';
+                document.getElementById('adImage').value = '';
+                renderAds();
+            } else {
+                alert('الرجاء إدخال عنوان ومحتوى الإعلان');
+            }
+        };
+        
+        window.toggleAd = (id) => {
+            let ad = advertisements.find(a => a.id === id);
+            if(ad) ad.active = !ad.active;
+            saveData();
+            renderAds();
+        };
+        
+        window.deleteAd = (id) => {
+            advertisements = advertisements.filter(a => a.id !== id);
+            saveData();
+            renderAds();
+        };
+        
+        document.getElementById('logoutBtn').addEventListener('click', (e) => { e.preventDefault(); logout(); });
+        
+        renderAds();
+    </script>
+</body>
+</html>
