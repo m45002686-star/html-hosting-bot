@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>الرئيسية - BAMA TECH</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .feed-container {
+            display: flex;
+            max-width: 1400px;
+            margin: 80px auto 20px;
+            padding: 0 20px;
+            gap: 20px;
+        }
+        .sidebar-left {
+            width: 280px;
+            position: sticky;
+            top: 80px;
+            height: fit-content;
+        }
+        .main-feed {
+            flex: 1;
+        }
+        .sidebar-right {
+            width: 320px;
+            position: sticky;
+            top: 80px;
+            height: fit-content;
+        }
+        .create-post-card {
+            background: white;
+            border-radius: 20px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .create-post-header {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 15px;
+        }
+        .mini-avatar {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, #00adb5, #4facfe);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            font-weight: bold;
+            color: white;
+        }
+        .create-post-input {
+            flex: 1;
+        }
+        .create-post-input textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #e2e8f0;
+            border-radius: 16px;
+            resize: none;
+            font-size: 14px;
+        }
+        .post-options {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 12px;
+        }
+        .trending-card, .suggestions-card {
+            background: white;
+            border-radius: 20px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        .trending-item {
+            padding: 10px 0;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        @media (max-width: 1024px) {
+            .sidebar-left, .sidebar-right {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <i class="fas fa-crown"></i>
+                <span>BAMA <span class="tech">TECH</span></span>
+            </div>
+            <div class="nav-links">
+                <a href="feed.html" class="active"><i class="fas fa-home"></i> الرئيسية</a>
+                <a href="profile.html"><i class="fas fa-user"></i> ملفي</a>
+                <a href="messages.html"><i class="fas fa-envelope"></i> الرسائل</a>
+                <a href="notifications.html"><i class="fas fa-bell"></i> الإشعارات</a>
+                <a href="contests.html"><i class="fas fa-trophy"></i> المسابقات</a>
+                <a href="#" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> خروج</a>
+            </div>
+            <div class="menu-toggle">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </nav>
+
+    <div class="feed-container">
+        <div class="sidebar-left">
+            <div class="trending-card">
+                <h3><i class="fas fa-fire"></i> الأكثر شيوعاً</h3>
+                <div class="trending-item">#BAMA_TECH</div>
+                <div class="trending-item">#تواصل_بلا_حدود</div>
+                <div class="trending-item">#مسابقات_BAMA</div>
+            </div>
+        </div>
+
+        <div class="main-feed">
+            <div class="create-post-card">
+                <div class="create-post-header">
+                    <div class="mini-avatar" id="userAvatar">?</div>
+                    <div class="create-post-input">
+                        <textarea id="postContent" rows="3" placeholder="ماذا يحدث؟"></textarea>
+                        <div class="post-options">
+                            <button id="imageBtn" class="action-btn"><i class="fas fa-image"></i> صورة</button>
+                            <input type="text" id="imageUrl" placeholder="رابط الصورة" style="display:none; width:60%;">
+                            <button id="publishBtn" class="btn-primary" style="padding:8px 20px;">نشر</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="postsContainer"></div>
+        </div>
+
+        <div class="sidebar-right">
+            <div class="suggestions-card">
+                <h3><i class="fas fa-user-plus"></i> مقترحات للمتابعة</h3>
+                <div id="suggestionsList"></div>
+            </div>
+            <div class="suggestions-card">
+                <h3><i class="fas fa-chart-line"></i> إحصائيات سريعة</h3>
+                <div id="quickStats"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/main.js"></script>
+    <script>
+        let currentUser = getUserById(currentUserId);
+        if(!currentUser) {
+            window.location.href = 'login.html';
+        }
+        
+        document.getElementById('userAvatar').innerText = currentUser.name.charAt(0);
+        
+        function renderFeed() {
+            renderPosts('postsContainer', 20);
+            loadSuggestions();
+            loadQuickStats();
+        }
+        
+        function loadSuggestions() {
+            let otherUsers = users.filter(u => u.id !== currentUserId && !u.banned).slice(0, 5);
+            let html = otherUsers.map(u => `
+                <div style="display:flex; align-items:center; gap:10px; padding:10px 0; border-bottom:1px solid #e2e8f0;">
+                    <div class="mini-avatar" style="width:36px; height:36px; font-size:14px;">${u.name.charAt(0)}</div>
+                    <div>
+                        <div style="font-weight:600;">${u.name}</div>
+                        <div style="font-size:11px; color:#64748b;">@${u.username}</div>
+                    </div>
+                </div>
+            `).join('');
+            document.getElementById('suggestionsList').innerHTML = html || 'لا توجد اقتراحات';
+        }
+        
+        function loadQuickStats() {
+            let stats = getStats();
+            document.getElementById('quickStats').innerHTML = `
+                <p><i class="fas fa-users"></i> المستخدمين: ${stats.totalUsers}</p>
+                <p><i class="fas fa-newspaper"></i> المنشورات: ${stats.totalPosts}</p>
+                <p><i class="fas fa-heart"></i> الإعجابات: ${stats.totalLikes}</p>
+                <p><i class="fas fa-trophy"></i> المسابقات: ${stats.totalContests}</p>
+            `;
+        }
+        
+        document.getElementById('publishBtn').addEventListener('click', function() {
+            let content = document.getElementById('postContent').value;
+            let image = document.getElementById('imageUrl').value;
+            if(createPost(content, image)) {
+                document.getElementById('postContent').value = '';
+                document.getElementById('imageUrl').value = '';
+                renderFeed();
+            }
+        });
+        
+        document.getElementById('imageBtn').addEventListener('click', function() {
+            let urlInput = document.getElementById('imageUrl');
+            urlInput.style.display = urlInput.style.display === 'none' ? 'block' : 'none';
+        });
+        
+        document.getElementById('logoutBtn').addEventListener('click', function(e) {
+            e.preventDefault();
+            logout();
+        });
+        
+        // دوال عامة
+        window.handleLike = (postId) => { toggleLike(postId); renderFeed(); };
+        window.handleDeletePost = (postId) => { deletePost(postId); renderFeed(); };
+        window.handleComment = (postId, text) => { addComment(postId, text); renderFeed(); };
+        window.toggleComments = (postId) => {
+            let div = document.getElementById(`comments-${postId}`);
+            if(div) div.style.display = div.style.display === 'none' ? 'block' : 'none';
+        };
+        
+        renderFeed();
+        setInterval(() => { loadQuickStats(); }, 30000);
+    </script>
+</body>
+</html>
