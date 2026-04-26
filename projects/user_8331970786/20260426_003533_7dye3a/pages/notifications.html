@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>الإشعارات - BAMA TECH</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .notifications-container {
+            max-width: 800px;
+            margin: 80px auto 20px;
+            padding: 20px;
+        }
+        .notif-card {
+            background: white;
+            border-radius: 16px;
+            padding: 18px;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            transition: 0.2s;
+            border-right: 4px solid transparent;
+        }
+        .notif-card.unread {
+            background: #eff6ff;
+            border-right-color: #3b82f6;
+        }
+        .notif-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+        }
+        .notif-icon.like { background: #fee2e2; color: #ef4444; }
+        .notif-icon.comment { background: #dcfce7; color: #10b981; }
+        .notif-icon.message { background: #ffe4e6; color: #ec4899; }
+        .notif-icon.admin { background: #fef3c7; color: #f59e0b; }
+        .notif-content { flex: 1; }
+        .notif-message { margin-bottom: 5px; }
+        .notif-time { font-size: 11px; color: #94a3b8; }
+        .mark-read-btn {
+            background: none;
+            border: none;
+            color: #3b82f6;
+            cursor: pointer;
+            font-size: 12px;
+        }
+        .clear-all {
+            background: #ef4444;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 40px;
+            margin-bottom: 20px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo"><i class="fas fa-crown"></i><span>BAMA <span class="tech">TECH</span></span></div>
+            <div class="nav-links">
+                <a href="feed.html"><i class="fas fa-home"></i> الرئيسية</a>
+                <a href="profile.html"><i class="fas fa-user"></i> ملفي</a>
+                <a href="messages.html"><i class="fas fa-envelope"></i> الرسائل</a>
+                <a href="notifications.html" class="active"><i class="fas fa-bell"></i> الإشعارات</a>
+                <a href="#" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> خروج</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="notifications-container">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+            <h2><i class="fas fa-bell"></i> الإشعارات</h2>
+            <button id="clearAllBtn" class="clear-all"><i class="fas fa-trash"></i> مسح الكل</button>
+        </div>
+        <div id="notificationsList"></div>
+    </div>
+
+    <script src="../js/main.js"></script>
+    <script>
+        let currentUser = getUserById(currentUserId);
+        if(!currentUser) window.location.href = 'login.html';
+        
+        function renderNotifications() {
+            let userNotifs = notifications.filter(n => n.userId === currentUserId);
+            
+            if(userNotifs.length === 0) {
+                document.getElementById('notificationsList').innerHTML = `
+                    <div style="text-align:center; padding:60px; background:white; border-radius:20px;">
+                        <i class="fas fa-bell-slash" style="font-size:48px; color:#cbd5e1;"></i>
+                        <p style="margin-top:15px;">لا توجد إشعارات جديدة</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            let iconMap = {
+                like: '<i class="fas fa-heart"></i>',
+                comment: '<i class="fas fa-comment"></i>',
+                message: '<i class="fas fa-envelope"></i>',
+                admin: '<i class="fas fa-shield-alt"></i>'
+            };
+            
+            let typeMap = {
+                like: 'like',
+                comment: 'comment',
+                message: 'message',
+                admin: 'admin'
+            };
+            
+            let html = userNotifs.map(notif => {
+                let type = typeMap[notif.type] || 'admin';
+                return `
+                    <div class="notif-card ${!notif.read ? 'unread' : ''}" data-id="${notif.id}">
+                        <div class="notif-icon ${type}">${iconMap[type] || '<i class="fas fa-info-circle"></i>'}</div>
+                        <div class="notif-content">
+                            <div class="notif-message">${notif.message}</div>
+                            <div class="notif-time">${new Date(notif.timestamp).toLocaleString()}</div>
+                        </div>
+                        ${!notif.read ? `<button class="mark-read-btn" onclick="markRead(${notif.id})">تحديد كمقروء</button>` : ''}
+                    </div>
+                `;
+            }).join('');
+            
+            document.getElementById('notificationsList').innerHTML = html;
+        }
+        
+        window.markRead = (id) => {
+            let notif = notifications.find(n => n.id === id);
+            if(notif) notif.read = true;
+            saveData();
+            renderNotifications();
+        };
+        
+        document.getElementById('clearAllBtn').onclick = () => {
+            if(confirm('هل تريد مسح جميع الإشعارات؟')) {
+                notifications = notifications.filter(n => n.userId !== currentUserId);
+                saveData();
+                renderNotifications();
+            }
+        };
+        
+        document.getElementById('logoutBtn').addEventListener('click', (e) => { e.preventDefault(); logout(); });
+        
+        renderNotifications();
+        setInterval(renderNotifications, 5000);
+    </script>
+</body>
+</html>
