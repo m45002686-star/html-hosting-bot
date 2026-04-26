@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تسجيل الدخول - BAMA TECH</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Cairo', sans-serif;
+            background: linear-gradient(135deg, #0a0f1c, #0f172a, #1e293b);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .auth-card {
+            background: white;
+            border-radius: 30px;
+            padding: 40px;
+            max-width: 450px;
+            width: 100%;
+            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5);
+            animation: fadeInUp 0.5s ease;
+        }
+        .auth-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .auth-header i {
+            font-size: 50px;
+            color: #fbbf24;
+        }
+        .auth-header h2 {
+            font-size: 28px;
+            color: #1e293b;
+            margin-top: 10px;
+        }
+        .auth-header p {
+            color: #64748b;
+            margin-top: 5px;
+        }
+        .input-group {
+            margin-bottom: 20px;
+        }
+        .input-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #1e293b;
+            font-weight: 600;
+        }
+        .input-group input {
+            width: 100%;
+            padding: 14px;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            font-size: 16px;
+            transition: 0.3s;
+        }
+        .input-group input:focus {
+            outline: none;
+            border-color: #00adb5;
+            box-shadow: 0 0 0 3px rgba(0,173,181,0.1);
+        }
+        .auth-btn {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #00adb5, #4facfe);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .auth-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,173,181,0.3);
+        }
+        .auth-footer {
+            text-align: center;
+            margin-top: 25px;
+            padding-top: 20px;
+            border-top: 1px solid #e2e8f0;
+        }
+        .auth-footer a {
+            color: #00adb5;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        .error-message {
+            background: #fee2e2;
+            color: #ef4444;
+            padding: 12px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            display: none;
+            text-align: center;
+        }
+        .loading {
+            display: none;
+            text-align: center;
+            margin-top: 15px;
+            color: #00adb5;
+        }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <div class="auth-card">
+        <div class="auth-header">
+            <i class="fas fa-crown"></i>
+            <h2>مرحباً بعودتك</h2>
+            <p>سجل دخولك إلى BAMA TECH</p>
+        </div>
+        
+        <div class="error-message" id="errorMsg"></div>
+        
+        <form id="loginForm">
+            <div class="input-group">
+                <label><i class="fas fa-user"></i> اسم المستخدم</label>
+                <input type="text" id="username" placeholder="أدخل اسم المستخدم" required>
+            </div>
+            <div class="input-group">
+                <label><i class="fas fa-lock"></i> كلمة المرور</label>
+                <input type="password" id="password" placeholder="أدخل كلمة المرور" required>
+            </div>
+            <button type="submit" class="auth-btn" id="loginBtn">
+                <i class="fas fa-sign-in-alt"></i> تسجيل الدخول
+            </button>
+            <div class="loading" id="loading">
+                <i class="fas fa-spinner fa-spin"></i> جاري تسجيل الدخول...
+            </div>
+        </form>
+        
+        <div class="auth-footer">
+            ليس لديك حساب؟ <a href="register.html">إنشاء حساب جديد</a>
+        </div>
+    </div>
+
+    <script>
+        // تهيئة البيانات الافتراضية إذا لم تكن موجودة
+        function initData() {
+            let users = JSON.parse(localStorage.getItem('bamatech_users_final'));
+            if (!users) {
+                users = [
+                    { id: 1, username: 'owner', name: 'مالك المنصة', password: 'owner123', isOwner: true, isAdmin: true, verified: true, verifiedPlus: true, bio: '👑 مؤسس ورئيس BAMA TECH', avatar: '', banned: false, createdAt: Date.now() },
+                    { id: 2, username: 'admin1', name: 'أمير الإدمن', password: 'admin123', isOwner: false, isAdmin: true, verified: true, verifiedPlus: true, bio: 'مدير عام المنصة', avatar: '', banned: false, createdAt: Date.now() },
+                    { id: 3, username: 'sarah', name: 'سارة أحمد', password: '123', isOwner: false, isAdmin: false, verified: false, verifiedPlus: false, bio: 'مرحباً، أنا جديدة في BAMA TECH', avatar: '', banned: false, createdAt: Date.now() },
+                ];
+                localStorage.setItem('bamatech_users_final', JSON.stringify(users));
+            }
+            
+            let posts = JSON.parse(localStorage.getItem('bamatech_posts_final'));
+            if (!posts) {
+                posts = [
+                    { id: 1, userId: 1, content: 'مرحباً بكم في منصة BAMA TECH 👑🌟', image: '', timestamp: Date.now(), likes: [], comments: [] }
+                ];
+                localStorage.setItem('bamatech_posts_final', JSON.stringify(posts));
+            }
+        }
+        
+        initData();
+        
+        // التحقق من حالة تسجيل الدخول
+        let currentUserId = localStorage.getItem('currentUserId');
+        if (currentUserId) {
+            let users = JSON.parse(localStorage.getItem('bamatech_users_final'));
+            let user = users.find(u => u.id == currentUserId);
+            if (user && !user.banned) {
+                window.location.href = 'feed.html';
+            } else {
+                localStorage.removeItem('currentUserId');
+            }
+        }
+        
+        // معالجة تسجيل الدخول
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            let username = document.getElementById('username').value.trim();
+            let password = document.getElementById('password').value;
+            let errorMsg = document.getElementById('errorMsg');
+            let loginBtn = document.getElementById('loginBtn');
+            let loading = document.getElementById('loading');
+            
+            errorMsg.style.display = 'none';
+            
+            if (!username || !password) {
+                errorMsg.innerHTML = '❌ الرجاء إدخال اسم المستخدم وكلمة المرور';
+                errorMsg.style.display = 'block';
+                return;
+            }
+            
+            loginBtn.disabled = true;
+            loading.style.display = 'block';
+            
+            // تأخير بسيط لمحاكاة الاتصال
+            setTimeout(() => {
+                let users = JSON.parse(localStorage.getItem('bamatech_users_final'));
+                let user = users.find(u => u.username === username && u.password === password);
+                
+                if (user && !user.banned) {
+                    localStorage.setItem('currentUserId', user.id);
+                    window.location.href = 'feed.html';
+                } else if (user && user.banned) {
+                    errorMsg.innerHTML = '❌ هذا الحساب محظور من قبل الإدارة';
+                    errorMsg.style.display = 'block';
+                    loginBtn.disabled = false;
+                    loading.style.display = 'none';
+                } else {
+                    errorMsg.innerHTML = '❌ اسم المستخدم أو كلمة المرور غير صحيحة';
+                    errorMsg.style.display = 'block';
+                    loginBtn.disabled = false;
+                    loading.style.display = 'none';
+                }
+            }, 500);
+        });
+    </script>
+</body>
+</html>
