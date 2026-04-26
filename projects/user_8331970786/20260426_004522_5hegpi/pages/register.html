@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>إنشاء حساب - BAMA TECH</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Cairo', sans-serif;
+            background: linear-gradient(135deg, #0a0f1c, #0f172a, #1e293b);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .auth-card {
+            background: white;
+            border-radius: 30px;
+            padding: 40px;
+            max-width: 450px;
+            width: 100%;
+            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5);
+            animation: fadeInUp 0.5s ease;
+        }
+        .auth-header { text-align: center; margin-bottom: 30px; }
+        .auth-header i { font-size: 50px; color: #00adb5; }
+        .auth-header h2 { font-size: 28px; color: #1e293b; margin-top: 10px; }
+        .input-group { margin-bottom: 20px; }
+        .input-group label { display: block; margin-bottom: 8px; font-weight: 600; }
+        .input-group input {
+            width: 100%;
+            padding: 14px;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            font-size: 16px;
+        }
+        .input-group input:focus { outline: none; border-color: #00adb5; }
+        .auth-btn {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #00adb5, #4facfe);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        .auth-footer { text-align: center; margin-top: 25px; }
+        .auth-footer a { color: #00adb5; text-decoration: none; }
+        .error-message {
+            background: #fee2e2;
+            color: #ef4444;
+            padding: 12px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            display: none;
+        }
+        .success-message {
+            background: #dcfce7;
+            color: #10b981;
+            padding: 12px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            display: none;
+        }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <div class="auth-card">
+        <div class="auth-header">
+            <i class="fas fa-rocket"></i>
+            <h2>انضم إلى BAMA TECH</h2>
+            <p>أنشئ حسابك الآن مجاناً</p>
+        </div>
+        
+        <div class="error-message" id="errorMsg"></div>
+        <div class="success-message" id="successMsg"></div>
+        
+        <form id="registerForm">
+            <div class="input-group">
+                <label><i class="fas fa-user"></i> الاسم الكامل</label>
+                <input type="text" id="fullname" placeholder="أدخل اسمك الكامل" required>
+            </div>
+            <div class="input-group">
+                <label><i class="fas fa-at"></i> اسم المستخدم</label>
+                <input type="text" id="username" placeholder="أدخل اسم مستخدم" required>
+            </div>
+            <div class="input-group">
+                <label><i class="fas fa-lock"></i> كلمة المرور</label>
+                <input type="password" id="password" placeholder="أدخل كلمة المرور" required>
+            </div>
+            <div class="input-group">
+                <label><i class="fas fa-check-circle"></i> تأكيد كلمة المرور</label>
+                <input type="password" id="confirmPassword" placeholder="أعد إدخال كلمة المرور" required>
+            </div>
+            <button type="submit" class="auth-btn">إنشاء حساب</button>
+        </form>
+        
+        <div class="auth-footer">
+            لديك حساب بالفعل؟ <a href="login.html">تسجيل الدخول</a>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('registerForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            let fullname = document.getElementById('fullname').value.trim();
+            let username = document.getElementById('username').value.trim();
+            let password = document.getElementById('password').value;
+            let confirmPassword = document.getElementById('confirmPassword').value;
+            
+            let errorMsg = document.getElementById('errorMsg');
+            let successMsg = document.getElementById('successMsg');
+            
+            errorMsg.style.display = 'none';
+            successMsg.style.display = 'none';
+            
+            if (!fullname || !username || !password) {
+                errorMsg.innerHTML = '❌ الرجاء ملء جميع الحقول';
+                errorMsg.style.display = 'block';
+                return;
+            }
+            
+            if (password !== confirmPassword) {
+                errorMsg.innerHTML = '❌ كلمة المرور غير متطابقة';
+                errorMsg.style.display = 'block';
+                return;
+            }
+            
+            if (password.length < 3) {
+                errorMsg.innerHTML = '❌ كلمة المرور يجب أن تكون 3 أحرف على الأقل';
+                errorMsg.style.display = 'block';
+                return;
+            }
+            
+            let users = JSON.parse(localStorage.getItem('bamatech_users_final')) || [];
+            
+            if (users.find(u => u.username === username)) {
+                errorMsg.innerHTML = '❌ اسم المستخدم موجود بالفعل';
+                errorMsg.style.display = 'block';
+                return;
+            }
+            
+            let newUser = {
+                id: Date.now(),
+                username: username,
+                name: fullname,
+                password: password,
+                isOwner: false,
+                isAdmin: false,
+                verified: false,
+                verifiedPlus: false,
+                bio: 'مرحباً، أنا جديد في BAMA TECH',
+                avatar: '',
+                banned: false,
+                createdAt: Date.now()
+            };
+            
+            users.push(newUser);
+            localStorage.setItem('bamatech_users_final', JSON.stringify(users));
+            
+            successMsg.innerHTML = '✅ تم إنشاء الحساب بنجاح! جاري تحويلك لتسجيل الدخول...';
+            successMsg.style.display = 'block';
+            
+            setTimeout(() => {
+                window.location.href = 'login.html';
+            }, 2000);
+        });
+    </script>
+</body>
+</html>
