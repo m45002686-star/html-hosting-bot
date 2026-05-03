@@ -1,0 +1,13 @@
+{
+  "plugins": ["@firebase/security-rules"],
+  "overrides": [
+    {
+      "files": ["*.rules"],
+      "parser": "@firebase/eslint-plugin-security-rules/parser",
+      "rules": {
+        "@firebase/security-rules/no-unspecified-keys": "error",
+        "@firebase/security-rules/no-invalid-path": "error"
+      }
+    }
+  ]
+}
