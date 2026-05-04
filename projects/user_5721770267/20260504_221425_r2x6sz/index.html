@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sham Cash API | 𝐀𝐁𝐎 𝐆𝐎𝐑𝐆𝐄</title>
+    
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
+    
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Cairo', sans-serif;
+            background: #020510;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 15px;
+        }
+        .container {
+            background: #0a0e1a;
+            border: 1px solid #1a1f33;
+            border-radius: 20px;
+            padding: 35px 25px;
+            width: 100%;
+            max-width: 450px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+        }
+        .header { text-align: center; margin-bottom: 25px; }
+        .logo {
+            width: 65px; height: 65px;
+            background: linear-gradient(135deg, #00d4ff, #0080ff);
+            border-radius: 18px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            margin-bottom: 10px;
+            box-shadow: 0 0 30px rgba(0,212,255,0.4);
+        }
+        h1 {
+            font-size: 1.7em;
+            font-weight: 900;
+            background: linear-gradient(135deg, #00d4ff, #0080ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .by {
+            color: #00d4ff;
+            font-weight: 700;
+            letter-spacing: 3px;
+            font-size: 1.1em;
+        }
+        .page { display: none; }
+        .page.active { display: block; animation: fadeIn 0.4s ease; }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .btn {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 12px;
+            font-size: 1em;
+            font-weight: 700;
+            cursor: pointer;
+            margin: 7px 0;
+            font-family: 'Cairo', sans-serif;
+            text-align: center;
+            transition: 0.3s;
+        }
+        .btn:active { transform: scale(0.96); }
+        .btn-blue {
+            background: linear-gradient(135deg, #00d4ff, #0080ff);
+            color: #000;
+            box-shadow: 0 8px 25px rgba(0,212,255,0.3);
+        }
+        .btn-line {
+            background: transparent;
+            border: 1.5px solid #00d4ff;
+            color: #00d4ff;
+        }
+        .btn-gold {
+            background: linear-gradient(135deg, #ffb800, #ff8800);
+            color: #000;
+            box-shadow: 0 8px 25px rgba(255,184,0,0.3);
+        }
+        .btn-red {
+            background: transparent;
+            border: 1.5px solid #ff3355;
+            color: #ff3355;
+        }
+        .btn-sm { flex: 1; padding: 12px; font-size: 0.9em; }
+        .btn-row { display: flex; gap: 10px; }
+        
+        .qr-box {
+            background: #fff;
+            border-radius: 15px;
+            padding: 20px;
+            margin: 15px 0;
+            text-align: center;
+        }
+        #qrcode { display: inline-block; }
+        #qrcode img { border-radius: 8px; }
+        
+        .timer {
+            text-align: center;
+            color: #ffb800;
+            font-weight: 700;
+            padding: 10px;
+            background: rgba(255,184,0,0.05);
+            border: 1px solid rgba(255,184,0,0.2);
+            border-radius: 50px;
+            margin: 10px 0;
+        }
+        .status {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            color: #ffb800;
+            font-weight: 600;
+            margin: 10px 0;
+        }
+        .dot {
+            width: 10px; height: 10px;
+            background: #ffb800;
+            border-radius: 50%;
+            animation: pulse 1.4s infinite;
+        }
+        @keyframes pulse {
+            0%,100% { box-shadow: 0 0 0 0 rgba(255,184,0,0.7); }
+            50% { box-shadow: 0 0 0 12px rgba(255,184,0,0); }
+        }
+        
+        .token-box {
+            background: rgba(0,0,0,0.5);
+            border: 1px solid rgba(0,212,255,0.2);
+            border-radius: 12px;
+            padding: 15px;
+            margin: 15px 0;
+            word-break: break-all;
+            color: #00ff88;
+            font-family: monospace;
+            font-size: 0.85em;
+            direction: ltr;
+            text-align: left;
+        }
+        .success-icon { font-size: 60px; text-align: center; }
+        
+        .inp {
+            width: 100%;
+            padding: 14px;
+            border-radius: 12px;
+            border: 1.5px solid #1a1f33;
+            background: rgba(255,255,255,0.02);
+            color: #fff;
+            font-size: 1em;
+            font-family: 'Cairo', sans-serif;
+            margin-bottom: 12px;
+        }
+        .inp:focus { outline: none; border-color: #00d4ff; }
+        .inp-ltr { direction: ltr; text-align: left; font-family: monospace; }
+        
+        .text-c { text-align: center; }
+        .text-m { color: #888; }
+        .text-w { color: #fff; }
+        .mb-10 { margin-bottom: 10px; }
+        .mb-15 { margin-bottom: 15px; }
+        .mb-20 { margin-bottom: 20px; }
+        .mt-10 { margin-top: 10px; }
+        .mt-15 { margin-top: 15px; }
+        .mt-20 { margin-top: 20px; }
+        .hide { display: none !important; }
+        
+        .footer {
+            text-align: center;
+            color: #444;
+            font-size: 0.7em;
+            margin-top: 15px;
+        }
+        
+        .toast {
+            position: fixed;
+            top: 15px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 9999;
+            padding: 12px 24px;
+            border-radius: 50px;
+            font-weight: 700;
+            color: #000;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+        
+        @media (max-width: 480px) {
+            .container { padding: 25px 15px; }
+            h1 { font-size: 1.4em; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header">
+        <div class="logo">🏦</div>
+        <h1>Sham Cash API</h1>
+        <p class="text-m" style="letter-spacing:2px;font-size:0.7em;">GENERATE • CONNECT • AUTOMATE</p>
+        <p class="by">𝐀𝐁𝐎 𝐆𝐎𝐑𝐆𝐄</p>
+    </div>
+
+    <!-- الصفحة الرئيسية -->
+    <div id="p-home" class="page active">
+        <p class="text-m text-c mb-20">اربط محفظة <span style="color:#00d4ff;">Sham Cash</span> واحصل على <span style="color:#00d4ff;">API Token</span></p>
+        <button class="btn btn-blue" onclick="goPage('p-qr')">🔐 تسجيل الدخول عبر QR</button>
+        <button class="btn btn-line" onclick="goPage('p-manual')">🎫 لدي API Token سابق</button>
+        <button class="btn btn-gold" onclick="goPage('p-balance')">💰 فحص الرصيد</button>
+    </div>
+
+    <!-- QR Page -->
+    <div id="p-qr" class="page">
+        <h3 class="text-w text-c mb-10">📱 امسح QR Code</h3>
+        <p class="text-m text-c mb-15" style="font-size:0.8em;">1️⃣ افتح Sham Cash 2️⃣ الإعدادات 3️⃣ ربط API 4️⃣ امسح</p>
+        
+        <div class="qr-box">
+            <div id="qrcode"></div>
+        </div>
+        
+        <div class="timer" id="timerBox">⏰ 05:00</div>
+        
+        <div class="status" id="statusBox">
+            <span class="dot"></span>
+            <span>في انتظار المسح...</span>
+        </div>
+        
+        <div id="spinnerBox" class="hide text-c mt-15">
+            <div style="width:30px;height:30px;border:3px solid rgba(255,255,255,0.1);border-top-color:#00d4ff;border-radius:50%;animation:spin 0.7s linear infinite;margin:0 auto 10px;"></div>
+            <p class="text-m">جاري التحقق...</p>
+            <style>@keyframes spin {to{transform:rotate(360deg);}}</style>
+        </div>
+        
+        <button class="btn btn-red mt-15" onclick="cancelQR()">❌ إلغاء</button>
+    </div>
+
+    <!-- Success Page -->
+    <div id="p-success" class="page">
+        <div class="success-icon">✅</div>
+        <h3 class="text-w text-c mt-10">تم الربط بنجاح!</h3>
+        <p class="text-m text-c mb-10">API Token جاهز:</p>
+        <div class="token-box" id="tokenShow">---</div>
+        <div class="btn-row mt-15">
+            <button class="btn btn-blue btn-sm" onclick="copyToken()">📋 نسخ</button>
+            <button class="btn btn-gold btn-sm" onclick="goPage('p-balance')">💰 الرصيد</button>
+        </div>
+        <button class="btn btn-line mt-10" onclick="goPage('p-home')">🏠 الرئيسية</button>
+    </div>
+
+    <!-- Manual Token Page -->
+    <div id="p-manual" class="page">
+        <h3 class="text-w text-c mb-15">🎫 أدخل API Token</h3>
+        <input class="inp inp-ltr" id="manualInp" placeholder="sham_...">
+        <button class="btn btn-blue mt-10" onclick="manualCheck()">✅ تحقق</button>
+        <button class="btn btn-line mt-10" onclick="goPage('p-home')">🔙 رجوع</button>
+    </div>
+
+    <!-- Balance Page -->
+    <div id="p-balance" class="page">
+        <h3 class="text-w text-c mb-15">💰 فحص الرصيد</h3>
+        <input class="inp inp-ltr" id="balInp" placeholder="sham_...">
+        <button class="btn btn-gold mt-10" onclick="balCheck()">🔍 عرض الرصيد</button>
+        <div id="balResult" class="hide mt-20">
+            <div class="token-box" style="color:#ffb800;" id="balText"></div>
+        </div>
+        <button class="btn btn-line mt-15" onclick="goPage('p-home')">🔙 رجوع</button>
+    </div>
+</div>
+
+<div class="footer">© 2026 Sham Cash API · 𝐀𝐁𝐎 𝐆𝐎𝐑𝐆𝐄 · All rights reserved</div>
+
+<div id="toastArea"></div>
+
+<script>
+// ==================== SUPABASE ====================
+const SUPABASE_URL = 'https://olgrbwtdagnshlcvyllx.supabase.co';
+const SUPABASE_KEY = 'sb_publishable_PRDKZuYTwDd-0Bke_-1I1w_97RlbsIp';
+const supa = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+console.log('✅ Sham Cash API | 𝐀𝐁𝐎 𝐆𝐎𝐑𝐆𝐄 | 2026');
+
+// ==================== STATE ====================
+let watchTimer = null;
+let countTimer = null;
+let sessId = null;
+
+// ==================== NAVIGATION ====================
+function goPage(id) {
+    // إخفاء الكل
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    // إظهار المطلوب
+    document.getElementById(id).classList.add('active');
+    
+    // تنظيف المؤقتات
+    if (watchTimer) { clearInterval(watchTimer); watchTimer = null; }
+    if (countTimer) { clearInterval(countTimer); countTimer = null; }
+    
+    // إذا فتحنا صفحة QR
+    if (id === 'p-qr') {
+        createQR();
+    }
+}
+
+// ==================== TOAST ====================
+function showToast(msg, bg) {
+    const area = document.getElementById('toastArea');
+    const el = document.createElement('div');
+    el.className = 'toast';
+    el.style.background = bg || '#00e676';
+    el.textContent = msg;
+    area.appendChild(el);
+    setTimeout(() => el.remove(), 2500);
+}
+
+// ==================== CREATE QR ====================
+async function createQR() {
+    try {
+        console.log('🔄 Creating QR...');
+        
+        // توليد session ID
+        sessId = 'sess_' + crypto.randomUUID();
+        
+        // وقت الانتهاء
+        const exp = new Date(Date.now() + 5 * 60 * 1000);
+        
+        // حفظ الجلسة في Supabase
+        const { error } = await supa.from('sessions').insert({
+            session_id: sessId,
+            status: 'pending',
+            expires_at: exp.toISOString()
+        });
+        
+        if (error) {
+            console.error('Session error:', error);
+            showToast('⚠️ خطأ في الخادم - تأكد من الجداول', '#ff3355');
+            goPage('p-home');
+            return;
+        }
+        
+        console.log('✅ Session created:', sessId);
+        
+        // تنظيف QR القديم
+        document.getElementById('qrcode').innerHTML = '';
+        
+        // رابط QR
+        const qrText = 'shamcash://auth?session=' + sessId + '&source=abogeorge&ts=' + Date.now();
+        
+        // إنشاء QR
+        new QRCode(document.getElementById('qrcode'), {
+            text: qrText,
+            width: 200,
+            height: 200,
+            colorDark: '#000000',
+            colorLight: '#ffffff',
+            correctLevel: QRCode.CorrectLevel.H
+        });
+        
+        console.log('✅ QR Code generated');
+        
+        // تايمر
+        let sec = 300;
+        const timerEl = document.getElementById('timerBox');
+        timerEl.style.color = '#ffb800';
+        
+        countTimer = setInterval(() => {
+            sec--;
+            const m = Math.floor(sec / 60);
+            const s = sec % 60;
+            timerEl.textContent = '⏰ ' + String(m).padStart(2, '0') + ':' + String(s).padStart(2, '0');
+            
+            if (sec <= 30) timerEl.style.color = '#ff3355';
+            
+            if (sec <= 0) {
+                clearInterval(countTimer);
+                clearInterval(watchTimer);
+                showToast('⏰ انتهت صلاحية QR', '#ff3355');
+                goPage('p-home');
+            }
+        }, 1000);
+        
+        // مراقبة التأكيد
+        watchTimer = setInterval(async () => {
+            try {
+                const { data } = await supa.from('sessions')
+                    .select('*')
+                    .eq('session_id', sessId)
+                    .eq('status', 'confirmed')
+                    .single();
+                
+                if (data && data.api_token) {
+                    clearInterval(watchTimer);
+                    clearInterval(countTimer);
+                    console.log('🎉 Auth confirmed!');
+                    onAuthSuccess(data.api_token);
+                }
+            } catch (e) {
+                // لم يتم التأكيد بعد
+            }
+        }, 2000);
+        
+    } catch (e) {
+        console.error('QR Error:', e);
+        showToast('⚠️ خطأ في الشبكة', '#ff3355');
+        goPage('p-home');
+    }
+}
+
+// ==================== CANCEL QR ====================
+function cancelQR() {
+    if (watchTimer) clearInterval(watchTimer);
+    if (countTimer) clearInterval(countTimer);
+    watchTimer = null;
+    countTimer = null;
+    
+    if (sessId) {
+        supa.from('sessions').update({ status: 'cancelled' }).eq('session_id', sessId);
+    }
+    
+    goPage('p-home');
+}
+
+// ==================== AUTH SUCCESS ====================
+function onAuthSuccess(token) {
+    localStorage.setItem('shamcash_token', token);
+    document.getElementById('tokenShow').textContent = token;
+    showToast('✅ تم الربط بنجاح!', '#00e676');
+    goPage('p-success');
+}
+
+// ==================== CONFIRM FROM APP ====================
+window.shamcashConfirmAuth = async function(sessionId, wallet) {
+    try {
+        const apiToken = 'sham_' + Array.from({length: 64}, () => '0123456789abcdef'[Math.floor(Math.random() * 16)]).join('');
+        
+        await supa.from('users').upsert({
+            wallet_address: wallet,
+            api_token: apiToken,
+            balance: 0
+        }, { onConflict: 'wallet_address' });
+        
+        await supa.from('sessions').update({
+            status: 'confirmed',
+            wallet_address: wallet,
+            api_token: apiToken
+        }).eq('session_id', sessionId);
+        
+        console.log('✅ Auth confirmed from app');
+        return { success: true, api_token: apiToken };
+    } catch (e) {
+        console.error('Confirm error:', e);
+        return { success: false, error: e.message };
+    }
+};
+
+// ==================== COPY TOKEN ====================
+function copyToken() {
+    const t = document.getElementById('tokenShow').textContent;
+    if (t && t !== '---') {
+        navigator.clipboard.writeText(t).then(() => {
+            showToast('📋 تم النسخ!', '#00d4ff');
+        }).catch(() => {
+            showToast('⚠️ فشل النسخ - حاول يدوياً', '#ff3355');
+        });
+    }
+}
+
+// ==================== MANUAL CHECK ====================
+async function manualCheck() {
+    const t = document.getElementById('manualInp').value.trim();
+    if (!t) {
+        showToast('⚠️ أدخل API Token', '#ff3355');
+        return;
+    }
+    
+    try {
+        const { data, error } = await supa.from('users').select('*').eq('api_token', t).single();
+        
+        if (error || !data) {
+            showToast('❌ توكن غير صالح', '#ff3355');
+            return;
+        }
+        
+        document.getElementById('tokenShow').textContent = t;
+        localStorage.setItem('shamcash_token', t);
+        showToast('✅ توكن صالح!', '#00e676');
+        goPage('p-success');
+    } catch (e) {
+        showToast('⚠️ خطأ في الاتصال', '#ff3355');
+    }
+}
+
+// ==================== BALANCE CHECK ====================
+async function balCheck() {
+    let t = document.getElementById('balInp').value.trim();
+    if (!t) t = localStorage.getItem('shamcash_token');
+    if (!t) {
+        showToast('⚠️ أدخل API Token', '#ff3355');
+        return;
+    }
+    
+    try {
+        const { data, error } = await supa.from('users').select('*').eq('api_token', t).single();
+        
+        if (error || !data) {
+            showToast('❌ توكن غير صالح', '#ff3355');
+            return;
+        }
+        
+        document.getElementById('balText').innerHTML = 
+            '💰 الرصيد: <b>' + data.balance + ' ل.س</b><br>' +
+            '🏦 المحفظة: ' + (data.wallet_address || '---').slice(0, 12) + '...<br>' +
+            '📅 تاريخ الإنشاء: ' + new Date(data.created_at).toLocaleDateString('ar-SY');
+        
+        document.getElementById('balResult').classList.remove('hide');
+        showToast('💰 ' + data.balance + ' ل.س', '#ffb800');
+    } catch (e) {
+        showToast('⚠️ خطأ في الاتصال', '#ff3355');
+    }
+}
+
+// ==================== INIT ====================
+const savedToken = localStorage.getItem('shamcash_token');
+if (savedToken) {
+    document.getElementById('tokenShow').textContent = savedToken;
+}
+
+// اختبار Supabase
+supa.from('sessions').select('count', { count: 'exact', head: true }).then(({ error }) => {
+    if (error) {
+        console.warn('⚠️ Supabase error:', error.message);
+        console.warn('تأكد من الجداول في SQL Editor');
+    } else {
+        console.log('🎉 Supabase متصل وجاهز!');
+    }
+});
+</script>
+
+</body>
+</html>
