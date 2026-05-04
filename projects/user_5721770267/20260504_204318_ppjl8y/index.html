@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sham Cash API - abogeorge</title>
+    <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            width: 100%;
+            max-width: 500px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+        }
+
+        .logo {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .logo h1 {
+            color: #00d4ff;
+            font-size: 2em;
+            margin-bottom: 5px;
+        }
+
+        .logo p {
+            color: #888;
+            font-size: 0.9em;
+        }
+
+        .step {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .step.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .btn {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1em;
+            cursor: pointer;
+            margin: 10px 0;
+            transition: all 0.3s ease;
+            font-weight: bold;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #00d4ff, #0099cc);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0, 212, 255, 0.3);
+        }
+
+        .btn-success {
+            background: linear-gradient(135deg, #00ff88, #00cc6a);
+            color: #1a1a2e;
+        }
+
+        .btn-danger {
+            background: linear-gradient(135deg, #ff4757, #ff3344);
+            color: white;
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid #00d4ff;
+            color: #00d4ff;
+        }
+
+        .qr-container {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        #qrcode {
+            display: inline-block;
+        }
+
+        .token-box {
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid #00d4ff;
+            border-radius: 10px;
+            padding: 15px;
+            margin: 15px 0;
+            word-break: break-all;
+            color: #00ff88;
+            font-family: monospace;
+            font-size: 0.9em;
+            text-align: left;
+        }
+
+        .info-text {
+            color: #ccc;
+            text-align: center;
+            margin: 15px 0;
+            line-height: 1.6;
+        }
+
+        .timer {
+            text-align: center;
+            color: #ff4757;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+
+        .status-dot {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            margin-left: 5px;
+            animation: pulse 1.5s infinite;
+        }
+
+        .status-dot.pending { background: #ffa502; }
+        .status-dot.success { background: #00ff88; }
+        .status-dot.error { background: #ff4757; }
+
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.3; }
+            100% { opacity: 1; }
+        }
+
+        .input-field {
+            width: 100%;
+            padding: 15px;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: rgba(0, 0, 0, 0.3);
+            color: white;
+            font-size: 1em;
+            margin: 10px 0;
+            text-align: right;
+        }
+
+        .input-field:focus {
+            outline: none;
+            border-color: #00d4ff;
+        }
+
+        .api-link {
+            color: #00d4ff;
+            text-decoration: none;
+            font-family: monospace;
+        }
+
+        .footer {
+            text-align: center;
+            color: #666;
+            margin-top: 20px;
+            font-size: 0.8em;
+        }
+
+        .loading-spinner {
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: #00d4ff;
+            animation: spin 1s linear infinite;
+            margin: 10px auto;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="logo">
+        <h1>🏦 Sham Cash API</h1>
+        <p>بواسطة abogeorge</p>
+    </div>
+
+    <!-- الخطوة 1: البداية -->
+    <div id="step1" class="step active">
+        <h2 style="color: white; text-align: center; margin-bottom: 20px;">مرحباً بك!</h2>
+        <p class="info-text">
+            اربط محفظة Sham Cash الخاصة بك واحصل على API Token للعمليات التلقائية
+        </p>
+        <button class="btn btn-primary" onclick="showStep('step2')">
+            🔐 تسجيل الدخول عبر QR Code
+        </button>
+        <button class="btn btn-outline" onclick="showStep('step4')">
+            🎫 لدي API Token سابق
+        </button>
+    </div>
+
+    <!-- الخطوة 2: QR Code -->
+    <div id="step2" class="step">
+        <h2 style="color: white; text-align: center;">📱 امسح QR Code</h2>
+        <p class="info-text">
+            1️⃣ افتح تطبيق <strong>Sham Cash</strong><br>
+            2️⃣ اذهب إلى الإعدادات ⚙️<br>
+            3️⃣ اختر "ربط API"<br>
+            4️⃣ امسح الكود أدناه
+        </p>
+
+        <div class="qr-container">
+            <div id="qrcode"></div>
+        </div>
+
+        <p class="timer" id="timer">⏰ صلاحية الكود: 5:00</p>
+        
+        <div style="text-align: center; color: white;">
+            <span>في انتظار المسح</span>
+            <span class="status-dot pending"></span>
+        </div>
+
+        <div id="loadingArea" style="text-align: center; display: none;">
+            <div class="loading-spinner"></div>
+            <p style="color: white;">جاري التحقق...</p>
+        </div>
+
+        <button class="btn btn-danger" onclick="showStep('step1')">❌ إلغاء</button>
+    </div>
+
+    <!-- الخطوة 3: نجاح الربط -->
+    <div id="step3" class="step">
+        <h2 style="color: #00ff88; text-align: center;">✅ تم الربط بنجاح!</h2>
+        
+        <p class="info-text">API Token الخاص بك:</p>
+        <div class="token-box" id="apiTokenDisplay"></div>
+        
+        <p class="info-text">
+            🔗 رابط API:<br>
+            <a class="api-link" id="apiUrlDisplay" href="#" target="_blank"></a>
+        </p>
+
+        <button class="btn btn-success" onclick="copyToken()">📋 نسخ API Token</button>
+        <button class="btn btn-primary" onclick="testBalance()">💰 فحص الرصيد</button>
+        <button class="btn btn-outline" onclick="showStep('step1')">🏠 العودة للرئيسية</button>
+    </div>
+
+    <!-- الخطوة 4: إدخال Token يدوي -->
+    <div id="step4" class="step">
+        <h2 style="color: white; text-align: center;">🎫 أدخل API Token</h2>
+        <input type="text" class="input-field" id="manualToken" placeholder="sham_..." dir="ltr">
+        <button class="btn btn-primary" onclick="checkManualToken()">✅ تحقق من التوكن</button>
+        <button class="btn btn-outline" onclick="showStep('step1')">🔙 رجوع</button>
+    </div>
+
+    <div class="footer">
+        © 2024 Sham Cash API - abogeorge | جميع الحقوق محفوظة
+    </div>
+</div>
+
+<script>
+    const API_URL = 'http://shamcash-abogeorge-api.com';
+    const SECRET_KEY = 'abogeorge_shamcash_2024_secure_xK9mWp3Q7rV5nL8';
+    
+    let currentSessionId = null;
+    let checkInterval = null;
+    let timerInterval = null;
+
+    function showStep(stepId) {
+        // إخفاء كل الخطوات
+        document.querySelectorAll('.step').forEach(el => el.classList.remove('active'));
+        // إظهار الخطوة المطلوبة
+        document.getElementById(stepId).classList.add('active');
+        
+        // تنظيف المؤقتات عند الانتقال
+        if (checkInterval) clearInterval(checkInterval);
+        if (timerInterval) clearInterval(timerInterval);
+        
+        if (stepId === 'step2') {
+            generateQR();
+        }
+    }
+
+    async function generateQR() {
+        try {
+            // إنشاء جلسة جديدة عبر API
+            const response = await fetch(`${API_URL}/sessions/create`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    client: 'web',
+                    timestamp: Math.floor(Date.now() / 1000)
+                })
+            });
+            
+            const data = await response.json();
+            currentSessionId = data.session_id;
+            
+            // إنشاء QR Code
+            const qrAuthUrl = `shamcash://auth?session=${currentSessionId}`;
+            
+            document.getElementById('qrcode').innerHTML = '';
+            new QRCode(document.getElementById('qrcode'), {
+                text: qrAuthUrl,
+                width: 200,
+                height: 200,
+                colorDark: "#000000",
+                colorLight: "#ffffff",
+            });
+            
+            // بدء العد التنازلي
+            let timeLeft = 300; // 5 دقائق
+            const timerEl = document.getElementById('timer');
+            
+            timerInterval = setInterval(() => {
+                timeLeft--;
+                const minutes = Math.floor(timeLeft / 60);
+                const seconds = timeLeft % 60;
+                timerEl.textContent = `⏰ صلاحية الكود: ${minutes}:${seconds.toString().padStart(2, '0')}`;
+                
+                if (timeLeft <= 0) {
+                    clearInterval(timerInterval);
+                    clearInterval(checkInterval);
+                    timerEl.textContent = '⏰ انتهت صلاحية الكود';
+                    alert('انتهت صلاحية QR Code. حاول مرة أخرى.');
+                    showStep('step1');
+                }
+            }, 1000);
+            
+            // بدء مراقبة حالة الجلسة
+            document.getElementById('loadingArea').style.display = 'block';
+            checkSession();
+            
+        } catch (error) {
+            console.error('Error:', error);
+            alert('حدث خطأ في الاتصال بالخادم');
+            showStep('step1');
+        }
+    }
+
+    function checkSession() {
+        checkInterval = setInterval(async () => {
+            try {
+                const response = await fetch(`${API_URL}/session/${currentSessionId}/status`);
+                const data = await response.json();
+                
+                if (data.status === 'confirmed' && data.api_token) {
+                    clearInterval(checkInterval);
+                    clearInterval(timerInterval);
+                    
+                    // حفظ التوكن
+                    localStorage.setItem('shamcash_api_token', data.api_token);
+                    
+                    // عرض النجاح
+                    document.getElementById('apiTokenDisplay').textContent = data.api_token;
+                    document.getElementById('apiUrlDisplay').href = `${API_URL}/api/${data.api_token}`;
+                    document.getElementById('apiUrlDisplay').textContent = `${API_URL}/api/${data.api_token}`;
+                    
+                    showStep('step3');
+                }
+            } catch (error) {
+                console.error('Check session error:', error);
+            }
+        }, 2000); // فحص كل ثانيتين
+    }
+
+    function copyToken() {
+        const token = document.getElementById('apiTokenDisplay').textContent;
+        navigator.clipboard.writeText(token).then(() => {
+            alert('✅ تم نسخ API Token!');
+        });
+    }
+
+    async function testBalance() {
+        const token = document.getElementById('apiTokenDisplay').textContent;
+        try {
+            const response = await fetch(`${API_URL}/api/${token}/balance`);
+            const data = await response.json();
+            alert(`💰 الرصيد: ${data.balance}\n🏦 المحفظة: ${data.wallet_address}`);
+        } catch (error) {
+            alert('❌ فشل جلب الرصيد');
+        }
+    }
+
+    async function checkManualToken() {
+        const token = document.getElementById('manualToken').value.trim();
+        if (!token) {
+            alert('الرجاء إدخال API Token');
+            return;
+        }
+        
+        try {
+            const response = await fetch(`${API_URL}/api/${token}/balance`);
+            if (response.ok) {
+                const data = await response.json();
+                document.getElementById('apiTokenDisplay').textContent = token;
+                document.getElementById('apiUrlDisplay').href = `${API_URL}/api/${token}`;
+                document.getElementById('apiUrlDisplay').textContent = `${API_URL}/api/${token}`;
+                showStep('step3');
+            } else {
+                alert('❌ توكن غير صالح');
+            }
+        } catch (error) {
+            alert('❌ فشل الاتصال بالخادم');
+        }
+    }
+
+    // تحميل التوكن المحفوظ عند فتح الصفحة
+    window.onload = function() {
+        const savedToken = localStorage.getItem('shamcash_api_token');
+        if (savedToken) {
+            document.getElementById('apiTokenDisplay').textContent = savedToken;
+            document.getElementById('apiUrlDisplay').href = `${API_URL}/api/${savedToken}`;
+            document.getElementById('apiUrlDisplay').textContent = `${API_URL}/api/${savedToken}`;
+            showStep('step3');
+        }
+    };
+</script>
+
+</body>
+</html>
