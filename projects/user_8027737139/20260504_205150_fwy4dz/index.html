@@ -1,0 +1,1363 @@
+-- phpMyAdmin SQL Dump
+-- version 5.1.3
+-- https://www.phpmyadmin.net/
+--
+-- Host: sdb-66.hosting.stackcp.net
+-- Generation Time: Sep 09, 2023 at 07:55 PM
+-- Server version: 10.6.15-MariaDB-log
+-- PHP Version: 7.1.25
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+START TRANSACTION;
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- Database: `malltask-353034316b74`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `admins`
+--
+
+CREATE TABLE `admins` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `name` varchar(40) DEFAULT NULL,
+  `email` varchar(40) DEFAULT NULL,
+  `username` varchar(40) DEFAULT NULL,
+  `email_verified_at` timestamp NULL DEFAULT NULL,
+  `image` varchar(255) DEFAULT NULL,
+  `password` varchar(255) NOT NULL,
+  `remember_token` varchar(255) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `admins`
+--
+
+INSERT INTO `admins` (`id`, `name`, `email`, `username`, `email_verified_at`, `image`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
+(1, 'Super Admin', 'aliabbasnadeem538@GMAIL.com', 'admin', NULL, '64a0d8a5a500b1688262821.jpg', '$2y$10$0WA85PSRJ7LGtI6x8KDEaOlxgjM1xlG87R8uMVa3jESuu3QZlgaoi', '7MbLILN02cWvaAz83GRRqWlWxIAxmclMatT1rOtpQcrKwc4LUxsNL1HJP3Rj', NULL, '2023-09-08 09:06:20');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `admin_notifications`
+--
+
+CREATE TABLE `admin_notifications` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `user_id` int(10) UNSIGNED NOT NULL DEFAULT 0,
+  `title` varchar(255) DEFAULT NULL,
+  `read_status` tinyint(1) NOT NULL DEFAULT 0,
+  `click_url` text DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `admin_notifications`
+--
+
+INSERT INTO `admin_notifications` (`id`, `user_id`, `title`, `read_status`, `click_url`, `created_at`, `updated_at`) VALUES
+(1, 1, 'New member registered', 0, '/admin/users/detail/1', '2023-07-03 13:04:36', '2023-07-03 13:04:36'),
+(2, 2, 'New member registered', 0, '/admin/users/detail/2', '2023-07-03 13:05:09', '2023-07-03 13:05:09'),
+(3, 3, 'New member registered', 0, '/admin/users/detail/3', '2023-07-03 13:07:12', '2023-07-03 13:07:12'),
+(4, 3, 'Deposit request from demouser', 0, '/admin/deposit/details/1', '2023-07-03 13:17:29', '2023-07-03 13:17:29'),
+(5, 3, 'Deposit successful via Easypaisa', 0, '/admin/deposit/successful', '2023-07-03 13:24:25', '2023-07-03 13:24:25'),
+(6, 4, 'New member registered', 0, '/admin/users/detail/4', '2023-07-03 13:25:34', '2023-07-03 13:25:34'),
+(7, 4, 'Deposit request from AhmadTariq', 0, '/admin/deposit/details/2', '2023-07-03 13:25:46', '2023-07-03 13:25:46'),
+(8, 4, 'Deposit request from AhmadTariq', 0, '/admin/deposit/details/3', '2023-07-03 13:26:12', '2023-07-03 13:26:12'),
+(9, 4, 'Deposit successful via Easypaisa', 0, '/admin/deposit/successful', '2023-07-03 13:26:17', '2023-07-03 13:26:17'),
+(10, 2, 'Deposit request from manibrand786', 0, '/admin/deposit/details/4', '2023-07-03 13:26:49', '2023-07-03 13:26:49'),
+(11, 3, 'New withdraw request from demouser', 0, '/admin/withdraw/details/2', '2023-07-03 13:34:59', '2023-07-03 13:34:59'),
+(12, 5, 'New member registered', 0, '/admin/users/detail/5', '2023-07-03 13:38:18', '2023-07-03 13:38:18'),
+(13, 6, 'New member registered', 0, '/admin/users/detail/6', '2023-07-03 15:00:01', '2023-07-03 15:00:01'),
+(14, 7, 'New member registered', 0, '/admin/users/detail/7', '2023-07-04 05:38:54', '2023-07-04 05:38:54'),
+(15, 8, 'New member registered', 0, '/admin/users/detail/8', '2023-07-04 08:13:39', '2023-07-04 08:13:39'),
+(16, 7, 'Deposit request from Maqbool Malik', 0, '/admin/deposit/details/7', '2023-07-04 09:10:23', '2023-07-04 09:10:23'),
+(17, 7, 'Deposit successful via Easypaisa', 0, '/admin/deposit/successful', '2023-07-04 09:11:22', '2023-07-04 09:11:22'),
+(18, 9, 'New member registered', 0, '/admin/users/detail/9', '2023-07-04 17:26:59', '2023-07-04 17:26:59'),
+(19, 10, 'New member registered', 0, '/admin/users/detail/10', '2023-07-05 05:32:37', '2023-07-05 05:32:37'),
+(20, 10, 'Deposit request from 657567', 0, '/admin/deposit/details/8', '2023-07-05 05:32:46', '2023-07-05 05:32:46'),
+(21, 1, 'New member registered', 0, '/admin/users/detail/1', '2023-07-10 16:37:28', '2023-07-10 16:37:28'),
+(22, 2, 'New member registered', 0, '/admin/users/detail/2', '2023-07-10 16:55:25', '2023-07-10 16:55:25'),
+(23, 3, 'New member registered', 0, '/admin/users/detail/3', '2023-07-13 15:18:12', '2023-07-13 15:18:12'),
+(24, 4, 'New member registered', 0, '/admin/users/detail/4', '2023-09-07 23:57:15', '2023-09-07 23:57:15'),
+(25, 4, 'Deposit request from ', 0, '/admin/deposit/details/6', '2023-09-08 05:37:08', '2023-09-08 05:37:08'),
+(26, 4, 'Deposit request from ', 0, '/admin/deposit/details/7', '2023-09-08 05:43:19', '2023-09-08 05:43:19'),
+(27, 4, 'Deposit successful via Jazzcash', 0, '/admin/deposit/successful', '2023-09-08 06:05:23', '2023-09-08 06:05:23'),
+(28, 4, 'Deposit successful via Jazzcash', 0, '/admin/deposit/successful', '2023-09-08 06:05:45', '2023-09-08 06:05:45'),
+(29, 4, 'New withdraw request from ', 0, '/admin/withdraw/details/5', '2023-09-08 06:54:10', '2023-09-08 06:54:10'),
+(30, 5, 'New member registered', 0, '/admin/users/detail/5', '2023-09-08 07:00:20', '2023-09-08 07:00:20'),
+(31, 4, 'Deposit request from ', 0, '/admin/deposit/details/11', '2023-09-08 08:29:08', '2023-09-08 08:29:08'),
+(32, 6, 'New member registered', 0, '/admin/users/detail/6', '2023-09-08 08:52:27', '2023-09-08 08:52:27'),
+(33, 7, 'New member registered', 0, '/admin/users/detail/7', '2023-09-08 09:07:12', '2023-09-08 09:07:12'),
+(34, 8, 'New member registered', 0, '/admin/users/detail/8', '2023-09-08 09:09:23', '2023-09-08 09:09:23'),
+(35, 9, 'New member registered', 0, '/admin/users/detail/9', '2023-09-08 09:10:19', '2023-09-08 09:10:19'),
+(36, 10, 'New member registered', 0, '/admin/users/detail/10', '2023-09-08 09:10:26', '2023-09-08 09:10:26'),
+(37, 11, 'New member registered', 0, '/admin/users/detail/11', '2023-09-08 09:10:30', '2023-09-08 09:10:30'),
+(38, 12, 'New member registered', 0, '/admin/users/detail/12', '2023-09-08 09:10:51', '2023-09-08 09:10:51'),
+(39, 13, 'New member registered', 0, '/admin/users/detail/13', '2023-09-08 09:11:15', '2023-09-08 09:11:15'),
+(40, 14, 'New member registered', 0, '/admin/users/detail/14', '2023-09-08 09:11:38', '2023-09-08 09:11:38'),
+(41, 15, 'New member registered', 0, '/admin/users/detail/15', '2023-09-08 09:12:48', '2023-09-08 09:12:48'),
+(42, 16, 'New member registered', 0, '/admin/users/detail/16', '2023-09-08 09:13:54', '2023-09-08 09:13:54'),
+(43, 17, 'New member registered', 0, '/admin/users/detail/17', '2023-09-08 09:17:36', '2023-09-08 09:17:36'),
+(44, 18, 'New member registered', 0, '/admin/users/detail/18', '2023-09-08 09:20:20', '2023-09-08 09:20:20'),
+(45, 19, 'New member registered', 0, '/admin/users/detail/19', '2023-09-08 09:24:17', '2023-09-08 09:24:17'),
+(46, 20, 'New member registered', 0, '/admin/users/detail/20', '2023-09-08 09:24:57', '2023-09-08 09:24:57'),
+(47, 21, 'New member registered', 0, '/admin/users/detail/21', '2023-09-08 09:29:29', '2023-09-08 09:29:29'),
+(48, 22, 'New member registered', 0, '/admin/users/detail/22', '2023-09-08 09:40:49', '2023-09-08 09:40:49'),
+(49, 23, 'New member registered', 0, '/admin/users/detail/23', '2023-09-08 09:47:09', '2023-09-08 09:47:09'),
+(50, 24, 'New member registered', 0, '/admin/users/detail/24', '2023-09-08 09:52:36', '2023-09-08 09:52:36'),
+(51, 25, 'New member registered', 0, '/admin/users/detail/25', '2023-09-08 09:56:11', '2023-09-08 09:56:11'),
+(52, 26, 'New member registered', 0, '/admin/users/detail/26', '2023-09-08 10:14:24', '2023-09-08 10:14:24'),
+(53, 27, 'New member registered', 0, '/admin/users/detail/27', '2023-09-08 10:14:51', '2023-09-08 10:14:51'),
+(54, 28, 'New member registered', 0, '/admin/users/detail/28', '2023-09-08 10:17:18', '2023-09-08 10:17:18'),
+(55, 29, 'New member registered', 0, '/admin/users/detail/29', '2023-09-08 10:22:40', '2023-09-08 10:22:40'),
+(56, 30, 'New member registered', 0, '/admin/users/detail/30', '2023-09-08 10:23:38', '2023-09-08 10:23:38'),
+(57, 31, 'New member registered', 0, '/admin/users/detail/31', '2023-09-08 10:24:43', '2023-09-08 10:24:43'),
+(58, 32, 'New member registered', 0, '/admin/users/detail/32', '2023-09-08 10:26:26', '2023-09-08 10:26:26'),
+(59, 33, 'New member registered', 0, '/admin/users/detail/33', '2023-09-08 10:32:44', '2023-09-08 10:32:44'),
+(60, 34, 'New member registered', 0, '/admin/users/detail/34', '2023-09-08 10:44:32', '2023-09-08 10:44:32'),
+(61, 35, 'New member registered', 0, '/admin/users/detail/35', '2023-09-08 10:58:22', '2023-09-08 10:58:22'),
+(62, 36, 'New member registered', 0, '/admin/users/detail/36', '2023-09-08 11:56:29', '2023-09-08 11:56:29'),
+(63, 37, 'New member registered', 0, '/admin/users/detail/37', '2023-09-08 11:58:27', '2023-09-08 11:58:27'),
+(64, 38, 'New member registered', 0, '/admin/users/detail/38', '2023-09-08 12:12:58', '2023-09-08 12:12:58'),
+(65, 39, 'New member registered', 0, '/admin/users/detail/39', '2023-09-08 12:44:45', '2023-09-08 12:44:45'),
+(66, 40, 'New member registered', 0, '/admin/users/detail/40', '2023-09-08 15:04:49', '2023-09-08 15:04:49'),
+(67, 41, 'New member registered', 0, '/admin/users/detail/41', '2023-09-08 15:05:09', '2023-09-08 15:05:09'),
+(68, 42, 'New member registered', 0, '/admin/users/detail/42', '2023-09-08 15:06:02', '2023-09-08 15:06:02'),
+(69, 40, 'Deposit request from ', 0, '/admin/deposit/details/19', '2023-09-08 15:19:57', '2023-09-08 15:19:57'),
+(70, 43, 'New member registered', 0, '/admin/users/detail/43', '2023-09-08 16:41:54', '2023-09-08 16:41:54'),
+(71, 44, 'New member registered', 0, '/admin/users/detail/44', '2023-09-08 16:49:52', '2023-09-08 16:49:52'),
+(72, 45, 'New member registered', 0, '/admin/users/detail/45', '2023-09-08 17:00:01', '2023-09-08 17:00:01'),
+(73, 46, 'New member registered', 0, '/admin/users/detail/46', '2023-09-08 17:01:59', '2023-09-08 17:01:59'),
+(74, 47, 'New member registered', 0, '/admin/users/detail/47', '2023-09-08 17:08:44', '2023-09-08 17:08:44'),
+(75, 48, 'New member registered', 0, '/admin/users/detail/48', '2023-09-08 17:11:55', '2023-09-08 17:11:55'),
+(76, 49, 'New member registered', 0, '/admin/users/detail/49', '2023-09-08 18:22:56', '2023-09-08 18:22:56'),
+(77, 50, 'New member registered', 0, '/admin/users/detail/50', '2023-09-08 18:36:43', '2023-09-08 18:36:43'),
+(78, 51, 'New member registered', 0, '/admin/users/detail/51', '2023-09-08 18:37:18', '2023-09-08 18:37:18'),
+(79, 52, 'New member registered', 0, '/admin/users/detail/52', '2023-09-08 20:14:02', '2023-09-08 20:14:02'),
+(80, 53, 'New member registered', 0, '/admin/users/detail/53', '2023-09-08 21:22:21', '2023-09-08 21:22:21'),
+(81, 54, 'New member registered', 0, '/admin/users/detail/54', '2023-09-08 21:57:27', '2023-09-08 21:57:27'),
+(82, 55, 'New member registered', 0, '/admin/users/detail/55', '2023-09-08 22:28:25', '2023-09-08 22:28:25'),
+(83, 49, 'Deposit request from ', 0, '/admin/deposit/details/21', '2023-09-09 11:26:51', '2023-09-09 11:26:51'),
+(84, 49, 'Deposit successful via Jazzcash', 0, '/admin/deposit/successful', '2023-09-09 11:28:23', '2023-09-09 11:28:23'),
+(85, 56, 'New member registered', 0, '/admin/users/detail/56', '2023-09-09 11:38:24', '2023-09-09 11:38:24'),
+(86, 57, 'New member registered', 0, '/admin/users/detail/57', '2023-09-09 13:30:48', '2023-09-09 13:30:48'),
+(87, 58, 'New member registered', 0, '/admin/users/detail/58', '2023-09-09 14:09:31', '2023-09-09 14:09:31'),
+(88, 59, 'New member registered', 0, '/admin/users/detail/59', '2023-09-09 15:31:05', '2023-09-09 15:31:05'),
+(89, 60, 'New member registered', 0, '/admin/users/detail/60', '2023-09-09 16:04:29', '2023-09-09 16:04:29'),
+(90, 61, 'New member registered', 0, '/admin/users/detail/61', '2023-09-09 20:01:31', '2023-09-09 20:01:31');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `admin_password_resets`
+--
+
+CREATE TABLE `admin_password_resets` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `email` varchar(40) DEFAULT NULL,
+  `token` varchar(40) DEFAULT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT 1,
+  `created_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `commission_logs`
+--
+
+CREATE TABLE `commission_logs` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `to_id` int(11) NOT NULL DEFAULT 0,
+  `from_id` int(11) NOT NULL DEFAULT 0,
+  `level` varchar(191) NOT NULL,
+  `amount` decimal(11,2) NOT NULL,
+  `type` varchar(40) DEFAULT NULL,
+  `details` varchar(255) DEFAULT NULL,
+  `trx` varchar(191) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `deposits`
+--
+
+CREATE TABLE `deposits` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `user_id` int(10) UNSIGNED NOT NULL DEFAULT 0,
+  `method_code` int(10) UNSIGNED NOT NULL DEFAULT 0,
+  `amount` decimal(28,8) NOT NULL DEFAULT 0.00000000,
+  `method_currency` varchar(40) DEFAULT NULL,
+  `charge` decimal(28,8) NOT NULL DEFAULT 0.00000000,
+  `rate` decimal(28,8) NOT NULL DEFAULT 0.00000000,
+  `final_amo` decimal(28,8) NOT NULL DEFAULT 0.00000000,
+  `detail` text DEFAULT NULL,
+  `btc_amo` varchar(255) DEFAULT NULL,
+  `btc_wallet` varchar(255) DEFAULT NULL,
+  `trx` varchar(40) DEFAULT NULL,
+  `try` int(10) NOT NULL DEFAULT 0,
+  `status` tinyint(1) NOT NULL DEFAULT 0 COMMENT '1=>success, 2=>pending, 3=>cancel',
+  `from_api` tinyint(1) NOT NULL DEFAULT 0,
+  `admin_feedback` varchar(255) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `extensions`
+--
+
+CREATE TABLE `extensions` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `act` varchar(40) DEFAULT NULL,
+  `name` varchar(40) DEFAULT NULL,
+  `description` text DEFAULT NULL,
+  `image` varchar(255) DEFAULT NULL,
+  `script` text DEFAULT NULL,
+  `shortcode` text DEFAULT NULL COMMENT 'object',
+  `support` text DEFAULT NULL COMMENT 'help section',
+  `status` tinyint(1) NOT NULL DEFAULT 1 COMMENT '1=>enable, 2=>disable',
+  `deleted_at` datetime DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `extensions`
+--
+
+INSERT INTO `extensions` (`id`, `act`, `name`, `description`, `image`, `script`, `shortcode`, `support`, `status`, `deleted_at`, `created_at`, `updated_at`) VALUES
+(1, 'tawk-chat', 'Tawk.to', 'Key location is shown bellow', 'tawky_big.png', '<script>\r\n                        var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();\r\n                        (function(){\r\n                        var s1=document.createElement(\"script\"),s0=document.getElementsByTagName(\"script\")[0];\r\n                        s1.async=true;\r\n                        s1.src=\"https://embed.tawk.to/{{app_key}}\";\r\n                        s1.charset=\"UTF-8\";\r\n                        s1.setAttribute(\"crossorigin\",\"*\");\r\n                        s0.parentNode.insertBefore(s1,s0);\r\n                        })();\r\n                    </script>', '{\"app_key\":{\"title\":\"App Key\",\"value\":\"------\"}}', 'twak.png', 0, NULL, '2019-10-18 23:16:05', '2022-03-22 05:22:24'),
+(2, 'google-recaptcha2', 'Google Recaptcha 2', 'Key location is shown bellow', 'recaptcha3.png', '\n<script src=\"https://www.google.com/recaptcha/api.js\"></script>\n<div class=\"g-recaptcha\" data-sitekey=\"{{site_key}}\" data-callback=\"verifyCaptcha\"></div>\n<div id=\"g-recaptcha-error\"></div>', '{\"site_key\":{\"title\":\"Site Key\",\"value\":\"6LdPC88fAAAAADQlUf_DV6Hrvgm-pZuLJFSLDOWV\"},\"secret_key\":{\"title\":\"Secret Key\",\"value\":\"6LdPC88fAAAAAG5SVaRYDnV2NpCrptLg2XLYKRKB\"}}', 'recaptcha.png', 0, NULL, '2019-10-18 23:16:05', '2022-07-18 05:15:56'),
+(3, 'custom-captcha', 'Custom Captcha', 'Just put any random string', 'customcaptcha.png', NULL, '{\"random_key\":{\"title\":\"Random String\",\"value\":\"-----\"}}', 'na', 0, NULL, '2019-10-18 23:16:05', '2022-05-08 00:25:27'),
+(4, 'google-analytics', 'Google Analytics', 'Key location is shown bellow', 'google_analytics.png', '<script async src=\"https://www.googletagmanager.com/gtag/js?id={{app_key}}\"></script>\r\n                <script>\r\n                  window.dataLayer = window.dataLayer || [];\r\n                  function gtag(){dataLayer.push(arguments);}\r\n                  gtag(\"js\", new Date());\r\n                \r\n                  gtag(\"config\", \"{{app_key}}\");\r\n                </script>', '{\"app_key\":{\"title\":\"App Key\",\"value\":\"------\"}}', 'ganalytics.png', 0, NULL, NULL, '2021-05-04 10:19:12'),
+(5, 'fb-comment', 'Facebook Comment ', 'Key location is shown bellow', 'Facebook.png', '<div id=\"fb-root\"></div><script async defer crossorigin=\"anonymous\" src=\"https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v4.0&appId={{app_key}}&autoLogAppEvents=1\"></script>', '{\"app_key\":{\"title\":\"App Key\",\"value\":\"----\"}}', 'fb_com.PNG', 0, NULL, NULL, '2022-04-28 04:38:36');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `forms`
+--
+
+CREATE TABLE `forms` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `act` varchar(40) DEFAULT NULL,
+  `form_data` text DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `forms`
+--
+
+INSERT INTO `forms` (`id`, `act`, `form_data`, `created_at`, `updated_at`) VALUES
+(3, 'kyc', '{\"nid_number\":{\"name\":\"NID Number\",\"label\":\"nid_number\",\"is_required\":\"required\",\"extensions\":\"\",\"options\":[],\"type\":\"text\"}}', '2022-08-13 23:26:31', '2022-08-13 23:26:31'),
+(4, 'manual_deposit', '{\"trx_id\":{\"name\":\"Trx Id\",\"label\":\"trx_id\",\"is_required\":\"required\",\"extensions\":null,\"options\":[],\"type\":\"text\"},\"account_number\":{\"name\":\"Account Number\",\"label\":\"account_number\",\"is_required\":\"required\",\"extensions\":null,\"options\":[],\"type\":\"text\"},\"method\":{\"name\":\"Method\",\"label\":\"method\",\"is_required\":\"required\",\"extensions\":null,\"options\":[],\"type\":\"text\"}}', '2023-06-30 02:17:45', '2023-07-03 13:46:04'),
+(5, 'withdraw_method', '{\"account_number\":{\"name\":\"Account Number\",\"label\":\"account_number\",\"is_required\":\"required\",\"extensions\":null,\"options\":[],\"type\":\"text\"},\"method\":{\"name\":\"method\",\"label\":\"method\",\"is_required\":\"required\",\"extensions\":\"\",\"options\":[],\"type\":\"text\"}}', '2023-06-30 10:12:05', '2023-07-03 13:34:50'),
+(6, 'manual_deposit', '{\"trx_id\":{\"name\":\"Trx Id\",\"label\":\"trx_id\",\"is_required\":\"required\",\"extensions\":null,\"options\":[],\"type\":\"text\"}}', '2023-06-30 23:09:24', '2023-07-02 12:20:39'),
+(7, 'withdraw_method', '{\"account_name\":{\"name\":\"Account Name\",\"label\":\"account_name\",\"is_required\":\"required\",\"extensions\":\"\",\"options\":[],\"type\":\"text\"},\"account_number\":{\"name\":\"Account Number\",\"label\":\"account_number\",\"is_required\":\"required\",\"extensions\":\"\",\"options\":[],\"type\":\"text\"}}', '2023-06-30 23:11:12', '2023-06-30 23:13:40'),
+(8, 'manual_deposit', '{\"attschment_proof\":{\"name\":\"Attschment proof\",\"label\":\"attschment_proof\",\"is_required\":\"required\",\"extensions\":\"jpg,jpeg,png\",\"options\":[],\"type\":\"file\"}}', '2023-09-08 03:03:24', '2023-09-08 03:03:24'),
+(9, 'withdraw_method', '{\"account_name\":{\"name\":\"Account Name\",\"label\":\"account_name\",\"is_required\":\"required\",\"extensions\":\"\",\"options\":[],\"type\":\"text\"},\"account_number\":{\"name\":\"Account Number\",\"label\":\"account_number\",\"is_required\":\"required\",\"extensions\":\"\",\"options\":[],\"type\":\"text\"}}', '2023-09-08 06:37:43', '2023-09-08 06:37:43');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `frontends`
+--
+
+CREATE TABLE `frontends` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `data_keys` varchar(40) DEFAULT NULL,
+  `data_values` longtext DEFAULT NULL,
+  `view` int(11) NOT NULL DEFAULT 0,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `frontends`
+--
+
+INSERT INTO `frontends` (`id`, `data_keys`, `data_values`, `view`, `created_at`, `updated_at`) VALUES
+(1, 'seo.data', '{\"seo_image\":\"1\",\"keywords\":[\"ppc\",\"ptc\",\"pay per click\",\"earn money\",\"ppv\",\"pey per view\",\"paid click\",\"earn per click\",\"ptclab\"],\"description\":\"New Full high function Task Earning Php script\",\"social_title\":\"New Full high function Task Earning Php script\",\"social_description\":\"New Full high function Task Earning Php script\",\"image\":\"64faaaa1d907a1694149281.jpg\"}', 0, '2020-07-04 23:42:52', '2023-09-08 09:01:22'),
+(41, 'cookie.data', '{\"short_desc\":\"We may use cookies or any other tracking technologies when you visit our website, including any other media form, mobile website, or mobile application related or connected to help customize the Site and improve your experience.\",\"description\":\"<div class=\\\"mb-5\\\" style=\\\"color: rgb(111, 111, 111); font-family: Nunito, sans-serif; margin-bottom: 3rem !important;\\\"><h3 class=\\\"mb-3\\\" style=\\\"font-weight: 600; line-height: 1.3; font-size: 24px; font-family: Exo, sans-serif; color: rgb(54, 54, 54);\\\">What information do we collect?<\\/h3><p class=\\\"font-18\\\" style=\\\"margin-right: 0px; margin-left: 0px; font-size: 18px !important;\\\">We gather data from you when you register on our site, submit a request, buy any services, react to an overview, or round out a structure. At the point when requesting any assistance or enrolling on our site, as suitable, you might be approached to enter your: name, email address, or telephone number. You may, nonetheless, visit our site anonymously.<\\/p><\\/div><div class=\\\"mb-5\\\" style=\\\"color: rgb(111, 111, 111); font-family: Nunito, sans-serif; margin-bottom: 3rem !important;\\\"><h3 class=\\\"mb-3\\\" style=\\\"font-weight: 600; line-height: 1.3; font-size: 24px; font-family: Exo, sans-serif; color: rgb(54, 54, 54);\\\">How do we protect your information?<\\/h3><p class=\\\"font-18\\\" style=\\\"margin-right: 0px; margin-left: 0px; font-size: 18px !important;\\\">All provided delicate\\/credit data is sent through Stripe.<br>After an exchange, your private data (credit cards, social security numbers, financials, and so on) won\'t be put away on our workers.<\\/p><\\/div><div class=\\\"mb-5\\\" style=\\\"color: rgb(111, 111, 111); font-family: Nunito, sans-serif; margin-bottom: 3rem !important;\\\"><h3 class=\\\"mb-3\\\" style=\\\"font-weight: 600; line-height: 1.3; font-size: 24px; font-family: Exo, sans-serif; color: rgb(54, 54, 54);\\\">Do we disclose any information to outside parties?<\\/h3><p class=\\\"font-18\\\" style=\\\"margin-right: 0px; margin-left: 0px; font-size: 18px !important;\\\">We don\'t sell, exchange, or in any case move to outside gatherings by and by recognizable data. This does exclude confided in outsiders who help us in working our site, leading our business, or adjusting you, since those gatherings consent to keep this data private. We may likewise deliver your data when we accept discharge is suitable to follow the law, implement our site strategies, or ensure our own or others\' rights, property, or wellbeing.<\\/p><\\/div><div class=\\\"mb-5\\\" style=\\\"color: rgb(111, 111, 111); font-family: Nunito, sans-serif; margin-bottom: 3rem !important;\\\"><h3 class=\\\"mb-3\\\" style=\\\"font-weight: 600; line-height: 1.3; font-size: 24px; font-family: Exo, sans-serif; color: rgb(54, 54, 54);\\\">Children\'s Online Privacy Protection Act Compliance<\\/h3><p class=\\\"font-18\\\" style=\\\"margin-right: 0px; margin-left: 0px; font-size: 18px !important;\\\">We are consistent with the prerequisites of COPPA (Children\'s Online Privacy Protection Act), we don\'t gather any data from anybody under 13 years old. Our site, items, and administrations are completely coordinated to individuals who are in any event 13 years of age or more established.<\\/p><\\/div><div class=\\\"mb-5\\\" style=\\\"color: rgb(111, 111, 111); font-family: Nunito, sans-serif; margin-bottom: 3rem !important;\\\"><h3 class=\\\"mb-3\\\" style=\\\"font-weight: 600; line-height: 1.3; font-size: 24px; font-family: Exo, sans-serif; color: rgb(54, 54, 54);\\\">Changes to our Privacy Policy<\\/h3><p class=\\\"font-18\\\" style=\\\"margin-right: 0px; margin-left: 0px; font-size: 18px !important;\\\">If we decide to change our privacy policy, we will post those changes on this page.<\\/p><\\/div><div class=\\\"mb-5\\\" style=\\\"color: rgb(111, 111, 111); font-family: Nunito, sans-serif; margin-bottom: 3rem !important;\\\"><h3 class=\\\"mb-3\\\" style=\\\"font-weight: 600; line-height: 1.3; font-size: 24px; font-family: Exo, sans-serif; color: rgb(54, 54, 54);\\\">How long we retain your information?<\\/h3><p class=\\\"font-18\\\" style=\\\"margin-right: 0px; margin-left: 0px; font-size: 18px !important;\\\">At the point when you register for our site, we cycle and keep your information we have about you however long you don\'t erase the record or withdraw yourself (subject to laws and guidelines).<\\/p><\\/div><div class=\\\"mb-5\\\" style=\\\"color: rgb(111, 111, 111); font-family: Nunito, sans-serif; margin-bottom: 3rem !important;\\\"><h3 class=\\\"mb-3\\\" style=\\\"font-weight: 600; line-height: 1.3; font-size: 24px; font-family: Exo, sans-serif; color: rgb(54, 54, 54);\\\">What we don\\u2019t do with your data<\\/h3><p class=\\\"font-18\\\" style=\\\"margin-right: 0px; margin-left: 0px; font-size: 18px !important;\\\">We don\'t and will never share, unveil, sell, or in any case give your information to different organizations for the promoting of their items or administrations.<\\/p><\\/div>\",\"status\":1}', 0, '2020-07-04 23:42:52', '2022-03-30 11:23:12'),
+(44, 'maintenance.data', '{\"description\":\"<div class=\\\"mb-5\\\" style=\\\"color: rgb(111, 111, 111); font-family: Nunito, sans-serif; margin-bottom: 3rem !important;\\\"><h3 class=\\\"mb-3\\\" style=\\\"font-weight: 600; line-height: 1.3; font-size: 24px; font-family: Exo, sans-serif; color: rgb(54, 54, 54);\\\">What information do we collect?<\\/h3><p class=\\\"font-18\\\" style=\\\"margin-right: 0px; margin-left: 0px; font-size: 18px !important;\\\">We gather data from you when you register on our site, submit a request, buy any services, react to an overview, or round out a structure. At the point when requesting any assistance or enrolling on our site, as suitable, you might be approached to enter your: name, email address, or telephone number. You may, nonetheless, visit our site anonymously.<\\/p><\\/div><div class=\\\"mb-5\\\" style=\\\"color: rgb(111, 111, 111); font-family: Nunito, sans-serif; margin-bottom: 3rem !important;\\\"><h3 class=\\\"mb-3\\\" style=\\\"font-weight: 600; line-height: 1.3; font-size: 24px; font-family: Exo, sans-serif; color: rgb(54, 54, 54);\\\">How do we protect your information?<\\/h3><p class=\\\"font-18\\\" style=\\\"margin-right: 0px; margin-left: 0px; font-size: 18px !important;\\\">All provided delicate\\/credit data is sent through Stripe.<br>After an exchange, your private data (credit cards, social security numbers, financials, and so on) won\'t be put away on our workers.<\\/p><\\/div><div class=\\\"mb-5\\\" style=\\\"color: rgb(111, 111, 111); font-family: Nunito, sans-serif; margin-bottom: 3rem !important;\\\"><h3 class=\\\"mb-3\\\" style=\\\"font-weight: 600; line-height: 1.3; font-size: 24px; font-family: Exo, sans-serif; color: rgb(54, 54, 54);\\\">Do we disclose any information to outside parties?<\\/h3><p class=\\\"font-18\\\" style=\\\"margin-right: 0px; margin-left: 0px; font-size: 18px !important;\\\">We don\'t sell, exchange, or in any case move to outside gatherings by and by recognizable data. This does exclude confided in outsiders who help us in working our site, leading our business, or adjusting you, since those gatherings consent to keep this data private. We may likewise deliver your data when we accept discharge is suitable to follow the law, implement our site strategies, or ensure our own or others\' rights, property, or wellbeing.<\\/p><\\/div><div class=\\\"mb-5\\\" style=\\\"color: rgb(111, 111, 111); font-family: Nunito, sans-serif; margin-bottom: 3rem !important;\\\"><h3 class=\\\"mb-3\\\" style=\\\"font-weight: 600; line-height: 1.3; font-size: 24px; font-family: Exo, sans-serif; color: rgb(54, 54, 54);\\\">Children\'s Online Privacy Protection Act Compliance<\\/h3><p class=\\\"font-18\\\" style=\\\"margin-right: 0px; margin-left: 0px; font-size: 18px !important;\\\">We are consistent with the prerequisites of COPPA (Children\'s Online Privacy Protection Act), we don\'t gather any data from anybody under 13 years old. Our site, items, and administrations are completely coordinated to individuals who are in any event 13 years of age or more established.<\\/p><\\/div><div class=\\\"mb-5\\\" style=\\\"color: rgb(111, 111, 111); font-family: Nunito, sans-serif; margin-bottom: 3rem !important;\\\"><h3 class=\\\"mb-3\\\" style=\\\"font-weight: 600; line-height: 1.3; font-size: 24px; font-family: Exo, sans-serif; color: rgb(54, 54, 54);\\\">Changes to our Privacy Policy<\\/h3><p class=\\\"font-18\\\" style=\\\"margin-right: 0px; margin-left: 0px; font-size: 18px !important;\\\">If we decide to change our privacy policy, we will post those changes on this page.<\\/p><\\/div><div class=\\\"mb-5\\\" style=\\\"color: rgb(111, 111, 111); font-family: Nunito, sans-serif; margin-bottom: 3rem !important;\\\"><h3 class=\\\"mb-3\\\" style=\\\"font-weight: 600; line-height: 1.3; font-size: 24px; font-family: Exo, sans-serif; color: rgb(54, 54, 54);\\\">How long we retain your information?<\\/h3><p class=\\\"font-18\\\" style=\\\"margin-right: 0px; margin-left: 0px; font-size: 18px !important;\\\">At the point when you register for our site, we cycle and keep your information we have about you however long you don\'t erase the record or withdraw yourself (subject to laws and guidelines).<\\/p><\\/div><div class=\\\"mb-5\\\" style=\\\"color: rgb(111, 111, 111); font-family: Nunito, sans-serif; margin-bottom: 3rem !important;\\\"><h3 class=\\\"mb-3\\\" style=\\\"font-weight: 600; line-height: 1.3; font-size: 24px; font-family: Exo, sans-serif; color: rgb(54, 54, 54);\\\">What we don\\u2019t do with your data<\\/h3><p class=\\\"font-18\\\" style=\\\"margin-right: 0px; margin-left: 0px; font-size: 18px !important;\\\">We don\'t and will never share, unveil, sell, or in any case give your information to different organizations for the promoting of their items or administrations.<\\/p><\\/div>\"}', 0, '2020-07-04 23:42:52', '2022-04-13 05:33:42'),
+(45, 'banner.element', '{\"has_image\":\"1\",\"heading\":\"Best Possible Way for Earn From Home\",\"subheading\":\"Lorem ipsum dolor sit, amet consectetur adipisicing elit. Doloribus necessitatibus repudiandae porro reprehenderit, beatae perferendis repellat quo ipsa omnis, vitae!\",\"image\":\"64fa4b5fa471b1694124895.jpeg\"}', 0, '2022-04-23 07:00:40', '2023-09-08 02:14:56'),
+(47, 'about.content', '{\"has_image\":\"1\",\"heading\":\"About PTCLab\",\"description\":\"<p style=\\\"margin-top:15px;margin-right:0px;margin-left:0px;color:rgb(111,111,111);font-size:16px;font-family:Roboto, sans-serif;\\\">\\u00a0Best Possible Way for Earn From Home. Temporibus eveniet commodi obcaecati voluptates reiciendis quis ipsum incidunt quibusdam aperiam autem suscipit maiores temporTemporibus eveniet commodi obcaecati voluptates reiciendis quis ipsum incidunt quibusdam aperiam autem suscipit maiores tempora impedit, exercitationem ratione distinctio nulla magni nemo cumque inventore sapiente nisi at vel. Laborum suscipit fuga.<\\/p><ul class=\\\"cmn-list\\\" style=\\\"margin-top:20px;font-family:Roboto, sans-serif;\\\"><li style=\\\"color:rgb(111,111,111);margin-top:0px;margin-right:0px;margin-left:0px;font-size:16px;line-height:1.7;padding-left:40px;\\\">Dolores velit ad excepturi omnis quod nesciunt.<\\/li><li style=\\\"color:rgb(111,111,111);margin-top:15px;margin-right:0px;margin-left:0px;font-size:16px;line-height:1.7;padding-left:40px;\\\">Cumque non labore recusandae, eaque quo sint.<\\/li><li style=\\\"color:rgb(111,111,111);margin-top:15px;margin-right:0px;margin-left:0px;font-size:16px;line-height:1.7;padding-left:40px;\\\">Accusamus facere possimus illum, nulla nemo dolores.<\\/li><li style=\\\"color:rgb(111,111,111);margin-top:15px;margin-right:0px;margin-left:0px;font-size:16px;line-height:1.7;padding-left:40px;\\\">Seriores nisi iure consequatur incidunt aliquam sunt.<\\/li><\\/ul>\",\"video_url\":\"https:\\/\\/www.youtube.com\\/embed\\/GYYvKxchHrM\",\"video_button_icon\":\"<i class=\\\"las la-play-circle\\\"><\\/i>\",\"image\":\"6263ba6f2de1c1650702959.png\"}', 0, '2022-04-23 07:05:59', '2022-04-23 07:11:30'),
+(48, 'features.content', '{\"heading\":\"Benefits And Facilities\",\"subheading\":\"Lorem ipsum dolor sit, amet consectetur adipisicing elit. Doloribus necessitatibus repudiandae porro reprehenderit, beatae perferendis repellat quo ipsa omnis, vitae!\"}', 0, '2022-04-23 07:17:22', '2022-04-23 07:17:23'),
+(55, 'plan.content', '{\"heading\":\"Membership Plans\",\"subheading\":\"Lorem ipsum dolor sit, amet consectetur adipisicing elit. Doloribus necessitatibus repudiandae porro reprehenderit, beatae perferendis repellat quo ipsa omnis, vitae!\"}', 0, '2022-04-23 07:24:18', '2022-04-23 07:24:18'),
+(56, 'counter.content', '{\"has_image\":\"1\",\"heading\":\"Best Place To Earn Money Online\",\"sub_heading\":\"Lorem ipsum dolor sit, amet consectetur adipisicing elit. Doloribus necessitatibus repudiandae porro reprehenderit, beatae perferendis repellat quo ipsa omnis, vitae!\",\"image\":\"6263bfd419cc41650704340.png\"}', 0, '2022-04-23 07:29:00', '2022-04-23 07:29:00'),
+(57, 'counter.element', '{\"icon\":\"<i class=\\\"far fa-money-bill-alt\\\"><\\/i>\",\"title\":\"Withdraw\",\"number\":\"$750K+\"}', 0, '2022-04-23 07:29:20', '2022-04-23 07:29:20'),
+(58, 'counter.element', '{\"icon\":\"<i class=\\\"fas fa-users\\\"><\\/i>\",\"title\":\"Users\",\"number\":\"50K+\"}', 0, '2022-04-23 07:29:49', '2022-04-23 07:29:49'),
+(59, 'counter.element', '{\"icon\":\"<i class=\\\"fas fa-link\\\"><\\/i>\",\"title\":\"Impression\",\"number\":\"20M+\"}', 0, '2022-04-23 07:30:14', '2022-04-23 07:30:59'),
+(60, 'counter.element', '{\"icon\":\"<i class=\\\"fas fa-ad\\\"><\\/i>\",\"title\":\"Advertisement\",\"number\":\"568K+\"}', 0, '2022-04-23 07:30:43', '2022-04-23 07:30:44'),
+(61, 'testimonial.content', '{\"heading\":\"What People Says\",\"subheading\":\"Lorem ipsum dolor sit, amet consectetur adipisicing elit. Doloribus necessitatibus repudiandae porro reprehenderit, beatae perferendis repellat quo ipsa omnis, vitae!\"}', 0, '2022-04-23 07:40:32', '2022-04-23 07:40:32'),
+(62, 'testimonial.element', '{\"has_image\":\"1\",\"name\":\"Chris Hamsorth\",\"designation\":\"PTC Player\",\"comment\":\"Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus fuga, lauda ium odio dolor ut  iusto,  pariatur neque ique quod ratione tempore velit iure sapiente beatae id dolores.\",\"image\":\"6263c2b65eb0b1650705078.jpg\"}', 0, '2022-04-23 07:41:18', '2022-04-23 07:41:18'),
+(63, 'testimonial.element', '{\"has_image\":\"1\",\"name\":\"John Doe\",\"designation\":\"Businessman\",\"comment\":\"Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus fuga, lauda ium odio dolor ut  iusto,  pariatur neque ique quod ratione tempore velit iure sapiente beatae id dolores.\",\"image\":\"6263c2c7a0f131650705095.jpg\"}', 0, '2022-04-23 07:41:35', '2022-04-23 07:41:35'),
+(64, 'testimonial.element', '{\"has_image\":\"1\",\"name\":\"Rajendra\",\"designation\":\"Web Developer\",\"comment\":\"Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus fuga, lauda ium odio dolor ut  iusto,  pariatur neque ique quod ratione tempore velit iure sapiente beatae id dolores.v\",\"image\":\"6263c2dd9b0931650705117.jpg\"}', 0, '2022-04-23 07:41:57', '2022-04-23 07:41:57'),
+(65, 'faq.content', '{\"heading\":\"Frequently Asked Question\",\"subheading\":\"Lorem ipsum dolor sit, amet consectetur adipisicing elit. Doloribus necessitatibus repudiandae porro reprehenderit, beatae perferendis repellat quo ipsa omnis, vitae!\"}', 0, '2022-04-23 07:44:21', '2022-04-23 07:44:21'),
+(66, 'faq.element', '{\"question\":\"What constitutes a quorum in a PTC?\",\"answer\":\"The standard definition of a quorum in Robert\'s Rules of Order is that the majority of an assembly must be present to conduct business. That is, if there are twenty members of a group, eleven must be present to constitute a quorum. The same requirement for a quorum applies to PTCs, with one additional provision. The Handbook (4.1.8.3) provides that absentee votes will be counted in PTCs, whereas Robert\'s Rules really do not provide for a mixture of absentee and in-person votes in an assembly\"}', 0, '2022-04-23 07:44:36', '2022-04-23 07:44:36'),
+(67, 'faq.element', '{\"question\":\"What constitutes a positive or negative vote in PTCs?\",\"answer\":\"The standard definition of a quorum in Robert\'s Rules of Order is that the majority of an assembly must be present to conduct business. That is, if there are twenty members of a group, eleven must be present to constitute a quorum. The same requirement for a quorum applies to PTCs, with one additional provision. The Handbook (4.1.8.3) provides that absentee votes will be counted in PTCs, whereas Robert\'s Rules really do not provide for a mixture of absentee and in-person votes in an assembly\"}', 0, '2022-04-23 07:44:51', '2022-04-23 07:44:51'),
+(68, 'faq.element', '{\"question\":\"Can an abstention vote be cast at a PTC meeting?\",\"answer\":\"The standard definition of a quorum in Robert\'s Rules of Order is that the majority of an assembly must be present to conduct business. That is, if there are twenty members of a group, eleven must be present to constitute a quorum. The same requirement for a quorum applies to PTCs, with one additional provision. The Handbook (4.1.8.3) provides that absentee votes will be counted in PTCs, whereas Robert\'s Rules really do not provide for a mixture of absentee and in-person votes in an assembly\"}', 0, '2022-04-23 07:45:04', '2022-04-23 07:45:04'),
+(69, 'faq.element', '{\"question\":\"Can a faculty member on OCSA or FML serve on a PTC?\",\"answer\":\"The standard definition of a quorum in Robert\'s Rules of Order is that the majority of an assembly must be present to conduct business. That is, if there are twenty members of a group, eleven must be present to constitute a quorum. The same requirement for a quorum applies to PTCs, with one additional provision. The Handbook (4.1.8.3) provides that absentee votes will be counted in PTCs, whereas Robert\'s Rules really do not provide for a mixture of absentee and in-person votes in an assembly\"}', 0, '2022-04-23 07:45:19', '2022-04-23 07:45:19'),
+(70, 'faq.element', '{\"question\":\"How will additional members of PTCs be elected in departments with fewer than four tenured faculty members?\",\"answer\":\"The standard definition of a quorum in Robert\'s Rules of Order is that the majority of an assembly must be present to conduct business. That is, if there are twenty members of a group, eleven must be present to constitute a quorum. The same requirement for a quorum applies to PTCs, with one additional provision. The Handbook (4.1.8.3) provides that absentee votes will be counted in PTCs, whereas Robert\'s Rules really do not provide for a mixture of absentee and in-person votes in an assembly\"}', 0, '2022-04-23 07:45:34', '2022-04-23 07:45:34'),
+(71, 'faq.element', '{\"question\":\"How can absentee ballots be cast?\",\"answer\":\"The standard definition of a quorum in Robert\'s Rules of Order is that the majority of an assembly must be present to conduct business. That is, if there are twenty members of a group, eleven must be present to constitute a quorum. The same requirement for a quorum applies to PTCs, with one additional provision. The Handbook (4.1.8.3) provides that absentee votes will be counted in PTCs, whereas Robert\'s Rules really do not provide for a mixture of absentee and in-person votes in an assembly\"}', 0, '2022-04-23 07:45:48', '2022-04-23 07:45:48'),
+(72, 'faq.element', '{\"question\":\"Why should members of the PTC fill out vote justification forms explaining their votes?\",\"answer\":\"The standard definition of a quorum in Robert\'s Rules of Order is that the majority of an assembly must be present to conduct business. That is, if there are twenty members of a group, eleven must be present to constitute a quorum. The same requirement for a quorum applies to PTCs, with one additional provision. The Handbook (4.1.8.3) provides that absentee votes will be counted in PTCs, whereas Robert\'s Rules really do not provide for a mixture of absentee and in-person votes in an assembly\"}', 0, '2022-04-23 07:46:00', '2022-04-23 07:46:01'),
+(73, 'policy_pages.element', '{\"title\":\"Privacy and Policy\",\"details\":\"<div class=\\\"mb-5\\\" style=\\\"color:rgb(111,111,111);font-family:Nunito, sans-serif;margin-bottom:3rem;\\\"><h3 class=\\\"mb-3\\\" style=\\\"font-weight:600;line-height:1.3;font-size:24px;font-family:Exo, sans-serif;color:rgb(54,54,54);\\\">What information do we collect?<\\/h3><p class=\\\"font-18\\\" style=\\\"margin-right:0px;margin-left:0px;font-size:18px;\\\">We gather data from you when you register on our site, submit a request, buy any services, react to an overview, or round out a structure. At the point when requesting any assistance or enrolling on our site, as suitable, you might be approached to enter your: name, email address, or telephone number. You may, nonetheless, visit our site anonymously.<\\/p><\\/div><div class=\\\"mb-5\\\" style=\\\"color:rgb(111,111,111);font-family:Nunito, sans-serif;margin-bottom:3rem;\\\"><h3 class=\\\"mb-3\\\" style=\\\"font-weight:600;line-height:1.3;font-size:24px;font-family:Exo, sans-serif;color:rgb(54,54,54);\\\">How do we protect your information?<\\/h3><p class=\\\"font-18\\\" style=\\\"margin-right:0px;margin-left:0px;font-size:18px;\\\">All provided delicate\\/credit data is sent through Stripe.<br \\/>After an exchange, your private data (credit cards, social security numbers, financials, and so on) won\'t be put away on our workers.<\\/p><\\/div><div class=\\\"mb-5\\\" style=\\\"color:rgb(111,111,111);font-family:Nunito, sans-serif;margin-bottom:3rem;\\\"><h3 class=\\\"mb-3\\\" style=\\\"font-weight:600;line-height:1.3;font-size:24px;font-family:Exo, sans-serif;color:rgb(54,54,54);\\\">Do we disclose any information to outside parties?<\\/h3><p class=\\\"font-18\\\" style=\\\"margin-right:0px;margin-left:0px;font-size:18px;\\\">We don\'t sell, exchange, or in any case move to outside gatherings by and by recognizable data. This does exclude confided in outsiders who help us in working our site, leading our business, or adjusting you, since those gatherings consent to keep this data private. We may likewise deliver your data when we accept discharge is suitable to follow the law, implement our site strategies, or ensure our own or others\' rights, property, or wellbeing.<\\/p><\\/div><div class=\\\"mb-5\\\" style=\\\"color:rgb(111,111,111);font-family:Nunito, sans-serif;margin-bottom:3rem;\\\"><h3 class=\\\"mb-3\\\" style=\\\"font-weight:600;line-height:1.3;font-size:24px;font-family:Exo, sans-serif;color:rgb(54,54,54);\\\">Children\'s Online Privacy Protection Act Compliance<\\/h3><p class=\\\"font-18\\\" style=\\\"margin-right:0px;margin-left:0px;font-size:18px;\\\">We are consistent with the prerequisites of COPPA (Children\'s Online Privacy Protection Act), we don\'t gather any data from anybody under 13 years old. Our site, items, and administrations are completely coordinated to individuals who are in any event 13 years of age or more established.<\\/p><\\/div><div class=\\\"mb-5\\\" style=\\\"color:rgb(111,111,111);font-family:Nunito, sans-serif;margin-bottom:3rem;\\\"><h3 class=\\\"mb-3\\\" style=\\\"font-weight:600;line-height:1.3;font-size:24px;font-family:Exo, sans-serif;color:rgb(54,54,54);\\\">Changes to our Privacy Policy<\\/h3><p class=\\\"font-18\\\" style=\\\"margin-right:0px;margin-left:0px;font-size:18px;\\\">If we decide to change our privacy policy, we will post those changes on this page.<\\/p><\\/div><div class=\\\"mb-5\\\" style=\\\"color:rgb(111,111,111);font-family:Nunito, sans-serif;margin-bottom:3rem;\\\"><h3 class=\\\"mb-3\\\" style=\\\"font-weight:600;line-height:1.3;font-size:24px;font-family:Exo, sans-serif;color:rgb(54,54,54);\\\">How long we retain your information?<\\/h3><p class=\\\"font-18\\\" style=\\\"margin-right:0px;margin-left:0px;font-size:18px;\\\">At the point when you register for our site, we cycle and keep your information we have about you however long you don\'t erase the record or withdraw yourself (subject to laws and guidelines).<\\/p><\\/div><div class=\\\"mb-5\\\" style=\\\"color:rgb(111,111,111);font-family:Nunito, sans-serif;margin-bottom:3rem;\\\"><h3 class=\\\"mb-3\\\" style=\\\"font-weight:600;line-height:1.3;font-size:24px;font-family:Exo, sans-serif;color:rgb(54,54,54);\\\">What we don\\u2019t do with your data<\\/h3><p class=\\\"font-18\\\" style=\\\"margin-right:0px;margin-left:0px;font-size:18px;\\\">We don\'t and will never share, unveil, sell, or in any case give your information to different organizations for the promoting of their items or administrations.<\\/p><\\/div>\"}', 0, '2022-04-23 07:49:43', '2022-04-23 08:37:03'),
+(74, 'policy_pages.element', '{\"title\":\"Payment Policy\",\"details\":\"<div class=\\\"mb-5\\\" style=\\\"color:rgb(111,111,111);font-family:Nunito, sans-serif;margin-bottom:3rem;\\\"><h3 class=\\\"mb-3\\\" style=\\\"font-weight:600;line-height:1.3;font-size:24px;font-family:Exo, sans-serif;color:rgb(54,54,54);\\\">What information do we collect?<\\/h3><p class=\\\"font-18\\\" style=\\\"margin-right:0px;margin-left:0px;font-size:18px;\\\">We gather data from you when you register on our site, submit a request, buy any services, react to an overview, or round out a structure. At the point when requesting any assistance or enrolling on our site, as suitable, you might be approached to enter your: name, email address, or telephone number. You may, nonetheless, visit our site anonymously.<\\/p><\\/div><div class=\\\"mb-5\\\" style=\\\"color:rgb(111,111,111);font-family:Nunito, sans-serif;margin-bottom:3rem;\\\"><h3 class=\\\"mb-3\\\" style=\\\"font-weight:600;line-height:1.3;font-size:24px;font-family:Exo, sans-serif;color:rgb(54,54,54);\\\">How do we protect your information?<\\/h3><p class=\\\"font-18\\\" style=\\\"margin-right:0px;margin-left:0px;font-size:18px;\\\">All provided delicate\\/credit data is sent through Stripe.<br \\/>After an exchange, your private data (credit cards, social security numbers, financials, and so on) won\'t be put away on our workers.<\\/p><\\/div><div class=\\\"mb-5\\\" style=\\\"color:rgb(111,111,111);font-family:Nunito, sans-serif;margin-bottom:3rem;\\\"><h3 class=\\\"mb-3\\\" style=\\\"font-weight:600;line-height:1.3;font-size:24px;font-family:Exo, sans-serif;color:rgb(54,54,54);\\\">Do we disclose any information to outside parties?<\\/h3><p class=\\\"font-18\\\" style=\\\"margin-right:0px;margin-left:0px;font-size:18px;\\\">We don\'t sell, exchange, or in any case move to outside gatherings by and by recognizable data. This does exclude confided in outsiders who help us in working our site, leading our business, or adjusting you, since those gatherings consent to keep this data private. We may likewise deliver your data when we accept discharge is suitable to follow the law, implement our site strategies, or ensure our own or others\' rights, property, or wellbeing.<\\/p><\\/div><div class=\\\"mb-5\\\" style=\\\"color:rgb(111,111,111);font-family:Nunito, sans-serif;margin-bottom:3rem;\\\"><h3 class=\\\"mb-3\\\" style=\\\"font-weight:600;line-height:1.3;font-size:24px;font-family:Exo, sans-serif;color:rgb(54,54,54);\\\">Children\'s Online Privacy Protection Act Compliance<\\/h3><p class=\\\"font-18\\\" style=\\\"margin-right:0px;margin-left:0px;font-size:18px;\\\">We are consistent with the prerequisites of COPPA (Children\'s Online Privacy Protection Act), we don\'t gather any data from anybody under 13 years old. Our site, items, and administrations are completely coordinated to individuals who are in any event 13 years of age or more established.<\\/p><\\/div><div class=\\\"mb-5\\\" style=\\\"color:rgb(111,111,111);font-family:Nunito, sans-serif;margin-bottom:3rem;\\\"><h3 class=\\\"mb-3\\\" style=\\\"font-weight:600;line-height:1.3;font-size:24px;font-family:Exo, sans-serif;color:rgb(54,54,54);\\\">Changes to our Privacy Policy<\\/h3><p class=\\\"font-18\\\" style=\\\"margin-right:0px;margin-left:0px;font-size:18px;\\\">If we decide to change our privacy policy, we will post those changes on this page.<\\/p><\\/div><div class=\\\"mb-5\\\" style=\\\"color:rgb(111,111,111);font-family:Nunito, sans-serif;margin-bottom:3rem;\\\"><h3 class=\\\"mb-3\\\" style=\\\"font-weight:600;line-height:1.3;font-size:24px;font-family:Exo, sans-serif;color:rgb(54,54,54);\\\">How long we retain your information?<\\/h3><p class=\\\"font-18\\\" style=\\\"margin-right:0px;margin-left:0px;font-size:18px;\\\">At the point when you register for our site, we cycle and keep your information we have about you however long you don\'t erase the record or withdraw yourself (subject to laws and guidelines).<\\/p><\\/div><div class=\\\"mb-5\\\" style=\\\"color:rgb(111,111,111);font-family:Nunito, sans-serif;margin-bottom:3rem;\\\"><h3 class=\\\"mb-3\\\" style=\\\"font-weight:600;line-height:1.3;font-size:24px;font-family:Exo, sans-serif;color:rgb(54,54,54);\\\">What we don\\u2019t do with your data<\\/h3><p class=\\\"font-18\\\" style=\\\"margin-right:0px;margin-left:0px;font-size:18px;\\\">We don\'t and will never share, unveil, sell, or in any case give your information to different organizations for the promoting of their items or administrations.<\\/p><\\/div>\"}', 0, '2022-04-23 07:50:04', '2022-04-23 07:50:04'),
+(75, 'blog.content', '{\"heading\":\"Our Latest Blog\",\"subheading\":\"Lorem ipsum dolor sit, amet consectetur adipisicing elit. Doloribus necessitatibus repudiandae porro reprehenderit, beatae perferendis repellat quo ipsa omnis, vitae!\"}', 0, '2022-04-23 07:51:10', '2022-04-23 07:51:10'),
+(76, 'blog.element', '{\"has_image\":[\"1\"],\"title\":\"Dit boek is een verhand eling over de\",\"description\":\"<p style=\\\"margin:20px 0px 21px;font-size:16px;color:rgb(102,102,102);line-height:30px;font-family:\'Noto Sans\', sans-serif;\\\">There are many variations of passages of Lorem Ipsum available, but the majority have suffered that the alteration in some form by injected humour or the an randomised words which don\'t look even evry is and slightly believable. If you are going to use a passage of Lorem Ipsum you need to be sure there isn\'t is the anything aembarrassing hidden in the middle of text.Ipsum available but the majority have that suffered is alteration in some form by injected humour or randomised words.<\\/p><p class=\\\"marked\\\" style=\\\"margin:20px 0px 21px;font-size:16px;color:rgb(0,0,80);line-height:30px;font-style:italic;font-family:\'Noto Sans\', sans-serif;\\\">All their equipment and instruments are alive.All their equipment and instruments are alive. I the that about to watched storm, so beautiful terrific.Silver mist suffused the deck the ship.The are recorded voice the a dumm a scratched the Tthst speaker. Almost before we knew it.Almost is before we knew it we had left the dummy is ground.<\\/p><p style=\\\"margin:20px 0px 6px;font-size:16px;color:rgb(102,102,102);line-height:30px;font-family:\'Noto Sans\', sans-serif;\\\">The face of the moon was in shadow.The spectacle before us was indeed sublime.All their equipment tha is and instruments are alive.All their equipment and instruments are alive.I watched the storm so beautiful yet terrific.Silver mist suffused the deck of the ship.<\\/p>\",\"image\":\"6263c534d4d551650705716.jpg\"}', 3, '2022-04-23 07:51:56', '2022-04-23 08:30:57'),
+(77, 'blog.element', '{\"has_image\":[\"1\"],\"title\":\"Dit boek is een verhand eling over de\",\"description\":\"<p style=\\\"margin:20px 0px 21px;font-size:16px;color:rgb(102,102,102);line-height:30px;font-family:\'Noto Sans\', sans-serif;\\\">There are many variations of passages of Lorem Ipsum available, but the majority have suffered that the alteration in some form by injected humour or the an randomised words which don\'t look even evry is and slightly believable. If you are going to use a passage of Lorem Ipsum you need to be sure there isn\'t is the anything aembarrassing hidden in the middle of text.Ipsum available but the majority have that suffered is alteration in some form by injected humour or randomised words.<\\/p><p class=\\\"marked\\\" style=\\\"margin:20px 0px 21px;font-size:16px;color:rgb(0,0,80);line-height:30px;font-style:italic;font-family:\'Noto Sans\', sans-serif;\\\">All their equipment and instruments are alive.All their equipment and instruments are alive. I the that about to watched storm, so beautiful terrific.Silver mist suffused the deck the ship.The are recorded voice the a dumm a scratched the Tthst speaker. Almost before we knew it.Almost is before we knew it we had left the dummy is ground.<\\/p><p style=\\\"margin:20px 0px 6px;font-size:16px;color:rgb(102,102,102);line-height:30px;font-family:\'Noto Sans\', sans-serif;\\\">The face of the moon was in shadow.The spectacle before us was indeed sublime.All their equipment tha is and instruments are alive.All their equipment and instruments are alive.I watched the storm so beautiful yet terrific.Silver mist suffused the deck of the ship.<\\/p>\",\"image\":\"6263c5776573b1650705783.jpg\"}', 0, '2022-04-23 07:53:03', '2022-04-23 07:53:03'),
+(78, 'blog.element', '{\"has_image\":[\"1\"],\"title\":\"Er zijn vele variaties van passages van\",\"description\":\"<p style=\\\"margin:20px 0px 21px;font-size:16px;color:rgb(102,102,102);line-height:30px;font-family:\'Noto Sans\', sans-serif;\\\">There are many variations of passages of Lorem Ipsum available, but the majority have suffered that the alteration in some form by injected humour or the an randomised words which don\'t look even evry is and slightly believable. If you are going to use a passage of Lorem Ipsum you need to be sure there isn\'t is the anything aembarrassing hidden in the middle of text.Ipsum available but the majority have that suffered is alteration in some form by injected humour or randomised words.<\\/p><p class=\\\"marked\\\" style=\\\"margin:20px 0px 21px;font-size:16px;color:rgb(0,0,80);line-height:30px;font-style:italic;font-family:\'Noto Sans\', sans-serif;\\\">All their equipment and instruments are alive.All their equipment and instruments are alive. I the that about to watched storm, so beautiful terrific.Silver mist suffused the deck the ship.The are recorded voice the a dumm a scratched the Tthst speaker. Almost before we knew it.Almost is before we knew it we had left the dummy is ground.<\\/p><p style=\\\"margin:20px 0px 6px;font-size:16px;color:rgb(102,102,102);line-height:30px;font-family:\'Noto Sans\', sans-serif;\\\">The face of the moon was in shadow.The spectacle before us was indeed sublime.All their equipment tha is and instruments are alive.All their equipment and instruments are alive.I watched the storm so beautiful yet terrific.Silver mist suffused the deck of the ship.<\\/p>\",\"image\":\"6263c5ca845e61650705866.jpg\"}', 3, '2022-04-23 07:54:26', '2022-04-23 08:30:45'),
+(79, 'blog.element', '{\"has_image\":[\"1\"],\"title\":\"Het is al geruime tijd een bekend geg\",\"description\":\"<p style=\\\"margin:20px 0px 21px;font-size:16px;color:rgb(102,102,102);line-height:30px;font-family:\'Noto Sans\', sans-serif;\\\">There are many variations of passages of Lorem Ipsum available, but the majority have suffered that the alteration in some form by injected humour or the an randomised words which don\'t look even evry is and slightly believable. If you are going to use a passage of Lorem Ipsum you need to be sure there isn\'t is the anything aembarrassing hidden in the middle of text.Ipsum available but the majority have that suffered is alteration in some form by injected humour or randomised words.<\\/p><p class=\\\"marked\\\" style=\\\"margin:20px 0px 21px;font-size:16px;color:rgb(0,0,80);line-height:30px;font-style:italic;font-family:\'Noto Sans\', sans-serif;\\\">All their equipment and instruments are alive.All their equipment and instruments are alive. I the that about to watched storm, so beautiful terrific.Silver mist suffused the deck the ship.The are recorded voice the a dumm a scratched the Tthst speaker. Almost before we knew it.Almost is before we knew it we had left the dummy is ground.<\\/p><p style=\\\"margin:20px 0px 6px;font-size:16px;color:rgb(102,102,102);line-height:30px;font-family:\'Noto Sans\', sans-serif;\\\">The face of the moon was in shadow.The spectacle before us was indeed sublime.All their equipment tha is and instruments are alive.All their equipment and instruments are alive.I watched the storm so beautiful yet terrific.Silver mist suffused the deck of the ship.<\\/p>\",\"image\":\"6263c5e6ee3281650705894.jpg\"}', 1, '2022-04-23 07:54:54', '2022-08-13 07:53:20'),
+(80, 'blog.element', '{\"has_image\":[\"1\"],\"title\":\"Law firm opened near to that gonig to\",\"description\":\"<p style=\\\"margin:20px 0px 21px;font-size:16px;color:rgb(102,102,102);line-height:30px;font-family:\'Noto Sans\', sans-serif;\\\">There are many variations of passages of Lorem Ipsum available, but the majority have suffered that the alteration in some form by injected humour or the an randomised words which don\'t look even evry is and slightly believable. If you are going to use a passage of Lorem Ipsum you need to be sure there isn\'t is the anything aembarrassing hidden in the middle of text.Ipsum available but the majority have that suffered is alteration in some form by injected humour or randomised words.<\\/p><p class=\\\"marked\\\" style=\\\"margin:20px 0px 21px;font-size:16px;color:rgb(0,0,80);line-height:30px;font-style:italic;font-family:\'Noto Sans\', sans-serif;\\\">All their equipment and instruments are alive.All their equipment and instruments are alive. I the that about to watched storm, so beautiful terrific.Silver mist suffused the deck the ship.The are recorded voice the a dumm a scratched the Tthst speaker. Almost before we knew it.Almost is before we knew it we had left the dummy is ground.<\\/p><p style=\\\"margin:20px 0px 6px;font-size:16px;color:rgb(102,102,102);line-height:30px;font-family:\'Noto Sans\', sans-serif;\\\">The face of the moon was in shadow.The spectacle before us was indeed sublime.All their equipment tha is and instruments are alive.All their equipment and instruments are alive.I watched the storm so beautiful yet terrific.Silver mist suffused the deck of the ship.<\\/p>\",\"image\":\"6263c5ff668751650705919.jpg\"}', 2, '2022-04-23 07:55:19', '2022-04-28 04:38:23'),
+(81, 'blog.element', '{\"has_image\":[\"1\"],\"title\":\"Law firm opened near to that gonig to\",\"description\":\"<p style=\\\"margin:20px 0px 21px;font-size:16px;color:rgb(102,102,102);line-height:30px;font-family:\'Noto Sans\', sans-serif;\\\">There are many variations of passages of Lorem Ipsum available, but the majority have suffered that the alteration in some form by injected humour or the an randomised words which don\'t look even evry is and slightly believable. If you are going to use a passage of Lorem Ipsum you need to be sure there isn\'t is the anything aembarrassing hidden in the middle of text.Ipsum available but the majority have that suffered is alteration in some form by injected humour or randomised words.<\\/p><p class=\\\"marked\\\" style=\\\"margin:20px 0px 21px;font-size:16px;color:rgb(0,0,80);line-height:30px;font-style:italic;font-family:\'Noto Sans\', sans-serif;\\\">All their equipment and instruments are alive.All their equipment and instruments are alive. I the that about to watched storm, so beautiful terrific.Silver mist suffused the deck the ship.The are recorded voice the a dumm a scratched the Tthst speaker. Almost before we knew it.Almost is before we knew it we had left the dummy is ground.<\\/p><p style=\\\"margin:20px 0px 6px;font-size:16px;color:rgb(102,102,102);line-height:30px;font-family:\'Noto Sans\', sans-serif;\\\">The face of the moon was in shadow.The spectacle before us was indeed sublime.All their equipment tha is and instruments are alive.All their equipment and instruments are alive.I watched the storm so beautiful yet terrific.Silver mist suffused the deck of the ship.<\\/p>\",\"image\":\"6263c61391bf31650705939.jpg\"}', 6, '2022-04-23 07:55:39', '2022-04-23 08:34:29'),
+(82, 'breadcrumb.content', '{\"has_image\":\"1\",\"image\":\"6263cd14a6e8d1650707732.png\"}', 0, '2022-04-23 08:25:32', '2022-04-23 08:25:34'),
+(83, 'contact.content', '{\"heading\":\"Contact with us\",\"subheading\":\"Lorem ipsum dolor sit, amet consectetur adipisicing elit. Doloribus necessitatibus repudiandae porro reprehenderit, beatae perferendis repellat quo ipsa omnis, vitae!\"}', 0, '2022-04-23 08:42:01', '2022-04-23 08:42:01'),
+(84, 'contact.element', '{\"icon\":\"<i class=\\\"far fa-envelope\\\"><\\/i>\",\"title\":\"Email Address\",\"content\":\"contact@ptcl.com\"}', 0, '2022-04-23 08:42:19', '2022-04-23 08:42:19'),
+(85, 'contact.element', '{\"icon\":\"<i class=\\\"fas fa-phone\\\"><\\/i>\",\"title\":\"Phone Number\",\"content\":\"+012-345-67890\"}', 0, '2022-04-23 08:42:36', '2022-04-23 08:42:36'),
+(86, 'contact.element', '{\"icon\":\"<i class=\\\"fas fa-map-marker-alt\\\"><\\/i>\",\"title\":\"Office Address\",\"content\":\"ABC road street, Cool City\"}', 0, '2022-04-23 08:42:51', '2022-04-23 08:42:51'),
+(87, 'login.content', '{\"heading\":\"Hi. welcome to PTCLab\",\"subheading\":\"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incint ut labore et am, quis nostrud exercitation ullamco laboris\"}', 0, '2022-04-24 07:43:31', '2022-04-24 07:43:31'),
+(88, 'register.content', '{\"heading\":\"Register New Account\",\"subheading\":\"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incint ut labore et am, quis nostrud exercitation ullamco laboris\"}', 0, '2022-04-24 07:43:48', '2022-04-24 07:43:48'),
+(89, 'kyc_info.content', '{\"verification_content\":\"Hi this web desine by freelancer\",\"pending_content\":\"no type anything this box\"}', 0, '2022-04-24 22:29:41', '2023-09-09 12:16:43');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `gateways`
+--
+
+CREATE TABLE `gateways` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `form_id` int(10) UNSIGNED NOT NULL DEFAULT 0,
+  `code` int(10) DEFAULT NULL,
+  `name` varchar(40) DEFAULT NULL,
+  `alias` varchar(40) NOT NULL DEFAULT 'NULL',
+  `image` varchar(255) DEFAULT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT 1 COMMENT '1=>enable, 2=>disable',
+  `gateway_parameters` text DEFAULT NULL,
+  `supported_currencies` text DEFAULT NULL,
+  `crypto` tinyint(1) NOT NULL DEFAULT 0 COMMENT '0: fiat currency, 1: crypto currency',
+  `extra` text DEFAULT NULL,
+  `description` text DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `gateways`
+--
+
+INSERT INTO `gateways` (`id`, `form_id`, `code`, `name`, `alias`, `image`, `status`, `gateway_parameters`, `supported_currencies`, `crypto`, `extra`, `description`, `created_at`, `updated_at`) VALUES
+(1, 8, 1000, 'Jazzcash', 'jazzcash', NULL, 1, '[]', '[]', 0, NULL, '<b><font size=\"4\" color=\"#ff0000\">Jazzcash Deposit Details</font></b><div><b><font size=\"4\" color=\"#ff0000\"><br></font></b></div><div><b><font size=\"4\" color=\"#ff0000\">Account Name&nbsp;<span style=\"text-align: var(--bs-body-text-align);\">&nbsp;</span></font></b></div><div><span style=\"text-align: var(--bs-body-text-align);\"><b><font size=\"4\" color=\"#ff0000\">Awais klasra</font></b></span></div><div><b><font size=\"4\" color=\"#ff0000\">Account Number</font></b></div><div><b><font size=\"4\" color=\"#ff0000\">03042324661</font></b></div>', '2023-09-08 03:03:24', '2023-09-08 08:24:50');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `gateway_currencies`
+--
+
+CREATE TABLE `gateway_currencies` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `name` varchar(40) DEFAULT NULL,
+  `currency` varchar(40) DEFAULT NULL,
+  `symbol` varchar(40) DEFAULT NULL,
+  `method_code` int(10) DEFAULT NULL,
+  `gateway_alias` varchar(40) DEFAULT NULL,
+  `min_amount` decimal(28,8) NOT NULL DEFAULT 0.00000000,
+  `max_amount` decimal(28,8) NOT NULL DEFAULT 0.00000000,
+  `percent_charge` decimal(5,2) NOT NULL DEFAULT 0.00,
+  `fixed_charge` decimal(28,8) NOT NULL DEFAULT 0.00000000,
+  `rate` decimal(28,8) NOT NULL DEFAULT 0.00000000,
+  `image` varchar(255) DEFAULT NULL,
+  `gateway_parameter` text DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `gateway_currencies`
+--
+
+INSERT INTO `gateway_currencies` (`id`, `name`, `currency`, `symbol`, `method_code`, `gateway_alias`, `min_amount`, `max_amount`, `percent_charge`, `fixed_charge`, `rate`, `image`, `gateway_parameter`, `created_at`, `updated_at`) VALUES
+(1, 'Jazzcash', 'PKR', '', 1000, 'jazzcash', '1000.00000000', '50000.00000000', '0.00', '0.00000000', '1.00000000', NULL, NULL, '2023-09-08 03:03:24', '2023-09-08 08:24:50');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `general_settings`
+--
+
+CREATE TABLE `general_settings` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `site_name` varchar(40) DEFAULT NULL,
+  `cur_text` varchar(40) DEFAULT NULL COMMENT 'currency text',
+  `cur_sym` varchar(40) DEFAULT NULL COMMENT 'currency symbol',
+  `email_from` varchar(40) DEFAULT NULL,
+  `email_template` text DEFAULT NULL,
+  `sms_body` varchar(255) DEFAULT NULL,
+  `sms_from` varchar(255) DEFAULT NULL,
+  `base_color` varchar(40) DEFAULT NULL,
+  `secondary_color` varchar(40) DEFAULT NULL,
+  `mail_config` text DEFAULT NULL COMMENT 'email configuration',
+  `sms_config` text DEFAULT NULL,
+  `global_shortcodes` text DEFAULT NULL,
+  `kv` tinyint(1) NOT NULL DEFAULT 0,
+  `ev` tinyint(1) NOT NULL DEFAULT 0 COMMENT 'email verification, 0 - dont check, 1 - check',
+  `en` tinyint(1) NOT NULL DEFAULT 0 COMMENT 'email notification, 0 - dont send, 1 - send',
+  `sv` tinyint(1) NOT NULL DEFAULT 0 COMMENT 'mobile verication, 0 - dont check, 1 - check',
+  `sn` tinyint(1) NOT NULL DEFAULT 0 COMMENT 'sms notification, 0 - dont send, 1 - send',
+  `force_ssl` tinyint(1) NOT NULL DEFAULT 0,
+  `maintenance_mode` tinyint(1) NOT NULL DEFAULT 0,
+  `secure_password` tinyint(1) NOT NULL DEFAULT 0,
+  `agree` tinyint(1) NOT NULL DEFAULT 0,
+  `registration` tinyint(1) NOT NULL DEFAULT 0 COMMENT '0: Off	, 1: On',
+  `active_template` varchar(40) DEFAULT NULL,
+  `deposit_commission` tinyint(1) NOT NULL DEFAULT 0,
+  `plan_subscribe_commission` tinyint(1) NOT NULL DEFAULT 0,
+  `ptc_view_commission` tinyint(1) NOT NULL DEFAULT 0,
+  `system_info` text DEFAULT NULL,
+  `registration_bonus` decimal(28,8) NOT NULL DEFAULT 0.00000000,
+  `bt_fixed` decimal(28,8) NOT NULL DEFAULT 0.00000000,
+  `bt_percent` decimal(11,2) NOT NULL DEFAULT 0.00,
+  `balance_transfer` tinyint(1) NOT NULL DEFAULT 0,
+  `default_plan` int(11) NOT NULL DEFAULT 0,
+  `user_ads_post` tinyint(1) NOT NULL DEFAULT 0,
+  `ad_auto_approve` tinyint(1) NOT NULL DEFAULT 0,
+  `ads_setting` text DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `pos` int(11) NOT NULL DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `general_settings`
+--
+
+INSERT INTO `general_settings` (`id`, `site_name`, `cur_text`, `cur_sym`, `email_from`, `email_template`, `sms_body`, `sms_from`, `base_color`, `secondary_color`, `mail_config`, `sms_config`, `global_shortcodes`, `kv`, `ev`, `en`, `sv`, `sn`, `force_ssl`, `maintenance_mode`, `secure_password`, `agree`, `registration`, `active_template`, `deposit_commission`, `plan_subscribe_commission`, `ptc_view_commission`, `system_info`, `registration_bonus`, `bt_fixed`, `bt_percent`, `balance_transfer`, `default_plan`, `user_ads_post`, `ad_auto_approve`, `ads_setting`, `created_at`, `updated_at`, `pos`) VALUES
+(1, 'New Full high function', 'Rs', 'Pkr', 'do-not-reply@viserlab.com', '<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\">\r\n  <!--[if !mso]><!-->\r\n  <meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\">\r\n  <!--<![endif]-->\r\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\r\n  <title></title>\r\n  <style type=\"text/css\">\r\n.ReadMsgBody { width: 100%; background-color: #ffffff; }\r\n.ExternalClass { width: 100%; background-color: #ffffff; }\r\n.ExternalClass, .ExternalClass p, .ExternalClass span, .ExternalClass font, .ExternalClass td, .ExternalClass div { line-height: 100%; }\r\nhtml { width: 100%; }\r\nbody { -webkit-text-size-adjust: none; -ms-text-size-adjust: none; margin: 0; padding: 0; }\r\ntable { border-spacing: 0; table-layout: fixed; margin: 0 auto;border-collapse: collapse; }\r\ntable table table { table-layout: auto; }\r\n.yshortcuts a { border-bottom: none !important; }\r\nimg:hover { opacity: 0.9 !important; }\r\na { color: #0087ff; text-decoration: none; }\r\n.textbutton a { font-family: \'open sans\', arial, sans-serif !important;}\r\n.btn-link a { color:#FFFFFF !important;}\r\n\r\n@media only screen and (max-width: 480px) {\r\nbody { width: auto !important; }\r\n*[class=\"table-inner\"] { width: 90% !important; text-align: center !important; }\r\n*[class=\"table-full\"] { width: 100% !important; text-align: center !important; }\r\n/* image */\r\nimg[class=\"img1\"] { width: 100% !important; height: auto !important; }\r\n}\r\n</style>\r\n\r\n\r\n\r\n  <table bgcolor=\"#414a51\" width=\"100%\" border=\"0\" align=\"center\" cellpadding=\"0\" cellspacing=\"0\">\r\n    <tbody><tr>\r\n      <td height=\"50\"></td>\r\n    </tr>\r\n    <tr>\r\n      <td align=\"center\" style=\"text-align:center;vertical-align:top;font-size:0;\">\r\n        <table align=\"center\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\">\r\n          <tbody><tr>\r\n            <td align=\"center\" width=\"600\">\r\n              <!--header-->\r\n              <table class=\"table-inner\" width=\"95%\" border=\"0\" align=\"center\" cellpadding=\"0\" cellspacing=\"0\">\r\n                <tbody><tr>\r\n                  <td bgcolor=\"#0087ff\" style=\"border-top-left-radius:6px; border-top-right-radius:6px;text-align:center;vertical-align:top;font-size:0;\" align=\"center\">\r\n                    <table width=\"90%\" border=\"0\" align=\"center\" cellpadding=\"0\" cellspacing=\"0\">\r\n                      <tbody><tr>\r\n                        <td height=\"20\"></td>\r\n                      </tr>\r\n                      <tr>\r\n                        <td align=\"center\" style=\"font-family: \'Open sans\', Arial, sans-serif; color:#FFFFFF; font-size:16px; font-weight: bold;\">This is a System Generated Email</td>\r\n                      </tr>\r\n                      <tr>\r\n                        <td height=\"20\"></td>\r\n                      </tr>\r\n                    </tbody></table>\r\n                  </td>\r\n                </tr>\r\n              </tbody></table>\r\n              <!--end header-->\r\n              <table class=\"table-inner\" width=\"95%\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\">\r\n                <tbody><tr>\r\n                  <td bgcolor=\"#FFFFFF\" align=\"center\" style=\"text-align:center;vertical-align:top;font-size:0;\">\r\n                    <table align=\"center\" width=\"90%\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\">\r\n                      <tbody><tr>\r\n                        <td height=\"35\"></td>\r\n                      </tr>\r\n                      <!--logo-->\r\n                      <tr>\r\n                        <td align=\"center\" style=\"vertical-align:top;font-size:0;\">\r\n                          <a href=\"#\">\r\n                            <img style=\"display:block; line-height:0px; font-size:0px; border:0px;\" src=\"https://i.imgur.com/Z1qtvtV.png\" alt=\"img\">\r\n                          </a>\r\n                        </td>\r\n                      </tr>\r\n                      <!--end logo-->\r\n                      <tr>\r\n                        <td height=\"40\"></td>\r\n                      </tr>\r\n                      <!--headline-->\r\n                      <tr>\r\n                        <td align=\"center\" style=\"font-family: \'Open Sans\', Arial, sans-serif; font-size: 22px;color:#414a51;font-weight: bold;\">Hello {{fullname}} ({{username}})</td>\r\n                      </tr>\r\n                      <!--end headline-->\r\n                      <tr>\r\n                        <td align=\"center\" style=\"text-align:center;vertical-align:top;font-size:0;\">\r\n                          <table width=\"40\" border=\"0\" align=\"center\" cellpadding=\"0\" cellspacing=\"0\">\r\n                            <tbody><tr>\r\n                              <td height=\"20\" style=\" border-bottom:3px solid #0087ff;\"></td>\r\n                            </tr>\r\n                          </tbody></table>\r\n                        </td>\r\n                      </tr>\r\n                      <tr>\r\n                        <td height=\"20\"></td>\r\n                      </tr>\r\n                      <!--content-->\r\n                      <tr>\r\n                        <td align=\"left\" style=\"font-family: \'Open sans\', Arial, sans-serif; color:#7f8c8d; font-size:16px; line-height: 28px;\">{{message}}</td>\r\n                      </tr>\r\n                      <!--end content-->\r\n                      <tr>\r\n                        <td height=\"40\"></td>\r\n                      </tr>\r\n              \r\n                    </tbody></table>\r\n                  </td>\r\n                </tr>\r\n                <tr>\r\n                  <td height=\"45\" align=\"center\" bgcolor=\"#f4f4f4\" style=\"border-bottom-left-radius:6px;border-bottom-right-radius:6px;\">\r\n                    <table align=\"center\" width=\"90%\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\">\r\n                      <tbody><tr>\r\n                        <td height=\"10\"></td>\r\n                      </tr>\r\n                      <!--preference-->\r\n                      <tr>\r\n                        <td class=\"preference-link\" align=\"center\" style=\"font-family: \'Open sans\', Arial, sans-serif; color:#95a5a6; font-size:14px;\">\r\n                          © 2021 <a href=\"#\">{{site_name}}</a>&nbsp;. All Rights Reserved. \r\n                        </td>\r\n                      </tr>\r\n                      <!--end preference-->\r\n                      <tr>\r\n                        <td height=\"10\"></td>\r\n                      </tr>\r\n                    </tbody></table>\r\n                  </td>\r\n                </tr>\r\n              </tbody></table>\r\n            </td>\r\n          </tr>\r\n        </tbody></table>\r\n      </td>\r\n    </tr>\r\n    <tr>\r\n      <td height=\"60\"></td>\r\n    </tr>\r\n  </tbody></table>', 'hi {{fullname}} ({{username}}), {{message}}', 'ViserAdmin', 'Green', 'Blue', '{\"name\":\"php\"}', '{\"name\":\"infobip\",\"clickatell\":{\"api_key\":\"----------------\"},\"infobip\":{\"username\":\"----------------\",\"password\":\"-----------------\"},\"message_bird\":{\"api_key\":\"-------------------\"},\"nexmo\":{\"api_key\":\"----------------------\",\"api_secret\":\"----------------------\"},\"sms_broadcast\":{\"username\":\"----------------------\",\"password\":\"-----------------------------\"},\"twilio\":{\"account_sid\":\"-----------------------\",\"auth_token\":\"---------------------------\",\"from\":\"----------------------\"},\"text_magic\":{\"username\":\"-----------------------\",\"apiv2_key\":\"-------------------------------\"},\"custom\":{\"method\":\"get\",\"url\":\"https:\\/\\/hostname\\/demo-api-v1\",\"headers\":{\"name\":[\"api_key\"],\"value\":[\"test_api 555\"]},\"body\":{\"name\":[\"from_number\"],\"value\":[\"5657545757\"]}}}', '{\n    \"site_name\":\"Name of your site\",\n    \"site_currency\":\"Currency of your site\",\n    \"currency_symbol\":\"Symbol of currency\"\n}', 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 'basic', 1, 1, 1, '[]', '0.00000000', '2.00000000', '2.00', 1, 0, 1, 0, '{\"ad_price\":{\"script\":\"0.25\",\"image\":\"0.25\",\"url\":\"0.25\",\"youtube\":\"0.25\"},\"amount_for_user\":{\"script\":\"0.15\",\"image\":\"0.15\",\"url\":\"0.15\",\"youtube\":\"0.15\"}}', NULL, '2023-09-09 16:43:42', 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `languages`
+--
+
+CREATE TABLE `languages` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `name` varchar(40) DEFAULT NULL,
+  `code` varchar(40) DEFAULT NULL,
+  `icon` varchar(255) DEFAULT NULL,
+  `text_align` tinyint(1) NOT NULL DEFAULT 0 COMMENT '0: left to right text align, 1: right to left text align',
+  `is_default` tinyint(1) NOT NULL DEFAULT 0 COMMENT '0: not default language, 1: default language',
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `languages`
+--
+
+INSERT INTO `languages` (`id`, `name`, `code`, `icon`, `text_align`, `is_default`, `created_at`, `updated_at`) VALUES
+(1, 'English', 'en', '5f15968db08911595250317.png', 0, 1, '2020-07-06 03:47:55', '2022-04-09 03:47:04'),
+(5, 'Hindi', 'hn', NULL, 0, 0, '2020-12-29 02:20:07', '2022-04-09 03:47:04'),
+(9, 'Bangla', 'bn', NULL, 0, 0, '2021-03-14 04:37:41', '2022-03-30 12:31:55'),
+(11, 'Spanish', 'es', NULL, 0, 0, '2022-04-28 04:39:33', '2022-04-28 04:39:33');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `migrations`
+--
+
+CREATE TABLE `migrations` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `migration` varchar(255) NOT NULL,
+  `batch` int(10) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `notification_logs`
+--
+
+CREATE TABLE `notification_logs` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `user_id` int(10) UNSIGNED NOT NULL DEFAULT 0,
+  `sender` varchar(40) DEFAULT NULL,
+  `sent_from` varchar(40) DEFAULT NULL,
+  `sent_to` varchar(40) DEFAULT NULL,
+  `subject` varchar(255) DEFAULT NULL,
+  `message` text DEFAULT NULL,
+  `notification_type` varchar(40) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `notification_templates`
+--
+
+CREATE TABLE `notification_templates` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `act` varchar(40) DEFAULT NULL,
+  `name` varchar(40) DEFAULT NULL,
+  `subj` varchar(255) DEFAULT NULL,
+  `email_body` text DEFAULT NULL,
+  `sms_body` text DEFAULT NULL,
+  `shortcodes` text DEFAULT NULL,
+  `email_status` tinyint(1) NOT NULL DEFAULT 1,
+  `sms_status` tinyint(1) NOT NULL DEFAULT 1,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `notification_templates`
+--
+
+INSERT INTO `notification_templates` (`id`, `act`, `name`, `subj`, `email_body`, `sms_body`, `shortcodes`, `email_status`, `sms_status`, `created_at`, `updated_at`) VALUES
+(1, 'BAL_ADD', 'Balance - Added', 'Your Account has been Credited', '<div><div style=\"font-family: Montserrat, sans-serif;\">{{amount}} {{site_currency}} has been added to your account .</div><div style=\"font-family: Montserrat, sans-serif;\"><br></div><div style=\"font-family: Montserrat, sans-serif;\">Transaction Number : {{trx}}</div><div style=\"font-family: Montserrat, sans-serif;\"><br></div><span style=\"color: rgb(33, 37, 41); font-family: Montserrat, sans-serif;\">Your Current Balance is :&nbsp;</span><font style=\"font-family: Montserrat, sans-serif;\"><span style=\"font-weight: bolder;\">{{post_balance}}&nbsp; {{site_currency}}&nbsp;</span></font><br></div><div><font style=\"font-family: Montserrat, sans-serif;\"><span style=\"font-weight: bolder;\"><br></span></font></div><div>Admin note:&nbsp;<span style=\"color: rgb(33, 37, 41); font-size: 12px; font-weight: 600; white-space: nowrap; text-align: var(--bs-body-text-align);\">{{remark}}</span></div>', '{{amount}} {{site_currency}} credited in your account. Your Current Balance {{post_balance}} {{site_currency}} . Transaction: #{{trx}}. Admin note is \"{{remark}}\"', '{\"trx\":\"Transaction number for the action\",\"amount\":\"Amount inserted by the admin\",\"remark\":\"Remark inserted by the admin\",\"post_balance\":\"Balance of the user after this transaction\"}', 1, 0, '2021-11-03 12:00:00', '2022-04-03 02:18:28'),
+(2, 'BAL_SUB', 'Balance - Subtracted', 'Your Account has been Debited', '<div style=\"font-family: Montserrat, sans-serif;\">{{amount}} {{site_currency}} has been subtracted from your account .</div><div style=\"font-family: Montserrat, sans-serif;\"><br></div><div style=\"font-family: Montserrat, sans-serif;\">Transaction Number : {{trx}}</div><div style=\"font-family: Montserrat, sans-serif;\"><br></div><span style=\"color: rgb(33, 37, 41); font-family: Montserrat, sans-serif;\">Your Current Balance is :&nbsp;</span><font style=\"font-family: Montserrat, sans-serif;\"><span style=\"font-weight: bolder;\">{{post_balance}}&nbsp; {{site_currency}}</span></font><br><div><font style=\"font-family: Montserrat, sans-serif;\"><span style=\"font-weight: bolder;\"><br></span></font></div><div>Admin Note: {{remark}}</div>', '{{amount}} {{site_currency}} debited from your account. Your Current Balance {{post_balance}} {{site_currency}} . Transaction: #{{trx}}. Admin Note is {{remark}}', '{\"trx\":\"Transaction number for the action\",\"amount\":\"Amount inserted by the admin\",\"remark\":\"Remark inserted by the admin\",\"post_balance\":\"Balance of the user after this transaction\"}', 1, 1, '2021-11-03 12:00:00', '2022-04-03 02:24:11'),
+(3, 'DEPOSIT_COMPLETE', 'Deposit - Automated - Successful', 'Deposit Completed Successfully', '<div>Your deposit of&nbsp;<span style=\"font-weight: bolder;\">{{amount}} {{site_currency}}</span>&nbsp;is via&nbsp;&nbsp;<span style=\"font-weight: bolder;\">{{method_name}}&nbsp;</span>has been completed Successfully.<span style=\"font-weight: bolder;\"><br></span></div><div><span style=\"font-weight: bolder;\"><br></span></div><div><span style=\"font-weight: bolder;\">Details of your Deposit :<br></span></div><div><br></div><div>Amount : {{amount}} {{site_currency}}</div><div>Charge:&nbsp;<font color=\"#000000\">{{charge}} {{site_currency}}</font></div><div><br></div><div>Conversion Rate : 1 {{site_currency}} = {{rate}} {{method_currency}}</div><div>Received : {{method_amount}} {{method_currency}}<br></div><div>Paid via :&nbsp; {{method_name}}</div><div><br></div><div>Transaction Number : {{trx}}</div><div><font size=\"5\"><span style=\"font-weight: bolder;\"><br></span></font></div><div><font size=\"5\">Your current Balance is&nbsp;<span style=\"font-weight: bolder;\">{{post_balance}} {{site_currency}}</span></font></div><div><br style=\"font-family: Montserrat, sans-serif;\"></div>', '{{amount}} {{site_currency}} Deposit successfully by {{method_name}}', '{\"trx\":\"Transaction number for the deposit\",\"amount\":\"Amount inserted by the user\",\"charge\":\"Gateway charge set by the admin\",\"rate\":\"Conversion rate between base currency and method currency\",\"method_name\":\"Name of the deposit method\",\"method_currency\":\"Currency of the deposit method\",\"method_amount\":\"Amount after conversion between base currency and method currency\",\"post_balance\":\"Balance of the user after this transaction\"}', 1, 1, '2021-11-03 12:00:00', '2022-04-03 02:25:43'),
+(4, 'DEPOSIT_APPROVE', 'Deposit - Manual - Approved', 'Your Deposit is Approved', '<div style=\"font-family: Montserrat, sans-serif;\">Your deposit request of&nbsp;<span style=\"font-weight: bolder;\">{{amount}} {{site_currency}}</span>&nbsp;is via&nbsp;&nbsp;<span style=\"font-weight: bolder;\">{{method_name}}&nbsp;</span>is Approved .<span style=\"font-weight: bolder;\"><br></span></div><div style=\"font-family: Montserrat, sans-serif;\"><span style=\"font-weight: bolder;\"><br></span></div><div style=\"font-family: Montserrat, sans-serif;\"><span style=\"font-weight: bolder;\">Details of your Deposit :<br></span></div><div style=\"font-family: Montserrat, sans-serif;\"><br></div><div style=\"font-family: Montserrat, sans-serif;\">Amount : {{amount}} {{site_currency}}</div><div style=\"font-family: Montserrat, sans-serif;\">Charge:&nbsp;<font color=\"#FF0000\">{{charge}} {{site_currency}}</font></div><div style=\"font-family: Montserrat, sans-serif;\"><br></div><div style=\"font-family: Montserrat, sans-serif;\">Conversion Rate : 1 {{site_currency}} = {{rate}} {{method_currency}}</div><div style=\"font-family: Montserrat, sans-serif;\">Received : {{method_amount}} {{method_currency}}<br></div><div style=\"font-family: Montserrat, sans-serif;\">Paid via :&nbsp; {{method_name}}</div><div style=\"font-family: Montserrat, sans-serif;\"><br></div><div style=\"font-family: Montserrat, sans-serif;\">Transaction Number : {{trx}}</div><div style=\"font-family: Montserrat, sans-serif;\"><font size=\"5\"><span style=\"font-weight: bolder;\"><br></span></font></div><div style=\"font-family: Montserrat, sans-serif;\"><font size=\"5\">Your current Balance is&nbsp;<span style=\"font-weight: bolder;\">{{post_balance}} {{site_currency}}</span></font></div><div style=\"font-family: Montserrat, sans-serif;\"><br></div><div style=\"font-family: Montserrat, sans-serif;\"><br></div>', 'Admin Approve Your {{amount}} {{site_currency}} payment request by {{method_name}} transaction : {{trx}}', '{\"trx\":\"Transaction number for the deposit\",\"amount\":\"Amount inserted by the user\",\"charge\":\"Gateway charge set by the admin\",\"rate\":\"Conversion rate between base currency and method currency\",\"method_name\":\"Name of the deposit method\",\"method_currency\":\"Currency of the deposit method\",\"method_amount\":\"Amount after conversion between base currency and method currency\",\"post_balance\":\"Balance of the user after this transaction\"}', 1, 1, '2021-11-03 12:00:00', '2022-04-03 02:26:07'),
+(5, 'DEPOSIT_REJECT', 'Deposit - Manual - Rejected', 'Your Deposit Request is Rejected', '<div style=\"font-family: Montserrat, sans-serif;\">Your deposit request of&nbsp;<span style=\"font-weight: bolder;\">{{amount}} {{site_currency}}</span>&nbsp;is via&nbsp;&nbsp;<span style=\"font-weight: bolder;\">{{method_name}} has been rejected</span>.<span style=\"font-weight: bolder;\"><br></span></div><div><br></div><div><br></div><div style=\"font-family: Montserrat, sans-serif;\">Conversion Rate : 1 {{site_currency}} = {{rate}} {{method_currency}}</div><div style=\"font-family: Montserrat, sans-serif;\">Received : {{method_amount}} {{method_currency}}<br></div><div style=\"font-family: Montserrat, sans-serif;\">Paid via :&nbsp; {{method_name}}</div><div style=\"font-family: Montserrat, sans-serif;\">Charge: {{charge}}</div><div style=\"font-family: Montserrat, sans-serif;\"><br></div><div style=\"font-family: Montserrat, sans-serif;\"><br></div><div style=\"font-family: Montserrat, sans-serif;\">Transaction Number was : {{trx}}</div><div style=\"font-family: Montserrat, sans-serif;\"><br></div><div style=\"font-family: Montserrat, sans-serif;\">if you have any queries, feel free to contact us.<br></div><br style=\"font-family: Montserrat, sans-serif;\"><div style=\"font-family: Montserrat, sans-serif;\"><br><br></div><span style=\"color: rgb(33, 37, 41); font-family: Montserrat, sans-serif;\">{{rejection_message}}</span><br>', 'Admin Rejected Your {{amount}} {{site_currency}} payment request by {{method_name}}\r\n\r\n{{rejection_message}}', '{\"trx\":\"Transaction number for the deposit\",\"amount\":\"Amount inserted by the user\",\"charge\":\"Gateway charge set by the admin\",\"rate\":\"Conversion rate between base currency and method currency\",\"method_name\":\"Name of the deposit method\",\"method_currency\":\"Currency of the deposit method\",\"method_amount\":\"Amount after conversion between base currency and method currency\",\"rejection_message\":\"Rejection message by the admin\"}', 1, 1, '2021-11-03 12:00:00', '2022-04-05 03:45:27'),
+(6, 'DEPOSIT_REQUEST', 'Deposit - Manual - Requested', 'Deposit Request Submitted Successfully', '<div>Your deposit request of&nbsp;<span style=\"font-weight: bolder;\">{{amount}} {{site_currency}}</span>&nbsp;is via&nbsp;&nbsp;<span style=\"font-weight: bolder;\">{{method_name}}&nbsp;</span>submitted successfully<span style=\"font-weight: bolder;\">&nbsp;.<br></span></div><div><span style=\"font-weight: bolder;\"><br></span></div><div><span style=\"font-weight: bolder;\">Details of your Deposit :<br></span></div><div><br></div><div>Amount : {{amount}} {{site_currency}}</div><div>Charge:&nbsp;<font color=\"#FF0000\">{{charge}} {{site_currency}}</font></div><div><br></div><div>Conversion Rate : 1 {{site_currency}} = {{rate}} {{method_currency}}</div><div>Payable : {{method_amount}} {{method_currency}}<br></div><div>Pay via :&nbsp; {{method_name}}</div><div><br></div><div>Transaction Number : {{trx}}</div><div><br></div><div><br style=\"font-family: Montserrat, sans-serif;\"></div>', '{{amount}} {{site_currency}} Deposit requested by {{method_name}}. Charge: {{charge}} . Trx: {{trx}}', '{\"trx\":\"Transaction number for the deposit\",\"amount\":\"Amount inserted by the user\",\"charge\":\"Gateway charge set by the admin\",\"rate\":\"Conversion rate between base currency and method currency\",\"method_name\":\"Name of the deposit method\",\"method_currency\":\"Currency of the deposit method\",\"method_amount\":\"Amount after conversion between base currency and method currency\"}', 1, 1, '2021-11-03 12:00:00', '2022-04-03 02:29:19'),
+(7, 'PASS_RESET_CODE', 'Password - Reset - Code', 'Password Reset', '<div style=\"font-family: Montserrat, sans-serif;\">We have received a request to reset the password for your account on&nbsp;<span style=\"font-weight: bolder;\">{{time}} .<br></span></div><div style=\"font-family: Montserrat, sans-serif;\">Requested From IP:&nbsp;<span style=\"font-weight: bolder;\">{{ip}}</span>&nbsp;using&nbsp;<span style=\"font-weight: bolder;\">{{browser}}</span>&nbsp;on&nbsp;<span style=\"font-weight: bolder;\">{{operating_system}}&nbsp;</span>.</div><div style=\"font-family: Montserrat, sans-serif;\"><br></div><br style=\"font-family: Montserrat, sans-serif;\"><div style=\"font-family: Montserrat, sans-serif;\"><div>Your account recovery code is:&nbsp;&nbsp;&nbsp;<font size=\"6\"><span style=\"font-weight: bolder;\">{{code}}</span></font></div><div><br></div></div><div style=\"font-family: Montserrat, sans-serif;\"><br></div><div style=\"font-family: Montserrat, sans-serif;\"><font size=\"4\" color=\"#CC0000\">If you do not wish to reset your password, please disregard this message.&nbsp;</font><br></div><div><font size=\"4\" color=\"#CC0000\"><br></font></div>', 'Your account recovery code is: {{code}}', '{\"code\":\"Verification code for password reset\",\"ip\":\"IP address of the user\",\"browser\":\"Browser of the user\",\"operating_system\":\"Operating system of the user\",\"time\":\"Time of the request\"}', 1, 0, '2021-11-03 12:00:00', '2022-03-20 20:47:05'),
+(8, 'PASS_RESET_DONE', 'Password - Reset - Confirmation', 'You have reset your password', '<p style=\"font-family: Montserrat, sans-serif;\">You have successfully reset your password.</p><p style=\"font-family: Montserrat, sans-serif;\">You changed from&nbsp; IP:&nbsp;<span style=\"font-weight: bolder;\">{{ip}}</span>&nbsp;using&nbsp;<span style=\"font-weight: bolder;\">{{browser}}</span>&nbsp;on&nbsp;<span style=\"font-weight: bolder;\">{{operating_system}}&nbsp;</span>&nbsp;on&nbsp;<span style=\"font-weight: bolder;\">{{time}}</span></p><p style=\"font-family: Montserrat, sans-serif;\"><span style=\"font-weight: bolder;\"><br></span></p><p style=\"font-family: Montserrat, sans-serif;\"><span style=\"font-weight: bolder;\"><font color=\"#ff0000\">If you did not change that, please contact us as soon as possible.</font></span></p>', 'Your password has been changed successfully', '{\"ip\":\"IP address of the user\",\"browser\":\"Browser of the user\",\"operating_system\":\"Operating system of the user\",\"time\":\"Time of the request\"}', 1, 1, '2021-11-03 12:00:00', '2022-04-05 03:46:35'),
+(9, 'ADMIN_SUPPORT_REPLY', 'Support - Reply', 'Reply Support Ticket', '<div><p><span data-mce-style=\"font-size: 11pt;\" style=\"font-size: 11pt;\"><span style=\"font-weight: bolder;\">A member from our support team has replied to the following ticket:</span></span></p><p><span style=\"font-weight: bolder;\"><span data-mce-style=\"font-size: 11pt;\" style=\"font-size: 11pt;\"><span style=\"font-weight: bolder;\"><br></span></span></span></p><p><span style=\"font-weight: bolder;\">[Ticket#{{ticket_id}}] {{ticket_subject}}<br><br>Click here to reply:&nbsp; {{link}}</span></p><p>----------------------------------------------</p><p>Here is the reply :<br></p><p>{{reply}}<br></p></div><div><br style=\"font-family: Montserrat, sans-serif;\"></div>', 'Your Ticket#{{ticket_id}} :  {{ticket_subject}} has been replied.', '{\"ticket_id\":\"ID of the support ticket\",\"ticket_subject\":\"Subject  of the support ticket\",\"reply\":\"Reply made by the admin\",\"link\":\"URL to view the support ticket\"}', 1, 1, '2021-11-03 12:00:00', '2022-03-20 20:47:51'),
+(10, 'EVER_CODE', 'Verification - Email', 'Please verify your email address', '<br><div><div style=\"font-family: Montserrat, sans-serif;\">Thanks For joining us.<br></div><div style=\"font-family: Montserrat, sans-serif;\">Please use the below code to verify your email address.<br></div><div style=\"font-family: Montserrat, sans-serif;\"><br></div><div style=\"font-family: Montserrat, sans-serif;\">Your email verification code is:<font size=\"6\"><span style=\"font-weight: bolder;\">&nbsp;{{code}}</span></font></div></div>', '---', '{\"code\":\"Email verification code\"}', 1, 0, '2021-11-03 12:00:00', '2022-04-03 02:32:07'),
+(11, 'SVER_CODE', 'Verification - SMS', 'Verify Your Mobile Number', '---', 'Your phone verification code is: {{code}}', '{\"code\":\"SMS Verification Code\"}', 0, 1, '2021-11-03 12:00:00', '2022-03-20 19:24:37'),
+(12, 'WITHDRAW_APPROVE', 'Withdraw - Approved', 'Withdraw Request has been Processed and your money is sent', '<div style=\"font-family: Montserrat, sans-serif;\">Your withdraw request of&nbsp;<span style=\"font-weight: bolder;\">{{amount}} {{site_currency}}</span>&nbsp; via&nbsp;&nbsp;<span style=\"font-weight: bolder;\">{{method_name}}&nbsp;</span>has been Processed Successfully.<span style=\"font-weight: bolder;\"><br></span></div><div style=\"font-family: Montserrat, sans-serif;\"><span style=\"font-weight: bolder;\"><br></span></div><div style=\"font-family: Montserrat, sans-serif;\"><span style=\"font-weight: bolder;\">Details of your withdraw:<br></span></div><div style=\"font-family: Montserrat, sans-serif;\"><br></div><div style=\"font-family: Montserrat, sans-serif;\">Amount : {{amount}} {{site_currency}}</div><div style=\"font-family: Montserrat, sans-serif;\">Charge:&nbsp;<font color=\"#FF0000\">{{charge}} {{site_currency}}</font></div><div style=\"font-family: Montserrat, sans-serif;\"><br></div><div style=\"font-family: Montserrat, sans-serif;\">Conversion Rate : 1 {{site_currency}} = {{rate}} {{method_currency}}</div><div style=\"font-family: Montserrat, sans-serif;\">You will get: {{method_amount}} {{method_currency}}<br></div><div style=\"font-family: Montserrat, sans-serif;\">Via :&nbsp; {{method_name}}</div><div style=\"font-family: Montserrat, sans-serif;\"><br></div><div style=\"font-family: Montserrat, sans-serif;\">Transaction Number : {{trx}}</div><div style=\"font-family: Montserrat, sans-serif;\"><br></div><div style=\"font-family: Montserrat, sans-serif;\">-----</div><div style=\"font-family: Montserrat, sans-serif;\"><br></div><div style=\"font-family: Montserrat, sans-serif;\"><font size=\"4\">Details of Processed Payment :</font></div><div style=\"font-family: Montserrat, sans-serif;\"><font size=\"4\"><span style=\"font-weight: bolder;\">{{admin_details}}</span></font></div>', 'Admin Approve Your {{amount}} {{site_currency}} withdraw request by {{method_name}}. Transaction {{trx}}', '{\"trx\":\"Transaction number for the withdraw\",\"amount\":\"Amount requested by the user\",\"charge\":\"Gateway charge set by the admin\",\"rate\":\"Conversion rate between base currency and method currency\",\"method_name\":\"Name of the withdraw method\",\"method_currency\":\"Currency of the withdraw method\",\"method_amount\":\"Amount after conversion between base currency and method currency\",\"admin_details\":\"Details provided by the admin\"}', 1, 1, '2021-11-03 12:00:00', '2022-03-20 20:50:16'),
+(13, 'WITHDRAW_REJECT', 'Withdraw - Rejected', 'Withdraw Request has been Rejected and your money is refunded to your account', '<div style=\"font-family: Montserrat, sans-serif;\">Your withdraw request of&nbsp;<span style=\"font-weight: bolder;\">{{amount}} {{site_currency}}</span>&nbsp; via&nbsp;&nbsp;<span style=\"font-weight: bolder;\">{{method_name}}&nbsp;</span>has been Rejected.<span style=\"font-weight: bolder;\"><br></span></div><div style=\"font-family: Montserrat, sans-serif;\"><span style=\"font-weight: bolder;\"><br></span></div><div style=\"font-family: Montserrat, sans-serif;\"><span style=\"font-weight: bolder;\">Details of your withdraw:<br></span></div><div style=\"font-family: Montserrat, sans-serif;\"><br></div><div style=\"font-family: Montserrat, sans-serif;\">Amount : {{amount}} {{site_currency}}</div><div style=\"font-family: Montserrat, sans-serif;\">Charge:&nbsp;<font color=\"#FF0000\">{{charge}} {{site_currency}}</font></div><div style=\"font-family: Montserrat, sans-serif;\"><br></div><div style=\"font-family: Montserrat, sans-serif;\">Conversion Rate : 1 {{site_currency}} = {{rate}} {{method_currency}}</div><div style=\"font-family: Montserrat, sans-serif;\">You should get: {{method_amount}} {{method_currency}}<br></div><div style=\"font-family: Montserrat, sans-serif;\">Via :&nbsp; {{method_name}}</div><div style=\"font-family: Montserrat, sans-serif;\"><br></div><div style=\"font-family: Montserrat, sans-serif;\">Transaction Number : {{trx}}</div><div style=\"font-family: Montserrat, sans-serif;\"><br></div><div style=\"font-family: Montserrat, sans-serif;\"><br></div><div style=\"font-family: Montserrat, sans-serif;\">----</div><div style=\"font-family: Montserrat, sans-serif;\"><font size=\"3\"><br></font></div><div style=\"font-family: Montserrat, sans-serif;\"><font size=\"3\">{{amount}} {{currency}} has been&nbsp;<span style=\"font-weight: bolder;\">refunded&nbsp;</span>to your account and your current Balance is&nbsp;<span style=\"font-weight: bolder;\">{{post_balance}}</span><span style=\"font-weight: bolder;\">&nbsp;{{site_currency}}</span></font></div><div style=\"font-family: Montserrat, sans-serif;\"><br></div><div style=\"font-family: Montserrat, sans-serif;\">-----</div><div style=\"font-family: Montserrat, sans-serif;\"><br></div><div style=\"font-family: Montserrat, sans-serif;\"><font size=\"4\">Details of Rejection :</font></div><div style=\"font-family: Montserrat, sans-serif;\"><font size=\"4\"><span style=\"font-weight: bolder;\">{{admin_details}}</span></font></div><div style=\"font-family: Montserrat, sans-serif;\"><br></div><div style=\"font-family: Montserrat, sans-serif;\"><br><br><br><br><br></div><div></div><div></div>', 'Admin Rejected Your {{amount}} {{site_currency}} withdraw request. Your Main Balance {{post_balance}}  {{method_name}} , Transaction {{trx}}', '{\"trx\":\"Transaction number for the withdraw\",\"amount\":\"Amount requested by the user\",\"charge\":\"Gateway charge set by the admin\",\"rate\":\"Conversion rate between base currency and method currency\",\"method_name\":\"Name of the withdraw method\",\"method_currency\":\"Currency of the withdraw method\",\"method_amount\":\"Amount after conversion between base currency and method currency\",\"post_balance\":\"Balance of the user after fter this action\",\"admin_details\":\"Rejection message by the admin\"}', 1, 1, '2021-11-03 12:00:00', '2022-03-20 20:57:46'),
+(14, 'WITHDRAW_REQUEST', 'Withdraw - Requested', 'Withdraw Request Submitted Successfully', '<div style=\"font-family: Montserrat, sans-serif;\">Your withdraw request of&nbsp;<span style=\"font-weight: bolder;\">{{amount}} {{site_currency}}</span>&nbsp; via&nbsp;&nbsp;<span style=\"font-weight: bolder;\">{{method_name}}&nbsp;</span>has been submitted Successfully.<span style=\"font-weight: bolder;\"><br></span></div><div style=\"font-family: Montserrat, sans-serif;\"><span style=\"font-weight: bolder;\"><br></span></div><div style=\"font-family: Montserrat, sans-serif;\"><span style=\"font-weight: bolder;\">Details of your withdraw:<br></span></div><div style=\"font-family: Montserrat, sans-serif;\"><br></div><div style=\"font-family: Montserrat, sans-serif;\">Amount : {{amount}} {{site_currency}}</div><div style=\"font-family: Montserrat, sans-serif;\">Charge:&nbsp;<font color=\"#FF0000\">{{charge}} {{site_currency}}</font></div><div style=\"font-family: Montserrat, sans-serif;\"><br></div><div style=\"font-family: Montserrat, sans-serif;\">Conversion Rate : 1 {{site_currency}} = {{rate}} {{method_currency}}</div><div style=\"font-family: Montserrat, sans-serif;\">You will get: {{method_amount}} {{method_currency}}<br></div><div style=\"font-family: Montserrat, sans-serif;\">Via :&nbsp; {{method_name}}</div><div style=\"font-family: Montserrat, sans-serif;\"><br></div><div style=\"font-family: Montserrat, sans-serif;\">Transaction Number : {{trx}}</div><div style=\"font-family: Montserrat, sans-serif;\"><br></div><div style=\"font-family: Montserrat, sans-serif;\"><br></div><div style=\"font-family: Montserrat, sans-serif;\"><font size=\"5\">Your current Balance is&nbsp;<span style=\"font-weight: bolder;\">{{post_balance}} {{site_currency}}</span></font></div><div style=\"font-family: Montserrat, sans-serif;\"><br></div><div style=\"font-family: Montserrat, sans-serif;\"><br><br><br></div>', '{{amount}} {{site_currency}} withdraw requested by {{method_name}}. You will get {{method_amount}} {{method_currency}} Trx: {{trx}}', '{\"trx\":\"Transaction number for the withdraw\",\"amount\":\"Amount requested by the user\",\"charge\":\"Gateway charge set by the admin\",\"rate\":\"Conversion rate between base currency and method currency\",\"method_name\":\"Name of the withdraw method\",\"method_currency\":\"Currency of the withdraw method\",\"method_amount\":\"Amount after conversion between base currency and method currency\",\"post_balance\":\"Balance of the user after fter this transaction\"}', 1, 1, '2021-11-03 12:00:00', '2022-03-21 04:39:03'),
+(15, 'DEFAULT', 'Default Template', '{{subject}}', '{{message}}', '{{message}}', '{\"subject\":\"Subject\",\"message\":\"Message\"}', 1, 1, '2019-09-14 13:14:22', '2021-11-04 09:38:55'),
+(16, 'KYC_APPROVE', 'KYC Approved', 'KYC has been approved', NULL, NULL, '[]', 1, 1, NULL, NULL),
+(17, 'KYC_REJECT', 'KYC Rejected Successfully', 'KYC has been rejected', NULL, NULL, '[]', 1, 1, NULL, NULL),
+(19, 'BALANCE_TRANSFER', 'Balance Transfer', 'Balance Transfer', 'You\'ve sent {{amount}} {{site_currency}} to {{receiver}}. The transaction number was #{{trx}}. Your current balance is {{post_balance}} {{site_currency}}', 'You\'ve sent {{amount}} {{site_currency}} to {{receiver}}. The transaction number was #{{trx}}. Your current balance is {{post_balance}} {{site_currency}}', '{\"amount\":\"Amount\",\"trx\":\"Transaction Number\",\"charge\":\"Charge\",\"afterCharge\":\"After Charge\",\"post_balance\":\"Post Balance\",\"receiver\":\"Receiver\"}', 1, 1, NULL, '2022-04-28 02:55:03'),
+(20, 'BALANCE_RECEIVE', 'Balance Receive', 'Balance Receive', 'You\'ve received {{amount}} {{site_currency}} from {{sender}}. The transaction number is #{{trx}}', 'You\'ve received {{amount}} {{site_currency}} from {{sender}}. The transaction number is #{{trx}}', '{\"amount\":\"Amount\",\"trx\":\"Transaction Number\",\"post_balance\":\"Post Balance\",\"sender\":\"Sender\"}', 1, 1, NULL, '2022-04-28 02:53:33'),
+(21, 'REFERRAL_COMMISSION', 'Referral Commission', 'Referral commission got successfully', 'You have got {{amount}} {{site_currency}} referral commission as {{level}} position for {{type}} of your referral. Your current balance is {{post_balance}} {{site_currency}} and the transaction number is {{trx}}', 'You have got {{amount}} {{currency_symbol}} referral commission as {{level}} position for {{type}} of your referral. Your current balance is {{post_balance}} {{currency_symbol}} and the transaction number is {{trx}}', '{\"amount\":\"Amount of commission\",\"post_balance\":\"Balance after commission\",\"trx\":\"Transaction number\",\"level\":\"Level of referral\",\"type\":\"Type of commission\"}', 1, 0, NULL, '2022-04-28 03:02:43'),
+(22, 'BUY_PLAN', 'Subscribed Plan', 'You\'ve subscribed successfully', 'You\'ve subscribed to {{plan_name}} plan. The price {{amount}} {{currency}}. The transaction number is #{{trx}}. Your current is {{post_balance}} {{currency}}', 'You\'ve subscribed to {{plan_name}} plan. The price {{amount}} {{currency}}. The transaction number is #{{trx}}. Your current is {{post_balance}} {{currency}}', '{\"amount\":\"Price of the plan\",\"plan_name\":\"Name of plan\",\"trx\":\"Transaction number\",\"post_balance\":\"Balance after transactions\"}', 1, 1, NULL, '2022-01-12 23:20:41'),
+(23, 'PTC_APPROVE', 'PTC Approved', 'PTC Advertisement Approved', 'Your ad {{title}} has been approved successfully. There are {{quantity}} click is available for this ad. The duration was&nbsp; {{duration}} seconds', 'Your ad {{title}} has been approved successfully. There are {{quantity}} click is available for this ad. The duration was  {{duration}} seconds', '{\"title\":\"PTC title\",\"quantity\":\"PTC quantity\",\"duration\":\"PTC duration\"}', 1, 1, NULL, '2022-05-09 04:10:03'),
+(24, 'PTC_REJECT', 'PTC Rejected', 'PTC Advertisement Rejected', 'Your ad {{title}} has been rejected. Your ad quantity was {{quantity}}. and duration was {{duration}} seconds. You\'ve got back {{back_amount}} {{site_currency}} after rejection. Your current balance is {{post_balance}} {{site_currencuy}}.The transaction number was {{trx}}', 'Your ad {{title}} has been rejected. Your ad quantity was {{quantity}}. and duration was {{duration}} seconds. You\'ve got back {{back_amount}} {{site_currency}} after rejection. Your current balance is {{post_balance}} {{site_currencuy}}.The transaction number was {{trx}}', '{\"title\":\"PTC title\",\"quantity\":\"PTC quantity\",\"duration\":\"PTC duration\",\"back_amount\":\"Backed amount after rejection\",\"trx\":\"Transaction number\",\"post_balance\":\"Balance after transaction\"}', 1, 1, NULL, '2022-05-09 04:09:35');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `pages`
+--
+
+CREATE TABLE `pages` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `name` varchar(40) DEFAULT NULL,
+  `slug` varchar(40) DEFAULT NULL,
+  `tempname` varchar(40) DEFAULT NULL COMMENT 'template name',
+  `secs` text DEFAULT NULL,
+  `is_default` tinyint(1) NOT NULL DEFAULT 0,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `pages`
+--
+
+INSERT INTO `pages` (`id`, `name`, `slug`, `tempname`, `secs`, `is_default`, `created_at`, `updated_at`) VALUES
+(1, 'HOME', '/', 'templates.basic.', '[\"about\",\"features\",\"plan\",\"counter\",\"faq\",\"testimonial\",\"blog\"]', 1, '2020-07-11 06:23:58', '2022-04-23 08:01:20'),
+(4, 'Blog', 'blog', 'templates.basic.', NULL, 1, '2020-10-22 01:14:43', '2020-10-22 01:14:43'),
+(5, 'Contact', 'contact', 'templates.basic.', NULL, 1, '2020-10-22 01:14:53', '2020-10-22 01:14:53'),
+(19, 'About', 'about-us', 'templates.basic.', '[\"about\",\"testimonial\",\"counter\",\"features\",\"faq\"]', 0, '2022-05-08 03:18:46', '2022-05-08 03:20:06');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `password_resets`
+--
+
+CREATE TABLE `password_resets` (
+  `email` varchar(40) DEFAULT NULL,
+  `token` varchar(40) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `plans`
+--
+
+CREATE TABLE `plans` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `name` varchar(40) NOT NULL,
+  `price` decimal(28,8) NOT NULL DEFAULT 0.00000000,
+  `daily_limit` int(11) NOT NULL DEFAULT 0,
+  `status` tinyint(1) NOT NULL DEFAULT 0,
+  `ref_level` int(11) NOT NULL DEFAULT 0,
+  `validity` int(11) NOT NULL DEFAULT 0,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `plans`
+--
+
+INSERT INTO `plans` (`id`, `name`, `price`, `daily_limit`, `status`, `ref_level`, `validity`, `created_at`, `updated_at`) VALUES
+(1, 'Plan 1', '100.00000000', 1, 1, 0, 360, '2023-07-10 16:20:46', '2023-07-10 16:20:46'),
+(2, 'Plan 2', '1000.00000000', 1, 1, 0, 365, '2023-07-10 16:21:16', '2023-07-10 16:21:16'),
+(3, 'Plan 3', '100.00000000', 1, 1, 0, 360, '2023-07-10 16:21:35', '2023-07-10 16:21:35'),
+(4, 'Plan 4', '100.00000000', 1, 1, 0, 365, '2023-07-10 16:21:52', '2023-07-10 16:22:19'),
+(5, 'Plan 5', '100.00000000', 1, 1, 0, 365, '2023-07-10 16:22:11', '2023-07-10 16:22:11'),
+(6, 'Plan 6', '100.00000000', 1, 1, 0, 365, '2023-07-10 16:23:12', '2023-07-10 16:23:12'),
+(7, 'Plan 7', '100.00000000', 1, 1, 0, 365, '2023-07-10 16:24:15', '2023-07-10 16:24:15'),
+(8, 'Plan 8', '100.00000000', 1, 1, 0, 365, '2023-07-10 16:27:07', '2023-07-10 16:27:07'),
+(9, 'Plan 9', '100.00000000', 1, 1, 0, 365, '2023-07-10 16:28:43', '2023-07-10 16:28:43'),
+(10, 'Plan 10', '100.00000000', 1, 1, 0, 365, '2023-07-10 17:09:48', '2023-07-10 17:09:48'),
+(11, 'Plan 11', '100.00000000', 1, 1, 0, 365, '2023-07-10 17:10:03', '2023-07-10 17:10:03'),
+(12, 'Plan 12', '100.00000000', 1, 1, 0, 365, '2023-07-10 17:10:27', '2023-07-10 17:10:27');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ptcs`
+--
+
+CREATE TABLE `ptcs` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `user_id` tinyint(4) NOT NULL DEFAULT 0,
+  `ads_type` tinyint(1) NOT NULL DEFAULT 0 COMMENT '1 = link | 2 = image | 3 = script',
+  `title` varchar(255) DEFAULT NULL,
+  `ads_body` longtext DEFAULT NULL,
+  `amount` decimal(28,8) NOT NULL DEFAULT 0.00000000,
+  `duration` int(11) NOT NULL DEFAULT 0,
+  `max_show` int(11) NOT NULL DEFAULT 0,
+  `showed` int(11) NOT NULL DEFAULT 0,
+  `remain` int(11) NOT NULL DEFAULT 0,
+  `status` tinyint(1) NOT NULL DEFAULT 1 COMMENT '0 = inactive, 1 = active, 2 = pending, 3 = rejected',
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `ptcs`
+--
+
+INSERT INTO `ptcs` (`id`, `user_id`, `ads_type`, `title`, `ads_body`, `amount`, `duration`, `max_show`, `showed`, `remain`, `status`, `created_at`, `updated_at`) VALUES
+(1, 0, 1, 'Energy 1 PLan 1', 'https://www.youtube.com/watch?v=4WHwVtviI_E', '10.00000000', 5, 43234, 0, 43234, 1, '2023-07-10 17:11:39', '2023-07-10 17:11:39'),
+(2, 0, 1, 'Energy 2 PLan 2', 'https://www.youtube.com/watch?v=4WHwVtviI_E', '10.00000000', 5, 43234, 0, 43234, 1, '2023-07-10 17:11:44', '2023-07-10 17:11:44'),
+(3, 0, 1, 'Energy 3 PLan 3', 'https://www.youtube.com/watch?v=4WHwVtviI_E', '10.00000000', 5, 43234, 0, 43234, 1, '2023-07-10 17:11:56', '2023-07-10 17:11:56'),
+(4, 0, 1, 'Energy 4 PLan 4', 'https://www.youtube.com/watch?v=4WHwVtviI_E', '10.00000000', 5, 43234, 0, 43234, 1, '2023-07-10 17:12:19', '2023-07-10 17:12:19'),
+(5, 0, 1, 'Energy 5 PLan 5', 'https://www.youtube.com/watch?v=4WHwVtviI_E', '10.00000000', 5, 43234, 0, 43234, 1, '2023-07-10 17:12:42', '2023-07-10 17:12:42'),
+(6, 0, 1, 'Energy6 PLan 6', 'https://www.youtube.com/watch?v=4WHwVtviI_E', '10.00000000', 5, 43234, 0, 43234, 1, '2023-07-10 17:12:54', '2023-07-10 17:12:54'),
+(7, 0, 1, 'Energy 7 PLan 7', 'https://www.youtube.com/watch?v=4WHwVtviI_E', '10.00000000', 5, 43234, 0, 43234, 1, '2023-07-10 17:13:12', '2023-07-10 17:13:12'),
+(8, 0, 1, 'Energy 8 PLan 8', 'https://www.youtube.com/watch?v=4WHwVtviI_E', '10.00000000', 5, 43234, 0, 43234, 1, '2023-07-10 17:13:25', '2023-07-10 17:13:25'),
+(9, 0, 1, 'Energy 9 PLan 9', 'https://www.youtube.com/watch?v=4WHwVtviI_E', '10.00000000', 5, 43234, 0, 43234, 1, '2023-07-10 17:13:32', '2023-07-10 17:13:32'),
+(10, 0, 1, 'Energy 10 PLan 10', 'https://www.youtube.com/watch?v=4WHwVtviI_E', '10.00000000', 5, 43234, 0, 43234, 1, '2023-07-10 17:13:52', '2023-07-10 17:13:52'),
+(11, 0, 1, 'Energy 11 PLan 11', 'https://www.youtube.com/watch?v=4WHwVtviI_E', '10.00000000', 5, 43234, 0, 43234, 1, '2023-07-10 17:13:56', '2023-07-10 17:13:56'),
+(12, 0, 1, 'Energy 12 PLan 12', 'https://www.youtube.com/watch?v=4WHwVtviI_E', '10.00000000', 5, 43234, 1, 43233, 1, '2023-07-10 17:14:01', '2023-09-08 07:27:16');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ptc_views`
+--
+
+CREATE TABLE `ptc_views` (
+  `id` bigint(20) NOT NULL,
+  `ptc_id` int(11) DEFAULT 0,
+  `user_id` int(11) DEFAULT 0,
+  `view_date` date DEFAULT NULL,
+  `amount` decimal(28,8) DEFAULT 0.00000000,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `ptc_views`
+--
+
+INSERT INTO `ptc_views` (`id`, `ptc_id`, `user_id`, `view_date`, `amount`, `created_at`, `updated_at`) VALUES
+(1, 12, 4, '2023-09-08', '10.00000000', '2023-09-08 07:27:16', '2023-09-08 07:27:16');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `referrals`
+--
+
+CREATE TABLE `referrals` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `level` int(11) NOT NULL,
+  `percent` decimal(11,2) NOT NULL DEFAULT 0.00,
+  `status` tinyint(1) NOT NULL DEFAULT 0,
+  `commission_type` varchar(40) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `support_attachments`
+--
+
+CREATE TABLE `support_attachments` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `support_message_id` int(10) UNSIGNED DEFAULT NULL,
+  `attachment` varchar(255) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `support_messages`
+--
+
+CREATE TABLE `support_messages` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `support_ticket_id` int(10) UNSIGNED NOT NULL DEFAULT 0,
+  `admin_id` int(10) UNSIGNED NOT NULL DEFAULT 0,
+  `message` longtext DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `support_tickets`
+--
+
+CREATE TABLE `support_tickets` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `user_id` int(10) DEFAULT 0,
+  `name` varchar(40) DEFAULT NULL,
+  `email` varchar(40) DEFAULT NULL,
+  `ticket` varchar(40) DEFAULT NULL,
+  `subject` varchar(255) DEFAULT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT 0 COMMENT '0: Open, 1: Answered, 2: Replied, 3: Closed',
+  `priority` tinyint(1) NOT NULL DEFAULT 0 COMMENT '1 = Low, 2 = medium, 3 = heigh',
+  `last_reply` datetime DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `transactions`
+--
+
+CREATE TABLE `transactions` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `user_id` int(10) UNSIGNED NOT NULL DEFAULT 0,
+  `amount` decimal(28,8) NOT NULL DEFAULT 0.00000000,
+  `charge` decimal(28,8) NOT NULL DEFAULT 0.00000000,
+  `post_balance` decimal(28,8) NOT NULL DEFAULT 0.00000000,
+  `trx_type` varchar(40) DEFAULT NULL,
+  `trx` varchar(40) DEFAULT NULL,
+  `details` varchar(255) DEFAULT NULL,
+  `remark` varchar(40) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `transactions`
+--
+
+INSERT INTO `transactions` (`id`, `user_id`, `amount`, `charge`, `post_balance`, `trx_type`, `trx`, `details`, `remark`, `created_at`, `updated_at`) VALUES
+(1, 4, '1200.00000000', '0.00000000', '1200.00000000', '+', 'XWH3EW5HD3UA', 'Deposit Via Jazzcash', 'deposit', '2023-09-08 06:05:23', '2023-09-08 06:05:23'),
+(2, 4, '1200.00000000', '0.00000000', '2400.00000000', '+', 'C56Y8RVO54G2', 'Deposit Via Jazzcash', 'deposit', '2023-09-08 06:05:45', '2023-09-08 06:05:45'),
+(3, 4, '100.00000000', '0.00000000', '2300.00000000', '-', 'T9EMT7AWQNSP', 'Subscribe Plan 12 Plan', 'subscribe_plan', '2023-09-08 06:12:39', '2023-09-08 06:12:39'),
+(4, 4, '100.00000000', '0.00000000', '2200.00000000', '-', '9M3C2ZG3WJYY', 'Subscribe Plan 11 Plan', 'subscribe_plan', '2023-09-08 06:34:08', '2023-09-08 06:34:08'),
+(5, 4, '100.00000000', '0.00000000', '2100.00000000', '-', 'N1B7MMSJFMSV', 'Subscribe Plan 12 Plan', 'subscribe_plan', '2023-09-08 06:34:25', '2023-09-08 06:34:25'),
+(6, 4, '100.00000000', '0.00000000', '2000.00000000', '-', 'PESB76ZF6DPO', 'Subscribe Plan 11 Plan', 'subscribe_plan', '2023-09-08 06:34:58', '2023-09-08 06:34:58'),
+(7, 4, '100.00000000', '0.00000000', '1900.00000000', '-', 'THTKGPGGNEDR', '100.00 PKR Withdraw Via Jazzcash', 'withdraw', '2023-09-08 06:54:10', '2023-09-08 06:54:10'),
+(8, 4, '10.00000000', '0.00000000', '1910.00000000', '+', '9ST1VTEEJNUC', 'Earn amount from ads', 'ptc_earn', '2023-09-08 07:27:16', '2023-09-08 07:27:16'),
+(9, 49, '48000.00000000', '0.00000000', '48000.00000000', '+', 'AJQ5TSCCKF68', 'Deposit Via Jazzcash', 'deposit', '2023-09-09 11:28:23', '2023-09-09 11:28:23'),
+(10, 49, '100.00000000', '0.00000000', '47900.00000000', '-', '9MGO8A2CCAG2', 'Subscribe Plan 12 Plan', 'subscribe_plan', '2023-09-09 11:29:56', '2023-09-09 11:29:56'),
+(11, 49, '100.00000000', '0.00000000', '47800.00000000', '-', 'NP6381E8YP55', 'Subscribe Plan 11 Plan', 'subscribe_plan', '2023-09-09 11:42:36', '2023-09-09 11:42:36');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `users`
+--
+
+CREATE TABLE `users` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `plan_id` int(11) NOT NULL DEFAULT 0,
+  `ref_by` int(10) UNSIGNED NOT NULL DEFAULT 0,
+  `daily_limit` int(11) NOT NULL DEFAULT 0,
+  `firstname` varchar(40) DEFAULT NULL,
+  `lastname` varchar(40) DEFAULT NULL,
+  `username` varchar(40) NOT NULL,
+  `email` varchar(40) NOT NULL,
+  `country_code` varchar(40) DEFAULT NULL,
+  `mobile` varchar(40) DEFAULT NULL,
+  `balance` decimal(28,8) NOT NULL DEFAULT 0.00000000,
+  `password` varchar(255) NOT NULL,
+  `image` varchar(255) DEFAULT NULL,
+  `address` text DEFAULT NULL COMMENT 'contains full address',
+  `status` tinyint(1) NOT NULL DEFAULT 1 COMMENT '0: banned, 1: active',
+  `kyc_data` text DEFAULT NULL,
+  `kv` tinyint(1) NOT NULL DEFAULT 0 COMMENT '0: KYC Unverified, 2: KYC pending, 1: KYC verified',
+  `ev` tinyint(1) NOT NULL DEFAULT 0 COMMENT '0: email unverified, 1: email verified',
+  `sv` tinyint(1) NOT NULL DEFAULT 0 COMMENT '0: mobile unverified, 1: mobile verified',
+  `reg_step` tinyint(1) NOT NULL DEFAULT 0,
+  `ver_code` varchar(40) DEFAULT NULL COMMENT 'stores verification code',
+  `ver_code_send_at` datetime DEFAULT NULL COMMENT 'verification send time',
+  `ts` tinyint(1) NOT NULL DEFAULT 0 COMMENT '0: 2fa off, 1: 2fa on',
+  `tv` tinyint(1) NOT NULL DEFAULT 1 COMMENT '0: 2fa unverified, 1: 2fa verified',
+  `tsc` varchar(255) DEFAULT NULL,
+  `ban_reason` varchar(255) DEFAULT NULL,
+  `expire_date` datetime DEFAULT NULL,
+  `remember_token` varchar(255) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `pv` varchar(255) DEFAULT NULL,
+  `ref` varchar(40) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `user_logins`
+--
+
+CREATE TABLE `user_logins` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `user_id` int(10) UNSIGNED NOT NULL DEFAULT 0,
+  `user_ip` varchar(40) DEFAULT NULL,
+  `city` varchar(40) DEFAULT NULL,
+  `country` varchar(40) DEFAULT NULL,
+  `country_code` varchar(40) DEFAULT NULL,
+  `longitude` varchar(40) DEFAULT NULL,
+  `latitude` varchar(40) DEFAULT NULL,
+  `browser` varchar(40) DEFAULT NULL,
+  `os` varchar(40) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `user_logins`
+--
+
+INSERT INTO `user_logins` (`id`, `user_id`, `user_ip`, `city`, `country`, `country_code`, `longitude`, `latitude`, `browser`, `os`, `created_at`, `updated_at`) VALUES
+(1, 3, '110.37.2.156', '', '', '', '', '', 'Chrome', 'Windows 10', '2023-07-13 15:18:12', '2023-07-13 15:18:12'),
+(2, 4, '223.123.14.166', '', '', '', '', '', 'Chrome', 'Windows 10', '2023-09-07 23:57:15', '2023-09-07 23:57:15'),
+(3, 4, '223.123.14.166', '', '', '', '', '', 'Chrome', 'Windows 10', '2023-09-08 00:38:11', '2023-09-08 00:38:11'),
+(4, 4, '37.111.138.56', '', '', '', '', '', 'Chrome', 'Windows 10', '2023-09-08 01:06:49', '2023-09-08 01:06:49'),
+(5, 4, '223.123.3.143', '', '', '', '', '', 'Handheld Browser', 'Android', '2023-09-08 02:12:07', '2023-09-08 02:12:07'),
+(6, 5, '223.123.13.198', '', '', '', '', '', 'Handheld Browser', 'Android', '2023-09-08 07:00:20', '2023-09-08 07:00:20'),
+(7, 4, '223.123.13.198', '', '', '', '', '', 'Handheld Browser', 'Android', '2023-09-08 08:43:46', '2023-09-08 08:43:46'),
+(8, 4, '223.123.13.198', '', '', '', '', '', 'Handheld Browser', 'Android', '2023-09-08 08:51:42', '2023-09-08 08:51:42'),
+(9, 6, '223.123.13.198', '', '', '', '', '', 'Handheld Browser', 'Android', '2023-09-08 08:52:27', '2023-09-08 08:52:27'),
+(10, 7, '103.111.226.49', '', '', '', '', '', 'Handheld Browser', 'Android', '2023-09-08 09:07:12', '2023-09-08 09:07:12'),
+(11, 8, '2404:3100:1c9c:f8d9:1:0:ec8d:6d8', '', '', '', '', '', 'Handheld Browser', 'Android', '2023-09-08 09:09:23', '2023-09-08 09:09:23'),
+(12, 9, '37.111.243.148', '', '', '', '', '', 'Handheld Browser', 'Android', '2023-09-08 09:10:20', '2023-09-08 09:10:20'),
+(13, 10, '2404:3100:1803:d7a:1:0:630f:efa6', '', '', '', '', '', 'Handheld Browser', 'Android', '2023-09-08 09:10:26', '2023-09-08 09:10:26'),
+(14, 11, '223.123.112.247', '', '', '', '', '', 'Handheld Browser', 'Android', '2023-09-08 09:10:30', '2023-09-08 09:10:30'),
+(15, 12, '2404:3100:180e:e393:1:0:6305:aa9f', '', '', '', '', '', 'Handheld Browser', 'Android', '2023-09-08 09:10:51', '2023-09-08 09:10:51'),
+(16, 13, '202.86.218.197', '', '', '', '', '', 'Handheld Browser', 'Android', '2023-09-08 09:11:15', '2023-09-08 09:11:15'),
+(17, 14, '223.123.12.10', '', '', '', '', '', 'Handheld Browser', 'Android', '2023-09-08 09:11:38', '2023-09-08 09:11:38'),
+(18, 15, '223.123.89.138', '', '', '', '', '', 'Handheld Browser', 'Android', '2023-09-08 09:12:48', '2023-09-08 09:12:48'),
+(19, 16, '124.29.226.166', '', '', '', '', '', 'Handheld Browser', 'Android', '2023-09-08 09:13:54', '2023-09-08 09:13:54'),
+(20, 17, '197.49.64.168', '', '', '', '', '', 'Handheld Browser', 'Android', '2023-09-08 09:17:36', '2023-09-08 09:17:36'),
+(21, 6, '37.111.155.182', '', '', '', '', '', 'Handheld Browser', 'Android', '2023-09-08 09:19:15', '2023-09-08 09:19:15'),
+(22, 18, '223.123.87.15', '', '', '', '', '', 'Handheld Browser', 'Android', '2023-09-08 09:20:20', '2023-09-08 09:20:20'),
+(23, 19, '2409:4089:8484:90da::2066:a4', '', '', '', '', '', 'Handheld Browser', 'Android', '2023-09-08 09:24:17', '2023-09-08 09:24:17'),
+(24, 20, '103.132.183.228', '', '', '', '', '', 'Handheld Browser', 'Android', '2023-09-08 09:24:57', '2023-09-08 09:24:57'),
+(25, 21, '2409:40c4:4a:96f2:8000::', '', '', '', '', '', 'Handheld Browser', 'Android', '2023-09-08 09:29:29', '2023-09-08 09:29:29'),
+(26, 22, '154.80.46.64', '', '', '', '', '', 'Handheld Browser', 'Android', '2023-09-08 09:40:49', '2023-09-08 09:40:49'),
+(27, 23, '2409:4053:71d:22e:8175:391f:8257:478f', '', '', '', '', '', 'Handheld Browser', 'Android', '2023-09-08 09:47:09', '2023-09-08 09:47:09'),
+(28, 24, '37.111.140.231', '', '', '', '', '', 'Handheld Browser', 'Android', '2023-09-08 09:52:36', '2023-09-08 09:52:36'),
+(29, 25, '2404:3100:1810:61f8:b32f:78ca:9b60:4d87', '', '', '', '', '', 'Handheld Browser', 'Android', '2023-09-08 09:56:11', '2023-09-08 09:56:11'),
+(30, 26, '2404:3100:1c92:8411:1:0:ec37:415d', '', '', '', '', '', 'Handheld Browser', 'Android', '2023-09-08 10:14:24', '2023-09-08 10:14:24'),
+(31, 27, '2400:c600:3455:86de:e4e9:eff:fe0d:deb2', '', '', '', '', '', 'Handheld Browser', 'Android', '2023-09-08 10:14:51', '2023-09-08 10:14:51'),
+(32, 28, '223.123.13.115', '', '', '', '', '', 'Handheld Browser', 'Android', '2023-09-08 10:17:18', '2023-09-08 10:17:18'),
+(33, 29, '197.210.52.185', '', '', '', '', '', 'Handheld Browser', 'Android', '2023-09-08 10:22:40', '2023-09-08 10:22:40'),
+(34, 30, '37.111.151.194', '', '', '', '', '', 'Handheld Browser', 'Android', '2023-09-08 10:23:38', '2023-09-08 10:23:38'),
+(35, 31, '2409:4063:4a0d:16b4:8c6:70f6:e35a:1847', '', '', '', '', '', 'Handheld Browser', 'Android', '2023-09-08 10:24:43', '2023-09-08 10:24:43'),
+(36, 32, '103.129.211.49', '', '', '', '', '', 'Handheld Browser', 'Android', '2023-09-08 10:26:26', '2023-09-08 10:26:26'),
+(37, 33, '2404:3100:1810:61f8:b32f:78ca:9b60:4d87', '', '', '', '', '', 'Handheld Browser', 'Android', '2023-09-08 10:32:44', '2023-09-08 10:32:44'),
+(38, 34, '2a09:bac3:4f96:18c8::278:27', '', '', '', '', '', 'Handheld Browser', 'iPhone', '2023-09-08 10:44:32', '2023-09-08 10:44:32'),
+(39, 35, '103.103.42.83', '', '', '', '', '', 'Handheld Browser', 'Android', '2023-09-08 10:58:22', '2023-09-08 10:58:22'),
+(40, 36, '103.134.31.86', '', '', '', '', '', 'Handheld Browser', 'Android', '2023-09-08 11:56:29', '2023-09-08 11:56:29'),
+(41, 37, '182.177.114.105', '', '', '', '', '', 'Handheld Browser', 'Android', '2023-09-08 11:58:27', '2023-09-08 11:58:27'),
+(42, 38, '2400:adcc:171:a00:b8e0:74bb:2075:2f3b', '', '', '', '', '', 'Handheld Browser', 'Android', '2023-09-08 12:12:58', '2023-09-08 12:12:58'),
+(43, 39, '223.123.13.38', '', '', '', '', '', 'Handheld Browser', 'Android', '2023-09-08 12:44:45', '2023-09-08 12:44:45'),
+(44, 17, '102.45.138.3', '', '', '', '', '', 'Handheld Browser', 'Android', '2023-09-08 13:54:57', '2023-09-08 13:54:57'),
+(45, 6, '223.123.2.93', '', '', '', '', '', 'Handheld Browser', 'Android', '2023-09-08 14:45:31', '2023-09-08 14:45:31'),
+(46, 40, '223.123.2.93', '', '', '', '', '', 'Handheld Browser', 'Android', '2023-09-08 15:04:49', '2023-09-08 15:04:49'),
+(47, 41, '197.210.85.133', '', '', '', '', '', 'Handheld Browser', 'Android', '2023-09-08 15:05:09', '2023-09-08 15:05:09'),
+(48, 42, '135.125.181.117', '', '', '', '', '', 'Handheld Browser', 'Android', '2023-09-08 15:06:02', '2023-09-08 15:06:02'),
+(49, 40, '223.123.2.93', '', '', '', '', '', 'Handheld Browser', 'Android', '2023-09-08 15:13:14', '2023-09-08 15:13:14'),
+(50, 40, '223.123.2.93', '', '', '', '', '', 'Handheld Browser', 'Android', '2023-09-08 15:15:09', '2023-09-08 15:15:09'),
+(51, 40, '223.123.2.93', '', '', '', '', '', 'Handheld Browser', 'Android', '2023-09-08 15:17:58', '2023-09-08 15:17:58'),
+(52, 12, '2404:3100:1812:2ba3:1:0:63b6:c2a7', '', '', '', '', '', 'Handheld Browser', 'Android', '2023-09-08 16:31:28', '2023-09-08 16:31:28'),
+(53, 43, '37.111.163.18', '', '', '', '', '', 'Handheld Browser', 'Android', '2023-09-08 16:41:54', '2023-09-08 16:41:54'),
+(54, 43, '2409:40d4:0:cc56:64b7:c9ff:fe72:66b3', '', '', '', '', '', 'Handheld Browser', 'Android', '2023-09-08 16:49:18', '2023-09-08 16:49:18'),
+(55, 44, '120.29.79.246', '', '', '', '', '', 'Firefox', 'Windows 10', '2023-09-08 16:49:52', '2023-09-08 16:49:52'),
+(56, 45, '2400:c600:461a:80f1:1:0:f3f0:b8f2', '', '', '', '', '', 'Handheld Browser', 'Android', '2023-09-08 17:00:01', '2023-09-08 17:00:01'),
+(57, 46, '2409:40d4:1068:998b:8000::', '', '', '', '', '', 'Handheld Browser', 'Android', '2023-09-08 17:01:59', '2023-09-08 17:01:59'),
+(58, 31, '2409:4063:4a0d:16b4:a199:58dc:4966:e92e', '', '', '', '', '', 'Handheld Browser', 'Android', '2023-09-08 17:07:52', '2023-09-08 17:07:52'),
+(59, 47, '2401:4900:1c3f:bf77:22a4:3f18:94e6:98f1', '', '', '', '', '', 'Handheld Browser', 'Android', '2023-09-08 17:08:44', '2023-09-08 17:08:44'),
+(60, 48, '2409:40f2:34:56ac:b5:c3ff:fe3e:7b0', '', '', '', '', '', 'Handheld Browser', 'Android', '2023-09-08 17:11:55', '2023-09-08 17:11:55'),
+(61, 49, '182.191.156.11', '', '', '', '', '', 'Handheld Browser', 'Android', '2023-09-08 18:22:56', '2023-09-08 18:22:56'),
+(62, 50, '223.123.3.222', '', '', '', '', '', 'Chrome', 'Windows 10', '2023-09-08 18:36:43', '2023-09-08 18:36:43'),
+(63, 51, '37.111.139.35', '', '', '', '', '', 'Handheld Browser', 'Android', '2023-09-08 18:37:18', '2023-09-08 18:37:18'),
+(64, 41, '197.210.79.31', '', '', '', '', '', 'Handheld Browser', 'Android', '2023-09-08 18:42:39', '2023-09-08 18:42:39'),
+(65, 39, '223.123.20.201', '', '', '', '', '', 'Handheld Browser', 'Android', '2023-09-08 20:06:23', '2023-09-08 20:06:23'),
+(66, 52, '2404:3100:1c97:ee54:1:0:ee36:fbf4', '', '', '', '', '', 'Handheld Browser', 'Android', '2023-09-08 20:14:02', '2023-09-08 20:14:02'),
+(67, 53, '196.168.221.18', '', '', '', '', '', 'Handheld Browser', 'iPhone', '2023-09-08 21:22:21', '2023-09-08 21:22:21'),
+(68, 41, '197.210.79.31', '', '', '', '', '', 'Handheld Browser', 'Android', '2023-09-08 21:54:30', '2023-09-08 21:54:30'),
+(69, 54, '105.113.29.27', '', '', '', '', '', 'Handheld Browser', 'Android', '2023-09-08 21:57:27', '2023-09-08 21:57:27'),
+(70, 55, '2400:adc5:18f:dc00:807d:845c:5a96:4653', '', '', '', '', '', 'Handheld Browser', 'Android', '2023-09-08 22:28:25', '2023-09-08 22:28:25'),
+(71, 49, '116.71.169.59', '', '', '', '', '', 'Handheld Browser', 'Android', '2023-09-08 23:14:00', '2023-09-08 23:14:00'),
+(72, 17, '197.49.28.13', '', '', '', '', '', 'Handheld Browser', 'Android', '2023-09-09 07:20:33', '2023-09-09 07:20:33'),
+(73, 49, '116.71.11.114', '', '', '', '', '', 'Handheld Browser', 'Android', '2023-09-09 11:24:05', '2023-09-09 11:24:05'),
+(74, 49, '116.71.11.114', '', '', '', '', '', 'Handheld Browser', 'Android', '2023-09-09 11:25:52', '2023-09-09 11:25:52'),
+(75, 56, '2400:c600:3456:8bbd:1:0:3c5f:a5be', '', '', '', '', '', 'Handheld Browser', 'Android', '2023-09-09 11:38:24', '2023-09-09 11:38:24'),
+(76, 49, '116.71.15.18', '', '', '', '', '', 'Handheld Browser', 'Android', '2023-09-09 11:41:49', '2023-09-09 11:41:49'),
+(77, 57, '2409:4052:4e01:61ea::580a:410d', '', '', '', '', '', 'Chrome', 'Linux', '2023-09-09 13:30:48', '2023-09-09 13:30:48'),
+(78, 58, '2404:3100:1888:884c:1:0:91b5:f0b5', '', '', '', '', '', 'Handheld Browser', 'Android', '2023-09-09 14:09:31', '2023-09-09 14:09:31'),
+(79, 17, '41.238.81.182', '', '', '', '', '', 'Handheld Browser', 'Android', '2023-09-09 14:29:37', '2023-09-09 14:29:37'),
+(80, 17, '41.238.81.182', '', '', '', '', '', 'Handheld Browser', 'Android', '2023-09-09 14:34:25', '2023-09-09 14:34:25'),
+(81, 59, '154.198.64.134', '', '', '', '', '', 'Handheld Browser', 'Android', '2023-09-09 15:31:05', '2023-09-09 15:31:05'),
+(82, 42, '135.125.181.117', '', '', '', '', '', 'Handheld Browser', 'Android', '2023-09-09 15:35:10', '2023-09-09 15:35:10'),
+(83, 60, '223.123.6.218', '', '', '', '', '', 'Chrome', 'Windows 10', '2023-09-09 16:04:29', '2023-09-09 16:04:29'),
+(84, 60, '223.123.6.218', '', '', '', '', '', 'Handheld Browser', 'Android', '2023-09-09 16:10:57', '2023-09-09 16:10:57'),
+(85, 60, '223.123.6.218', '', '', '', '', '', 'Handheld Browser', 'Android', '2023-09-09 16:11:51', '2023-09-09 16:11:51'),
+(86, 61, '110.37.2.156', '', '', '', '', '', 'Handheld Browser', 'Android', '2023-09-09 20:01:31', '2023-09-09 20:01:31'),
+(87, 49, '116.71.14.102', '', '', '', '', '', 'Handheld Browser', 'Android', '2023-09-09 21:01:32', '2023-09-09 21:01:32');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `withdrawals`
+--
+
+CREATE TABLE `withdrawals` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `method_id` int(10) UNSIGNED NOT NULL DEFAULT 0,
+  `user_id` int(10) UNSIGNED NOT NULL DEFAULT 0,
+  `amount` decimal(28,8) NOT NULL DEFAULT 0.00000000,
+  `currency` varchar(40) DEFAULT NULL,
+  `rate` decimal(28,8) NOT NULL DEFAULT 0.00000000,
+  `charge` decimal(28,8) NOT NULL DEFAULT 0.00000000,
+  `trx` varchar(40) DEFAULT NULL,
+  `final_amount` decimal(28,8) NOT NULL DEFAULT 0.00000000,
+  `after_charge` decimal(28,8) NOT NULL DEFAULT 0.00000000,
+  `withdraw_information` text DEFAULT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT 0 COMMENT '1=>success, 2=>pending, 3=>cancel,  ',
+  `admin_feedback` text DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `withdraw_methods`
+--
+
+CREATE TABLE `withdraw_methods` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `form_id` int(10) UNSIGNED NOT NULL DEFAULT 0,
+  `name` varchar(40) DEFAULT NULL,
+  `min_limit` decimal(28,8) DEFAULT 0.00000000,
+  `max_limit` decimal(28,8) NOT NULL DEFAULT 0.00000000,
+  `fixed_charge` decimal(28,8) DEFAULT 0.00000000,
+  `rate` decimal(28,8) DEFAULT 0.00000000,
+  `percent_charge` decimal(5,2) DEFAULT NULL,
+  `currency` varchar(40) DEFAULT NULL,
+  `description` text DEFAULT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT 1,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `withdraw_methods`
+--
+
+INSERT INTO `withdraw_methods` (`id`, `form_id`, `name`, `min_limit`, `max_limit`, `fixed_charge`, `rate`, `percent_charge`, `currency`, `description`, `status`, `created_at`, `updated_at`) VALUES
+(1, 9, 'Jazzcash', '100.00000000', '5000000.00000000', '0.00000000', '1.00000000', '0.00', 'PKR', '<b>Enter Account Name or Numbe<i>r</i></b>', 1, '2023-09-08 06:37:43', '2023-09-08 06:37:43');
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `admins`
+--
+ALTER TABLE `admins`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `email` (`email`,`username`);
+
+--
+-- Indexes for table `admin_notifications`
+--
+ALTER TABLE `admin_notifications`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `admin_password_resets`
+--
+ALTER TABLE `admin_password_resets`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `commission_logs`
+--
+ALTER TABLE `commission_logs`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `deposits`
+--
+ALTER TABLE `deposits`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `extensions`
+--
+ALTER TABLE `extensions`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `forms`
+--
+ALTER TABLE `forms`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `frontends`
+--
+ALTER TABLE `frontends`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `gateways`
+--
+ALTER TABLE `gateways`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `gateway_currencies`
+--
+ALTER TABLE `gateway_currencies`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `general_settings`
+--
+ALTER TABLE `general_settings`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `languages`
+--
+ALTER TABLE `languages`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `migrations`
+--
+ALTER TABLE `migrations`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `notification_logs`
+--
+ALTER TABLE `notification_logs`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `notification_templates`
+--
+ALTER TABLE `notification_templates`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `pages`
+--
+ALTER TABLE `pages`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `plans`
+--
+ALTER TABLE `plans`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `ptcs`
+--
+ALTER TABLE `ptcs`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `ptc_views`
+--
+ALTER TABLE `ptc_views`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `referrals`
+--
+ALTER TABLE `referrals`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `support_attachments`
+--
+ALTER TABLE `support_attachments`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `support_messages`
+--
+ALTER TABLE `support_messages`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `support_tickets`
+--
+ALTER TABLE `support_tickets`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `transactions`
+--
+ALTER TABLE `transactions`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `users`
+--
+ALTER TABLE `users`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `username` (`username`,`email`);
+
+--
+-- Indexes for table `user_logins`
+--
+ALTER TABLE `user_logins`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `withdrawals`
+--
+ALTER TABLE `withdrawals`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `withdraw_methods`
+--
+ALTER TABLE `withdraw_methods`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `admins`
+--
+ALTER TABLE `admins`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `admin_notifications`
+--
+ALTER TABLE `admin_notifications`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=91;
+
+--
+-- AUTO_INCREMENT for table `admin_password_resets`
+--
+ALTER TABLE `admin_password_resets`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `commission_logs`
+--
+ALTER TABLE `commission_logs`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `deposits`
+--
+ALTER TABLE `deposits`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+
+--
+-- AUTO_INCREMENT for table `extensions`
+--
+ALTER TABLE `extensions`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT for table `forms`
+--
+ALTER TABLE `forms`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
+--
+-- AUTO_INCREMENT for table `frontends`
+--
+ALTER TABLE `frontends`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=90;
+
+--
+-- AUTO_INCREMENT for table `gateways`
+--
+ALTER TABLE `gateways`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `gateway_currencies`
+--
+ALTER TABLE `gateway_currencies`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `general_settings`
+--
+ALTER TABLE `general_settings`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `languages`
+--
+ALTER TABLE `languages`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+
+--
+-- AUTO_INCREMENT for table `migrations`
+--
+ALTER TABLE `migrations`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `notification_logs`
+--
+ALTER TABLE `notification_logs`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `notification_templates`
+--
+ALTER TABLE `notification_templates`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+
+--
+-- AUTO_INCREMENT for table `pages`
+--
+ALTER TABLE `pages`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+
+--
+-- AUTO_INCREMENT for table `plans`
+--
+ALTER TABLE `plans`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+
+--
+-- AUTO_INCREMENT for table `ptcs`
+--
+ALTER TABLE `ptcs`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+
+--
+-- AUTO_INCREMENT for table `ptc_views`
+--
+ALTER TABLE `ptc_views`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `referrals`
+--
+ALTER TABLE `referrals`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `support_attachments`
+--
+ALTER TABLE `support_attachments`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `support_messages`
+--
+ALTER TABLE `support_messages`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `support_tickets`
+--
+ALTER TABLE `support_tickets`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `transactions`
+--
+ALTER TABLE `transactions`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+
+--
+-- AUTO_INCREMENT for table `users`
+--
+ALTER TABLE `users`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=62;
+
+--
+-- AUTO_INCREMENT for table `user_logins`
+--
+ALTER TABLE `user_logins`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=88;
+
+--
+-- AUTO_INCREMENT for table `withdrawals`
+--
+ALTER TABLE `withdrawals`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT for table `withdraw_methods`
+--
+ALTER TABLE `withdraw_methods`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
