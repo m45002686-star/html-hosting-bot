@@ -1,0 +1,1342 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sham Cash API | 𝐀𝐁𝐎 𝐆𝐎𝐑𝐆𝐄</title>
+    <meta name="description" content="Sham Cash API - نظام الربط التلقائي للمحفظة">
+    <meta name="author" content="𝐀𝐁𝐎 𝐆𝐎𝐑𝐆𝐄">
+    <meta name="theme-color" content="#00f2fe">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏦</text></svg>">
+    
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary: #00f2fe;
+            --primary-dark: #00c8d6;
+            --secondary: #4facfe;
+            --accent: #00e676;
+            --accent-glow: #00ff88;
+            --gold: #ffd700;
+            --danger: #ff4757;
+            --warning: #ffa502;
+            --dark-bg: #030508;
+            --darker-bg: #010206;
+            --card-bg: #0a0d14;
+            --card-bg-2: #0d1117;
+            --border-color: #1a1f2e;
+            --border-glow: rgba(0, 242, 254, 0.15);
+            --text-primary: #ffffff;
+            --text-secondary: #a0a8b8;
+            --text-muted: #5a6070;
+            --glass-bg: rgba(10, 13, 20, 0.85);
+            --glass-border: rgba(255, 255, 255, 0.06);
+            --gradient-primary: linear-gradient(135deg, #00f2fe 0%, #4facfe 50%, #00c8d6 100%);
+            --gradient-gold: linear-gradient(135deg, #ffd700 0%, #ffaa00 100%);
+            --gradient-accent: linear-gradient(135deg, #00e676 0%, #00c853 100%);
+            --gradient-card: linear-gradient(180deg, rgba(10, 13, 20, 0.9) 0%, rgba(13, 17, 23, 0.95) 100%);
+            --shadow-primary: 0 0 40px rgba(0, 242, 254, 0.2);
+            --shadow-gold: 0 0 30px rgba(255, 215, 0, 0.2);
+            --shadow-card: 0 8px 40px rgba(0, 0, 0, 0.5);
+            --radius-xl: 24px;
+            --radius-lg: 18px;
+            --radius-md: 14px;
+            --radius-sm: 10px;
+            --transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1.2);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Cairo', sans-serif;
+            background: var(--darker-bg);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            overflow-x: hidden;
+            position: relative;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* ========== نظام الجسيمات ========== */
+        .particles-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            animation: floatParticle linear infinite;
+            opacity: 0;
+        }
+
+        @keyframes floatParticle {
+            0% {
+                transform: translateY(100vh) translateX(0) scale(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-10vh) translateX(100px) scale(1);
+                opacity: 0;
+            }
+        }
+
+        /* ========== هالة متحركة ========== */
+        .aura-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .aura {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(120px);
+            opacity: 0.08;
+            animation: auraFloat 25s infinite ease-in-out;
+        }
+
+        .aura:nth-child(1) {
+            width: 700px;
+            height: 700px;
+            background: var(--primary);
+            top: -250px;
+            left: -200px;
+            animation-delay: 0s;
+        }
+
+        .aura:nth-child(2) {
+            width: 600px;
+            height: 600px;
+            background: #667eea;
+            bottom: -200px;
+            right: -200px;
+            animation-delay: -8s;
+        }
+
+        .aura:nth-child(3) {
+            width: 500px;
+            height: 500px;
+            background: var(--gold);
+            top: 40%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation-delay: -16s;
+        }
+
+        @keyframes auraFloat {
+            0%, 100% { transform: translate(0, 0) scale(1) rotate(0deg); }
+            25% { transform: translate(80px, -60px) scale(1.15) rotate(5deg); }
+            50% { transform: translate(-40px, 80px) scale(0.9) rotate(-3deg); }
+            75% { transform: translate(-70px, -50px) scale(1.1) rotate(2deg); }
+        }
+
+        /* ========== الحاوية الرئيسية ========== */
+        .main-container {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            max-width: 520px;
+            perspective: 1000px;
+        }
+
+        /* ========== الكارد ========== */
+        .card {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-xl);
+            padding: 45px 35px;
+            backdrop-filter: blur(30px);
+            -webkit-backdrop-filter: blur(30px);
+            box-shadow: var(--shadow-card), var(--shadow-primary);
+            position: relative;
+            overflow: hidden;
+            transition: var(--transition);
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: -1px;
+            left: 20%;
+            right: 20%;
+            height: 2px;
+            background: var(--gradient-primary);
+            border-radius: 0 0 50% 50%;
+            filter: blur(2px);
+        }
+
+        .card::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse at 50% 0%, rgba(0, 242, 254, 0.04) 0%, transparent 70%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .card-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* ========== الشعار ========== */
+        .brand-section {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .logo-container {
+            position: relative;
+            display: inline-block;
+            margin-bottom: 18px;
+        }
+
+        .logo-icon {
+            width: 80px;
+            height: 80px;
+            background: var(--gradient-primary);
+            border-radius: 22px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 38px;
+            box-shadow: 0 0 50px rgba(0, 242, 254, 0.4), 0 0 100px rgba(0, 242, 254, 0.2);
+            animation: logoGlow 3s ease-in-out infinite;
+            position: relative;
+        }
+
+        .logo-icon::after {
+            content: '';
+            position: absolute;
+            inset: -4px;
+            border-radius: 26px;
+            border: 2px solid rgba(0, 242, 254, 0.3);
+            animation: logoRing 3s ease-in-out infinite;
+        }
+
+        @keyframes logoGlow {
+            0%, 100% { box-shadow: 0 0 50px rgba(0, 242, 254, 0.4), 0 0 100px rgba(0, 242, 254, 0.2); }
+            50% { box-shadow: 0 0 80px rgba(0, 242, 254, 0.7), 0 0 150px rgba(0, 242, 254, 0.4); }
+        }
+
+        @keyframes logoRing {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 0.8; transform: scale(1.08); }
+        }
+
+        .brand-name {
+            font-size: 2em;
+            font-weight: 900;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -1px;
+            line-height: 1.2;
+        }
+
+        .brand-tagline {
+            color: var(--text-secondary);
+            font-size: 0.8em;
+            font-weight: 300;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+
+        .brand-author {
+            display: inline-block;
+            background: rgba(0, 242, 254, 0.08);
+            border: 1px solid rgba(0, 242, 254, 0.2);
+            color: var(--primary);
+            padding: 6px 18px;
+            border-radius: 50px;
+            font-size: 1em;
+            font-weight: 700;
+            letter-spacing: 3px;
+            margin-top: 10px;
+        }
+
+        /* ========== الخطوات ========== */
+        .step {
+            display: none;
+            animation: stepIn 0.6s cubic-bezier(0.22, 0.61, 0.36, 1);
+        }
+
+        .step.active {
+            display: block;
+        }
+
+        @keyframes stepIn {
+            from {
+                opacity: 0;
+                transform: translateY(40px) scale(0.95);
+                filter: blur(8px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+                filter: blur(0);
+            }
+        }
+
+        /* ========== الأزرار ========== */
+        .btn {
+            width: 100%;
+            padding: 17px 24px;
+            border: none;
+            border-radius: var(--radius-md);
+            font-size: 1em;
+            font-weight: 700;
+            cursor: pointer;
+            margin: 8px 0;
+            transition: var(--transition);
+            font-family: 'Cairo', sans-serif;
+            letter-spacing: 0.5px;
+            position: relative;
+            overflow: hidden;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .btn::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.15);
+            transform: translate(-50%, -50%);
+            transition: width 0.7s, height 0.7s;
+        }
+
+        .btn:active::after {
+            width: 400px;
+            height: 400px;
+        }
+
+        .btn-primary {
+            background: var(--gradient-primary);
+            color: #000;
+            box-shadow: 0 8px 30px rgba(0, 242, 254, 0.3);
+            font-size: 1.05em;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(0, 242, 254, 0.5);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            border: 1.5px solid rgba(0, 242, 254, 0.3);
+            color: var(--primary);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(0, 242, 254, 0.06);
+            border-color: var(--primary);
+            box-shadow: 0 0 25px rgba(0, 242, 254, 0.15);
+        }
+
+        .btn-gold {
+            background: var(--gradient-gold);
+            color: #000;
+            box-shadow: 0 8px 30px rgba(255, 215, 0, 0.25);
+        }
+
+        .btn-gold:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(255, 215, 0, 0.4);
+        }
+
+        .btn-danger {
+            background: transparent;
+            border: 1.5px solid rgba(255, 71, 87, 0.3);
+            color: var(--danger);
+        }
+
+        .btn-danger:hover {
+            background: rgba(255, 71, 87, 0.06);
+            border-color: var(--danger);
+        }
+
+        .btn-sm {
+            width: auto;
+            padding: 12px 22px;
+            font-size: 0.9em;
+            flex: 1;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        /* ========== QR Code ========== */
+        .qr-section {
+            background: #ffffff;
+            border-radius: var(--radius-lg);
+            padding: 28px;
+            margin: 22px 0;
+            text-align: center;
+            position: relative;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        .qr-section::before {
+            content: '';
+            position: absolute;
+            inset: -3px;
+            border-radius: 20px;
+            background: var(--gradient-primary);
+            z-index: -1;
+            opacity: 0.6;
+            animation: qrBorderGlow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes qrBorderGlow {
+            0% { opacity: 0.3; filter: blur(2px); }
+            100% { opacity: 0.8; filter: blur(4px); }
+        }
+
+        #qrcode {
+            display: inline-block;
+        }
+
+        #qrcode img {
+            border-radius: 8px;
+        }
+
+        /* ========== عرض التوكن ========== */
+        .token-box {
+            background: rgba(0, 0, 0, 0.55);
+            border: 1px solid rgba(0, 242, 254, 0.2);
+            border-radius: var(--radius-md);
+            padding: 20px;
+            margin: 18px 0;
+            word-break: break-all;
+            font-family: 'SF Mono', 'Fira Code', 'Courier New', monospace;
+            font-size: 0.82em;
+            text-align: left;
+            direction: ltr;
+            color: var(--accent-glow);
+            position: relative;
+            letter-spacing: 0.5px;
+            line-height: 1.6;
+        }
+
+        .token-box .token-label {
+            display: block;
+            font-family: 'Cairo', sans-serif;
+            font-size: 0.65em;
+            color: var(--text-muted);
+            letter-spacing: 2px;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            direction: rtl;
+            text-align: right;
+        }
+
+        /* ========== التايمر ========== */
+        .timer-display {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            color: var(--warning);
+            font-weight: 700;
+            font-size: 1.05em;
+            margin: 14px 0;
+            padding: 10px 20px;
+            background: rgba(255, 165, 2, 0.06);
+            border-radius: 50px;
+            border: 1px solid rgba(255, 165, 2, 0.15);
+            width: fit-content;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .timer-icon {
+            animation: timerPulse 1s infinite;
+        }
+
+        @keyframes timerPulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.4; }
+        }
+
+        /* ========== حالة الانتظار ========== */
+        .status-badge {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 12px 24px;
+            background: rgba(255, 165, 2, 0.06);
+            border: 1px solid rgba(255, 165, 2, 0.2);
+            border-radius: 50px;
+            color: var(--warning);
+            font-weight: 600;
+            font-size: 0.9em;
+            width: fit-content;
+            margin: 0 auto;
+        }
+
+        .status-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--warning);
+            animation: dotPulse 1.5s infinite;
+            box-shadow: 0 0 15px rgba(255, 165, 2, 0.6);
+        }
+
+        @keyframes dotPulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.8); opacity: 0.4; }
+        }
+
+        /* ========== سبينر ========== */
+        .spinner-container {
+            text-align: center;
+            padding: 20px;
+        }
+
+        .spinner {
+            width: 44px;
+            height: 44px;
+            margin: 0 auto 12px;
+            border: 3px solid rgba(255, 255, 255, 0.06);
+            border-top-color: var(--primary);
+            border-radius: 50%;
+            animation: spin 0.7s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* ========== أيقونة النجاح ========== */
+        .success-animation {
+            text-align: center;
+            padding: 10px 0;
+        }
+
+        .success-circle {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: var(--gradient-accent);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+            animation: successBounce 0.7s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            box-shadow: 0 0 50px rgba(0, 230, 118, 0.5);
+        }
+
+        @keyframes successBounce {
+            0% { transform: scale(0); }
+            50% { transform: scale(1.2); }
+            70% { transform: scale(0.9); }
+            100% { transform: scale(1); }
+        }
+
+        /* ========== حقول الإدخال ========== */
+        .input-field {
+            width: 100%;
+            padding: 16px 18px;
+            border-radius: var(--radius-md);
+            border: 1.5px solid var(--border-color);
+            background: rgba(255, 255, 255, 0.02);
+            color: var(--text-primary);
+            font-size: 1em;
+            font-family: 'Cairo', sans-serif;
+            transition: var(--transition);
+            text-align: right;
+            direction: rtl;
+        }
+
+        .input-field:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 30px rgba(0, 242, 254, 0.1);
+            background: rgba(255, 255, 255, 0.04);
+        }
+
+        .input-field::placeholder {
+            color: var(--text-muted);
+        }
+
+        .input-field.ltr {
+            direction: ltr;
+            text-align: left;
+            font-family: 'SF Mono', 'Fira Code', monospace;
+            font-size: 0.9em;
+        }
+
+        /* ========== نصوص ========== */
+        .text-center { text-align: center; }
+        .text-primary { color: var(--primary); }
+        .text-white { color: var(--text-primary); }
+        .text-muted { color: var(--text-secondary); }
+        
+        .section-title {
+            color: var(--text-primary);
+            font-size: 1.25em;
+            font-weight: 700;
+            margin-bottom: 8px;
+            text-align: center;
+        }
+
+        .section-desc {
+            color: var(--text-secondary);
+            font-size: 0.9em;
+            text-align: center;
+            line-height: 1.8;
+        }
+
+        .highlight {
+            color: var(--primary);
+            font-weight: 700;
+        }
+
+        .mb-10 { margin-bottom: 10px; }
+        .mb-15 { margin-bottom: 15px; }
+        .mb-20 { margin-bottom: 20px; }
+        .mb-30 { margin-bottom: 30px; }
+        .mt-10 { margin-top: 10px; }
+        .mt-20 { margin-top: 20px; }
+
+        .hidden { display: none !important; }
+
+        /* ========== الفوتر ========== */
+        .footer-bar {
+            text-align: center;
+            color: var(--text-muted);
+            margin-top: 25px;
+            font-size: 0.7em;
+            letter-spacing: 1.5px;
+            opacity: 0.6;
+        }
+
+        /* ========== إشعار Toast ========== */
+        .toast {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 9999;
+            padding: 14px 28px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.9em;
+            animation: toastIn 0.4s ease, toastOut 0.4s ease 2.5s forwards;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+            text-align: center;
+            max-width: 90vw;
+        }
+
+        .toast-success {
+            background: var(--gradient-accent);
+            color: #000;
+        }
+
+        .toast-error {
+            background: var(--danger);
+            color: #fff;
+        }
+
+        .toast-info {
+            background: var(--gradient-primary);
+            color: #000;
+        }
+
+        @keyframes toastIn {
+            from { opacity: 0; transform: translateX(-50%) translateY(-30px); }
+            to { opacity: 1; transform: translateX(-50%) translateY(0); }
+        }
+
+        @keyframes toastOut {
+            from { opacity: 1; }
+            to { opacity: 0; transform: translateX(-50%) translateY(-30px); }
+        }
+
+        /* ========== Responsive ========== */
+        @media (max-width: 540px) {
+            .card {
+                padding: 30px 20px;
+                border-radius: 20px;
+            }
+            .brand-name {
+                font-size: 1.5em;
+            }
+            .logo-icon {
+                width: 60px;
+                height: 60px;
+                font-size: 28px;
+                border-radius: 16px;
+            }
+            .btn {
+                padding: 14px 18px;
+                font-size: 0.95em;
+            }
+            .qr-section {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ========== هالات ========== -->
+<div class="aura-container">
+    <div class="aura"></div>
+    <div class="aura"></div>
+    <div class="aura"></div>
+</div>
+
+<!-- ========== جسيمات ========== -->
+<div class="particles-container" id="particles"></div>
+
+<!-- ========== الحاوية الرئيسية ========== -->
+<div class="main-container">
+    <div class="card">
+        <div class="card-content">
+
+            <!-- ========== الشعار ========== -->
+            <div class="brand-section">
+                <div class="logo-container">
+                    <div class="logo-icon">🏦</div>
+                </div>
+                <h1 class="brand-name">Sham Cash API</h1>
+                <p class="brand-tagline">Generate • Connect • Automate</p>
+                <div class="brand-author">𝐀𝐁𝐎 𝐆𝐎𝐑𝐆𝐄</div>
+            </div>
+
+            <!-- ========== الخطوة 1: الرئيسية ========== -->
+            <div id="step-home" class="step active">
+                <p class="section-desc mb-20">
+                    اربط محفظة <span class="highlight">Sham Cash</span> الخاصة بك<br>
+                    واحصل على <span class="highlight">API Token</span> فوري للعمليات التلقائية
+                </p>
+                
+                <button class="btn btn-primary" onclick="navigateTo('step-qr')">
+                    <span>🔐</span> تسجيل الدخول عبر QR Code
+                </button>
+                
+                <button class="btn btn-secondary" onclick="navigateTo('step-manual')">
+                    <span>🎫</span> لدي API Token سابق
+                </button>
+                
+                <button class="btn btn-gold" onclick="navigateTo('step-balance')">
+                    <span>💰</span> فحص الرصيد
+                </button>
+            </div>
+
+            <!-- ========== الخطوة 2: QR Code ========== -->
+            <div id="step-qr" class="step">
+                <h3 class="section-title">📱 امسح QR Code</h3>
+                <p class="section-desc mb-15" style="font-size: 0.82em;">
+                    1️⃣ افتح تطبيق <span class="highlight">Sham Cash</span><br>
+                    2️⃣ اذهب إلى <span class="highlight">الإعدادات ⚙️</span><br>
+                    3️⃣ اختر <span class="highlight">"ربط API"</span><br>
+                    4️⃣ امسح الكود أدناه 📸
+                </p>
+
+                <div class="qr-section">
+                    <div id="qrcode"></div>
+                </div>
+
+                <div class="timer-display" id="timerDisplay">
+                    <span class="timer-icon">⏰</span>
+                    <span id="timerText">صلاحية الكود: 05:00</span>
+                </div>
+
+                <div class="status-badge" id="statusBadge">
+                    <span class="status-dot"></span>
+                    <span>في انتظار المسح...</span>
+                </div>
+
+                <div class="spinner-container hidden" id="spinnerContainer">
+                    <div class="spinner"></div>
+                    <p style="color: #888; font-size: 0.9em;">جاري التحقق من الربط...</p>
+                </div>
+
+                <button class="btn btn-danger mt-20" onclick="cancelQR()">
+                    <span>❌</span> إلغاء
+                </button>
+            </div>
+
+            <!-- ========== الخطوة 3: النجاح ========== -->
+            <div id="step-success" class="step">
+                <div class="success-animation mb-20">
+                    <div class="success-circle">✅</div>
+                </div>
+                
+                <h3 class="section-title">تم الربط بنجاح!</h3>
+                <p class="section-desc mb-10">API Token الخاص بك جاهز للاستخدام</p>
+
+                <div class="token-box">
+                    <span class="token-label">🔑 API Token</span>
+                    <span id="apiTokenDisplay">---</span>
+                </div>
+
+                <div class="btn-group mt-20">
+                    <button class="btn btn-primary btn-sm" onclick="copyToken()">
+                        <span>📋</span> نسخ
+                    </button>
+                    <button class="btn btn-gold btn-sm" onclick="navigateTo('step-balance')">
+                        <span>💰</span> الرصيد
+                    </button>
+                </div>
+
+                <button class="btn btn-secondary mt-10" onclick="resetApp()">
+                    <span>🏠</span> العودة للرئيسية
+                </button>
+            </div>
+
+            <!-- ========== الخطوة 4: إدخال يدوي ========== -->
+            <div id="step-manual" class="step">
+                <h3 class="section-title">🎫 أدخل API Token</h3>
+                <p class="section-desc mb-20">أدخل التوكن الخاص بك للتحقق منه</p>
+                
+                <input type="text" class="input-field ltr mb-15" id="manualToken" 
+                       placeholder="sham_..." autocomplete="off">
+                
+                <button class="btn btn-primary" onclick="verifyManualToken()">
+                    <span>✅</span> تحقق من التوكن
+                </button>
+                
+                <button class="btn btn-secondary mt-10" onclick="navigateTo('step-home')">
+                    <span>🔙</span> رجوع
+                </button>
+            </div>
+
+            <!-- ========== الخطوة 5: فحص الرصيد ========== -->
+            <div id="step-balance" class="step">
+                <h3 class="section-title">💰 فحص الرصيد</h3>
+                <p class="section-desc mb-20">أدخل API Token لفحص رصيد محفظتك</p>
+                
+                <input type="text" class="input-field ltr mb-15" id="balanceToken" 
+                       placeholder="sham_..." autocomplete="off">
+                
+                <button class="btn btn-gold" onclick="checkBalanceByToken()">
+                    <span>🔍</span> عرض الرصيد
+                </button>
+
+                <div id="balanceResult" class="hidden mt-20">
+                    <div class="token-box">
+                        <span class="token-label">🏦 تفاصيل المحفظة</span>
+                        <span id="balanceDetails">---</span>
+                    </div>
+                </div>
+
+                <button class="btn btn-secondary mt-15" onclick="navigateTo('step-home')">
+                    <span>🔙</span> رجوع
+                </button>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="footer-bar">
+        © 2026 SHAM CASH API • 𝐀𝐁𝐎 𝐆𝐎𝐑𝐆𝐄 • ALL RIGHTS RESERVED
+    </div>
+</div>
+
+<!-- ========== Toast Container ========== -->
+<div id="toastContainer"></div>
+
+<!-- ========== السكربت الرئيسي ========== -->
+<script>
+    // ============================================
+    // ⚡️ SUPABASE - قاعدتك الحقيقية جاهزة
+    // ============================================
+    const SUPABASE_URL = 'https://olgrbwtdagnshlcvyllx.supabase.co';
+    const SUPABASE_KEY = 'sb_publishable_PRDKZuYTwDd-0Bke_-1I1w_97RlbsIp';
+    
+    const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+    // ============================================
+    // 📦 الحالة العامة
+    // ============================================
+    const STATE = {
+        currentStep: 'step-home',
+        currentSessionId: null,
+        checkInterval: null,
+        timerInterval: null
+    };
+
+    // ============================================
+    // 🎯 التهيئة
+    // ============================================
+    document.addEventListener('DOMContentLoaded', () => {
+        console.log('🚀 Sham Cash API | 𝐀𝐁𝐎 𝐆𝐎𝐑𝐆𝐄 | جاهز');
+        generateParticles();
+        
+        const savedToken = localStorage.getItem('shamcash_token');
+        if (savedToken) {
+            document.getElementById('apiTokenDisplay').textContent = savedToken;
+        }
+    });
+
+    // ============================================
+    // 🌟 الجسيمات
+    // ============================================
+    function generateParticles() {
+        const container = document.getElementById('particles');
+        const colors = ['#00f2fe', '#4facfe', '#ffd700', '#00e676', '#667eea', '#f093fb'];
+        
+        for (let i = 0; i < 30; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            
+            const size = Math.random() * 3 + 1;
+            const color = colors[Math.floor(Math.random() * colors.length)];
+            
+            particle.style.cssText = `
+                width: ${size}px;
+                height: ${size}px;
+                background: ${color};
+                box-shadow: 0 0 ${size * 5}px ${color};
+                left: ${Math.random() * 100}%;
+                animation-duration: ${Math.random() * 15 + 10}s;
+                animation-delay: ${Math.random() * 15}s;
+            `;
+            
+            container.appendChild(particle);
+        }
+    }
+
+    // ============================================
+    // 🧭 التنقل
+    // ============================================
+    function navigateTo(stepId) {
+        document.querySelectorAll('.step').forEach(el => el.classList.remove('active'));
+        document.getElementById(stepId).classList.add('active');
+        STATE.currentStep = stepId;
+        
+        clearAllIntervals();
+        resetUIElements();
+        
+        if (stepId === 'step-qr') {
+            generateQRCode();
+        }
+    }
+
+    function resetApp() {
+        clearAllIntervals();
+        resetUIElements();
+        navigateTo('step-home');
+    }
+
+    function clearAllIntervals() {
+        if (STATE.checkInterval) clearInterval(STATE.checkInterval);
+        if (STATE.timerInterval) clearInterval(STATE.timerInterval);
+        STATE.checkInterval = null;
+        STATE.timerInterval = null;
+    }
+
+    function resetUIElements() {
+        const spinner = document.getElementById('spinnerContainer');
+        const badge = document.getElementById('statusBadge');
+        const result = document.getElementById('balanceResult');
+        const timer = document.getElementById('timerDisplay');
+        
+        if (spinner) spinner.classList.add('hidden');
+        if (badge) badge.classList.remove('hidden');
+        if (result) result.classList.add('hidden');
+        if (timer) {
+            timer.style.color = 'var(--warning)';
+            document.getElementById('timerText').textContent = 'صلاحية الكود: 05:00';
+        }
+    }
+
+    // ============================================
+    // 📱 QR Code
+    // ============================================
+    async function generateQRCode() {
+        try {
+            STATE.currentSessionId = 'sess_' + crypto.randomUUID();
+            
+            // حفظ الجلسة في Supabase
+            const expiresAt = new Date();
+            expiresAt.setMinutes(expiresAt.getMinutes() + 5);
+            
+            const { error } = await supabase
+                .from('sessions')
+                .insert({
+                    session_id: STATE.currentSessionId,
+                    status: 'pending',
+                    expires_at: expiresAt.toISOString()
+                });
+            
+            if (error) {
+                console.error('Session creation error:', error);
+                showToast('⚠️ خطأ في إنشاء الجلسة. حاول مرة أخرى.', 'error');
+                navigateTo('step-home');
+                return;
+            }
+            
+            // رابط QR
+            const qrPayload = JSON.stringify({
+                action: 'auth',
+                session: STATE.currentSessionId,
+                source: 'abogeorge',
+                api_url: SUPABASE_URL,
+                timestamp: Date.now()
+            });
+            
+            const qrData = `shamcash://auth?data=${encodeURIComponent(qrPayload)}`;
+            
+            // توليد QR
+            document.getElementById('qrcode').innerHTML = '';
+            
+            new QRCode(document.getElementById('qrcode'), {
+                text: qrData,
+                width: 220,
+                height: 220,
+                colorDark: '#000000',
+                colorLight: '#ffffff',
+                correctLevel: QRCode.CorrectLevel.H
+            });
+            
+            console.log('✅ QR Code generated | Session:', STATE.currentSessionId);
+            
+            startTimer(300);
+            startSessionMonitoring(STATE.currentSessionId);
+            
+        } catch (error) {
+            console.error('QR Error:', error);
+            showToast('⚠️ خطأ في الشبكة. تأكد من اتصالك.', 'error');
+            navigateTo('step-home');
+        }
+    }
+
+    function startTimer(totalSeconds) {
+        let remaining = totalSeconds;
+        const timerEl = document.getElementById('timerDisplay');
+        const timerText = document.getElementById('timerText');
+        
+        STATE.timerInterval = setInterval(() => {
+            remaining--;
+            const min = Math.floor(remaining / 60);
+            const sec = remaining % 60;
+            timerText.textContent = `صلاحية الكود: ${String(min).padStart(2, '0')}:${String(sec).padStart(2, '0')}`;
+            
+            if (remaining <= 30) {
+                timerEl.style.color = '#ff4757';
+                timerEl.style.borderColor = 'rgba(255, 71, 87, 0.4)';
+                timerEl.style.background = 'rgba(255, 71, 87, 0.08)';
+            }
+            
+            if (remaining <= 0) {
+                clearInterval(STATE.timerInterval);
+                clearInterval(STATE.checkInterval);
+                showToast('⏰ انتهت صلاحية QR Code', 'error');
+                navigateTo('step-home');
+            }
+        }, 1000);
+    }
+
+    function startSessionMonitoring(sessionId) {
+        let attempts = 0;
+        const maxAttempts = 150;
+        
+        STATE.checkInterval = setInterval(async () => {
+            attempts++;
+            
+            if (attempts > maxAttempts) {
+                clearInterval(STATE.checkInterval);
+                return;
+            }
+            
+            try {
+                const { data, error } = await supabase
+                    .from('sessions')
+                    .select('*')
+                    .eq('session_id', sessionId)
+                    .eq('status', 'confirmed')
+                    .single();
+                
+                if (data && data.api_token) {
+                    clearInterval(STATE.checkInterval);
+                    clearInterval(STATE.timerInterval);
+                    
+                    onAuthConfirmed(data.api_token);
+                }
+            } catch (err) {
+                // لم يتم التأكيد بعد - طبيعي
+            }
+        }, 2000);
+    }
+
+    function cancelQR() {
+        clearAllIntervals();
+        resetUIElements();
+        
+        // تحديث حالة الجلسة في Supabase
+        if (STATE.currentSessionId) {
+            supabase
+                .from('sessions')
+                .update({ status: 'cancelled' })
+                .eq('session_id', STATE.currentSessionId)
+                .then(() => console.log('Session cancelled'));
+        }
+        
+        navigateTo('step-home');
+    }
+
+    // ============================================
+    // ✅ تأكيد المصادقة
+    // ============================================
+    function onAuthConfirmed(apiToken) {
+        document.getElementById('apiTokenDisplay').textContent = apiToken;
+        localStorage.setItem('shamcash_token', apiToken);
+        
+        document.getElementById('spinnerContainer').classList.add('hidden');
+        document.getElementById('statusBadge').classList.add('hidden');
+        
+        showToast('✅ تم الربط بنجاح!', 'success');
+        navigateTo('step-success');
+    }
+
+    // دالة عامة ليستدعيها تطبيق Sham Cash
+    window.shamcashConfirmAuth = async function(sessionId, walletAddress) {
+        try {
+            const apiToken = 'sham_' + Array.from(
+                { length: 64 }, 
+                () => '0123456789abcdef'[Math.floor(Math.random() * 16)]
+            ).join('');
+            
+            const { error: userError } = await supabase
+                .from('users')
+                .upsert({
+                    wallet_address: walletAddress,
+                    api_token: apiToken,
+                    balance: 0
+                }, { onConflict: 'wallet_address' });
+            
+            if (userError) throw userError;
+            
+            const { error: sessionError } = await supabase
+                .from('sessions')
+                .update({
+                    status: 'confirmed',
+                    wallet_address: walletAddress,
+                    api_token: apiToken
+                })
+                .eq('session_id', sessionId);
+            
+            if (sessionError) throw sessionError;
+            
+            return { success: true, api_token: apiToken };
+        } catch (error) {
+            return { success: false, error: error.message };
+        }
+    };
+
+    // ============================================
+    // 📋 نسخ التوكن
+    // ============================================
+    function copyToken() {
+        const token = document.getElementById('apiTokenDisplay').textContent;
+        if (token && token !== '---') {
+            navigator.clipboard.writeText(token).then(() => {
+                showToast('📋 تم النسخ!', 'success');
+            }).catch(() => {
+                // Fallback للمتصفحات القديمة
+                const el = document.getElementById('apiTokenDisplay');
+                const range = document.createRange();
+                range.selectNode(el);
+                window.getSelection().removeAllRanges();
+                window.getSelection().addRange(range);
+                document.execCommand('copy');
+                showToast('📋 تم النسخ!', 'success');
+            });
+        }
+    }
+
+    // ============================================
+    // 🔍 تحقق يدوي
+    // ============================================
+    async function verifyManualToken() {
+        const token = document.getElementById('manualToken').value.trim();
+        
+        if (!token) {
+            showToast('⚠️ الرجاء إدخال API Token', 'error');
+            return;
+        }
+        
+        if (!token.startsWith('sham_')) {
+            showToast('⚠️ صيغة التوكن غير صحيحة', 'error');
+            return;
+        }
+        
+        try {
+            const { data, error } = await supabase
+                .from('users')
+                .select('api_token, wallet_address, balance')
+                .eq('api_token', token)
+                .single();
+            
+            if (error || !data) {
+                showToast('❌ توكن غير صالح', 'error');
+                return;
+            }
+            
+            document.getElementById('apiTokenDisplay').textContent = token;
+            localStorage.setItem('shamcash_token', token);
+            
+            showToast('✅ توكن صالح!', 'success');
+            navigateTo('step-success');
+            
+        } catch (error) {
+            showToast('⚠️ فشل الاتصال', 'error');
+        }
+    }
+
+    // ============================================
+    // 💰 فحص الرصيد
+    // ============================================
+    async function checkBalanceByToken() {
+        const tokenInput = document.getElementById('balanceToken');
+        let token = tokenInput.value.trim();
+        
+        if (!token) {
+            token = localStorage.getItem('shamcash_token');
+            if (token) {
+                tokenInput.value = token;
+            } else {
+                showToast('⚠️ الرجاء إدخال API Token', 'error');
+                return;
+            }
+        }
+        
+        try {
+            const { data, error } = await supabase
+                .from('users')
+                .select('balance, wallet_address, api_token, created_at')
+                .eq('api_token', token)
+                .single();
+            
+            if (error || !data) {
+                showToast('❌ توكن غير صالح', 'error');
+                return;
+            }
+            
+            const resultDiv = document.getElementById('balanceResult');
+            const detailsDiv = document.getElementById('balanceDetails');
+            
+            detailsDiv.innerHTML = `
+                💰 الرصيد: <strong>${data.balance} ل.س</strong><br>
+                🏦 المحفظة: ${data.wallet_address?.slice(0, 10)}...${data.wallet_address?.slice(-6)}<br>
+                📅 تاريخ الإنشاء: ${new Date(data.created_at).toLocaleDateString('ar-SY')}<br>
+                🔑 التوكن: ${data.api_token?.slice(0, 12)}...
+            `;
+            
+            resultDiv.classList.remove('hidden');
+            resultDiv.style.animation = 'stepIn 0.5s ease';
+            
+            showToast(`💰 الرصيد: ${data.balance} ل.س`, 'info');
+            
+        } catch (error) {
+            showToast('⚠️ فشل جلب الرصيد', 'error');
+        }
+    }
+
+    // ============================================
+    // 🔔 التوست
+    // ============================================
+    function showToast(message, type = 'info') {
+        const container = document.getElementById('toastContainer');
+        const toast = document.createElement('div');
+        toast.className = `toast toast-${type}`;
+        toast.textContent = message;
+        container.appendChild(toast);
+        
+        setTimeout(() => {
+            if (toast.parentNode) {
+                toast.remove();
+            }
+        }, 3000);
+    }
+
+    // ============================================
+    // 📡 فحص اتصال Supabase
+    // ============================================
+    async function checkConnection() {
+        try {
+            const { data, error } = await supabase.from('sessions').select('count').limit(1);
+            if (error) throw error;
+            console.log('✅ Supabase متصل | البيانات:', data);
+            return true;
+        } catch (error) {
+            console.error('❌ خطأ اتصال Supabase:', error);
+            return false;
+        }
+    }
+
+    // اختبار الاتصال عند التحميل
+    checkConnection().then(connected => {
+        if (connected) {
+            console.log('🎉 كل شيء شغال! قاعدة البيانات جاهزة.');
+        } else {
+            console.warn('⚠️ تأكد من الجداول في Supabase SQL Editor');
+        }
+    });
+
+    // تعريض الدوال للاستخدام العالمي
+    window.navigateTo = navigateTo;
+    window.resetApp = resetApp;
+    window.cancelQR = cancelQR;
+    window.copyToken = copyToken;
+    window.verifyManualToken = verifyManualToken;
+    window.checkBalanceByToken = checkBalanceByToken;
+
+    console.log(`
+    ╔══════════════════════════════════╗
+    ║   🏦 SHAM CASH API             ║
+    ║   𝐀𝐁𝐎 𝐆𝐎𝐑𝐆𝐄                   ║
+    ║   © 2026                       ║
+    ║   Supabase: متصل ✅            ║
+    ╚══════════════════════════════════╝
+    `);
+</script>
+
+</body>
+</html>
