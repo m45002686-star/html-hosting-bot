@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sham Cash API | 𝐀𝐁𝐎 𝐆𝐎𝐑𝐆𝐄</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <style>
+        * { margin:0; padding:0; box-sizing:border-box; }
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: #010314;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 15px;
+        }
+        .card {
+            background: #0a0e1f;
+            border: 2px solid #1a1f3a;
+            border-radius: 24px;
+            padding: 40px 30px;
+            width: 100%;
+            max-width: 420px;
+            text-align: center;
+        }
+        .logo {
+            font-size: 50px;
+            margin-bottom: 10px;
+        }
+        h1 {
+            color: #fff;
+            font-size: 1.8em;
+            font-weight: 900;
+            margin-bottom: 5px;
+        }
+        .by {
+            color: #00d4ff;
+            font-weight: 700;
+            letter-spacing: 5px;
+            font-size: 1.2em;
+            margin-bottom: 20px;
+        }
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 16px;
+            margin: 8px 0;
+            border: none;
+            border-radius: 14px;
+            font-size: 1.1em;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .btn:active { transform: scale(0.95); }
+        .btn-blue {
+            background: linear-gradient(135deg, #00d4ff, #0066ff);
+            color: #000;
+        }
+        .btn-line {
+            background: transparent;
+            border: 2px solid #00d4ff;
+            color: #00d4ff;
+        }
+        .btn-gold {
+            background: linear-gradient(135deg, #ffb800, #ff6a00);
+            color: #000;
+        }
+        .btn-red {
+            background: transparent;
+            border: 2px solid #ff3355;
+            color: #ff3355;
+        }
+        .page { display: none; animation: in 0.3s ease; }
+        .page.show { display: block; }
+        @keyframes in { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:translateY(0); } }
+        
+        .qr-box {
+            background: #fff;
+            padding: 25px;
+            border-radius: 18px;
+            display: inline-block;
+            margin: 20px 0;
+        }
+        .timer {
+            color: #ffb800;
+            font-weight: 700;
+            font-size: 1.1em;
+            margin: 10px 0;
+        }
+        .status {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            color: #ffb800;
+            font-weight: 600;
+        }
+        .dot {
+            width: 10px; height: 10px;
+            background: #ffb800;
+            border-radius: 50%;
+            animation: pulse 1.2s infinite;
+        }
+        @keyframes pulse {
+            0%,100% { opacity:1; } 50% { opacity:0.3; }
+        }
+        .token {
+            background: #000;
+            border: 2px solid #00d4ff;
+            border-radius: 12px;
+            padding: 15px;
+            margin: 15px 0;
+            color: #00ff88;
+            font-family: monospace;
+            word-break: break-all;
+            direction: ltr;
+        }
+        .success { font-size: 60px; }
+        
+        .inp {
+            width: 100%;
+            padding: 15px;
+            border-radius: 12px;
+            border: 2px solid #1a1f3a;
+            background: #000;
+            color: #fff;
+            font-size: 1em;
+            margin: 10px 0;
+            font-family: monospace;
+            direction: ltr;
+        }
+        .inp:focus { outline: none; border-color: #00d4ff; }
+        
+        .footer {
+            color: #444;
+            font-size: 0.7em;
+            margin-top: 20px;
+            letter-spacing: 2px;
+        }
+        .hidden { display: none !important; }
+        
+        .toast {
+            position: fixed;
+            top: 15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #00e676;
+            color: #000;
+            padding: 12px 24px;
+            border-radius: 50px;
+            font-weight: 700;
+            z-index: 999;
+        }
+    </style>
+</head>
+<body>
+
+<div class="card">
+    <div class="logo">🏦</div>
+    <h1>Sham Cash API</h1>
+    <p style="color:#666;letter-spacing:3px;font-size:0.8em;">GENERATE • CONNECT • AUTOMATE</p>
+    <p class="by">𝐀𝐁𝐎 𝐆𝐎𝐑𝐆𝐄</p>
+
+    <!-- HOME -->
+    <div id="home" class="page show">
+        <button class="btn btn-blue" onclick="show('qr')">🔐 تسجيل الدخول عبر QR</button>
+        <button class="btn btn-line" onclick="show('manual')">🎫 لدي API Token</button>
+        <button class="btn btn-gold" onclick="show('balance')">💰 فحص الرصيد</button>
+    </div>
+
+    <!-- QR -->
+    <div id="qr" class="page">
+        <h3 style="color:#fff;">📱 امسح QR Code</h3>
+        <p style="color:#888;font-size:0.9em;">1️⃣ Sham Cash 2️⃣ إعدادات 3️⃣ ربط API 4️⃣ امسح</p>
+        <div class="qr-box"><div id="qrcode"></div></div>
+        <p class="timer" id="timer">⏰ 05:00</p>
+        <div class="status" id="statusWait"><span class="dot"></span> في انتظار المسح...</div>
+        <button class="btn btn-red" onclick="cancelQR()">❌ إلغاء</button>
+    </div>
+
+    <!-- SUCCESS -->
+    <div id="success" class="page">
+        <div class="success">✅</div>
+        <h3 style="color:#fff;">تم الربط بنجاح!</h3>
+        <div class="token" id="tokenDisplay">---</div>
+        <button class="btn btn-blue" onclick="copyToken()" style="margin:5px 0;">📋 نسخ التوكن</button>
+        <button class="btn btn-gold" onclick="testBalance()" style="margin:5px 0;">💰 عرض الرصيد</button>
+        <button class="btn btn-line" onclick="show('home')">🏠 الرئيسية</button>
+    </div>
+
+    <!-- MANUAL -->
+    <div id="manual" class="page">
+        <h3 style="color:#fff;">🎫 أدخل API Token</h3>
+        <input class="inp" id="manualToken" placeholder="sham_...">
+        <button class="btn btn-blue" onclick="verifyToken()">✅ تحقق</button>
+        <button class="btn btn-line" onclick="show('home')">🔙 رجوع</button>
+    </div>
+
+    <!-- BALANCE -->
+    <div id="balance" class="page">
+        <h3 style="color:#fff;">💰 فحص الرصيد</h3>
+        <input class="inp" id="balanceToken" placeholder="sham_...">
+        <button class="btn btn-gold" onclick="showBalance()">🔍 عرض</button>
+        <div id="balanceInfo" class="hidden"><div class="token" style="color:#ffb800;" id="balanceText"></div></div>
+        <button class="btn btn-line" onclick="show('home')">🔙 رجوع</button>
+    </div>
+
+    <div class="footer">© 2026 · 𝐀𝐁𝐎 𝐆𝐎𝐑𝐆𝐄</div>
+</div>
+
+<div id="toastArea"></div>
+
+<script>
+// ========== SUPABASE ==========
+const supa = supabase.createClient(
+    'https://olgrbwtdagnshlcvyllx.supabase.co',
+    'sb_publishable_PRDKZuYTwDd-0Bke_-1I1w_97RlbsIp'
+);
+
+let checkInterval, countdown, sessionId;
+
+// ========== NAVIGATION ==========
+function show(id) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('show'));
+    document.getElementById(id).classList.add('show');
+    if (checkInterval) clearInterval(checkInterval);
+    if (countdown) clearInterval(countdown);
+    if (id === 'qr') generateQR();
+}
+
+// ========== TOAST ==========
+function toast(msg, color) {
+    const t = document.createElement('div');
+    t.className = 'toast';
+    t.style.background = color || '#00e676';
+    t.textContent = msg;
+    document.getElementById('toastArea').appendChild(t);
+    setTimeout(() => t.remove(), 2000);
+}
+
+// ========== QR CODE ==========
+async function generateQR() {
+    sessionId = 'sess_' + Math.random().toString(36).substr(2, 12) + Date.now().toString(36);
+    
+    // حفظ الجلسة
+    const { error } = await supa.from('sessions').insert({
+        session_id: sessionId,
+        status: 'pending',
+        expires_at: new Date(Date.now() + 5*60000).toISOString()
+    });
+    
+    if (error) {
+        console.error(error);
+        toast('⚠️ خطأ: ' + error.message, '#ff3355');
+        show('home');
+        return;
+    }
+    
+    // QR Code
+    document.getElementById('qrcode').innerHTML = '';
+    new QRCode(document.getElementById('qrcode'), {
+        text: 'shamcash://auth?session=' + sessionId + '&source=abogeorge',
+        width: 200, height: 200,
+        colorDark: '#000', colorLight: '#fff'
+    });
+    
+    console.log('✅ QR جاهز | الجلسة:', sessionId);
+    
+    // تايمر
+    let sec = 300;
+    countdown = setInterval(() => {
+        sec--;
+        document.getElementById('timer').textContent = '⏰ ' + String(Math.floor(sec/60)).padStart(2,'0') + ':' + String(sec%60).padStart(2,'0');
+        if (sec <= 30) document.getElementById('timer').style.color = '#ff3355';
+        if (sec <= 0) { clearInterval(countdown); clearInterval(checkInterval); toast('⏰ انتهى الوقت', '#ff3355'); show('home'); }
+    }, 1000);
+    
+    // مراقبة
+    checkInterval = setInterval(async () => {
+        const { data } = await supa.from('sessions').select('*').eq('session_id', sessionId).eq('status', 'confirmed').single();
+        if (data?.api_token) {
+            clearInterval(checkInterval);
+            clearInterval(countdown);
+            authSuccess(data.api_token);
+        }
+    }, 2000);
+}
+
+function cancelQR() {
+    clearInterval(checkInterval);
+    clearInterval(countdown);
+    show('home');
+}
+
+// ========== AUTH SUCCESS ==========
+function authSuccess(token) {
+    localStorage.setItem('sham_token', token);
+    document.getElementById('tokenDisplay').textContent = token;
+    toast('✅ تم الربط!', '#00e676');
+    show('success');
+}
+
+// ========== API FOR APP ==========
+window.shamcashConfirmAuth = async function(sessionId, wallet) {
+    const token = 'sham_' + Array.from({length:64}, ()=>'0123456789abcdef'[Math.floor(Math.random()*16)]).join('');
+    await supa.from('users').upsert({ wallet_address: wallet, api_token: token, balance: 0 }, { onConflict: 'wallet_address' });
+    await supa.from('sessions').update({ status: 'confirmed', wallet_address: wallet, api_token: token }).eq('session_id', sessionId);
+    return { success: true, api_token: token };
+};
+
+// ========== COPY ==========
+function copyToken() {
+    const t = document.getElementById('tokenDisplay').textContent;
+    if (t !== '---') { navigator.clipboard.writeText(t).then(() => toast('📋 تم النسخ!', '#00d4ff')); }
+}
+
+// ========== VERIFY ==========
+async function verifyToken() {
+    const t = document.getElementById('manualToken').value.trim();
+    if (!t) return toast('⚠️ أدخل التوكن', '#ff3355');
+    const { data, error } = await supa.from('users').select('*').eq('api_token', t).single();
+    if (error || !data) return toast('❌ غير صالح', '#ff3355');
+    authSuccess(t);
+}
+
+// ========== BALANCE ==========
+async function testBalance() {
+    const t = document.getElementById('tokenDisplay').textContent;
+    if (t === '---') return;
+    const { data } = await supa.from('users').select('balance, wallet_address').eq('api_token', t).single();
+    if (data) toast('💰 الرصيد: ' + data.balance + ' ل.س', '#ffb800');
+}
+
+async function showBalance() {
+    let t = document.getElementById('balanceToken').value.trim() || localStorage.getItem('sham_token');
+    if (!t) return toast('⚠️ أدخل التوكن', '#ff3355');
+    const { data, error } = await supa.from('users').select('*').eq('api_token', t).single();
+    if (error || !data) return toast('❌ غير صالح', '#ff3355');
+    document.getElementById('balanceText').innerHTML = '💰 الرصيد: <b>' + data.balance + ' ل.س</b><br>🏦 المحفظة: ' + (data.wallet_address||'---').slice(0,12) + '...';
+    document.getElementById('balanceInfo').classList.remove('hidden');
+    toast('💰 ' + data.balance + ' ل.س', '#ffb800');
+}
+
+// ========== INIT ==========
+const saved = localStorage.getItem('sham_token');
+if (saved) { document.getElementById('tokenDisplay').textContent = saved; }
+
+console.log('🏦 Sham Cash API | 𝐀𝐁𝐎 𝐆𝐎𝐑𝐆𝐄 | 2026 ✅');
+</script>
+</body>
+</html>
