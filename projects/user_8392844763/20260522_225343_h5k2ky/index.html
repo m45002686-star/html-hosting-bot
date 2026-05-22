@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ZIAD HOST | لوحة التحكم</title>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Tajawal',sans-serif;background:#0a0a0a;color:#fff}
+.hero-bg{position:fixed;inset:0;background:radial-gradient(circle at 20% 40%,rgba(255,215,0,0.1),transparent 70%);z-index:-1}
+.navbar{display:flex;justify-content:space-between;align-items:center;padding:20px 50px;background:rgba(0,0,0,0.8);backdrop-filter:blur(10px);border-bottom:1px solid rgba(255,215,0,0.3);position:sticky;top:0}
+.logo{display:flex;align-items:center;gap:12px;font-weight:900;font-size:1.4rem}
+.logo-icon{width:45px;height:45px;background:linear-gradient(135deg,#ffd700,#ff8c00);border-radius:15px;display:flex;align-items:center;justify-content:center;color:#000}
+.btn-outline{background:transparent;border:1px solid #ffd700;padding:8px 20px;border-radius:40px;color:#ffd700;font-weight:600;cursor:pointer}
+.container{padding:40px 8%;max-width:1400px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:30px}
+.card{background:rgba(15,15,25,0.9);border:1px solid rgba(255,215,0,0.2);border-radius:25px;padding:30px}
+.card h2{font-size:1.3rem;margin-bottom:20px;color:#ffd700;display:flex;align-items:center;gap:10px}
+.upload{border:2px dashed rgba(255,215,0,0.4);border-radius:20px;padding:50px;text-align:center;position:relative;cursor:pointer;transition:.3s}
+.upload:hover{border-color:#ffd700;background:rgba(255,215,0,0.05)}
+#fileInput{position:absolute;inset:0;opacity:0;cursor:pointer}
+.bot-item{background:rgba(20,20,30,0.6);padding:18px;border-radius:15px;margin-bottom:12px;display:flex;justify-content:space-between;align-items:center;border:1px solid rgba(255,215,0,0.15)}
+.status{padding:5px 14px;border-radius:20px;font-size:.85rem;font-weight:600}
+.status.running{background:rgba(0,255,136,0.15);color:#00ff88}
+.status.exited{background:rgba(255,61,90,0.15);color:#ff7a94}
+.btn{padding:10px 18px;border:none;border-radius:12px;cursor:pointer;font-family:'Tajawal';font-weight:600;transition:.2s}
+.btn-primary{background:linear-gradient(135deg,#ffd700,#ffaa00);color:#000}
+.btn-danger{background:linear-gradient(135deg,#ff3d5a,#d82a4a);color:#fff}
+.log{background:#0b1220;border-radius:12px;padding:15px;height:300px;overflow-y:auto;font-family:'Courier New',monospace;font-size:.85rem}
+.log-line{padding:5px 0;border-bottom:1px solid rgba(255,255,255,0.05)}
+textarea.code{width:100%;height:320px;background:#0b1220;border:1px solid rgba(255,215,0,0.2);border-radius:12px;padding:15px;color:#fff;font-family:'Courier New',monospace;font-size:13px}
+select{width:100%;padding:12px;background:#0b1220;border:1px solid rgba(255,215,0,0.25);border-radius:12px;color:#fff;margin-bottom:12px}
+.hidden{display:none}
+@media(max-width:1000px){.container{grid-template-columns:1fr;padding:20px}}
+</style>
+</head>
+<body>
+<div class="hero-bg"></div>
+<div class="navbar">
+<div class="logo"><div class="logo-icon"><i class="fas fa-robot"></i></div>ZIAD HOST</div>
+<div><span id="userName"></span> <button class="btn-outline" onclick="logout()">خروج</button></div>
+</div>
+<div class="container">
+<div>
+<div class="card">
+<h2><i class="fas fa-cloud-upload-alt"></i> رفع البوت</h2>
+<div class="upload" id="uploadZone">
+<i class="fas fa-file-code" style="font-size:3rem;color:#ffd700;margin-bottom:15px"></i>
+<h3>اسحب ملفاتك هنا</h3>
+<p style="color:#aaa;margin-top:10px">main.py, requirements.txt, اي ملفات</p>
+<input type="file" id="fileInput" multiple>
+</div>
+<div class="log" id="uploadLog" style="margin-top:15px;height:180px"></div>
+</div>
+<div class="card" style="margin-top:30px">
+<h2><i class="fas fa-server"></i> بوتاتي</h2>
+<div id="botsList"></div>
+</div>
+</div>
+<div class="card hidden" id="editorPanel">
+<h2><i class="fas fa-code"></i> <span id="projTitle">المحرر</span></h2>
+<select id="fileSelect"></select>
+<textarea class="code" id="codeEditor"></textarea>
+<div style="display:flex;gap:10px;margin-top:12px">
+<button class="btn btn-primary" onclick="saveFile()"><i class="fas fa-save"></i> حفظ</button>
+<button class="btn btn-primary" onclick="restartProj()"><i class="fas fa-redo"></i> اعادة تشغيل</button>
+</div>
+<h3 style="margin:20px 0 10px;color:#ffd700"><i class="fas fa-terminal"></i> اللوق المباشر</h3>
+<div class="log" id="liveLog"></div>
+</div>
+</div>
+<script>
+const API="";
+let user=null,currentApp=null,es=null;
+function log(msg,box='uploadLog'){
+const time=new Date().toLocaleTimeString('ar-EG',{hour12:false});
+document.getElementById(box).innerHTML=`<div class="log-line">[${time}] ${msg}</div>`+document.getElementById(box).innerHTML;
+}
+document.addEventListener('DOMContentLoaded',async()=>{
+const res=await fetch(API+'/api/current_user');
+const data=await res.json();
+if(!data.success){location.href='/login.html';return}
+user=data.username;document.getElementById('userName').textContent=user;loadBots();initUpload()
+})
+function initUpload(){
+const zone=document.getElementById('uploadZone');
+zone.ondragover=e=>{e.preventDefault();zone.style.borderColor='#ffd700'}
+zone.ondragleave=()=>{zone.style.borderColor='rgba(255,215,0,0.4)'}
+zone.ondrop=e=>{e.preventDefault();uploadFiles(e.dataTransfer.files)}
+document.getElementById('fileInput').onchange=()=>uploadFiles(document.getElementById('fileInput').files)
+}
+async function uploadFiles(files){
+for(let f of files){
+log(`جاري رفع ${f.name}...`);
+const fd=new FormData();fd.append('file',f);
+const res=await fetch(API+'/api/upload',{method:'POST',body:fd});
+const data=await res.json();
+if(data.status=='running'){log(`✅ شغال: ${data.app_id}`);loadBots()}
+else{log(`❌ ${data.error}`)}
+}
+async function loadBots(){
+const bots=await get('/api/bots/'+user);
+document.getElementById('botsList').innerHTML=!bots.length?'<div style="color:#aaa;text-align:center;padding:20px">لا يوجد بوتات</div>':bots.map(b=>`
+<div class="bot-item">
+<div><div style="font-weight:700">${b.id}</div><span class="status ${b.status}">${b.status}</span></div>
+<div style="display:flex;gap:8px">
+<button class="btn btn-primary" onclick="openProj('${b.id}')"><i class="fas fa-code"></i></button>
+<button class="btn btn-danger" onclick="stopBot('${b.id}')"><i class="fas fa-stop"></i></button>
+</div>
+</div>
+`).join('')
+}
+async function openProj(app_id){
+currentApp=app_id;document.getElementById('editorPanel').classList.remove('hidden');
+document.getElementById('projTitle').textContent=app_id;
+const files=await get('/api/files/'+app_id);
+document.getElementById('fileSelect').innerHTML=files.map(f=>`<option>${f}</option>`).join('');
+loadFile(files[0]);startLogs(app_id)
+}
+async function loadFile(name){
+const txt=await(await fetch(API+`/api/file/${currentApp}/${name}`)).text();
+document.getElementById('codeEditor').value=txt
+}
+document.getElementById('fileSelect').onchange=e=>loadFile(e.target.value);
+async function saveFile(){
+await post('/api/file/'+currentApp,{filename:fileSelect.value,content:codeEditor.value});
+log('تم الحفظ','liveLog')
+}
+async function restartProj(){await post('/api/restart/'+currentApp);log('تم اعادة التشغيل','liveLog')}
+function startLogs(app_id){
+if(es)es.close();
+es=new EventSource(API+`/api/logs/${app_id}`);
+es.onmessage=e=>{document.getElementById('liveLog').innerHTML+=`<div class="log-line">${e.data}</div>`;document.getElementById('liveLog').scrollTop=document.getElementById('liveLog').scrollHeight}
+async function stopBot(id){await post('/api/stop/'+id);loadBots()}
+async function logout(){await fetch(API+'/api/logout');location.href='/login.html'}
+async function get(url){return await(await fetch(API+url)).json()}
+async function post(url,data){return await(await fetch(API+url,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)})).json()}
+</script>
+</body>
+</html>
