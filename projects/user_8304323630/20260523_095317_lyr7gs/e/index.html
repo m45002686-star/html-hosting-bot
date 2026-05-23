@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>منصة نشر روابط التليجرام</title>
+</head>
+<body>
+    <h1>أضف رابطك</h1>
+    <form action="/add" method="POST">
+        <input type="text" name="type" placeholder="نوع الرابط">
+        <input type="text" name="url" placeholder="الرابط">
+        <textarea name="description" placeholder="الوصف"></textarea>
+        <button type="submit">نشر</button>
+    </form>
+
+    <div id="links-container">
+        <% links.forEach(link => { %>
+            <p><%= link.type %>: <a href="<%= link.url %>"><%= link.url %></a></p>
+        <% }) %>
+    </div>
+
+    <script>
+        // التحديث التلقائي كل 30 ثانية
+        setInterval(() => {
+            location.reload(); 
+        }, 30000);
+    </script>
+</body>
+</html>
