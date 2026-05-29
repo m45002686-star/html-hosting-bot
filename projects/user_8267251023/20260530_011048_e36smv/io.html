@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لوحة التحكم - البوتات</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <img src="assets/logo.png" alt="Logo" class="logo">
+        <h1>لوحة التحكم</h1>
+    </header>
+
+    <main>
+        <section class="add-bot">
+            <h2>إضافة بوت جديد</h2>
+            <form id="botForm">
+                <input type="text" id="botName" placeholder="اسم البوت" required>
+                <input type="text" id="botKey" placeholder="API Key" required>
+                <button type="submit" class="btn">أضف البوت</button>
+            </form>
+        </section>
+
+        <section class="bots-list">
+            <h2>البوتات المضافة</h2>
+            <ul id="botList">
+                <!-- البوتات ستظهر هنا -->
+            </ul>
+        </section>
+
+        <section>
+            <a href="index.html" class="btn">العودة إلى الصفحة الرئيسية</a>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
