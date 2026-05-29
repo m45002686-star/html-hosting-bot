@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<title>استضافة بوتات - تسجيل الدخول</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="login-wrap">
+    <h2>تسجيل الدخول</h2>
+    <input type="text" id="username" placeholder="اسم المستخدم">
+    <input type="password" id="password" placeholder="كلمة المرور">
+    <button onclick="login()">دخول</button>
+    <p>لا تملك حساب؟ <a href="#" onclick="showRegister()">تسجيل جديد</a></p>
+</div>
+
+<div class="register-wrap" style="display:none;">
+    <h2>تسجيل جديد</h2>
+    <input type="text" id="regUsername" placeholder="اسم المستخدم">
+    <input type="password" id="regPassword" placeholder="كلمة المرور">
+    <button onclick="register()">إنشاء حساب</button>
+    <p>لديك حساب؟ <a href="#" onclick="showLogin()">تسجيل الدخول</a></p>
+</div>
+
+<div class="dashboard" style="display:none;">
+    <h2>لوحة التحكم</h2>
+    <input type="file" id="botFile">
+    <input type="text" id="botName" placeholder="اسم البوت">
+    <button onclick="uploadBot()">رفع البوت</button>
+    <h3>البوتات الخاصة بك</h3>
+    <div id="botsList"></div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
