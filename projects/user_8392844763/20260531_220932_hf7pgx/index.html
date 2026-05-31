@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<title>لوحة التحكم - ZIAD HOST</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Tajawal}
+body{background:#0f172a;color:#fff;min-height:100vh;display:flex;justify-content:center;align-items:center}
+.box{background:#1e293b;padding:40px;border-radius:15px;width:90%;max-width:400px}
+h2{color:#667eea;text-align:center;margin-bottom:25px}
+input{width:100%;padding:12px;margin:8px 0;border:2px solid #334155;border-radius:8px;background:#0f172a;color:#fff}
+input:focus{border-color:#667eea;outline:none}
+button{width:100%;padding:12px;background:#667eea;color:white;border:none;border-radius:8px;cursor:pointer;font-weight:bold;margin-top:10px}
+.tabs{display:flex;margin-bottom:20px}
+.tab{flex:1;padding:10px;text-align:center;cursor:pointer;background:#334155;border-radius:8px;margin:0 5px}
+.tab.active{background:#667eea}
+.dashboard{display:none;text-align:center}
+.bot-card{background:#334155;padding:20px;border-radius:10px;margin:15px 0}
+.alert{padding:10px;border-radius:8px;margin:10px 0;display:none}
+.alert.success{background:#166534;color:#bbf7d0}
+.alert.error{background:#7f1d1d;color:#fecaca}
+</style>
+</head>
+<body>
+
+<div class="box">
+<div id="authBox">
+<h2>ZIAD HOST</h2>
+<div class="tabs">
+<div class="tab active" onclick="switchTab('login')">دخول</div>
+<div class="tab" onclick="switchTab('register')">تسجيل</div>
+</div>
+<div id="alert" class="alert"></div>
+
+<div id="loginForm">
+<input id="loginUser" placeholder="اسم المستخدم">
+<input id="loginPass" type="password" placeholder="كلمة المرور">
+<button onclick="login()">دخول</button>
+</div>
+
+<div id="registerForm" style="display:none">
+<input id="regUser" placeholder="اسم المستخدم">
+<input id="regPass" type="password" placeholder="كلمة المرور">
+<button onclick="register()">إنشاء حساب</button>
+</div>
+</div>
+
+<div id="dashboard" class="dashboard">
+<h2>مرحبا <span id="username"></span></h2>
+<p style="color:#94a3b8;margin:15px 0">بوتاتك المفعلة</p>
+<div class="bot-card">
+<h3>Discord Bot #1</h3>
+<p style="color:#4ade80">● شغال 24/7</p>
+<p>الرام: 256MB / 1GB</p>
+<button onclick="logout()">إيقاف البوت</button>
+</div>
+<button onclick="logout()" style="background:#7f1d1
