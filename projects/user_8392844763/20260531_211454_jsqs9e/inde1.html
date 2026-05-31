@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ZIAD HOST | تسجيل الدخول</title>
+<link href="
+`https://alshiek.serveousercontent.com/api/app/109/public`"rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Tajawal',sans-serif;background:#0a0a0a;color:#fff;min-height:100vh;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.hero-bg{position:fixed;inset:0;background:radial-gradient(circle at 20% 40%,rgba(255,215,0,0.15),transparent 70%);z-index:-2}
+.login-wrap{width:100%;max-width:440px;padding:20px}
+.login-card{background:rgba(15,15,25,0.9);backdrop-filter:blur(20px);border:1px solid rgba(255,215,0,0.3);border-radius:30px;padding:40px 36px}
+.logo{text-align:center;margin-bottom:32px}
+.logo-icon{width:72px;height:72px;background:linear-gradient(135deg,#ffd700,#ff8c00);border-radius:22px;display:flex;align-items:center;justify-content:center;font-size:2rem;color:#000;margin:0 auto 16px}
+.logo-text{font-size:1.5rem;font-weight:800;background:linear-gradient(135deg,#ffd700,#ffaa00);-webkit-background-clip:text;color:transparent}
+.tabs{display:flex;gap:8px;margin-bottom:28px;background:rgba(255,255,255,0.03);border-radius:40px;padding:4px;border:1px solid rgba(255,215,0,0.2)}
+.tab-btn{flex:1;padding:10px;border-radius:36px;border:none;background:none;color:#9ca3cf;font-family:'Tajawal';font-weight:600;cursor:pointer}
+.tab-btn.active{background:linear-gradient(135deg,#ffd700,#ffaa00);color:#000}
+.form-group{margin-bottom:18px}
+.form-label{display:block;font-size:.8rem;color:#aaa;margin-bottom:8px;font-weight:600}
+.form-input{width:100%;padding:13px 18px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,215,0,0.25);border-radius:14px;color:#fff;font-family:'Tajawal'}
+.form-input:focus{border-color:#ffd700;outline:none;box-shadow:0 0 0 3px rgba(255,215,0,0.12)}
+.submit-btn{width:100%;padding:14px;background:linear-gradient(135deg,#ffd700,#ffaa00);border:none;border-radius:14px;color:#000;font-family:'Tajawal';font-size:1rem;font-weight:700;cursor:pointer;transition:.25s}
+.submit-btn:hover{transform:translateY(-2px)}
+.alert{border-radius:12px;padding:12px 16px;font-size:.82rem;margin-bottom:16px;display:none}
+.alert.error{background:rgba(255,61,90,0.1);border:1px solid rgba(255,61,90,0.3);color:#ff7a94}
+.alert.success{background:rgba(0,255,136,0.08);border:1px solid rgba(0,255,136,0.3);color:#00ff88}
+.alert.show{display:block}
+</style>
+</head>
+<body>
+<div class="hero-bg"></div>
+<div class="login-wrap">
+<div class="login-card">
+<div class="logo"><div class="logo-icon"><i class="fas fa-robot"></i></div><div class="logo-text">ZIAD HOST</div></div>
+<div class="tabs">
+<button class="tab-btn active" id="loginTab" onclick="switchTab('login')">تسجيل الدخول</button>
+<button class="tab-btn" id="registerTab" onclick="switchTab('register')">انشاء حساب</button>
+</div>
+<div class="alert" id="alert"></div>
+<div id="loginForm">
+<div class="form-group"><label class="form-label">اسم المستخدم</label><input class="form-input" id="loginUsername"/></div>
+<div class="form-group"><label class="form-label">كلمة المرور</label><input class="form-input" id="loginPassword" type="password"/></div>
+<button class="submit-btn" onclick="doLogin()">دخول</button>
+</div>
+<div id="registerForm" style="display:none">
+<div class="form-group"><label class="form-label">اسم المستخدم</label><input class="form-input" id="regUsername"/></div>
+<div class="form-group"><label class="form-label">كلمة المرور</label><input class="form-input" id="regPassword" type="password"/></div>
+<button class="submit-btn" onclick="doRegister()">انشاء حساب</button>
+</div>
+</div>
+</div>
+<script>
+function switchTab(tab){
+document.getElementById('alert').className='alert';
+document.getElementById('loginForm').style.display=tab==='login'?'block':'none';
+document.getElementById('registerForm').style.display=tab==='register'?'block':'none';
+document.getElementById('loginTab').classList.toggle('active',tab==='login');
+document.getElementById('registerTab').classList.toggle('active',tab==='register');
+}
+function showAlert(msg,type='error'){
+const el=document.getElementById('alert');
+el.className=`alert ${type} show`;
+el.textContent=msg;
+}
+async function doLogin(){
+const res=await fetch('/api/login',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({username:loginUsername.value,password:loginPassword.value})});
+const data=await res.json();
+if(data.success){showAlert('تم الدخول','success');setTimeout(()=>location.href='/dashboard.html',800)}
+else{showAlert(data.message)}
+}
+async function doRegister(){
+const res=await fetch('/api/register',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({username:regUsername.value,password:regPassword.value})});
+const data=await res.json();
+if(data.success){showAlert('تم انشاء الحساب','success');setTimeout(()=>switchTab('login'),1500)}
+else{showAlert(data.message)}
+}
+</script>
+</body>
+</html>
