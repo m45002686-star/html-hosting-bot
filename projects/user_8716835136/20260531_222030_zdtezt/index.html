@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>متجر النقاط</title>
+<script>
+function loginAdmin(){
+  const code = document.getElementById('code').value;
+  if(code === "500"){
+    window.location.href = "admin.html";
+  } else {
+    alert("الرمز غير صحيح");
+  }
+}
+</script>
+</head>
+<body>
+<h1>متجر النقاط</h1>
+<p>أدخل رمز الإدارة:</p>
+<input type="password" id="code" placeholder="الرمز">
+<button onclick="loginAdmin()">دخول</button>
+</body>
+</html>
