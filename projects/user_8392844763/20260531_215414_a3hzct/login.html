@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<title>رفع البوت - ZIAD HOST</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Tajawal}
+body{background:#0f172a;color:#fff}
+header{background:#1e293b;padding:15px 50px;display:flex;justify-content:space-between}
+.logo{font-size:24px;font-weight:bold;color:#667eea}
+nav a{color:#cbd5e1;text-decoration:none;margin:0 15px}
+.section{padding:60px 20px;max-width:700px;margin:auto}
+h2{text-align:center;color:#667eea;margin-bottom:30px}
+.upload-box{border:3px dashed #334155;padding:50px;text-align:center;border-radius:15px;background:#1e293b}
+.upload-box:hover{border-color:#667eea}
+input[type=file]{display:none}
+.btn{padding:12px 30px;background:#667eea;color:white;border:none;border-radius:8px;cursor:pointer;margin-top:20px}
+.steps{background:#1e293b;padding:25px;border-radius:15px;margin-top:30px}
+.steps li{margin:15px 0;color:#cbd5e1}
+code{background:#334155;padding:3px 8px;border-radius:5px;color:#667eea}
+</style>
+</head>
+<body>
+
+<header>
+<div class="logo">ZIAD HOST</div>
+<nav>
+<a href="index.html">الرئيسية</a>
+<a href="dashboard.html">لوحة التحكم</a>
+<a href="support.html">الدعم</a>
+</nav>
+</header>
+
+<section class="section">
+<h2>رفع ملفات البوت</h2>
+<div class="upload-box">
+<h3>اسحب ملف ZIP هنا</h3>
+<p style="color:#94a3b8;margin:15px 0">أو اضغط للاختيار</p>
+<label for="file" class="btn">اختر ملف ZIP</label>
+<input type="file" id="file" accept=".zip" onchange="upload()">
+<p id="status" style="margin-top:15px;color:#4ade80"></p>
+</div>
+
+<div class="steps">
+<h3>خطوات تشغيل البوت:</h3>
+<ol>
+<li>اضغط ملفات البوت كلها في ملف <code>bot.zip</code></li>
+<li>لازم يكون فيه ملف <code>index.js</code> أو <code>main.py</code></li>
+<li>ارفع الملف من الصندوق فوق</li>
+<li>ارجع لوحة التحكم واضغط "تشغيل البوت"</li>
+<li>حط التوكن حق البوت في الإعدادات</li>
+</ol>
+<p style="margin-top:15px;color:#fbbf24">⚠️ تأكد إنك حاط <code>package.json</code> لو البوت Node.js</p>
+</div>
+</section>
+
+<script>
+function upload(){
+const file=document.getElementById('file').files[0];
+if(!file)return;
+document.getElementById('status').textContent='جاري رفع '+file.name+'...';
+setTimeout(()=>{
+document.getElementById('status').textContent='✓ تم الرفع بنجاح! روح لوحة التحكم وشغل البوت';
+},2000);
+}
+</script>
+</body>
+</html>
