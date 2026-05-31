@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ZIAD HOST - استضافة بوتات ديسكورد</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Tajawal}
+body{background:#0f172a;color:#fff}
+header{background:#1e293b;padding:15px 50px;display:flex;justify-content:space-between;align-items:center}
+.logo{font-size:24px;font-weight:bold;color:#667eea}
+nav a{color:#cbd5e1;text-decoration:none;margin:0 15px}
+nav a:hover{color:#667eea}
+.hero{text-align:center;padding:80px 20px;background:linear-gradient(135deg,#667eea,#764ba2)}
+.hero h1{font-size:45px;margin-bottom:20px}
+.hero p{font-size:18px;color:#e2e8f0;margin-bottom:30px}
+.btn{padding:12px 30px;background:#667eea;color:white;border:none;border-radius:8px;cursor:pointer;font-size:16px;text-decoration:none;display:inline-block}
+.btn:hover{background:#5568d3}
+.section{padding:60px 20px;max-width:1100px;margin:auto}
+.section h2{text-align:center;font-size:32px;margin-bottom:40px;color:#667eea}
+.plans{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px}
+.card{background:#1e293b;padding:30px;border-radius:15px;border:2px solid transparent;transition:0.3s}
+.card:hover{border-color:#667eea;transform:translateY(-5px)}
+.card h3{font-size:24px;margin-bottom:10px}
+.price{font-size:40px;color:#667eea;margin:20px 0}
+.card ul{list-style:none;margin:20px 0}
+.card li{padding:8px 0;color:#cbd5e1}
+footer{text-align:center;padding:30px;background:#1e293b;margin-top:50px;color:#94a3b8}
+</style>
+</head>
+<body>
+
+<header>
+<div class="logo">ZIAD HOST</div>
+<nav>
+<a href="#home">الرئيسية</a>
+<a href="#plans">الباقات</a>
+<a href="dashboard.html">لوحة التحكم</a>
+</nav>
+</header>
+
+<section class="hero" id="home">
+<h1>استضافة بوتات ديسكورد 24/7</h1>
+<p>شغّل بوتك بدون انقطاع، سرعة عالية، ولوحة تحكم سهلة</p>
+<a href="#plans" class="btn">ابدأ الآن</a>
+</section>
+
+<section class="section" id="plans">
+<h2>اختر الباقة المناسبة</h2>
+<div class="plans">
+<div class="card">
+<h3>الباقة المجانية</h3>
+<div class="price">0 ريال</div>
+<ul>
+<li>✓ تشغيل 1 بوت</li>
+<li>✓ 256MB رام</li>
+<li>✓ وقت تشغيل 12 ساعة/يوم</li>
+<li>✓ دعم فني</li>
+</ul>
+<button class="btn" onclick="goToLogin()">جرب مجاناً</button>
+</div>
+
+<div class="card" style="border-color:#667eea">
+<h3>الباقة الاحترافية</h3>
+<div class="price">15 ريال</div>
+<ul>
+<li>✓ تشغيل 5 بوتات</li>
+<li>✓ 1GB رام</li>
+<li>✓ تشغيل 24/7 بدون توقف</li>
+<li>✓ دعم أولوية</li>
+</ul>
+<button class="btn" onclick="goToLogin()">اشترك الآن</button>
+</div>
+
+<div class="card">
+<h3>باقة المطورين</h3>
+<div class="price">35 ريال</div>
+<ul>
+<li>✓ بوتات غير محدودة</li>
+<li>✓ 4GB رام</li>
+<li>✓ SSH + Git</li>
+<li>✓ دعم مباشر</li>
+</ul>
+<button class="btn" onclick="goToLogin()">اشترك الآن</button>
+</div>
+</div>
+</section>
+
+<footer>
+<p>© 2026 ZIAD HOST - جميع الحقوق محفوظة</p>
+</footer>
+
+<script>
+function goToLogin(){
+localStorage.setItem('showLogin','1');
+location.href='dashboard.html';
+}
+</script>
+</body>
+</html>
