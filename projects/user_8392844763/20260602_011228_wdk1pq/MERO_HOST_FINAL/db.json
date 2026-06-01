@@ -1,0 +1,113 @@
+{
+    "users": {
+        "admin@ziadhost.com": {
+            "password": "240be518fabd2724ddb6f04eeb1da5967448d7e831c08c8fa822809f74c720a9",
+            "is_admin": true,
+            "created_at": "2026-05-08 18:55:27.864630",
+            "max_servers": 999999,
+            "expiry_days": 3650,
+            "last_login": null,
+            "telegram_id": null,
+            "api_key": null,
+            "storage_limit": 10240000,
+            "plan": "admin"
+        },
+        "mmm@gmail.com": {
+            "password": "74e1bb62f8dabb8125a58852b63bdf6eaef667cb56ac7f7cdba6d7305c50a22f",
+            "is_admin": false,
+            "created_at": "2026-05-08 18:58:11.446302",
+            "max_servers": 5,
+            "expiry_days": 365,
+            "last_login": "2026-05-08 18:58:25.498877",
+            "telegram_id": null,
+            "api_key": null,
+            "storage_limit": 102400,
+            "plan": "basic"
+        },
+        "qqqqq@gmail.com": {
+            "password": "ae118a7acd2ff2f77598c7316bced68d92bf8c8f0ca30ffb28f4edf6fc7c2f3d",
+            "is_admin": false,
+            "created_at": "2026-05-08 21:01:46.524518",
+            "max_servers": 5,
+            "expiry_days": 365,
+            "last_login": "2026-05-08 21:01:55.947741",
+            "telegram_id": null,
+            "api_key": null,
+            "storage_limit": 102400,
+            "plan": "basic"
+        },
+        "mohmmedahmedhak@gmeil.com": {
+            "password": "863932b0b260977bd733b5fa91c7e6631c2c242d8a1c1d9987cb314a9cc1c960",
+            "is_admin": false,
+            "created_at": "2026-05-08 21:02:34.500656",
+            "max_servers": 5,
+            "expiry_days": 365,
+            "last_login": "2026-05-08 21:02:42.537571",
+            "telegram_id": null,
+            "api_key": null,
+            "storage_limit": 102400,
+            "plan": "basic"
+        }
+    },
+    "servers": {
+        "mmm_at_gmail_dot_com__1778266718": {
+            "name": "بوت ذكاء اصطناعي",
+            "owner": "mmm@gmail.com",
+            "path": "/app/USERS/mmm_at_gmail_dot_com/SERVERS/mmm_at_gmail_dot_com__1778266718",
+            "type": "Python",
+            "status": "Running",
+            "created_at": "2026-05-08 18:58:38.514531",
+            "startup_file": "main.py",
+            "pid": 12,
+            "port": 8100,
+            "plan": "basic",
+            "storage_limit": 102400,
+            "ram_limit": 512,
+            "cpu_limit": 0.5,
+            "start_time": 1778266771.9368868
+        },
+        "qqqqq_at_gmail_dot_com_qq_1778274123": {
+            "name": "qq",
+            "owner": "qqqqq@gmail.com",
+            "path": "/app/USERS/qqqqq_at_gmail_dot_com/SERVERS/qqqqq_at_gmail_dot_com_qq_1778274123",
+            "type": "Python",
+            "status": "Running",
+            "created_at": "2026-05-08 21:02:03.326317",
+            "startup_file": "main.py",
+            "pid": 38,
+            "port": 8101,
+            "plan": "basic",
+            "storage_limit": 102400,
+            "ram_limit": 512,
+            "cpu_limit": 0.5,
+            "start_time": 1778274158.4043648
+        }
+    },
+    "logs": [],
+    "plans": {
+        "basic": {
+            "name": "🌟 خطة أساسية",
+            "storage": 102400,
+            "ram": 512,
+            "cpu": 0.5,
+            "max_servers": 5,
+            "price": 0
+        },
+        "premium": {
+            "name": "💎 خطة احترافية",
+            "storage": 512000,
+            "ram": 2048,
+            "cpu": 1.5,
+            "max_servers": 15,
+            "price": 9.99
+        },
+        "ultimate": {
+            "name": "👑 خطة أسطورية",
+            "storage": 2048000,
+            "ram": 8192,
+            "cpu": 4,
+            "max_servers": 30,
+            "price": 24.99
+        }
+    }
+}
