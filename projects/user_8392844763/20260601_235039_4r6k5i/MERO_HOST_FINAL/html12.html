@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ZIAD HOST | تسجيل الدخول</title>
+<link href="http://android.chat.openai.com/css2?family=Tajawal:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Tajawal',sans-serif;background:#0a0a0a;color:#fff;min-height:100vh;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.hero-bg{position:fixed;top:0;left:0;width:100%;height:100%;z-index:-2;background:radial-gradient(circle at 20% 40%,rgba(255,215,0,0.15),transparent 70%),repeating-linear-gradient(45deg,rgba(255,215,0,0.02) 0px,rgba(255,215,0,0.02) 1px,transparent 1px,transparent 20px)}
+.stars{position:fixed;top:0;left:0;width:100%;height:100%;z-index:-1;background-image:radial-gradient(2px 2px at 20px 30px,#fff,rgba(0,0,0,0)),radial-gradient(1px 1px at 80px 200px,#ffd700,rgba(0,0,0,0));background-size:200px 200px,300px 300px;opacity:.4;animation:starsMove 60s linear infinite}
+@keyframes starsMove{0%{transform:translateY(0)}100%{transform:translateY(-100px)}}
+.login-wrap{width:100%;max-width:440px;padding:20px;animation:fadeInUp.6s ease}
+@keyframes fadeInUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+.login-card{background:rgba(15,15,25,0.9);backdrop-filter:blur(20px);border:1px solid rgba(255,215,0,0.3);border-radius:30px;padding:40px 36px;box-shadow:0 30px 80px rgba(0,0,0,0.5)}
+.logo{text-align:center;margin-bottom:32px}
+.logo-icon{width:72px;height:72px;background:linear-gradient(135deg,#ffd700,#ff8c00);border-radius:22px;display:flex;align-items:center;justify-content:center;font-size:2rem;color:#000;margin:0 auto 16px;box-shadow:0 0 24px rgba(255,215,0,0.5)}
+.logo-text{font-size:1.5rem;font-weight:800;background:linear-gradient(135deg,#ffd700,#ffaa00);-webkit-background-clip:text;background-clip:text;color:transparent}
+.tabs{display:flex;gap:8px;margin-bottom:28px;background:rgba(255,255,255,0.03);border-radius:40px;padding:4px;border:1px solid rgba(255,215,0,0.2)}
+.tab-btn{flex:1;padding:10px;border-radius:36px;border:none;background:none;color:#9ca3cf;font-family:'Tajawal';font-weight:600;cursor:pointer;transition:.25s}
+.tab-btn.active{background:linear-gradient(135deg,#ffd700,#ffaa00);color:#000}
+.form-group{margin-bottom:18px}
+.form-label{display:block;font-size:.8rem;color:#aaa;margin-bottom:8px;font-weight:600}
+.form-input{width:100%;padding:13px 18px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,215,0,0.25);border-radius:14px;color:#fff;font-family:'Tajawal';font-size:.95rem;outline:none}
+.form-input:focus{border-color:#ffd700;box-shadow:0 0 0 3px rgba(255,215,0,0.12)}
+.submit-btn{width:100%;padding:14px;background:linear-gradient(135deg,#ffd700,#ffaa00);border:none;border-radius:14px;color:#000;font-family:'Tajawal';font-size:1rem;font-weight:700;cursor:pointer;transition:.25s;box-shadow:0 6px 20px rgba(255,215,0,0.3)}
+.submit-btn:hover{transform:translateY(-2px);box-shadow:0 10px 28px rgba(255,215,0,0.5)}
+.alert{border-radius:12px;padding:12px 16px;font-size:.82rem;margin-bottom:16px;display:none;align-items:center;gap:10px}
+.alert.error{background:rgba(255,61,90,0.1);border:1px solid rgba(255,61,90,0.3);color:#ff7a94}
+.alert.success{background:rgba(0,255,136,0.08);border:1px solid rgba(0,255,136,0.3);color:#00ff88}
+.alert.show{display:flex}
+</style>
+</head>
+<body>
+<div class="hero-bg"></div>
+<div class="stars"></div>
+<div class="login-html">
+<div class="login-html">
+<div class="logo">
+<div class="logo-icon"><i class="fas fa-globe-asia"></i></div>
+<div class="logo-text">ZIAD HOST</div>
+</div>
+<div class="tabs">
+<button class="tab-btn active" id="loginhtml" onclick="switchTab('login')html">تسجيل الدخول</button>
+<button class="tab-btn" id="registerTab" onclick="switchTab('register')">انشاء حساب</button>
+</div>
+<div class="alert" id="alert"><i class="fas fa-exclamation-circle"></i><span id="alertMsg"></span></div>
+<div id="loginForm">
+<div class="form-group"><label class="form-label">اسم المستخدم</label><input class="form-input" id="loginUsername" type="text"/></div>
+<div class="form-group"><label class="form-label">كلمة المرور</label><input class="form-input" id="loginPassword" type="password"/></div>
+<button class="submit-btn" onclick="doLogin()">دخول</button>
+</div>
+<div id="registerForm" style="display:none">
+<div class="form-group"><label class="form-label">اسم المستخدم</label><input class="form-input" id="regUsername" type="text"/></div>
+<div class="form-group"><label class="form-label">كلمة المرور</label><input class="form-input" id="regPassword" type="password"/></div>
+<button class="submit-btn" onclick="doRegister()">انشاء حساب</button>
+</div>
+</div>
+</div>
+<script>
+function switchTab(tab){
+document.getElementById('alert').className='alert';
+if(tab==='login'){
+document.getElementById('loginForm').style.display='block';
+document.getElementById('registerForm').style.display='none';
+document.getElementById('loginTab').classList.add('active');
+document.getElementById('registerTab').classList.remove('active');
+}else{
+document.getElementById('loginForm').style.display='none';
+document.getElementById('registerForm').style.display='block';
+document.getElementById('loginTab').classList.remove('active');
+document.getElementById('registerTab').classList.add('active');
+}
+function showAlert(msg,type='error'){
+const el=document.getElementById('alert');
+el.className=`alert ${type} show`;
+document.getElementById('alertMsg').textContent=msg;
+}
+async function doLogin(){
+const username=document.getElementById('loginUsername').value.trim();
+const password=document.getElementById('loginPassword').value.trim();
+if(!username||!password){showAlert('ادخل البيانات');return}
+const res=await fetch('/api/login',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({username,password})});
+const data=await res.json();
+if(data.success){showAlert('مرحباً! جاري التحويل...','success');setTimeout(()=>location.href='/dashboard.html',800)}
+else{showAlert(data.message||'بيانات خاطئة')}
+}
+async function doRegister(){
+const username=document.getElementById('regUsername').value.trim();
+const password=document.getElementById('regPassword').value.trim();
+if(!username||password.length<4){showAlert('كلمة المرور 4 احرف على الاقل');return}
+const res=await fetch('/api/register',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({username,password})});
+const data=await res.json();
+if(data.success){showAlert('تم انشاء الحساب!','success');setTimeout(()=>switchTab('login'),1500)}
+else{showAlert(data.message)}
+}
+</script>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ZIAD HOST | لوحة التحكم</title>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Tajawal',sans-serif;background:#0a0a0a;color:#fff}
+.hero-bg{position:fixed;inset:0;background:radial-gradient(circle at 20% 40%,rgba(255,215,0,0.1),transparent 70%);z-index:-1}
+.navbar{display:flex;justify-content:space-between;align-items:center;padding:20px 50px;background:rgba(0,0,0,0.8);backdrop-filter:blur(10px);border-bottom:1px solid rgba(255,215,0,0.3);position:sticky;top:0;z-index:100}
+.logo{display:flex;align-items:center;gap:12px}
+.logo-icon{width:45px;height:45px;background:linear-gradient(135deg,#ffd700,#ff8c00);border-radius:15px;display:flex;align-items:center;justify-content:center;font-size:1.4rem;color:#000}
+.logo-text{font-size:1.4rem;font-weight:900;background:linear-gradient(135deg,#ffd700,#ffaa00);-webkit-background-clip:text;background-clip:text;color:transparent}
+.btn-outline{background:transparent;border:1px solid #ffd700;padding:8px 20px;border-radius:40px;color:#ffd700;font-weight:600;cursor:pointer;transition:.3s}
+.btn-outline:hover{background:rgba(255,215,0,0.1)}
+.container{padding:40px 8%;max-width:1400px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:30px}
+.card{background:rgba(15,15,25,0.9);border:1px solid rgba(255,215,0,0.2);border-radius:25px;padding:30px}
+.card h2{font-size:1.3rem;margin-bottom:20px;display:flex;align-items:center;gap:10px;color:#ffd700}
+.upload{border:2px dashed rgba(255,215,0,0.4);border-radius:20px;padding:50px;text-align:center;position:relative;cursor:pointer;transition:.3s}
+.upload:hover{border-color:#ffd700;background:rgba(255,215,0,0.05)}
+#fileInput{position:absolute;inset:0;opacity:0;cursor:pointer}
+.bot-item{background:rgba(20,20,30,0.6);padding:18px;border-radius:15px;margin-bottom:12px;display:flex;justify-content:space-between;align-items:center;border:1px solid rgba(255,215,0,0.15)}
+.status{padding:5px 14px;border-radius:20px;font-size:.85rem;font-weight:600}
+.status.running{background:rgba(0,255,136,0.15);color:#00ff88}
+.status.exited{background:rgba(255,61,90,0.15);color:#ff7a94}
+.btn{padding:10px 18px;border:none;border-radius:12px;cursor:pointer;font-family:'Tajawal';font-weight:600;transition:.2s}
+.btn-primary{background:linear-gradient(135deg,#ffd700,#ffaa00);color:#000}
+.btn-danger{background:linear-gradient(135deg,#ff3d5a,#d82a4a);color:#fff}
+.btn-ghost{background:rgba(255,255,255,0.05);color:#aaa;border:1px solid rgba(255,215,0,0.2)}
+.log{background:#0b1220;border-radius:12px;padding:15px;height:300px;overflow-y:auto;font-family:'Courier New',monospace;font-size:.85rem}
+.log-line{padding:5px 0;border-bottom:1px solid rgba(255,255,255,0.05)}
+textarea.code{width:100%;height:320px;background:#0b1220;border:1px solid rgba(255,215,0,0.2);border-radius:12px;padding:15px;color:#fff;font-family:'Courier New',monospace;font-size:13px}
+select{width:100%;padding:12px;background:#0b1220;border:1px solid rgba(255,215,0,0.25);border-radius:12px;color:#fff;margin-bottom:12px}
+.hidden{display:none}
+@media(max-width:1000px){.container{grid-template-columns:1fr;padding:20px}}
+</style>
+</head>
+<body>
+<div class="hero-bg"></div>
+<div class="navbar">
+<div class="logo"><div class="logo-icon"><i class="fas fa-globe-asia"></i></div><span class="logo-text">ZIAD HOST</span></div>
+<div><span id="userName" style="margin-left:15px"></span><button class="btn-outline" onclick="logout()">خروج</button></div>
+</div>
+<div class="container">
+<div>
+<div class="card">
+<h2><i class="fas fa-cloud-upload-alt"></i> رفع المشروع</h2>
+<div class="upload" id="uploadZone">
+<i class="fas fa-file-code" style="font-size:3rem;color:#ffd700;margin-bottom:15px"></i>
+<h3>اسحب الملفات هنا</h3>
+<p style="color:#aaa;margin-top:10px">bot.py, requirements.txt, اي ملف</p>
+<input type="file" id="fileInput" multiple>
+</div>
+<div class="log" id="uploadLog" style="margin-top:15px;height:180px"></div>
+</div>
+<div class="card" style="margin-top:30px">
+<h2><i class="fas fa-robot"></i> مشاريعي</h2>
+<div id="botsList"></div>
+</div>
+</div>
+<div class="card hidden" id="editorPanel">
+<h2><i class="fas fa-code"></i> <span id="projTitle">المحرر</span></h2>
+<select id="fileSelect"></select>
+<textarea class="code" id="codeEditor"></textarea>
+<div style="display:flex;gap:10px;margin-top:12px">
+<button class="btn btn-primary" onclick="saveFile()"><i class="fas fa-save"></i> حفظ</button>
+<button class="btn btn-primary" onclick="restartProj()"><i class="fas fa-redo"></i> اعادة تشغيل</button>
+</div>
+<h3 style="margin:20px 0 10px;color:#ffd700"><i class="fas fa-terminal"></i> اللوق المباشر</h3>
+<div class="log" id="liveLog"></div>
+</div>
+</div>
+<script>
+const API="";
+let user=null,currentApp=null,es=null;
+function log(msg,box='uploadLog'){
+const time=new Date().toLocaleTimeString('ar-EG',{hour12:false});
+document.getElementById(box).innerHTML=`<div class="log-line">[${time}] ${msg}</div>`+document.getElementById(box).innerHTML;
+}
+document.addEventListener('DOMContentLoaded',async()=>{
+const res=await fetch(API+'/api/current_user');
+const data=await res.json();
+if(!data.success){location.href='/login.html';return}
+user=data.username;document.getElementById('userName').textContent=user;loadBots();initUpload()
+})
+function initUpload(){
+const zone=document.getElementById('uploadZone');
+zone.ondragover=e=>{e.preventDefault();zone.style.borderColor='#ffd700'}
+zone.ondragleave=()=>{zone.style.borderColor='rgba(255,215,0,0.4)'}
+zone.ondrop=e=>{e.preventDefault();uploadFiles(e.dataTransfer.files)}
+document.getElementById('fileInput').onchange=()=>uploadFiles(document.getElementById('fileInput').files)
+}
+async function uploadFiles(files){
+for(let f of files){
+log(`رفع ${f.name}...`);
+const fd=new FormData();fd.append('file',f);fd.append('username',user);
+const res=await fetch(API+'/api/upload',{method:'POST',body:fd});
+const data=await res.json();
+if(data.status=='running'){log(`✅ شغال: ${data.app_id}`);loadBots()}
+else{log(`❌ ${data.error}`)}
+}
+async function loadBots(){
+const bots=await get('/api/bots/'+user);
+if(!bots.length){document.getElementById('botsList').innerHTML='<div style="color:#aaa;text-align:center">لا يوجد مشاريع</div>';return}
+document.getElementById('botsList').innerHTML=bots.map(b=>`
+<div class="bot-item">
+<div><div style="font-weight:700">${b.id}</div><span class="status ${b.status}">${b.status}</span></div>
+<div style="display:flex;gap:8px">
+<button class="btn btn-primary" onclick="openProj('${b.id}')"><i class="fas fa-code"></i></button>
+<button class="btn btn-danger" onclick="stopBot('${b.id}')"><i class="fas fa-stop"></i></button>
+</div>
+</div>
+`).join('')
+}
+async function openProj(app_id){
+currentApp=app_id;document.getElementById('editorPanel').classList.remove('hidden');
+document.getElementById('projTitle').textContent=app_id;
+const files=await get('/api/files/'+app_id);
+document.getElementById('fileSelect').innerHTML=files.map(f=>`<option>${f}</option>`).join('');
+loadFile(files[0]);startLogs(app_id)
+}
+async function loadFile(name){
+const txt=await(await fetch(API+`/api/file/${currentApp}/${name}`)).text();
+document.getElementById('codeEditor').value=txt
+}
+document.getElementById('fileSelect').onchange=e=>loadFile(e.target.value);
+async function saveFile(){
+const name=document.getElementById('fileSelect').value;
+await post('/api/file/'+currentApp,{filename:name,content:document.getElementById('codeEditor').value});
+log('تم الحفظ','liveLog')
+}
+async function restartProj(){await post('/api/restart/'+currentApp);log('تم اعادة التشغيل','liveLog')}
+function startLogs(app_id){
+if(es)es.close();
+es=new EventSource(API+`/api/logs/${app_id}`);
+es.onmessage=e=>{document.getElementById('liveLog').innerHTML+=`<div class="log-line">${e.data}</div>`;document.getElementById('liveLog').scrollTop=document.getElementById('liveLog').scrollHeight}
+async function stopBot(id){await post('/api/stop/'+id);loadBots()}
+async function logout(){await fetch(API+'/api/logout');location.href='/login.html'}
+async function get(url){return await(await fetch(API+url)).json()}
+async function post(url,data){return await(await fetch(API+url,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)})).json()}
+</script>
+</body>
+</html>
