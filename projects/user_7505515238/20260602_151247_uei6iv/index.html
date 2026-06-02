@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat Zoon</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- شاشة المصادقة (نفس السابق) -->
+    <div class="auth-screen" id="authScreen">
+        <div class="auth-card">
+            <div class="auth-header">
+                <div class="auth-logo-icon"><i class="fa-solid fa-terminal"></i></div>
+                <h2 id="authTitle">تسجيل الدخول</h2>
+                <p id="authSubtitle">أدخل بيانات الحساب للوصول للمحادثات</p>
+            </div>
+            <form id="authForm">
+                <div class="input-group" id="nameGroup" style="display: none;">
+                    <label>الاسم الكامل</label>
+                    <input type="text" id="authName" placeholder="أدخل اسمك الشخصي">
+                </div>
+                <div class="input-group">
+                    <label>اسم المستخدم</label>
+                    <input type="text" id="authUsername" required placeholder="username">
+                </div>
+                <div class="input-group">
+                    <label>كلمة المرور</label>
+                    <input type="password" id="authPassword" required placeholder="••••••••">
+                </div>
+                <button type="submit" class="auth-submit-btn" id="authSubmitBtn">دخول</button>
+            </form>
+            <div class="auth-toggle">
+                <span id="toggleAuthText">ليس لديك حساب؟</span>
+                <a href="#" id="toggleAuthLink">إنشاء حساب</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- التطبيق الرئيسي -->
+    <div class="app-container" id="appContainer" style="display: none;">
+
+        <!-- الشريط الجانبي (بدون تغيير) -->
+        <div class="sidebar" id="sidebar">
+            <!-- ... نفس المحتوى السابق للشريط الجانبي ... -->
+            <div class="sidebar-header">
+                <div class="logo">
+                    <i class="fa-solid fa-skull-crossbones"></i>
+                    <span>CHAT ZOON</span>
+                </div>
+                <button class="close-sidebar-btn" id="closeSidebar"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+
+            <div class="sidebar-section">
+                <button class="action-sidebar-btn random-btn" id="randomChatBtn">
+                    <i class="fa-solid fa-shuffle"></i>
+                    <span>محادثة عشوائية</span>
+                </button>
+
+                <div class="id-search-box">
+                    <input type="text" id="searchUserIdInput" placeholder="أدخل ID المستخدم...">
+                    <button id="searchUserBtn"><i class="fa-solid fa-magnifying-glass"></i></button>
+                </div>
+            </div>
+
+            <div class="sidebar-section flex-grow">
+                <h3><i class="fa-solid fa-hashtag"></i> غرف الدردشة</h3>
+                <div class="rooms-list" id="roomsList"></div>
+
+                <h3 style="margin-top: 20px;"><i class="fa-solid fa-users"></i> المستخدمين النشطين</h3>
+                <div class="users-list" id="usersList"></div>
+            </div>
+
+            <div class="sidebar-footer">
+                <div class="user-avatar" id="myAvatarLetter">Y</div>
+                <div class="user-info">
+                    <h4 id="myProfileName">يامن</h4>
+                    <span id="myProfileTag">ID: ---</span>
+                </div>
+                <button id="logoutBtn"><i class="fa-solid fa-power-off"></i></button>
+            </div>
+        </div>
+
+        <!-- منطقة المحادثة -->
+        <div class="chat-area">
+            <div class="chat-header">
+                <button class="toggle-sidebar-btn" id="toggleSidebar"><i class="fa-solid fa-bars"></i></button>
+
+                <div class="active-chat-info">
+                    <h2 id="activeChatTitle">العامة</h2>
+                    <p id="activeChatDesc">الرسائل الجارية</p>
+                </div>
+
+                <div class="header-actions">
+                    <!-- زر تفعيل AI (مفتاح) - يظهر في المحادثات الخاصة فقط، ويختفي عند AI نفسه -->
+                    <button class="ai-toggle-btn" id="aiToggleBtn" style="display: none;">
+                        <i class="fa-solid fa-robot"></i>
+                        <span>تفعيل AI</span>
+                    </button>
+
+                    <button class="theme-toggle-btn" id="themeToggle"><i class="fa-solid fa-moon"></i></button>
+                    <div class="status-badge">
+                        <div class="pulse-dot"></div>
+                        <span>المخدم نشط</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="messages-container" id="messagesContainer"></div>
+
+            <div class="input-area-wrapper">
+                <div class="file-preview-bar" id="filePreviewBar" style="display: none;">
+                    <span id="filePreviewName"></span>
+                    <button id="removeFileBtn"><i class="fa-solid fa-xmark"></i></button>
+                </div>
+
+                <div class="input-container-floating">
+                    <button class="action-btn" onclick="document.getElementById('fileInput').click()">
+                        <i class="fa-solid fa-paperclip"></i>
+                    </button>
+                    <input type="file" id="fileInput" style="display: none;">
+
+                    <textarea id="messageInput" placeholder="اكتب رسالتك هنا..." rows="1"></textarea>
+
+                    <button class="action-btn send-btn" id="sendBtn">
+                        <i class="fa-solid fa-paper-plane"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <audio id="notificationSound" src="https://assets.mixkit.co/active_storage/sfx/2357/2357-84.wav" preload="auto"></audio>
+    <script src="script.js"></script>
+</body>
+</html>
