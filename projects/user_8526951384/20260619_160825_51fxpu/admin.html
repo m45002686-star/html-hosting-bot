@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لوحة التحكم الفخمة | تطوير عبدالمجيد حجرة</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <nav class="navbar animate-glow">
+        <div class="logo"><i class="fa-solid fa-crown"></i> لوحة الأدمن المطور <span class="dev-tag">@Abukiraf</span></div>
+        <div class="nav-links">
+            <a href="index.html" target="_blank"><i class="fa-solid fa-bolt"></i> عرض الواجهة الرئيسية index</a>
+        </div>
+    </nav>
+
+    <div class="container animate-fade-in">
+        
+        <!-- قسم تعديل بيانات الأدمن -->
+        <div class="card-form profile-card">
+            <h2><i class="fa-solid fa-user-gear"></i> هوية الأدمن المطور</h2>
+            <form id="profileForm">
+                <div class="form-group-row">
+                    <div class="form-group">
+                        <label>إسم الأدمن المطور</label>
+                        <input type="text" id="adminName" placeholder="مثال: عبدالمجيد حجرة" required>
+                    </div>
+                    <div class="form-group">
+                        <label>رابط الصورة الشخصية</label>
+                        <input type="url" id="adminAvatar" placeholder="رابط صورتك المباشر" required>
+                    </div>
+                </div>
+                <button type="submit" class="btn-submit btn-secondary"><i class="fa-solid fa-floppy-disk"></i> حفظ الهوية وتحديث المنصة</button>
+            </form>
+        </div>
+
+        <!-- قسم نشر إعلان مؤقت لمدة 5 ساعات -->
+        <div class="card-form alert-card">
+            <h2><i class="fa-solid fa-rectangle-ad"></i> نشر إعلان عاجل ومؤقت (يختفي تلقائياً بعد 5 ساعات)</h2>
+            <form id="announcementForm">
+                <div class="form-group">
+                    <label>نص الإعلان أو التنبيه</label>
+                    <textarea id="announceText" rows="2" placeholder="اكتب نص الإعلان هنا... سيظهر في أعلى صفحة المستخدم لمدة 5 ساعات فقط ثم يحذف نفسه." required></textarea>
+                </div>
+                <button type="submit" class="btn-submit" style="background: #e63946;"><i class="fa-solid fa-bullhorn"></i> إطلاق الإعلان الآن</button>
+            </form>
+        </div>
+
+        <!-- نموذج رفع المنشورات -->
+        <div class="card-form">
+            <h2><i class="fa-solid fa-circle-plus"></i> تصميم ونشر منشور احترافي جديد</h2>
+            <p class="subtitle">بواسطة المبرمج عبدالمجيد حجرة بكل دقة واحترافية</p>
+            
+            <form id="postForm">
+                <div class="form-group">
+                    <label><i class="fa-solid fa-heading"></i> عنوان المنشور</label>
+                    <input type="text" id="postTitle" placeholder="عنوان المنشور الاحترافي" required>
+                </div>
+                <div class="form-group">
+                    <label><i class="fa-solid fa-image"></i> رابط الصورة المباشر (.jpg / .png)</label>
+                    <input type="url" id="postImg" placeholder="https://a.top4top.me/..." required>
+                </div>
+                <div class="form-group">
+                    <label><i class="fa-solid fa-arrow-up-right-from-square"></i> الرابط الموجه لزر (افتح مباشرة)</label>
+                    <input type="url" id="postLink" placeholder="https://t.me/Abukiraf" required>
+                </div>
+                <div class="form-group">
+                    <label><i class="fa-solid fa-paragraph"></i> وصف وتفاصيل المنشور</label>
+                    <textarea id="postDesc" rows="4" placeholder="اكتب تفاصيل العرض والوصف المنسق هنا..." required></textarea>
+                </div>
+                <button type="submit" class="btn-submit"><i class="fa-solid fa-paper-plane"></i> نشر وإرسال للمنصة فوراً</button>
+            </form>
+        </div>
+
+        <!-- قسم إدارة وحذف المنشورات الحالية -->
+        <h2 style="margin: 40px 0 20px 0; color: var(--primary-red); font-size: 1.4rem; display: flex; align-items: center; gap: 10px;">
+            <i class="fa-solid fa-sliders"></i> لوحة التحكم بالمنشورات الحالية والمشاهدات
+        </h2>
+        <div id="adminPostsContainer" class="timeline-posts"></div>
+    </div>
+
+    <script>
+        const defaultProfile = { name: "عبدالمجيد حجرة", avatar: "https://cdn-icons-png.flaticon.com/512/3135/3135715.png" };
+        let currentProfile = JSON.parse(localStorage.getItem('adminProfile')) || defaultProfile;
+        
+        document.getElementById('adminName').value = currentProfile.name;
+        document.getElementById('adminAvatar').value = currentProfile.avatar;
+
+        // حفظ الملف الشخصي
+        document.getElementById('profileForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            currentProfile.name = document.getElementById('adminName').value;
+            currentProfile.avatar = document.getElementById('adminAvatar').value;
+            localStorage.setItem('adminProfile', JSON.stringify(currentProfile));
+            alert('⚙️ تم تحديث الهوية بنجاح واحترافية!');
+            loadAdminPosts();
+        });
+
+        // حفظ الإعلان المؤقت
+        document.getElementById('announcementForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const announcement = {
+                text: document.getElementById('announceText').value,
+                expiry: Date.now() + (5 * 60 * 60 * 1000) // وقت الحالي + 5 ساعات بالملي ثانية
+            };
+            localStorage.setItem('tempAnnouncement', JSON.stringify(announcement));
+            alert('📢 تم نشر الإعلان بنجاح وسيتلاشى تلقائياً بعد 5 ساعات!');
+            this.reset();
+        });
+
+        // رفع منشور جديد
+        document.getElementById('postForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const newPost = {
+                id: Date.now(),
+                title: document.getElementById('postTitle').value,
+                img: document.getElementById('postImg').value,
+                link: document.getElementById('postLink').value,
+                desc: document.getElementById('postDesc').value,
+                date: new Date().toLocaleDateString('ar-EG', { hour: '2-digit', minute: '2-digit' }),
+                views: 0,
+                reactions: { "👍": 0, "❤️": 0, "🔥": 0, "🥰": 0, "👏": 0, "🚀": 0 }
+            };
+
+            let posts = JSON.parse(localStorage.getItem('posts')) || [];
+            posts.unshift(newPost);
+            localStorage.setItem('posts', JSON.stringify(posts));
+            alert('🚀 تم النشر الاحترافي بنجاح مذهل!');
+            this.reset();
+            loadAdminPosts();
+        });
+
+        // تحميل المنشورات مع عداد المشاهدات الفعلي في صفحة الأدمن
+        function loadAdminPosts() {
+            const container = document.getElementById('adminPostsContainer');
+            const posts = JSON.parse(localStorage.getItem('posts')) || [];
+            const profile = JSON.parse(localStorage.getItem('adminProfile')) || defaultProfile;
+
+            if(posts.length === 0) {
+                container.innerHTML = '<p style="text-align:center; color:var(--text-gray);">لا توجد منشورات مرفوعة حالياً.</p>';
+                return;
+            }
+
+            container.innerHTML = posts.map(post => `
+                <div class="post-card animate-slide-up" id="post-${post.id}">
+                    <div class="post-header">
+                        <img class="admin-avatar" src="${profile.avatar}" onerror="this.src='https://cdn-icons-png.flaticon.com/512/3135/3135715.png'">
+                        <div class="post-meta">
+                            <h4>${profile.name}</h4>
+                            <span>${post.date}</span>
+                        </div>
+                        <div class="views-badge"><i class="fa-solid fa-eye"></i> ${post.views || 0} مشاهدة</div>
+                        <button class="btn-delete" onclick="deletePost(${post.id})"><i class="fa-solid fa-trash-can"></i> حذف</button>
+                    </div>
+                    <div class="post-title-area"><h3>${post.title}</h3></div>
+                </div>
+            `).join('');
+        }
+
+        function deletePost(id) {
+            if(confirm('هل أنت متأكد من حذف هذا المنشور بشكل نهائي؟')) {
+                let posts = JSON.parse(localStorage.getItem('posts')) || [];
+                posts = posts.filter(post => post.id !== id);
+                localStorage.setItem('posts', JSON.stringify(posts));
+                
+                const element = document.getElementById(`post-${id}`);
+                element.style.transform = "scale(0.8) translateY(-30px)";
+                element.style.opacity = "0";
+                setTimeout(() => { loadAdminPosts(); }, 400);
+            }
+        }
+
+        window.onload = loadAdminPosts;
+    </script>
+</body>
+</html>
