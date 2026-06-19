@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>منصة الإبداع والمنشورات الحصرية</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <!-- الهيدر المتلألئ -->
+    <nav class="navbar main-nav animate-glow">
+        <div class="logo"><i class="fa-solid fa-fire-glow animate-pulse"></i> منصة المنشورات الفخمة</div>
+        <div class="dev-signature" id="navDevName">تطوير عبدالمجيد حجرة</div>
+    </nav>
+
+    <div class="container">
+        
+        <!-- قسم الإعلان الذكي المؤقت (يتحكم به كود الـ JS التلقائي) -->
+        <div id="announcementBar" class="announcement-card hidden animate-fade-in">
+            <div class="ann-icon"><i class="fa-solid fa-circle-exclamation animate-pulse"></i> إعلان عاجل</div>
+            <p id="announcementTextContent"></p>
+        </div>
+
+        <!-- حاوية عرض المنشورات -->
+        <div class="timeline-posts" id="postsContainer">
+            <div class="no-posts" id="noPostsMessage">
+                <i class="fa-solid fa-circle-nodes"></i>
+                <p>لا توجد منشورات حالياً.. في انتظار لمسات المبرمج عبدالمجيد حجرة العبقرية!</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const defaultProfile = { name: "عبدالمجيد حجرة", avatar: "https://cdn-icons-png.flaticon.com/512/3135/3135715.png" };
+
+        // فحص وعرض الإعلان المؤقت أو حذفه تلقائياً لو انتهت الـ 5 ساعات
+        function checkAnnouncement() {
+            const annBox = document.getElementById('announcementBar');
+            const annText = document.getElementById('announcementTextContent');
+            const storedAnn = JSON.parse(localStorage.getItem('tempAnnouncement'));
+
+            if (storedAnn) {
+                if (Date.now() > storedAnn.expiry) {
+                    localStorage.removeItem('tempAnnouncement'); // الحذف التلقائي بعد فوات المدة
+                    annBox.classList.add('hidden');
+                } else {
+                    annText.innerText = storedAnn.text;
+                    annBox.classList.remove('hidden');
+                }
+            } else {
+                annBox.classList.add('hidden');
+            }
+        }
+
+        function loadUserPosts() {
+            const container = document.getElementById('postsContainer');
+            let posts = JSON.parse(localStorage.getItem('posts')) || [];
+            const profile = JSON.parse(localStorage.getItem('adminProfile')) || defaultProfile;
+
+            document.getElementById('navDevName').innerText = `تطوير المطور ${profile.name}`;
+
+            if(posts.length > 0) {
+                // زيادة عداد المشاهدات ديناميكياً لكل منشور بمجرد تحميل الصفحة لرؤيتها
+                posts = posts.map(post => {
+                    post.views = (post.views || 0) + 1;
+                    return post;
+                });
+                localStorage.setItem('posts', JSON.stringify(posts));
+
+                container.innerHTML = posts.map(post => `
+                    <div class="post-card premium-border animate-slide-up">
+                        <div class="post-header">
+                            <img class="admin-avatar" src="${profile.avatar}" onerror="this.src='https://cdn-icons-png.flaticon.com/512/3135/3135715.png'">
+                            <div class="post-meta">
+                                <h4>${profile.name}</h4>
+                                <span>${post.date}</span>
+                            </div>
+                            <div class="views-badge-user"><i class="fa-solid fa-eye"></i> ${post.views} مشاهدة</div>
+                        </div>
+                        
+                        <div class="post-title-area">
+                            <h3>${post.title}</h3>
+                        </div>
+
+                        <div class="post-img-wrapper">
+                            <img src="${post.img}" alt="${post.title}">
+                            <div class="overlay-shimmer"></div>
+                        </div>
+
+                        <div class="post-body">
+                            <p class="post-desc">${post.desc}</p>
+                            
+                            <!-- زر افتح مباشرة الساحر الجديد بديل الروابط التقليدية -->
+                            <a href="${post.link}" target="_blank" class="btn-direct-open">
+                                <i class="fa-solid fa-arrow-up-right-from-square"></i> أفتح مباشرة الآن
+                            </a>
+
+                            <!-- شريط التفاعلات الاحترافي المتفاعل فورياً -->
+                            <div class="reaction-bar">
+                                ${Object.keys(post.reactions || {"👍":0, "❤️":0, "🔥":0, "🥰":0, "👏":0, "🚀":0}).map(emoji => `
+                                    <button class="reaction-btn" onclick="handleReaction(${post.id}, '${emoji}')">
+                                        <span class="emoji">${emoji}</span>
+                                        <span class="count" id="count-${post.id}-${emoji}">${post.reactions[emoji] || 0}</span>
+                                    </button>
+                                `).join('')}
+                            </div>
+                        </div>
+                        
+                        <div class="post-footer">
+                            <span><i class="fa-solid fa-bolt-lightning"></i> منصة فائقة الدقة</span>
+                            <span class="brand-footer">بواسطة عبدالمجيد حجرة</span>
+                        </div>
+                    </div>
+                `).join('');
+            }
+        }
+
+        function handleReaction(postId, emoji) {
+            let posts = JSON.parse(localStorage.getItem('posts')) || [];
+            const idx = posts.findIndex(p => p.id === postId);
+            
+            if(idx !== -1) {
+                if(!posts[idx].reactions) posts[idx].reactions = { "👍": 0, "❤️": 0, "🔥": 0, "🥰": 0, "👏": 0, "🚀": 0 };
+                posts[idx].reactions[emoji] += 1;
+                localStorage.setItem('posts', JSON.stringify(posts));
+                
+                const countElem = document.getElementById(`count-${postId}-${emoji}`);
+                countElem.innerText = posts[idx].reactions[emoji];
+                countElem.parentElement.classList.add('reacted');
+                setTimeout(() => { countElem.parentElement.classList.remove('reacted'); }, 300);
+            }
+        }
+
+        window.onload = function() {
+            checkAnnouncement();
+            loadUserPosts();
+        };
+    </script>
+</body>
+</html>
