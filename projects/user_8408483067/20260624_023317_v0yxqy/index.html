@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>احمد بيحبك ي مريم... 💕</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&family=Amiri:wght@400;700&family=Reem+Kufi:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { height: 100%; font-family: 'Cairo', sans-serif; overflow: hidden; }
+  body {
+    background: #000;
+    color: #fff;
+    min-height: 100vh;
+    position: relative;
+  }
+
+  /* ============ Floating hearts background ============ */
+  .hearts-bg {
+    position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden;
+  }
+  .hearts-bg .heart {
+    position: absolute; bottom: -50px; font-size: 22px;
+    animation: floatUp linear infinite;
+    opacity: .8;
+  }
+  @keyframes floatUp {
+    0% { transform: translateY(0) translateX(0) rotate(0deg); opacity: 0; }
+    10% { opacity: .9; }
+    100% { transform: translateY(-110vh) translateX(40px) rotate(360deg); opacity: 0; }
+  }
+
+  /* ============ Common Page ============ */
+  .page {
+    position: absolute; inset: 0; display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    padding: 20px; text-align: center; z-index: 2;
+    transition: opacity .8s ease, transform .8s ease;
+  }
+  .page.hidden { opacity: 0; pointer-events: none; transform: scale(1.05); }
+
+  /* ============ Page 1 - The Question ============ */
+  #page-question {
+    background:
+      linear-gradient(rgba(0,0,0,.55), rgba(20,0,30,.75)),
+      url('images/one.jpg') center/cover no-repeat;
+  }
+  .glass {
+    background: rgba(255,255,255,.08);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border: 1px solid rgba(255,255,255,.18);
+    border-radius: 24px;
+    padding: 36px 28px;
+    max-width: 720px; width: 100%;
+    box-shadow: 0 20px 60px rgba(0,0,0,.5);
+  }
+  .question-title {
+    font-family: 'Reem Kufi', sans-serif;
+    font-size: clamp(26px, 4.5vw, 44px);
+    font-weight: 900;
+    line-height: 1.6;
+    color: #fff;
+    text-shadow: 0 2px 18px rgba(0,0,0,.6);
+    margin-bottom: 28px;
+  }
+  .name-glow {
+    color: #ff6b9d;
+    text-shadow: 0 0 12px #ff6b9d, 0 0 24px #ff6b9d;
+  }
+  .btn-row { display: flex; gap: 18px; justify-content: center; flex-wrap: wrap; }
+  .btn {
+    font-family: 'Cairo', sans-serif;
+    font-weight: 700;
+    border: none;
+    padding: 14px 42px;
+    border-radius: 999px;
+    font-size: 18px;
+    cursor: pointer;
+    transition: transform .2s ease, box-shadow .2s ease, background .2s ease;
+    color: #fff;
+  }
+  .btn-ok {
+    background: linear-gradient(135deg, #ff4f8b, #ff7eb3);
+    box-shadow: 0 8px 30px rgba(255,79,139,.5);
+  }
+  .btn-ok:hover { transform: translateY(-2px) scale(1.05); }
+  .btn-no {
+    background: rgba(255,255,255,.15);
+    border: 1px solid rgba(255,255,255,.35);
+    transition: all .25s ease;
+  }
+  .btn-no:hover { background: rgba(255,255,255,.25); transform: translateY(-2px); }
+
+  /* ============ Page 2 - Rejected ============ */
+  #page-rejected {
+    background: linear-gradient(135deg, #2c003e, #1a0028);
+  }
+  .rejected-text {
+    font-size: clamp(22px, 4vw, 36px);
+    color: #ffb3d1;
+    line-height: 1.7;
+    max-width: 600px;
+  }
+
+  /* ============ Page 3 - Password ============ */
+  #page-password {
+    background:
+      linear-gradient(rgba(0,0,0,.55), rgba(20,0,30,.75)),
+      url('images/two.jpg') center/cover no-repeat;
+  }
+  .lock-icon { font-size: 70px; margin-bottom: 16px; }
+  .ask-name {
+    font-size: clamp(22px, 3.8vw, 32px);
+    color: #fff;
+    margin-bottom: 24px;
+    text-shadow: 0 2px 12px rgba(0,0,0,.6);
+  }
+  .pw-input {
+    font-family: 'Cairo', sans-serif;
+    font-size: 22px;
+    padding: 14px 20px;
+    border: 2px solid rgba(255,255,255,.5);
+    border-radius: 14px;
+    background: rgba(255,255,255,.12);
+    color: #fff;
+    outline: none;
+    text-align: center;
+    width: 280px;
+    backdrop-filter: blur(8px);
+    transition: border-color .25s ease, box-shadow .25s ease;
+  }
+  .pw-input:focus {
+    border-color: #ff7eb3;
+    box-shadow: 0 0 18px rgba(255,126,179,.5);
+  }
+  .pw-input::placeholder { color: rgba(255,255,255,.6); }
+  .submit-btn {
+    margin-top: 16px;
+    background: linear-gradient(135deg, #ff4f8b, #ff7eb3);
+    box-shadow: 0 8px 30px rgba(255,79,139,.5);
+  }
+  .err-msg {
+    margin-top: 10px;
+    color: #ffb3b3;
+    font-size: 16px;
+    min-height: 22px;
+  }
+
+  /* ============ Page 4 - The Reveal ============ */
+  #page-reveal {
+    background:
+      linear-gradient(rgba(0,0,0,.45), rgba(20,0,30,.65)),
+      url('images/two.jpg') center/cover no-repeat;
+  }
+  .reveal-box {
+    text-align: center;
+    color: #fff;
+    max-width: 800px; padding: 20px;
+  }
+  .reveal-question {
+    font-size: clamp(20px, 3.5vw, 28px);
+    margin-bottom: 22px;
+    color: #ffd9e8;
+  }
+  .heart-name {
+    font-family: 'Amiri', serif;
+    font-size: clamp(60px, 14vw, 150px);
+    font-weight: 700;
+    color: #ff4f8b;
+    text-shadow:
+      0 0 18px #ff4f8b,
+      0 0 35px #ff7eb3,
+      0 0 60px rgba(255,79,139,.6);
+    animation: heartbeat 1.4s ease-in-out infinite;
+    letter-spacing: 4px;
+    user-select: none;
+  }
+  @keyframes heartbeat {
+    0%,100% { transform: scale(1); }
+    25% { transform: scale(1.08); }
+    50% { transform: scale(1); }
+    75% { transform: scale(1.12); }
+  }
+  .reveal-message {
+    margin-top: 22px;
+    font-size: clamp(18px, 2.6vw, 22px);
+    line-height: 1.9;
+    color: #fff;
+    text-shadow: 0 2px 8px rgba(0,0,0,.6);
+  }
+  .burst-heart {
+    position: absolute; font-size: 30px;
+    animation: burst 1.6s ease-out forwards;
+    pointer-events: none;
+  }
+  @keyframes burst {
+    0% { transform: translate(0,0) scale(.3); opacity: 1; }
+    100% { transform: translate(var(--dx), var(--dy)) scale(1.4) rotate(360deg); opacity: 0; }
+  }
+
+  /* ============ Typewriter for page 1 quote ============ */
+  .type-line {
+    font-family: 'Amiri', serif;
+    font-size: clamp(28px, 5vw, 48px);
+    font-weight: 700;
+    color: #ff4f8b;
+    line-height: 1.6;
+    min-height: 80px;
+    text-shadow:
+      0 0 12px #ff4f8b,
+      0 0 24px rgba(255,79,139,.5),
+      0 2px 8px rgba(0,0,0,.6);
+    animation: glow 1.6s ease-in-out infinite alternate;
+  }
+  @keyframes glow {
+    from { text-shadow: 0 0 12px #ff4f8b, 0 0 24px rgba(255,79,139,.5), 0 2px 8px rgba(0,0,0,.6); }
+    to { text-shadow: 0 0 18px #ff4f8b, 0 0 36px rgba(255,79,139,.7), 0 2px 8px rgba(0,0,0,.6); }
+  }
+  .type-line .cursor {
+    display: inline-block; width: 2px; height: 1em; background: #ff7eb3;
+    margin-inline-start: 2px; animation: blink 1s infinite;
+    vertical-align: middle;
+  }
+  @keyframes blink { 0%,50%{opacity:1;} 51%,100%{opacity:0;} }
+
+  /* Music button */
+  .music-btn {
+    position: fixed; top: 16px; left: 16px; z-index: 99;
+    background: rgba(0,0,0,.5); border: 1px solid rgba(255,255,255,.3);
+    color: #fff; padding: 8px 14px; border-radius: 999px; cursor: pointer;
+    font-family: 'Cairo', sans-serif; font-size: 14px;
+    backdrop-filter: blur(8px);
+  }
+</style>
+</head>
+<body>
+
+<div class="hearts-bg" id="heartsBg"></div>
+
+<button class="music-btn" id="musicBtn" style="display:none;">🎵 شغّل الأغنية</button>
+
+<!-- ============ Page 1: The Question ============ -->
+<section class="page" id="page-question">
+  <div class="glass">
+    <div class="question-title">
+      <span class="name-glow">مريم</span> أنا بحبك بجد 💕<br>
+      وعايزين اتجوزك ي بت... <span style="color:#ffd9e8">موافقة؟</span>
+    </div>
+    <div class="btn-row">
+      <button class="btn btn-ok" id="btnOk">💖 OK</button>
+      <button class="btn btn-no" id="btnNo">💔 No</button>
+    </div>
+  </div>
+</section>
+
+<!-- ============ Page 2: Rejected ============ -->
+<section class="page hidden" id="page-rejected">
+  <div class="rejected-text">
+    <div class="type-line" id="typeLine"></div>
+  </div>
+</section>
+
+<!-- ============ Page 3: Password ============ -->
+<section class="page hidden" id="page-password">
+  <div class="glass">
+    <div class="lock-icon">🔒💗</div>
+    <div class="ask-name">قولي بحبك والله</div>
+    <input type="text" id="pwInput" class="pw-input" placeholder="اكتب هنا..." autocomplete="off" />
+    <br>
+    <button class="btn submit-btn" id="btnSubmit">ادخل 💕</button>
+    <div class="err-msg" id="errMsg"></div>
+  </div>
+</section>
+
+<!-- ============ Page 4: The Reveal ============ -->
+<section class="page hidden" id="page-reveal">
+  <div class="reveal-box">
+    <div class="reveal-question">فاكراك دايمًا يا...</div>
+    <div class="heart-name" id="heartName">💗</div>
+    <div class="reveal-message">
+      بحبك اوي بجد 💕<br>
+      معرفش ازاي بس أنا أول مرة أحب حد كده 😍<br>
+      كنت كل يوم بفكر فيكي بجد، ما طلعتيش من دماغي أبدًا 🫶<br>
+      <strong style="color:#ff7eb3; font-size:1.1em;">بعشقككككككك 💗💗💗</strong>
+    </div>
+  </div>
+</section>
+
+<!-- ============ Audio (for music) ============ -->
+<audio id="loveSong" loop preload="auto">
+  <!-- Replace src with your own song file and put it as song.mp3 -->
+  <source src="sound.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+  // ============ Floating hearts ============
+  const heartsBg = document.getElementById('heartsBg');
+  const heartChars = ['💗','💖','💕','💘','💝','❤️'];
+  function spawnHeart() {
+    const h = document.createElement('span');
+    h.className = 'heart';
+    h.textContent = heartChars[Math.floor(Math.random()*heartChars.length)];
+    h.style.left = Math.random()*100 + 'vw';
+    h.style.fontSize = (16 + Math.random()*22) + 'px';
+    h.style.animationDuration = (6 + Math.random()*6) + 's';
+    h.style.animationDelay = '0s';
+    heartsBg.appendChild(h);
+    setTimeout(() => h.remove(), 12000);
+  }
+  setInterval(spawnHeart, 350);
+  // spawn a few immediately
+  for(let i=0;i<15;i++) setTimeout(spawnHeart, i*200);
+
+  // ============ Typewriter on page 2 (Rejected) ============
+  const fullQuote = "بس انا بحبك 💗";
+  let idx = 0;
+  function typeChar() {
+    const typeEl = document.getElementById('typeLine');
+    if (!typeEl) return;
+    if (idx <= fullQuote.length) {
+      typeEl.innerHTML = fullQuote.slice(0, idx) + '<span class="cursor"></span>';
+      idx++;
+      setTimeout(typeChar, 150);
+    }
+  }
+
+  // ============ Page navigation ============
+  const pageQuestion  = document.getElementById('page-question');
+  const pageRejected  = document.getElementById('page-rejected');
+  const pagePassword  = document.getElementById('page-password');
+  const pageReveal    = document.getElementById('page-reveal');
+
+  function goTo(from, to) {
+    from.classList.add('hidden');
+    setTimeout(() => to.classList.remove('hidden'), 300);
+  }
+
+  // "No" button -> kicked out (rejected page)
+  document.getElementById('btnNo').addEventListener('click', () => {
+    pageQuestion.classList.add('hidden');
+    // little dramatic shake before redirect
+    pageQuestion.style.transform = 'translateX(-30px)';
+    setTimeout(() => {
+      pageQuestion.style.transform = '';
+      pageRejected.classList.remove('hidden');
+      // start typewriter after page is shown
+      idx = 0;
+      typeChar();
+    }, 400);
+  });
+
+  // "OK" button -> password page + start music
+  document.getElementById('btnOk').addEventListener('click', () => {
+    const audio = document.getElementById('loveSong');
+    const musicBtn = document.getElementById('musicBtn');
+    musicBtn.style.display = 'block';
+    // Try autoplay (will only work if user interaction just happened)
+    audio.play().then(()=>{ musicBtn.textContent = '🔇 إيقاف الأغنية'; })
+                .catch(()=>{ musicBtn.textContent = '🎵 شغّل الأغنية'; });
+
+    goTo(pageQuestion, pagePassword);
+    setTimeout(() => document.getElementById('pwInput').focus(), 800);
+  });
+
+  // Music button toggle
+  document.getElementById('musicBtn').addEventListener('click', () => {
+    const audio = document.getElementById('loveSong');
+    const musicBtn = document.getElementById('musicBtn');
+    if (audio.paused) {
+      audio.play();
+      musicBtn.textContent = '🔇 إيقاف الأغنية';
+    } else {
+      audio.pause();
+      musicBtn.textContent = '🎵 شغّل الأغنية';
+    }
+  });
+
+  // ============ Password logic ============
+  // Password is "بحبك والله"
+  const PASSWORD = 'بحبك والله';
+  const pwInput = document.getElementById('pwInput');
+  const errMsg  = document.getElementById('errMsg');
+
+  function checkPassword() {
+    const val = pwInput.value.trim();
+    if (val === PASSWORD) {
+      errMsg.textContent = '';
+      revealHeartName();
+      goTo(pagePassword, pageReveal);
+    } else if (val === '') {
+      errMsg.textContent = 'اكتب الاسم يا حبيبتي 😘';
+    } else {
+      errMsg.textContent = 'قولي بحبك ي بت';
+      pwInput.style.borderColor = '#ff7e7e';
+      setTimeout(()=> pwInput.style.borderColor = '', 1000);
+    }
+  }
+  document.getElementById('btnSubmit').addEventListener('click', checkPassword);
+  pwInput.addEventListener('keydown', e => { if (e.key === 'Enter') checkPassword(); });
+
+  // ============ Heart-burst reveal effect ============
+  function revealHeartName() {
+    const name = 'بحبك والله';
+    const el = document.getElementById('heartName');
+    // Build spans for each char
+    el.innerHTML = '';
+    name.split('').forEach((ch, i) => {
+      const span = document.createElement('span');
+      span.textContent = ch;
+      span.style.display = 'inline-block';
+      span.style.opacity = '0';
+      span.style.transform = 'translateY(40px) scale(.5)';
+      span.style.transition = `all .7s cubic-bezier(.2,1.4,.4,1) ${i*0.12}s`;
+      el.appendChild(span);
+      // trigger
+      setTimeout(() => {
+        span.style.opacity = '1';
+        span.style.transform = 'translateY(0) scale(1)';
+      }, 50);
+    });
+
+    // Burst hearts in a circle
+    const rect = el.getBoundingClientRect();
+    const cx = rect.left + rect.width/2;
+    const cy = rect.top  + rect.height/2;
+    const N = 22;
+    for (let i=0;i<N;i++) {
+      const heart = document.createElement('div');
+      heart.className = 'burst-heart';
+      heart.textContent = heartChars[i % heartChars.length];
+      const angle = (Math.PI*2*i)/N + Math.random()*0.3;
+      const dist = 180 + Math.random()*120;
+      heart.style.left = cx + 'px';
+      heart.style.top  = cy + 'px';
+      heart.style.setProperty('--dx', Math.cos(angle)*dist + 'px');
+      heart.style.setProperty('--dy', Math.sin(angle)*dist + 'px');
+      heart.style.fontSize = (22 + Math.random()*22) + 'px';
+      document.body.appendChild(heart);
+      setTimeout(() => heart.remove(), 1700);
+    }
+  }
+</script>
+</body>
+</html>
