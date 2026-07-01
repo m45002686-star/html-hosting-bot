@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+
+<html lang="ar">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<link href="#favicon.ico" rel="shortcut icon" type="image/x-icon"/>
+<link href="#favicon.ico" rel="icon" type="image/x-icon"/>
+<script src="https://www.google.com/recaptcha/api.js?render=6LcPnskhAAAAAHSEK9sDUNzT4PlTBtBp4bQV8kYC"></script>
+<title>  صارحني الدخول للحساب صراحه </title>
+<link href="https://www.sarhne.com/signin.html" rel="canonical"/><meta content="sarahah صارحني تسجيل حساب" name="title"/>
+<meta content="سجل الدخول الى حسابك وشاهد الرسائل التي وصلتك صراحة رسائل سرية اكتشف عيوبك وملاحظات عنك تحليل شخصية" name="description"/>
+<meta content=", anonymous q&amp;a,حساب صراحة,حساب صراحه,صارحني الدخول للحساب,دخول صراحه,تسجيل دخول صراحه,صراحة دخول" name="keywords"/>
+<link href="#assets/style.css?v=1641488955" rel="stylesheet"/> <meta content="index, follow" name="robots">
+<link href="#assets/icofont.min.css" rel="stylesheet" type="text/css"/>
+<script src="#assets/js/jquery.min.js"></script>
+<script src="#assets/js/socket.io/4.3.1/socket.io.min.js"></script>
+</meta></head>
+<body id="body">
+<div class="nav" dir="rtl">
+<div class="nav-header">
+<div class="nav-title">
+<img alt="Sarhne" height="40" src="#assets/img/sarhne-nav.png"/>
+</div>
+</div>
+<div class="nav-btn">
+<label for="nav-check">
+<section></section>
+<section></section>
+<section></section>
+</label>
+</div>
+<input id="nav-check" type="checkbox"/>
+<div class="nav-links">
+<a href="https://www.sarhne.com/">الرئيسية</a>
+<a href="#signup.html">أشتراك</a>
+<a href="#signin.html"><span class="active"> تسجل الدخول </span></a>
+<a href="#help.html">تعليمات</a>
+<a href="#contact_us.html">اتصل بنا</a>
+</div>
+</div> <center>
+<div id="top">
+<br/><img alt="#" src="#assets/img/logo-150.jpg" style="overflow:hidden;border-radius:50%;" width="111"/><br/>
+<div class="logo"><h1 class="h1">
+      صارحني تسجيل الدخول
+      </h1>
+<h2 style="display:none;">دخول صراحه </h2>
+<h2 style="display:none;"> تسجيل دخول صراحه </h2>
+<h2 style="display:none;"> صراحة دخول </h2>
+<h2 style="display:none;"> دخول صراحة </h2>
+</div>
+<br/><br/>
+</div>
+<div id="center"> <div class="center">
+<div class="rule">
+<div class="line"><div></div></div>
+<div class="words"> دخول مباشر </div>
+<div class="line"><div></div></div>
+</div>
+<span id="button_s">
+<a class="flatbutton" href="#auto-login.html?login=facebook" style="background-color:#4267B2;margin-bottom:10px;"> <img alt="F" height="auto" src="#assets/img/f.svg" style="vertical-align:middle;padding-left:5px;" width="15"/>  تسجيل الدخول باستخدام فيس بوك </a>
+<br/>
+<a class="flatbutton" href="#auto-login.html?login=google" style="background-color:#DB4437;margin-bottom:10px;"><img alt="G" height="auto" src="#assets/img/g.svg" style="vertical-align:middle;padding-left:5px;" width="15"/>  تسجيل الدخول باستخدام جوجل   </a>
+<br/>
+</span>
+</div></div>
+
+<br/>
+<br/>
+<span id="button_logins">
+<div id="center"> <div class="center">
+<div class="rule">
+<div class="line"><div></div></div>
+<div class="words"> أدخل البيانات </div>
+<div class="line"><div></div></div>
+</div>
+<div id="erorrid"></div>
+<form id="form_singin">
+<div class="input-group input-group-icon" dir="rtl">
+<input id="email" name="email" placeholder="أدخل بريدك الألكتروني" style="direction: ltr;" type="text">
+<div class="input-icon"><i><img alt="*" src="#assets/img/email-login.svg" width="20"/></i></div>
+</input></div>
+<div class="input-group input-group-icon" dir="rtl">
+<input id="showpassword" name="password" placeholder="كلمة المرور" style="direction: ltr;" type="password"/>
+<div class="input-icon"><i><img alt="*" src="#assets/img/key.svg" width="20"/></i></div>
+</div>
+<div class="forgot" dir="rtl">
+<input id="check" name="check" type="checkbox" value=""/>
+<label for="check" onclick="showpassword();">
+<span></span><small> عرض كلمة المرور  </small>
+</label>
+</div>
+<small dir="rtl" style="font-size: 12px;
+margin-bottom: 10px;
+display: block;text-align: right;
+margin-right: 25px;"> بالضغط على تسجيل الدخول لـ صارحني فأنك توافق على  <a class="" dir="rtl" href="https://www.sarhne.com/Terms.html"> شروط الأستخدام </a> و <a class="" dir="rtl" href="https://www.sarhne.com/Privacy.html"> سياسة الخصوصية </a> . </small>
+<a class="flatbutton" id="login" onclick="signup();" style="background-color:#2D2F31;width:90%;border:0;"> تسجيل الدخول  </a>
+</form> <br/>
+    
+    ليس لديك حساب ؟ <a href="#signup.html">سجل حسابك الآن</a>
+<br/>
+<p><a class="white" href="#lostpassword.html" style="font-size: 13px;">نسيت كلمة السر؟</a></p>
+<br/>
+</div></div></span></center>
+
+<center>
+<div class="box" dir="rtl">
+<div class="logo"><h3>
+حمل تطبيق صارحني
+</h3> </div>
+<img src="https://www.sarhne.com/assets/img/logo.jpg" style="border-radius: 2rem;" width="180"/> <br/>
+<b>
+من خلال تطبيق صارحني، يمكنك تسجيل الدخول الى حسابك بسهولة أكبر ومتابعة الرسائل التي تصل إلى حسابك لحظة بلحظة من خلال التنبيهات
+</b> <br/>
+<a href="https://play.google.com/store/apps/details?id=app.sarhne.com" target="_blink" title="تنزيل تطبيق صارحني جوجل بلاي"> <img alt="تنزيل تطبيق صارحني" src="#assets/img/ar_badge_web_generic.png" width="140"/> </a>
+<a href="#javascript:alert('صارحني غير متاح بالوقت الحالي للأيفون')" title="تنزيل صارحني للأيفون"> <img alt="تنزيل صارحني للأيفون" src="#assets/img/iphone-store.png" width="140"/> </a>
+</div>
+<div class="box2">
+<div class="rule">
+<div class="line"><div></div></div>
+<div class="words"> لاتفوت الفرصة 😍 </div>
+<div class="line"><div></div></div>
+</div><center>
+<img alt="#" class="img" height="100" src="https://www.sarhne.com/sarahahpro.jpg" style="display: block;" width="100"/>
+<span class="contant"> جرب الأن موقع صراحه الجديد رسائل سرية مع ميزات جديدة حصرية </span>
+<a class="flatbutton" onclick="javascript:location.href='https://sarahah.pro/?op=openchrome'" style="background-color:#10BBB3;width:90%;border:0;"> دخول موقع صراحة </a>
+<div class="apphr"> </div>
+</center></div>
+</center>
+
+<div class="hr"></div>
+  <script>
+    
+      function new_update(){
+    
+      alerty.confirm(
+   ' قد تواجه مشاكل في تسجيل الدخول لأنك تستخدم اصدار قديم من صارحني من فضلك حدث التطبيق لأخر اصدار من متجر جوجل بلاي؟  ', {
+    title: ' تأكيد ',
+    cancelLabel: 'لا',
+    okLabel: 'نعم'
+   },function() {
+    window.location.href = "https://play.google.com/store/apps/details?id=app.sarhne.com";
+     try{setcanback('alerty');} catch (err){}  
+    },
+  function() {
+   
+  try{setcanback('alerty');} catch (err){}    
+  })
+try{setcanback('alerty');} catch (err){}          
+  }
+    
+    
+      function showpassword() {
+  var x = document.getElementById("showpassword");
+  if (x.type === "password") {
+    x.type = "text";
+  } else {
+    x.type = "password";
+  }
+} 
+    
+    function activebutton(){
+    document.getElementById('login').disabled = false;
+     document.getElementById('email').disabled = false;
+     document.getElementById('showpassword').disabled = false;
+   $('#login').html(' تسجيل الدخول ');
+ }
+  
+  function disabled_button(){
+   document.getElementById('login').disabled = true;
+     document.getElementById('email').disabled = true;
+     document.getElementById('showpassword').disabled = true;
+   $('#login').html('  انتظر من فضلك <img src="assets/img/loading.svg" width="27" class="middle" alt="#"> ');
+   
+ }
+    
+   function signup() {
+       disabled_button();
+        $('#erorrid').hide();
+     
+   
+     
+       grecaptcha.ready(function() {
+          grecaptcha.execute('6LcPnskhAAAAAHSEK9sDUNzT4PlTBtBp4bQV8kYC', {action: 'submit'}).then(function(token) {
+            send_form(token);
+           });
+         });
+ 
+      }   
+    
+    (function(_0x599371,_0x170166){var _0x2c2be1=_0xade0,_0x23d5d5=_0x599371();while(!![]){try{var _0x3af2fe=parseInt(_0x2c2be1(0x1b5))/0x1*(-parseInt(_0x2c2be1(0x1bf))/0x2)+parseInt(_0x2c2be1(0x1ba))/0x3+parseInt(_0x2c2be1(0x1c7))/0x4+-parseInt(_0x2c2be1(0x1cd))/0x5+-parseInt(_0x2c2be1(0x1c8))/0x6*(-parseInt(_0x2c2be1(0x1c3))/0x7)+-parseInt(_0x2c2be1(0x1b4))/0x8*(parseInt(_0x2c2be1(0x1cc))/0x9)+parseInt(_0x2c2be1(0x1b6))/0xa;if(_0x3af2fe===_0x170166)break;else _0x23d5d5['push'](_0x23d5d5['shift']());}catch(_0x4bbce0){_0x23d5d5['push'](_0x23d5d5['shift']());}}}(_0x4582,0x99860));function send_form(_0x4b6d55){var _0x52a470=_0xade0,_0x3b1501=$('#email')[_0x52a470(0x1c1)](),_0x208058=$(_0x52a470(0x1c2))[_0x52a470(0x1c1)]();$['ajax']({'type':_0x52a470(0x1c5),'url':_0x52a470(0x1cb),'data':'email='+_0x3b1501+_0x52a470(0x1b3)+_0x208058+'&g-recaptcha-response='+_0x4b6d55,'success':function(_0x1b5ff9){var _0x75f5cb=_0x52a470;activebutton();if(_0x1b5ff9[_0x75f5cb(0x1bc)](_0x75f5cb(0x1bd)))showerorr('warning',_0x75f5cb(0x1b8),'الرجاء\x20أعادة\x20المحاولة\x20او\x20اتصل\x20بنا'),showalert(_0x75f5cb(0x1b1)),smoothScroll(document[_0x75f5cb(0x1cf)]('erorrid'));else{if(_0x1b5ff9[_0x75f5cb(0x1bc)]('no_input'))showerorr('warning',_0x75f5cb(0x1ce),_0x75f5cb(0x1be)),showalert(_0x75f5cb(0x1be)),smoothScroll(document[_0x75f5cb(0x1cf)](_0x75f5cb(0x1c0)));else{if(_0x1b5ff9[_0x75f5cb(0x1bc)](_0x75f5cb(0x1bb)))showerorr(_0x75f5cb(0x1b0),_0x75f5cb(0x1af),'كلمة\x20المرور\x20غير\x20صحيحة\x20اعد\x20المحاولة\x20'),showalert(_0x75f5cb(0x1b7)),smoothScroll(document[_0x75f5cb(0x1cf)]('erorrid'));else{if(_0x1b5ff9[_0x75f5cb(0x1bc)](_0x75f5cb(0x1d0)))showerorr(_0x75f5cb(0x1b0),_0x75f5cb(0x1c6),'\x20اعد\x20المحاولة\x20بعد\x20قليل\x20او\x20اتصل\x20بنا\x20لحل\x20المشكلة\x20فوراً\x20\x20'),showalert('مشكلة\x20في\x20حماية\x20الموقع\x20اعد\x20المحاولة\x20بعد\x20قليل\x20او\x20اتصل\x20بنا\x20لحل\x20المشكلة\x20فوراً\x20'),smoothScroll(document[_0x75f5cb(0x1cf)](_0x75f5cb(0x1c0)));else _0x1b5ff9[_0x75f5cb(0x1bc)]('succ')?location[_0x75f5cb(0x1c9)](_0x75f5cb(0x1b9)):(showerorr(_0x75f5cb(0x1b0),_0x75f5cb(0x1ca),_0x75f5cb(0x1b2)),showalert(_0x75f5cb(0x1c4)),smoothScroll(document[_0x75f5cb(0x1cf)](_0x75f5cb(0x1c0))));}}}},'error':function(_0x4a98ca,_0x228c01,_0x2bcc5e){var _0xeebe59=_0x52a470;activebutton(),showerorr('warning',_0xeebe59(0x1ca),_0xeebe59(0x1b2)),showalert(_0xeebe59(0x1c4)),smoothScroll(document[_0xeebe59(0x1cf)](_0xeebe59(0x1c0)));}});}function _0xade0(_0x33f646,_0x3eadaf){var _0x458273=_0x4582();return _0xade0=function(_0xade0c3,_0x172a03){_0xade0c3=_0xade0c3-0x1af;var _0x4f721d=_0x458273[_0xade0c3];return _0x4f721d;},_0xade0(_0x33f646,_0x3eadaf);}function _0x4582(){var _0x16adf2=['4758900abevDj','2508ZXEmsv','replace','مشكلة\x20في\x20الموقع\x20\x20','ajax/account/signin.html','81981vBpxtS','4595830iYbXbD','خطأ\x20البريد\x20الألكتروني\x20او\x20كلمة\x20المرور','getElementById','security_err','خطأ\x20','warning','خطأ\x20التحقق\x20البشري\x20الرجاء\x20أعادة\x20المحاولة\x20او\x20اتصل\x20بنا','\x20اعد\x20المحاولة\x20بعد\x20قليل\x20او\x20اتصل\x20بنا\x20لحل\x20المشكلة\x20فوراً\x20\x20','&password=','728qJjCpB','274LNiEhA','3530820rKhDuv','\x20كلمة\x20المرور\x20غير\x20صحيحة\x20اعد\x20المحاولة','خطأ\x20التحقق\x20البشري','messages.html','1607682QMELXZ','erorrpas','includes','recerorr','الرجاء\x20كتابة\x20بريدك\x20الألكتروني\x20او\x20كلمة\x20المرور\x20بشكل\x20صحيح','4676aFyemu','erorrid','val','#showpassword','15722IJcWcd','مشكلة\x20في\x20الموقع\x20اعد\x20المحاولة\x20بعد\x20قليل\x20او\x20اتصل\x20بنا\x20لحل\x20المشكلة\x20فوراً\x20','POST','مشكلة\x20في\x20الحماية\x20\x20'];_0x4582=function(){return _0x16adf2;};return _0x4582();}
+   
+  function showerorr(type,title,msg){
+   $('#erorrid').show();
+  document.getElementById('erorrid').innerHTML="<div class='notification "+type+"' dir='rtl'><span class='notification-close'>&times;</span><h3 class='notification-title'>"+title+"</h3><p class='notification-message'>"+msg+"</p></div>";  
+}
+
+     
+      
+</script>
+<script src="#assets/js/func.js?v=1598020502"></script>
+<script src="#assets/js/alerty.js?v2"></script>
+<script src="#assets/js/toast.js"></script>
+<div id="footer">
+<center>
+<br/>
+<a class="wh" href="#help.html"> المساعدة </a> -  <a class="wh" href="https://www.sarhne.com/Terms.html"> القوانين </a> - <a class="wh" href="#contact_us.html"> اتصل بنا </a>
+<br/>
+<a class="wh" href="https://www.sarhne.com/"> المدونة </a> - <a class="wh" href="https://www.sarhne.com/search.html"> البحث </a>
+<br/> <br/>
+<a href="https://www.facebook.com/Sarhne.Official/"><img height="auto" src="#assets/img/ffacebook.svg" width="50"/>    </a>
+<a href="https://www.instagram.com/sarhne_official/?swa33"><img height="auto" src="#assets/img/finstagram.svg" width="50"/>    </a>
+<a href="https://play.google.com/store/apps/details?id=app.sarhne.com"><img height="auto" src="#assets/img/fandroid.svg" width="50"/></a>
+<br/>
+<small>  جميع الحقوق محفوظة © 2026  </small>
+<div style="margin-top: 1rem;color: #fff;">
+<a href="#index.html">
+<span style="color: #fff;padding-right: .5rem;font-family: cairo;font-size: 20px;"> صارحني </span>
+<img alt="2021" src="#assets/img/sarhne-footer.png" style="vertical-align: middle;" width="36"/>
+</a>
+<br/> </div></center> </div> 
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-ZRDMJGQHJC"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-ZRDMJGQHJC');
+</script>
+</body>
+</html>
